@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="uBqHcXNwr5c8F2R8OyeM" name="Page-1">
-        <mxGraphModel dx="1066" dy="775" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="606" dy="659" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -9,13 +9,13 @@
                         <mxRectangle x="40" y="40" width="130" height="30" as="alternateBounds"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="4" value="&lt;b&gt;プレイヤー&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;strokeColor=#000000;strokeWidth=1;fillColor=#d5e8d4;fontColor=#E6E6E6;" parent="2" vertex="1">
+                <mxCell id="4" value="&lt;b&gt;&lt;font style=&quot;color: rgb(0, 0, 0);&quot;&gt;プレイヤー&lt;/font&gt;&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;strokeColor=#000000;strokeWidth=1;fillColor=#d5e8d4;fontColor=#E6E6E6;" parent="2" vertex="1">
                     <mxGeometry y="23" width="80" height="97" as="geometry"/>
                 </mxCell>
-                <mxCell id="5" value="&lt;b&gt;フロント&lt;/b&gt;&lt;div&gt;&lt;b&gt;エンド&lt;/b&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;strokeColor=#000000;strokeWidth=1;fillColor=#dae8fc;fontColor=#E6E6E6;" parent="2" vertex="1">
+                <mxCell id="5" value="&lt;b&gt;&lt;font style=&quot;color: rgb(0, 0, 0);&quot;&gt;フロント&lt;/font&gt;&lt;/b&gt;&lt;div&gt;&lt;b&gt;&lt;font style=&quot;color: rgb(0, 0, 0);&quot;&gt;エンド&lt;/font&gt;&lt;/b&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;strokeColor=#000000;strokeWidth=1;fillColor=#dae8fc;fontColor=#E6E6E6;" parent="2" vertex="1">
                     <mxGeometry y="120" width="80" height="180" as="geometry"/>
                 </mxCell>
-                <mxCell id="6" value="&lt;b&gt;バック&lt;/b&gt;&lt;br&gt;&lt;div&gt;&lt;b&gt;エンド&lt;/b&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;strokeColor=#000000;strokeWidth=1;fillColor=#FF8000;" parent="2" vertex="1">
+                <mxCell id="6" value="&lt;font style=&quot;color: rgb(0, 0, 0);&quot;&gt;&lt;b&gt;バック&lt;/b&gt;&lt;br&gt;&lt;/font&gt;&lt;div&gt;&lt;b&gt;&lt;font style=&quot;color: rgb(0, 0, 0);&quot;&gt;エンド&lt;/font&gt;&lt;/b&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;strokeColor=#000000;strokeWidth=1;fillColor=#FF8000;" parent="2" vertex="1">
                     <mxGeometry y="300" width="80" height="130" as="geometry"/>
                 </mxCell>
                 <mxCell id="16" value="" style="endArrow=none;html=1;exitX=0;exitY=0;exitDx=0;exitDy=0;spacing=0;endSize=0;startSize=0;jumpSize=0;" parent="2" source="6" edge="1">
@@ -105,7 +105,7 @@
                 <mxCell id="52" value="&lt;font color=&quot;#ffffff&quot;&gt;手持ちポケモンページ&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fillColor=#0000CC;strokeColor=#000000;fontSize=16;" parent="2" vertex="1">
                     <mxGeometry x="450" y="160" width="120" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="53" style="edgeStyle=elbowEdgeStyle;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;strokeColor=#009999;fontSize=16;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="2" source="21">
+                <mxCell id="53" style="edgeStyle=elbowEdgeStyle;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;strokeColor=#009999;fontSize=16;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="2" source="21" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <Array as="points">
                             <mxPoint x="269" y="270"/>
@@ -114,10 +114,10 @@
                         <mxPoint x="269" y="200" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="54" value="&lt;font color=&quot;#ffffff&quot;&gt;対戦データ&lt;/font&gt;&lt;div&gt;&lt;font color=&quot;#ffffff&quot;&gt;取得&lt;/font&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fillColor=#0000CC;strokeColor=#000000;fontSize=16;" vertex="1" parent="2">
+                <mxCell id="54" value="&lt;font color=&quot;#ffffff&quot;&gt;対戦データ&lt;/font&gt;&lt;div&gt;&lt;font color=&quot;#ffffff&quot;&gt;取得&lt;/font&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fillColor=#0000CC;strokeColor=#000000;fontSize=16;" parent="2" vertex="1">
                     <mxGeometry x="580" y="320" width="90" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="55" value="" style="endArrow=classic;startArrow=classic;html=1;strokeColor=#009999;fontSize=16;spacing=0;jumpSize=0;" edge="1" parent="2">
+                <mxCell id="55" value="" style="endArrow=classic;startArrow=classic;html=1;strokeColor=#009999;fontSize=16;spacing=0;jumpSize=0;" parent="2" edge="1">
                     <mxGeometry width="50" height="50" relative="1" as="geometry">
                         <mxPoint x="720" y="320" as="sourcePoint"/>
                         <mxPoint x="720" y="200" as="targetPoint"/>
