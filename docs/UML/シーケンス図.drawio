@@ -1,0 +1,120 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.0.9 Chrome/128.0.6613.186 Electron/32.2.5 Safari/537.36" version="26.0.9">
+  <diagram id="kWVaBzZA7pZodbgaUQ_L" name="認証">
+    <mxGraphModel dx="795" dy="598" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ZP86lYgXwhB_RVg30F29-3" value="認証" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;" parent="1" vertex="1">
+          <mxGeometry x="40" y="40" width="800" height="520" as="geometry" />
+        </mxCell>
+        <mxCell id="ZP86lYgXwhB_RVg30F29-5" value="プレイヤー" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="1" vertex="1">
+          <mxGeometry x="80" y="80" width="100" height="300" as="geometry" />
+        </mxCell>
+        <mxCell id="ZP86lYgXwhB_RVg30F29-6" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="ZP86lYgXwhB_RVg30F29-5" vertex="1">
+          <mxGeometry x="45" y="70" width="10" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="ZP86lYgXwhB_RVg30F29-7" value="フロントエンド" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="1" vertex="1">
+          <mxGeometry x="240" y="80" width="100" height="300" as="geometry" />
+        </mxCell>
+        <mxCell id="ZP86lYgXwhB_RVg30F29-9" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="ZP86lYgXwhB_RVg30F29-7" vertex="1">
+          <mxGeometry x="45" y="70" width="10" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="ZP86lYgXwhB_RVg30F29-20" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="ZP86lYgXwhB_RVg30F29-7" vertex="1">
+          <mxGeometry x="45" y="180" width="10" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="ZP86lYgXwhB_RVg30F29-10" value="ログイン操作" style="html=1;verticalAlign=bottom;startArrow=oval;endArrow=block;startSize=8;curved=0;rounded=0;entryX=0;entryY=0;entryDx=0;entryDy=5;" parent="1" source="ZP86lYgXwhB_RVg30F29-6" target="ZP86lYgXwhB_RVg30F29-9" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="190" y="185" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZP86lYgXwhB_RVg30F29-11" value="Next.js" style="text;align=center;fontStyle=1;verticalAlign=middle;spacingLeft=3;spacingRight=3;strokeColor=none;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;" parent="1" vertex="1">
+          <mxGeometry x="240" y="54" width="100" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="ZP86lYgXwhB_RVg30F29-12" value="認証システム" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="1" vertex="1">
+          <mxGeometry x="390" y="80" width="100" height="300" as="geometry" />
+        </mxCell>
+        <mxCell id="ZP86lYgXwhB_RVg30F29-13" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="ZP86lYgXwhB_RVg30F29-12" vertex="1">
+          <mxGeometry x="45" y="70" width="10" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="ZP86lYgXwhB_RVg30F29-14" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;認証リクエスト(リダイレクト)&lt;/font&gt;" style="html=1;verticalAlign=bottom;startArrow=oval;endArrow=block;startSize=8;curved=0;rounded=0;entryX=0;entryY=0;entryDx=0;entryDy=5;" parent="1" source="ZP86lYgXwhB_RVg30F29-7" target="ZP86lYgXwhB_RVg30F29-13" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="360" y="155" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZP86lYgXwhB_RVg30F29-16" value="認証コード" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;entryX=1;entryY=1;entryDx=0;entryDy=-5;entryPerimeter=0;" parent="1" source="ZP86lYgXwhB_RVg30F29-13" target="ZP86lYgXwhB_RVg30F29-9" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="380" y="250" as="sourcePoint" />
+            <mxPoint x="300" y="250" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZP86lYgXwhB_RVg30F29-18" value="バックエンド" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="1" vertex="1">
+          <mxGeometry x="520" y="80" width="100" height="410" as="geometry" />
+        </mxCell>
+        <mxCell id="ZP86lYgXwhB_RVg30F29-19" value="C#(.NET)" style="text;align=center;fontStyle=1;verticalAlign=middle;spacingLeft=3;spacingRight=3;strokeColor=none;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;" parent="1" vertex="1">
+          <mxGeometry x="520" y="54" width="100" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="ZP86lYgXwhB_RVg30F29-21" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="1" vertex="1">
+          <mxGeometry x="565" y="260" width="10" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="ZP86lYgXwhB_RVg30F29-22" value="プレイヤーデータ要求, JWT" style="html=1;verticalAlign=bottom;startArrow=oval;endArrow=block;startSize=8;curved=0;rounded=0;entryX=0;entryY=0;entryDx=0;entryDy=5;" parent="1" source="ZP86lYgXwhB_RVg30F29-20" target="ZP86lYgXwhB_RVg30F29-21" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="495" y="265" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZP86lYgXwhB_RVg30F29-27" value="200 OK: Player (JSON)" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="565" y="320" as="sourcePoint" />
+            <mxPoint x="295" y="320" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZP86lYgXwhB_RVg30F29-29" value="デーバベース" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="1" vertex="1">
+          <mxGeometry x="680" y="80" width="100" height="410" as="geometry" />
+        </mxCell>
+        <mxCell id="ZP86lYgXwhB_RVg30F29-30" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;Azure SQL Database&lt;/font&gt;" style="text;align=center;fontStyle=1;verticalAlign=middle;spacingLeft=3;spacingRight=3;strokeColor=none;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;" parent="1" vertex="1">
+          <mxGeometry x="680" y="54" width="100" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="ZP86lYgXwhB_RVg30F29-34" value="&lt;span style=&quot;color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(251, 251, 251); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;&quot;&gt;&lt;b&gt;Azure Entra ID&lt;/b&gt;&lt;/span&gt;" style="text;whiteSpace=wrap;html=1;align=center;" parent="1" vertex="1">
+          <mxGeometry x="390" y="54" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="415I7sRfLm6h1vXJACUh-1" value="alt" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;" vertex="1" parent="1">
+          <mxGeometry x="520" y="210" width="280" height="290" as="geometry" />
+        </mxCell>
+        <mxCell id="415I7sRfLm6h1vXJACUh-2" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="1">
+          <mxGeometry x="725" y="260" width="10" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="415I7sRfLm6h1vXJACUh-3" value="&lt;div&gt;&lt;font style=&quot;color: rgb(255, 0, 0);&quot;&gt;[JWTの検証成功]&lt;/font&gt;&lt;/div&gt;" style="text;align=center;fontStyle=1;verticalAlign=middle;spacingLeft=3;spacingRight=3;strokeColor=none;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;" vertex="1" parent="1">
+          <mxGeometry x="600" y="217" width="80" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="415I7sRfLm6h1vXJACUh-7" value="alt" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;" vertex="1" parent="1">
+          <mxGeometry x="540" y="290" width="220" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="415I7sRfLm6h1vXJACUh-8" value="&lt;div&gt;&lt;font style=&quot;color: rgb(255, 0, 0);&quot;&gt;[ユーザが存在]&lt;/font&gt;&lt;/div&gt;" style="text;align=center;fontStyle=1;verticalAlign=middle;spacingLeft=3;spacingRight=3;strokeColor=none;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;" vertex="1" parent="1">
+          <mxGeometry x="610" y="300" width="80" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="415I7sRfLm6h1vXJACUh-9" value="データ返却: Player" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;" edge="1" parent="1">
+          <mxGeometry x="-0.0035" y="-10" relative="1" as="geometry">
+            <mxPoint x="725" y="360" as="sourcePoint" />
+            <mxPoint x="575.0000000000001" y="360" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="415I7sRfLm6h1vXJACUh-10" value="&lt;div&gt;&lt;font style=&quot;color: rgb(255, 0, 0);&quot;&gt;[ユーザが存在しない]&lt;/font&gt;&lt;/div&gt;" style="text;align=center;fontStyle=1;verticalAlign=middle;spacingLeft=3;spacingRight=3;strokeColor=none;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;" vertex="1" parent="1">
+          <mxGeometry x="610" y="370" width="80" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="415I7sRfLm6h1vXJACUh-11" value="新規登録, データ取得: Player" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;" edge="1" parent="1">
+          <mxGeometry x="-0.0035" y="-10" relative="1" as="geometry">
+            <mxPoint x="725" y="420" as="sourcePoint" />
+            <mxPoint x="575.0000000000001" y="420" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="415I7sRfLm6h1vXJACUh-14" value="プレイヤーデータ要求" style="html=1;verticalAlign=bottom;startArrow=oval;endArrow=block;startSize=8;curved=0;rounded=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="575" y="270" as="sourcePoint" />
+            <mxPoint x="725" y="270" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
