@@ -1,0 +1,174 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.0.9 Chrome/128.0.6613.186 Electron/32.2.5 Safari/537.36" version="26.0.9">
+  <diagram id="E80SX_s1n_JCvwC4ykuN" name="Page-1">
+    <mxGraphModel dx="1908" dy="1434" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="qFdSuMGm640_0Y5P7E8p-2" value="" style="ellipse;html=1;shape=startState;fillColor=#000000;strokeColor=#ff0000;" parent="1" vertex="1">
+          <mxGeometry x="70" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="qFdSuMGm640_0Y5P7E8p-3" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;verticalAlign=bottom;endArrow=open;endSize=8;strokeColor=#ff0000;rounded=0;" parent="1" source="qFdSuMGm640_0Y5P7E8p-2" target="qFdSuMGm640_0Y5P7E8p-7" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="90" y="90" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qFdSuMGm640_0Y5P7E8p-6" value="" style="ellipse;html=1;shape=endState;fillColor=#000000;strokeColor=#ff0000;" parent="1" vertex="1">
+          <mxGeometry x="70" y="760" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="qFdSuMGm640_0Y5P7E8p-7" value="ポケモンバトルの&lt;div&gt;開始&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=40;fontColor=#000000;fillColor=#ffffc0;strokeColor=#ff0000;" parent="1" vertex="1">
+          <mxGeometry x="30" y="80" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="qFdSuMGm640_0Y5P7E8p-11" value="フロントエンド開始処理" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=0;resizeLast=1;container=0;fontColor=#000000;collapsible=0;rounded=1;arcSize=30;strokeColor=#ff0000;fillColor=#ffffc0;swimlaneFillColor=#ffffc0;dropTarget=0;" parent="1" vertex="1">
+          <mxGeometry x="10" y="200" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="qFdSuMGm640_0Y5P7E8p-12" value="POST /api/pokemonBattle&lt;div&gt;JWT送信&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;fontColor=#000000;" parent="qFdSuMGm640_0Y5P7E8p-11" vertex="1">
+          <mxGeometry y="30" width="160" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="qFdSuMGm640_0Y5P7E8p-13" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;verticalAlign=bottom;endArrow=open;endSize=8;strokeColor=#ff0000;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="qFdSuMGm640_0Y5P7E8p-11" target="qFdSuMGm640_0Y5P7E8p-14" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="90" y="320" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qFdSuMGm640_0Y5P7E8p-14" value="バックエンド開始処理" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=0;resizeLast=1;container=0;fontColor=#000000;collapsible=0;rounded=1;arcSize=30;strokeColor=#ff0000;fillColor=#ffffc0;swimlaneFillColor=#ffffc0;dropTarget=0;" parent="1" vertex="1">
+          <mxGeometry y="320" width="180" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="qFdSuMGm640_0Y5P7E8p-15" value="&lt;div&gt;SearchRoom()&lt;/div&gt;CreateRoom() | JoinRoom()&lt;div&gt;startBattle()&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;fontColor=#000000;" parent="qFdSuMGm640_0Y5P7E8p-14" vertex="1">
+          <mxGeometry y="30" width="180" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="qFdSuMGm640_0Y5P7E8p-18" value="200 OK: BattleRoom(JSON)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="110" y="430" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="qFdSuMGm640_0Y5P7E8p-19" value="ポケモン対戦処理" style="rounded=1;whiteSpace=wrap;html=1;arcSize=40;fontColor=#000000;fillColor=#ffffc0;strokeColor=#ff0000;" parent="1" vertex="1">
+          <mxGeometry x="30" y="480" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="qFdSuMGm640_0Y5P7E8p-20" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;verticalAlign=bottom;endArrow=open;endSize=8;strokeColor=#ff0000;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="qFdSuMGm640_0Y5P7E8p-19" target="qFdSuMGm640_0Y5P7E8p-27" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="90" y="580" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qFdSuMGm640_0Y5P7E8p-23" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;verticalAlign=bottom;endArrow=open;endSize=8;strokeColor=#ff0000;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="qFdSuMGm640_0Y5P7E8p-7" target="qFdSuMGm640_0Y5P7E8p-11" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="89.55000000000001" y="190" as="targetPoint" />
+            <mxPoint x="89.55000000000001" y="130" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qFdSuMGm640_0Y5P7E8p-24" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;verticalAlign=bottom;endArrow=open;endSize=8;strokeColor=#ff0000;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="qFdSuMGm640_0Y5P7E8p-15" target="qFdSuMGm640_0Y5P7E8p-19" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="89.41000000000003" y="470" as="targetPoint" />
+            <mxPoint x="89.41000000000003" y="410" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qFdSuMGm640_0Y5P7E8p-27" value="バックエンド対戦終了処理" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=0;resizeLast=1;container=0;fontColor=#000000;collapsible=0;rounded=1;arcSize=30;strokeColor=#ff0000;fillColor=#ffffc0;swimlaneFillColor=#ffffc0;dropTarget=0;" parent="1" vertex="1">
+          <mxGeometry x="10" y="600" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="qFdSuMGm640_0Y5P7E8p-28" value="endBattle()&lt;div&gt;データベース書き込み処理&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;fontColor=#000000;" parent="qFdSuMGm640_0Y5P7E8p-27" vertex="1">
+          <mxGeometry y="30" width="160" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="qFdSuMGm640_0Y5P7E8p-29" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;verticalAlign=bottom;endArrow=open;endSize=8;strokeColor=#ff0000;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="qFdSuMGm640_0Y5P7E8p-27" target="qFdSuMGm640_0Y5P7E8p-6" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="90" y="720" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qFdSuMGm640_0Y5P7E8p-33" value="ポケモン対戦処理" style="swimlane;" parent="1" vertex="1">
+          <mxGeometry x="290" width="460" height="990" as="geometry" />
+        </mxCell>
+        <mxCell id="qFdSuMGm640_0Y5P7E8p-35" value="" style="ellipse;html=1;shape=startState;fillColor=#000000;strokeColor=#ff0000;" parent="qFdSuMGm640_0Y5P7E8p-33" vertex="1">
+          <mxGeometry x="215" y="40" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="qFdSuMGm640_0Y5P7E8p-36" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;verticalAlign=bottom;endArrow=open;endSize=8;strokeColor=#ff0000;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="qFdSuMGm640_0Y5P7E8p-33" source="qFdSuMGm640_0Y5P7E8p-35" target="qFdSuMGm640_0Y5P7E8p-37" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="235" y="130" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qFdSuMGm640_0Y5P7E8p-37" value="対戦開始&lt;div&gt;(ポケモンを場に出す)&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=40;fontColor=#000000;fillColor=#ffffc0;strokeColor=#ff0000;" parent="qFdSuMGm640_0Y5P7E8p-33" vertex="1">
+          <mxGeometry x="175" y="160" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="qFdSuMGm640_0Y5P7E8p-38" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;verticalAlign=bottom;endArrow=open;endSize=8;strokeColor=#ff0000;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="qFdSuMGm640_0Y5P7E8p-33" source="qFdSuMGm640_0Y5P7E8p-37" target="qFdSuMGm640_0Y5P7E8p-40" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="235" y="270" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qFdSuMGm640_0Y5P7E8p-40" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;Player1のすべてのポケモンのHP &amp;lt;= 0&amp;nbsp;&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;または&lt;br&gt;&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;Player2のすべてのポケモンのHP &amp;lt;= 0|&lt;/font&gt;&lt;/div&gt;&lt;/div&gt;" style="rhombus;whiteSpace=wrap;html=1;fontColor=#000000;fillColor=#ffffc0;strokeColor=#ff0000;" parent="qFdSuMGm640_0Y5P7E8p-33" vertex="1">
+          <mxGeometry x="50" y="270" width="370" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="qFdSuMGm640_0Y5P7E8p-41" value="No" style="edgeStyle=orthogonalEdgeStyle;html=1;align=left;verticalAlign=bottom;endArrow=open;endSize=8;strokeColor=#ff0000;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="qFdSuMGm640_0Y5P7E8p-33" source="qFdSuMGm640_0Y5P7E8p-40" target="qFdSuMGm640_0Y5P7E8p-68" edge="1">
+          <mxGeometry x="-1" relative="1" as="geometry">
+            <mxPoint x="430" y="370" as="targetPoint" />
+            <mxPoint x="265" y="430" as="sourcePoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qFdSuMGm640_0Y5P7E8p-42" value="No" style="edgeStyle=orthogonalEdgeStyle;html=1;align=left;verticalAlign=top;endArrow=open;endSize=8;strokeColor=#ff0000;rounded=0;" parent="qFdSuMGm640_0Y5P7E8p-33" source="qFdSuMGm640_0Y5P7E8p-40" target="qFdSuMGm640_0Y5P7E8p-49" edge="1">
+          <mxGeometry x="-1" relative="1" as="geometry">
+            <mxPoint x="235" y="400" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qFdSuMGm640_0Y5P7E8p-49" value="行動選択" style="rounded=1;whiteSpace=wrap;html=1;arcSize=40;fontColor=#000000;fillColor=#ffffc0;strokeColor=#ff0000;" parent="qFdSuMGm640_0Y5P7E8p-33" vertex="1">
+          <mxGeometry x="175" y="440" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="qFdSuMGm640_0Y5P7E8p-50" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;verticalAlign=bottom;endArrow=open;endSize=8;strokeColor=#ff0000;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="qFdSuMGm640_0Y5P7E8p-33" source="qFdSuMGm640_0Y5P7E8p-49" target="qFdSuMGm640_0Y5P7E8p-51" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="235" y="540" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qFdSuMGm640_0Y5P7E8p-63" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#FF0000;" parent="qFdSuMGm640_0Y5P7E8p-33" source="qFdSuMGm640_0Y5P7E8p-51" target="qFdSuMGm640_0Y5P7E8p-54" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="qFdSuMGm640_0Y5P7E8p-51" value="優先度判定&lt;div&gt;行動判定&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=40;fontColor=#000000;fillColor=#ffffc0;strokeColor=#ff0000;" parent="qFdSuMGm640_0Y5P7E8p-33" vertex="1">
+          <mxGeometry x="175" y="520" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="qFdSuMGm640_0Y5P7E8p-54" value="先行行動処理" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=0;resizeLast=1;container=0;fontColor=#000000;collapsible=0;rounded=1;arcSize=30;strokeColor=#ff0000;fillColor=#ffffc0;swimlaneFillColor=#ffffc0;dropTarget=0;" parent="qFdSuMGm640_0Y5P7E8p-33" vertex="1">
+          <mxGeometry x="155" y="600" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="qFdSuMGm640_0Y5P7E8p-55" value="行動の実行&lt;div&gt;状態異常の判定&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;fontColor=#000000;" parent="qFdSuMGm640_0Y5P7E8p-54" vertex="1">
+          <mxGeometry y="30" width="160" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="qFdSuMGm640_0Y5P7E8p-56" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;verticalAlign=bottom;endArrow=open;endSize=8;strokeColor=#ff0000;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="qFdSuMGm640_0Y5P7E8p-33" source="qFdSuMGm640_0Y5P7E8p-54" target="qFdSuMGm640_0Y5P7E8p-58" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="235" y="780" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qFdSuMGm640_0Y5P7E8p-57" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#FF0000;" parent="qFdSuMGm640_0Y5P7E8p-33" source="qFdSuMGm640_0Y5P7E8p-55" target="qFdSuMGm640_0Y5P7E8p-40" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="30" y="630" />
+              <mxPoint x="30" y="315" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qFdSuMGm640_0Y5P7E8p-62" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#FF0000;" parent="qFdSuMGm640_0Y5P7E8p-33" source="qFdSuMGm640_0Y5P7E8p-58" target="qFdSuMGm640_0Y5P7E8p-40" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="30" y="730" />
+              <mxPoint x="30" y="315" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qFdSuMGm640_0Y5P7E8p-58" value="後攻行動処理" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=0;resizeLast=1;container=0;fontColor=#000000;collapsible=0;rounded=1;arcSize=30;strokeColor=#ff0000;fillColor=#ffffc0;swimlaneFillColor=#ffffc0;dropTarget=0;" parent="qFdSuMGm640_0Y5P7E8p-33" vertex="1">
+          <mxGeometry x="155" y="700" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="qFdSuMGm640_0Y5P7E8p-59" value="行動の実行&lt;div&gt;状態異常の判定&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;fontColor=#000000;" parent="qFdSuMGm640_0Y5P7E8p-58" vertex="1">
+          <mxGeometry y="30" width="160" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="qFdSuMGm640_0Y5P7E8p-66" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#FF0000;" parent="qFdSuMGm640_0Y5P7E8p-33" source="qFdSuMGm640_0Y5P7E8p-64" target="qFdSuMGm640_0Y5P7E8p-40" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="235" y="880" />
+              <mxPoint x="30" y="880" />
+              <mxPoint x="30" y="315" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qFdSuMGm640_0Y5P7E8p-64" value="状態異常処理" style="rounded=1;whiteSpace=wrap;html=1;arcSize=40;fontColor=#000000;fillColor=#ffffc0;strokeColor=#ff0000;" parent="qFdSuMGm640_0Y5P7E8p-33" vertex="1">
+          <mxGeometry x="175" y="800" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="qFdSuMGm640_0Y5P7E8p-67" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FF0000;" parent="qFdSuMGm640_0Y5P7E8p-33" source="qFdSuMGm640_0Y5P7E8p-59" target="qFdSuMGm640_0Y5P7E8p-64" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="qFdSuMGm640_0Y5P7E8p-68" value="" style="ellipse;html=1;shape=endState;fillColor=#000000;strokeColor=#ff0000;" parent="qFdSuMGm640_0Y5P7E8p-33" vertex="1">
+          <mxGeometry x="215" y="920" width="40" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
