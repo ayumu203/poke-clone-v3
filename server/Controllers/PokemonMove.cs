@@ -1,20 +1,41 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using server.Data;
 using server.Models;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-[ApiController]
-[Route("api/[controller]")]
-public class PokemonMoveController : ControllerBase
+namespace server.Controllers
 {
-    private readonly ApplicationDbContext _context;
-    public PokemonMoveController(ApplicationDbContext context)
+    [ApiController]
+    [Route("api/[controller]")]
+    public class PokemonMoveController : ControllerBase
     {
-        _context = context;
-    }
-    [HttpGet("{id}")]
-    public async Task<IActionResult> GetPokemonMoves(int id)
-    {
-        var pokemonMoves = _context.PokemonMoves.ToList();
-        return Ok(pokemonMoves);
+        private readonly ApplicationDbContext _context;
+
+        public PokemonMoveController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
+        [HttpGet("species/{speciesId}")]
+        public async Task<ActionResult<IEnumerable<Move>>> GetMovesForPokemonSpecies(int speciesId)
+        {
+            var speciesExists = await _context.PokemonSpecies.AnyAsync(ps => ps.PokemonSpeciesId == speciesId);
+            if (!speciesExists)
+            {
+                return NotFound($"PokemonSpecies with ID {speciesId} not found.");
+            }
+
+            var moves = await _context.PokemonMoves
+                .Where(pm => pm.PokemonSpeciesId == speciesId)
+                .Include(pm => pm.Move)
+                .Select(pm => pm.Move)
+                .ToListAsync();
+
+            return Ok(moves);
+        }
     }
 }
+
