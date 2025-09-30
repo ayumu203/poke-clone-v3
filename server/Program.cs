@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using server.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Identity.Web;
+using server.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,6 +32,10 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddControllers();
+
+// PokeApiSeeder の登録
+builder.Services.AddHttpClient(); 
+builder.Services.AddScoped<PokeApiSeeder>();
 
 var app = builder.Build();
 
