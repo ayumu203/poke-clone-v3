@@ -5,7 +5,7 @@
 namespace server.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class InitialCreateWithManualPk : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -27,8 +27,7 @@ namespace server.Migrations
                 name: "PokemonSpecies",
                 columns: table => new
                 {
-                    PokemonSpeciesId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PokemonSpeciesId = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: false),
                     FrontImage = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     BackImage = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),

@@ -24,7 +24,7 @@ namespace server.Controllers
                 return Forbid("このエンドポイントは開発環境でのみ有効です.");
             }
             await _seeder.ExtractPokemonSpeciesAsync(1, 151);
-            // await _seeder.LoadPokemonSpeciesToDbAsync();
+            await _seeder.LoadPokemonSpeciesToDbAsync();
             return Ok("データの取得は無事終了しました.");
         }
     }

@@ -207,10 +207,7 @@ namespace server.Migrations
             modelBuilder.Entity("server.Models.PokemonSpecies", b =>
                 {
                     b.Property<int>("PokemonSpeciesId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PokemonSpeciesId"));
 
                     b.Property<string>("BackImage")
                         .IsRequired()

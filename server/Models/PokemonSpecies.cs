@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
 namespace server.Models
@@ -5,6 +6,7 @@ namespace server.Models
     public class PokemonSpecies
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int PokemonSpeciesId { get; set; }
 
         [Required]

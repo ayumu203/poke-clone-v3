@@ -11,8 +11,8 @@ using server.Data;
 namespace server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250929145201_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250930105535_InitialCreateWithManualPk")]
+    partial class InitialCreateWithManualPk
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -210,10 +210,7 @@ namespace server.Migrations
             modelBuilder.Entity("server.Models.PokemonSpecies", b =>
                 {
                     b.Property<int>("PokemonSpeciesId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PokemonSpeciesId"));
 
                     b.Property<string>("BackImage")
                         .IsRequired()
