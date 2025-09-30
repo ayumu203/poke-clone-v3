@@ -1,15 +1,21 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Collections.Generic;
 
 namespace server.Models
 {
     public class Move
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int MoveId { get; set; }
 
         [Required]
         [StringLength(63)]
         public string Category { get; set; } = string.Empty;
+        [Required]
+        [StringLength(63)]
+        public string Name { get; set; } = string.Empty;
         [Required]
         [StringLength(31)]
         public string Type { get; set; } = string.Empty;

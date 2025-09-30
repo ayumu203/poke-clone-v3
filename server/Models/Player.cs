@@ -10,7 +10,7 @@ namespace server.Models
     {
         [Key]
         [StringLength(255)]
-        public string playerId { get; set; } = string.Empty;
+        public string PlayerId { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "プレイヤー名は必須です.")]
         [StringLength(63, ErrorMessage = "プレイヤ名の長さ上限を超えています.")]
