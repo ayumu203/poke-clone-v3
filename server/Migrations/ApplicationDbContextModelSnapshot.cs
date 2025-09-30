@@ -24,10 +24,7 @@ namespace server.Migrations
             modelBuilder.Entity("server.Models.Move", b =>
                 {
                     b.Property<int>("MoveId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MoveId"));
 
                     b.Property<int>("Accuracy")
                         .HasColumnType("int");
@@ -63,6 +60,11 @@ namespace server.Migrations
 
                     b.Property<int>("Healing")
                         .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(63)
+                        .HasColumnType("nvarchar(63)");
 
                     b.Property<int?>("PokemonSpeciesId")
                         .HasColumnType("int");
@@ -102,7 +104,7 @@ namespace server.Migrations
 
             modelBuilder.Entity("server.Models.Player", b =>
                 {
-                    b.Property<string>("playerId")
+                    b.Property<string>("PlayerId")
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
@@ -116,7 +118,7 @@ namespace server.Migrations
                         .HasMaxLength(63)
                         .HasColumnType("nvarchar(63)");
 
-                    b.HasKey("playerId");
+                    b.HasKey("PlayerId");
 
                     b.ToTable("Players");
                 });

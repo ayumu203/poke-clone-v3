@@ -45,7 +45,7 @@ namespace server.Services
                     var jsonContent = await response.Content.ReadAsStringAsync();
                     await File.WriteAllTextAsync(filePath, jsonContent);
                     _logger.LogInformation($"ポケモン ID {id} のデータを正常にダウンロードし、保存しました.");
-                    await Task.Delay(200); // APIへの負荷を考慮した待機
+                    await Task.Delay(200);
                 }
                 catch (HttpRequestException e)
                 {
@@ -121,6 +121,67 @@ namespace server.Services
             }
         }
 
+        public async Task LoadPokemonMovesToDbAsync()
+        {
+            _logger.LogInformation("ローカルファイルからデータベースへのポケモン-わざ関連データのロードを開始します。");
+            var seedDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Data", "Seed", "Pokemon");
+            if (!Directory.Exists(seedDirectory))
+            {
+                _logger.LogWarning("シードディレクトリが存在しません。ロードするデータがありません。");
+                return;
+            }
+
+            var files = Directory.GetFiles(seedDirectory, "*.json");
+            var newPokemonMoves = new List<PokemonMove>();
+            
+            // 既存の関連データをメモリにロードして重複チェックを高速化
+            var existingMoves = await _context.PokemonMoves.ToDictionaryAsync(pm => (pm.PokemonSpeciesId, pm.MoveId));
+
+            foreach (var file in files)
+            {
+                var jsonContent = await File.ReadAllTextAsync(file);
+                using var doc = JsonDocument.Parse(jsonContent);
+                var root = doc.RootElement;
+
+                var pokemonId = root.GetProperty("id").GetInt32();
+
+                if (!root.TryGetProperty("moves", out var movesElement)) continue;
+
+                foreach (var moveEntry in movesElement.EnumerateArray())
+                {
+                    var moveUrl = moveEntry.GetProperty("move").GetProperty("url").GetString();
+                    if (string.IsNullOrEmpty(moveUrl)) continue;
+
+                    var segments = moveUrl.Split('/', StringSplitOptions.RemoveEmptyEntries);
+                    if (segments.Length > 0 && int.TryParse(segments.Last(), out var moveId))
+                    {
+                        if (existingMoves.ContainsKey((pokemonId, moveId)) || newPokemonMoves.Any(m => m.PokemonSpeciesId == pokemonId && m.MoveId == moveId))
+                        {
+                            continue;
+                        }
+
+                        var pokemonMove = new PokemonMove
+                        {
+                            PokemonSpeciesId = pokemonId,
+                            MoveId = moveId
+                        };
+                        newPokemonMoves.Add(pokemonMove);
+                    }
+                }
+            }
+
+            if (newPokemonMoves.Any())
+            {
+                await _context.PokemonMoves.AddRangeAsync(newPokemonMoves);
+                await _context.SaveChangesAsync();
+                _logger.LogInformation($"データベースに {newPokemonMoves.Count} 件の新しいポケモン-わざ関連データを正常にロードしました。");
+            }
+            else
+            {
+                _logger.LogInformation("データベースに追加する新しいポケモン-わざ関連データはありませんでした。");
+            }
+        }
+
         private int GetStatValue(JsonElement.ArrayEnumerator stats, string statName)
         {
             var statElement = stats.FirstOrDefault(s => s.GetProperty("stat").GetProperty("name").GetString() == statName);
@@ -130,7 +191,7 @@ namespace server.Services
                 return baseStatElement.GetInt32();
             }
 
-            _logger.LogWarning($"ステータス名: '{statName}' が見つからなかったため、0とします.");
+            _logger.LogWarning($"Stat '{statName}' not found for a Pokemon. Defaulting to 0.");
             return 0;
         }
     }
