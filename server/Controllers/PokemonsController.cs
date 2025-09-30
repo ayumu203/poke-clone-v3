@@ -19,4 +19,3 @@ public class PokemonsController : ControllerBase
     }
 }
 
-// 最初の2行ってC#のどんな文法的意味？
