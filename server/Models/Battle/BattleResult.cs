@@ -4,15 +4,9 @@ namespace server.Models.Battle
 {
     public class BattleResult
     {
-        public string WinnerId { get; }
-        public string LoserId { get; }
-        public List<string> FinalLogs { get; } = new List<string>();
-
-        public BattleResult(string winnerId, string loserId, List<string> finalLogs)
-        {
-            WinnerId = winnerId;
-            LoserId = loserId;
-            FinalLogs = finalLogs;
-        }
+        public string WinnerId { get; } = string.Empty;
+        public string LoserId { get; } = string.Empty;
+        public List<string> Logs { get; set; } = new List<string>();
+        public int totalTurns { get; set; }
     }
 }

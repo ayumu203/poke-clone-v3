@@ -4,16 +4,8 @@ namespace server.Models.Battle
 {
     public class TurnResult
     {
-        public string EventType { get; }
-        public List<string> Logs { get; } = new List<string>();
-
-        public TurnResult(string eventType)
-        {
-            EventType = eventType;
-        }
-        public void AddLog(string log)
-        {
-            Logs.Add(log);
-        }
+        public List<string> Logs { get; set; } = new List<string>();
+        public bool BattleEnded { get; set; } = false;
+        public string? WinnerId { get; set; }
     }
 }
