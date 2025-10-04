@@ -1,10 +1,10 @@
 using server.interfaces;
 using server.Interfaces;
-using server.Models.Battle;
+using server.Models.Basics.Battle;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace server.Models
+namespace server.Models.Basics
 {
     public class Pokemon
     {
@@ -26,7 +26,7 @@ namespace server.Models
         public string? Ailment { get; set; } 
 
         [NotMapped]
-        public IRank Rank { get; set; } = new Rank();
+        public IRank Rank { get; set; }　= new Rank();
 
         [NotMapped]
         public IVolatileStatus VolatileStatus { get; set; } = new VolatileStatus();

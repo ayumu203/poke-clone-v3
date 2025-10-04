@@ -1,7 +1,6 @@
 using server.interfaces;
-using System;
 
-namespace server.Models.Battle
+namespace server.Models.Basics.Battle
 {
     public class Rank : IRank
     {
@@ -12,7 +11,10 @@ namespace server.Models.Battle
         public int Speed { get; set; }
         public int Accuracy { get; set; }
         public int Evasion { get; set; }
-
+        public Rank()
+        {
+            Reset();
+        }
         public void Reset()
         {
             Attack = 0;

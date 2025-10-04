@@ -1,12 +1,9 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace server.Models
+namespace server.Models.Basics
 {
     public class PlayerParty
     {
-        /// <summary>
-        /// 複合キーにするため、Key属性は使用しない
-        /// </summary>
         public string PlayerId { get; set; } = string.Empty;
         public int PokemonId { get; set; }
 

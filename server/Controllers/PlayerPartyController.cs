@@ -1,10 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using server.Data;
-using server.Models;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using server.Models.Basics;
 
 namespace server.Controllers
 {

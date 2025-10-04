@@ -1,6 +1,6 @@
 using server.Interfaces;
 
-namespace server.Models.Battle
+namespace server.Models.Basics.Battle
 {
     public class VolatileStatus : IVolatileStatus
     {

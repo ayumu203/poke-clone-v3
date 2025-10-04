@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace server.Models
+namespace server.Models.Basics
 {
     public class PokemonSpecies
     {

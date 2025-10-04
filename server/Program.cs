@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Identity.Web;
 using server.Services;
 using server.Interfaces;
+using server.Factories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,14 +35,24 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddControllers();
 
+builder.Services.AddSignalR();
+
 // PokeApiSeeder の登録
 builder.Services.AddHttpClient();
 // builder.Services.AddScoped<PokeApiSeeder>();
 builder.Services.AddScoped<IPokeApiExtractor, PokeApiExtractor>();
 builder.Services.AddScoped<IDatabaseSeeder, DatabaseSeeder>();
 
+// Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// CpuPlayer と BattleManager の登録
+builder.Services.AddSingleton<server.Models.Battles.CpuPlayer>();
+builder.Services.AddSingleton<server.Models.Battles.BattleRoomManager>();
+
+// PokemonFactory の登録
+builder.Services.AddScoped<IPokemonFactory, PokemonFactory>();
 
 var app = builder.Build();
 
@@ -62,5 +73,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapHub<server.Hubs.BattleHub>("/battlehub");
 
 app.Run();

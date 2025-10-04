@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using Microsoft.EntityFrameworkCore;
 using server.Data;
-using server.Models;
+using server.Models.Basics;
 using System.Linq;
 using Microsoft.Extensions.Logging;
 using server.Interfaces;

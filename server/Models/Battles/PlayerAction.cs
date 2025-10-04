@@ -1,9 +1,9 @@
-namespace server.Models.Battle
+namespace server.Models.Battles
 {
     public enum ActionType { Move, Switch, Catch };
     public class PlayerAction
     {
-        public ActionType Type { get; set; }
+        public ActionType ActionType { get; set; }
         public int Value { get; set; }
     }
 }

@@ -1,6 +1,6 @@
 using System.Security.Cryptography.X509Certificates;
 using Microsoft.EntityFrameworkCore;
-using server.Models;
+using server.Models.Basics;
 
 namespace server.Data
 {

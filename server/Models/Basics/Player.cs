@@ -1,11 +1,7 @@
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace server.Models
+namespace server.Models.Basics
 {
-    /// <summary>
-    ///  プレイヤーに関するクラス
-    /// </summary>
     public class Player
     {
         [Key]
@@ -14,7 +10,7 @@ namespace server.Models
 
         [Required(ErrorMessage = "プレイヤー名は必須です.")]
         [StringLength(63, ErrorMessage = "プレイヤ名の長さ上限を超えています.")]
-        public string name { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "プロフィール画像のURLは必須です.")]
         [StringLength(255)]

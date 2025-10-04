@@ -5,7 +5,7 @@ using System.IO;
 using System.Net.Http;
 using Microsoft.EntityFrameworkCore;
 using server.Data;
-using server.Models;
+using server.Models.Basics;
 using System.Linq;
 
 namespace server.Services

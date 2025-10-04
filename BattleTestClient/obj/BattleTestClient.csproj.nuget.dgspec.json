@@ -1,0 +1,76 @@
+{
+  "format": 1,
+  "restore": {
+    "/mnt/c/Users/cs23017/Shizuoka University/ドキュメント/dev/03_poke_clone_v3/BattleTestClient/BattleTestClient.csproj": {}
+  },
+  "projects": {
+    "/mnt/c/Users/cs23017/Shizuoka University/ドキュメント/dev/03_poke_clone_v3/BattleTestClient/BattleTestClient.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/mnt/c/Users/cs23017/Shizuoka University/ドキュメント/dev/03_poke_clone_v3/BattleTestClient/BattleTestClient.csproj",
+        "projectName": "BattleTestClient",
+        "projectPath": "/mnt/c/Users/cs23017/Shizuoka University/ドキュメント/dev/03_poke_clone_v3/BattleTestClient/BattleTestClient.csproj",
+        "packagesPath": "/home/cs23017/.nuget/packages/",
+        "outputPath": "/mnt/c/Users/cs23017/Shizuoka University/ドキュメント/dev/03_poke_clone_v3/BattleTestClient/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/cs23017/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.SignalR.Client": {
+              "target": "Package",
+              "version": "[9.0.9, )"
+            },
+            "System.Net.Http.Json": {
+              "target": "Package",
+              "version": "[9.0.9, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/home/cs23017/.dotnet/sdk/8.0.413/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
