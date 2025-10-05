@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using server.Data;
-using server.Models.Basics;
+using server.Models.Core;
 
 namespace server.Controllers
 {

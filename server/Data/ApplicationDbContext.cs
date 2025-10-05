@@ -1,6 +1,7 @@
 using System.Security.Cryptography.X509Certificates;
 using Microsoft.EntityFrameworkCore;
-using server.Models.Basics;
+using server.Models.Core;
+using server.Models.Game;
 
 namespace server.Data
 {

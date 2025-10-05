@@ -1,4 +1,4 @@
-using server.Models.Battles;
+using server.Models.Battles.Core;
 
 namespace server.Models.DTOs
 {

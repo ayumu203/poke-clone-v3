@@ -1,0 +1,628 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.0.9 Chrome/128.0.6613.186 Electron/32.2.5 Safari/537.36" version="26.0.9" pages="4">
+  <diagram id="kWVaBzZA7pZodbgaUQ_L" name="ログイン">
+    <mxGraphModel dx="954" dy="717" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ZP86lYgXwhB_RVg30F29-3" value="&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;ログイン&lt;/span&gt;&lt;br&gt;&lt;/div&gt;" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;" parent="1" vertex="1">
+          <mxGeometry width="1040" height="520" as="geometry" />
+        </mxCell>
+        <mxCell id="ZP86lYgXwhB_RVg30F29-5" value="プレイヤー" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="1" vertex="1">
+          <mxGeometry x="40" y="40" width="100" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="ZP86lYgXwhB_RVg30F29-6" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="ZP86lYgXwhB_RVg30F29-5" vertex="1">
+          <mxGeometry x="45" y="70" width="10" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="ZP86lYgXwhB_RVg30F29-7" value="フロントエンド" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="1" vertex="1">
+          <mxGeometry x="200" y="40" width="100" height="470" as="geometry" />
+        </mxCell>
+        <mxCell id="ZP86lYgXwhB_RVg30F29-9" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="ZP86lYgXwhB_RVg30F29-7" vertex="1">
+          <mxGeometry x="45" y="70" width="10" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="BqXFEyJUVDtCbI7IUyoO-5" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="ZP86lYgXwhB_RVg30F29-7" vertex="1">
+          <mxGeometry x="45" y="360" width="10" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="ZP86lYgXwhB_RVg30F29-10" value="ログイン操作" style="html=1;verticalAlign=bottom;startArrow=oval;endArrow=block;startSize=8;curved=0;rounded=0;entryX=0;entryY=0;entryDx=0;entryDy=5;" parent="1" source="ZP86lYgXwhB_RVg30F29-6" target="ZP86lYgXwhB_RVg30F29-9" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="150" y="145" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZP86lYgXwhB_RVg30F29-11" value="Next.js" style="text;align=center;fontStyle=1;verticalAlign=middle;spacingLeft=3;spacingRight=3;strokeColor=none;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;" parent="1" vertex="1">
+          <mxGeometry x="200" y="14" width="100" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="ZP86lYgXwhB_RVg30F29-12" value="認証システム" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="1" vertex="1">
+          <mxGeometry x="350" y="40" width="100" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="ZP86lYgXwhB_RVg30F29-13" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="ZP86lYgXwhB_RVg30F29-12" vertex="1">
+          <mxGeometry x="45" y="70" width="10" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="ZP86lYgXwhB_RVg30F29-14" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;認証リクエスト(リダイレクト)&lt;/font&gt;" style="html=1;verticalAlign=bottom;startArrow=oval;endArrow=block;startSize=8;curved=0;rounded=0;entryX=0;entryY=0;entryDx=0;entryDy=5;" parent="1" source="ZP86lYgXwhB_RVg30F29-7" target="ZP86lYgXwhB_RVg30F29-13" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="320" y="115" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZP86lYgXwhB_RVg30F29-16" value="認証コード受信" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;entryX=1;entryY=1;entryDx=0;entryDy=-5;entryPerimeter=0;" parent="1" source="ZP86lYgXwhB_RVg30F29-13" target="ZP86lYgXwhB_RVg30F29-9" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="340" y="210" as="sourcePoint" />
+            <mxPoint x="260" y="210" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZP86lYgXwhB_RVg30F29-18" value="バックエンド" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="1" vertex="1">
+          <mxGeometry x="680" y="40" width="100" height="450" as="geometry" />
+        </mxCell>
+        <mxCell id="ZP86lYgXwhB_RVg30F29-19" value="C#(.NET)" style="text;align=center;fontStyle=1;verticalAlign=middle;spacingLeft=3;spacingRight=3;strokeColor=none;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;" parent="1" vertex="1">
+          <mxGeometry x="680" y="14" width="100" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="zXmQmmyE5Y9G8hjgaGqT-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;curved=0;" parent="1" source="ZP86lYgXwhB_RVg30F29-21" target="ZP86lYgXwhB_RVg30F29-12" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="480" y="380" />
+              <mxPoint x="480" y="125" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zXmQmmyE5Y9G8hjgaGqT-2" value="JWT交換・取得" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="zXmQmmyE5Y9G8hjgaGqT-1" vertex="1" connectable="0">
+          <mxGeometry x="-0.0319" y="-1" relative="1" as="geometry">
+            <mxPoint x="-51" y="-4" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZP86lYgXwhB_RVg30F29-21" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="1" vertex="1">
+          <mxGeometry x="725" y="350" width="10" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="ZP86lYgXwhB_RVg30F29-29" value="データベース" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="1" vertex="1">
+          <mxGeometry x="870" y="40" width="100" height="450" as="geometry" />
+        </mxCell>
+        <mxCell id="ZP86lYgXwhB_RVg30F29-30" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;Azure SQL Database&lt;/font&gt;" style="text;align=center;fontStyle=1;verticalAlign=middle;spacingLeft=3;spacingRight=3;strokeColor=none;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;" parent="1" vertex="1">
+          <mxGeometry x="870" y="14" width="100" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="ZP86lYgXwhB_RVg30F29-34" value="&lt;span style=&quot;color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(251, 251, 251); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;&quot;&gt;&lt;b&gt;Azure Entra ID&lt;/b&gt;&lt;/span&gt;" style="text;whiteSpace=wrap;html=1;align=center;" parent="1" vertex="1">
+          <mxGeometry x="350" y="14" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="415I7sRfLm6h1vXJACUh-1" value="alt" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;" parent="1" vertex="1">
+          <mxGeometry x="500" y="170" width="460" height="340" as="geometry" />
+        </mxCell>
+        <mxCell id="415I7sRfLm6h1vXJACUh-2" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="1" vertex="1">
+          <mxGeometry x="915" y="350" width="10" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="415I7sRfLm6h1vXJACUh-3" value="&lt;div&gt;&lt;font style=&quot;color: rgb(255, 0, 0);&quot;&gt;[JWTの検証成功]&lt;/font&gt;&lt;/div&gt;" style="text;align=center;fontStyle=1;verticalAlign=middle;spacingLeft=3;spacingRight=3;strokeColor=none;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;" parent="1" vertex="1">
+          <mxGeometry x="590" y="177" width="80" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="415I7sRfLm6h1vXJACUh-7" value="alt" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;" parent="1" vertex="1">
+          <mxGeometry x="690" y="310" width="260" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="415I7sRfLm6h1vXJACUh-8" value="&lt;div&gt;&lt;font style=&quot;color: rgb(255, 0, 0);&quot;&gt;[Playerテーブルに存在]&lt;/font&gt;&lt;/div&gt;" style="text;align=center;fontStyle=1;verticalAlign=middle;spacingLeft=3;spacingRight=3;strokeColor=none;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;" parent="1" vertex="1">
+          <mxGeometry x="770" y="360" width="80" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="415I7sRfLm6h1vXJACUh-9" value="データ返却: Player" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;" parent="1" edge="1">
+          <mxGeometry x="-0.0035" y="-10" relative="1" as="geometry">
+            <mxPoint x="915" y="420" as="sourcePoint" />
+            <mxPoint x="735.0000000000001" y="420" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="415I7sRfLm6h1vXJACUh-10" value="&lt;div&gt;&lt;font style=&quot;color: rgb(255, 0, 0);&quot;&gt;[Playerテーブルに存在しない]&lt;/font&gt;&lt;/div&gt;" style="text;align=center;fontStyle=1;verticalAlign=middle;spacingLeft=3;spacingRight=3;strokeColor=none;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;" parent="1" vertex="1">
+          <mxGeometry x="790" y="420" width="80" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="415I7sRfLm6h1vXJACUh-11" value="&lt;font style=&quot;font-size: 9px;&quot;&gt;プレイヤーデータ新規登録&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 9px;&quot;&gt;データ返却: Player&lt;/font&gt;&lt;/div&gt;" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;" parent="1" edge="1">
+          <mxGeometry x="0.0556" relative="1" as="geometry">
+            <mxPoint x="915" y="470" as="sourcePoint" />
+            <mxPoint x="735.0000000000001" y="470" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="415I7sRfLm6h1vXJACUh-14" value="認証コードをJWTへ交換・プレイヤーデータ要求" style="html=1;verticalAlign=bottom;startArrow=oval;endArrow=block;startSize=8;rounded=0;exitX=1;exitY=0;exitDx=0;exitDy=5;exitPerimeter=0;edgeStyle=orthogonalEdgeStyle;" parent="1" source="BqXFEyJUVDtCbI7IUyoO-3" target="ZP86lYgXwhB_RVg30F29-21" edge="1">
+          <mxGeometry x="0.8824" y="60" relative="1" as="geometry">
+            <mxPoint x="575" y="259.13" as="sourcePoint" />
+            <mxPoint x="730" y="255" as="targetPoint" />
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="650" y="255" />
+              <mxPoint x="650" y="360" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="BqXFEyJUVDtCbI7IUyoO-1" value="ゲートウェイ" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="1" vertex="1">
+          <mxGeometry x="520" y="40" width="100" height="470" as="geometry" />
+        </mxCell>
+        <mxCell id="ZP86lYgXwhB_RVg30F29-20" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="BqXFEyJUVDtCbI7IUyoO-1" vertex="1">
+          <mxGeometry x="-275" y="210" width="10" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="BqXFEyJUVDtCbI7IUyoO-3" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="BqXFEyJUVDtCbI7IUyoO-1" vertex="1">
+          <mxGeometry x="45" y="210" width="10" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="BqXFEyJUVDtCbI7IUyoO-4" value="認証コード送信・プレイヤーデータ要求" style="html=1;verticalAlign=bottom;startArrow=oval;endArrow=block;startSize=8;curved=0;rounded=0;entryX=0;entryY=0;entryDx=0;entryDy=5;" parent="BqXFEyJUVDtCbI7IUyoO-1" source="ZP86lYgXwhB_RVg30F29-20" target="BqXFEyJUVDtCbI7IUyoO-3" edge="1">
+          <mxGeometry x="-0.2581" y="5" relative="1" as="geometry">
+            <mxPoint x="-25" y="204" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="-30" y="215" />
+            </Array>
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="BqXFEyJUVDtCbI7IUyoO-9" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="BqXFEyJUVDtCbI7IUyoO-1" vertex="1">
+          <mxGeometry x="45" y="350" width="10" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="BqXFEyJUVDtCbI7IUyoO-2" value="&lt;span style=&quot;color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(251, 251, 251); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;&quot;&gt;&lt;b&gt;Azure API Management&lt;/b&gt;&lt;/span&gt;" style="text;whiteSpace=wrap;html=1;align=center;" parent="1" vertex="1">
+          <mxGeometry x="520" y="3" width="100" height="37" as="geometry" />
+        </mxCell>
+        <mxCell id="BqXFEyJUVDtCbI7IUyoO-6" value="" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;" parent="1" edge="1">
+          <mxGeometry y="-10" relative="1" as="geometry">
+            <mxPoint x="725" y="470" as="sourcePoint" />
+            <mxPoint x="575" y="470" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="BqXFEyJUVDtCbI7IUyoO-10" value="200 OK: Player(JSON), JWT" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;" parent="1" edge="1">
+          <mxGeometry x="0.0893" y="-10" relative="1" as="geometry">
+            <mxPoint x="580" y="420" as="sourcePoint" />
+            <mxPoint x="249.5" y="420" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="akUMndvF-OSxHUJPlrMS-2" value="" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;" parent="1" edge="1">
+          <mxGeometry y="-10" relative="1" as="geometry">
+            <mxPoint x="720" y="420" as="sourcePoint" />
+            <mxPoint x="570" y="420" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="7sWyQSIdK9hE5sFIvFRK-1" value="200 OK: Player(JSON), JWT" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;" parent="1" source="BqXFEyJUVDtCbI7IUyoO-9" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="330" y="470" as="sourcePoint" />
+            <mxPoint x="250" y="470" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="GN9Q-najRq3CFUqHw__K" name="リソース取得">
+    <mxGraphModel dx="846" dy="659" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="qS_1P8PqYDcKrzpPV88Z-1" value="リソース" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;" parent="1" vertex="1">
+          <mxGeometry width="960" height="520" as="geometry" />
+        </mxCell>
+        <mxCell id="qS_1P8PqYDcKrzpPV88Z-2" value="プレイヤー" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="1" vertex="1">
+          <mxGeometry x="50" y="40" width="100" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="qS_1P8PqYDcKrzpPV88Z-3" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="qS_1P8PqYDcKrzpPV88Z-2" vertex="1">
+          <mxGeometry x="45" y="70" width="10" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="qS_1P8PqYDcKrzpPV88Z-4" value="フロントエンド" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="1" vertex="1">
+          <mxGeometry x="210" y="40" width="100" height="470" as="geometry" />
+        </mxCell>
+        <mxCell id="qS_1P8PqYDcKrzpPV88Z-6" value="ポケモン種族データ・技の参照" style="html=1;verticalAlign=bottom;startArrow=oval;endArrow=block;startSize=8;curved=0;rounded=0;entryX=0;entryY=0;entryDx=0;entryDy=5;" parent="1" source="qS_1P8PqYDcKrzpPV88Z-3" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="160" y="145" as="sourcePoint" />
+            <mxPoint x="255" y="115" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qS_1P8PqYDcKrzpPV88Z-7" value="Next.js" style="text;align=center;fontStyle=1;verticalAlign=middle;spacingLeft=3;spacingRight=3;strokeColor=none;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;" parent="1" vertex="1">
+          <mxGeometry x="210" y="14" width="100" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="qS_1P8PqYDcKrzpPV88Z-8" value="バックエンド" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="1" vertex="1">
+          <mxGeometry x="600" y="40" width="100" height="410" as="geometry" />
+        </mxCell>
+        <mxCell id="qS_1P8PqYDcKrzpPV88Z-9" value="C#(.NET)" style="text;align=center;fontStyle=1;verticalAlign=middle;spacingLeft=3;spacingRight=3;strokeColor=none;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;" parent="1" vertex="1">
+          <mxGeometry x="600" y="14" width="100" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="qS_1P8PqYDcKrzpPV88Z-10" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="1" vertex="1">
+          <mxGeometry x="645" y="240" width="10" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="qS_1P8PqYDcKrzpPV88Z-11" value="データベース" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="1" vertex="1">
+          <mxGeometry x="850" y="30" width="100" height="410" as="geometry" />
+        </mxCell>
+        <mxCell id="qS_1P8PqYDcKrzpPV88Z-12" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="qS_1P8PqYDcKrzpPV88Z-11" vertex="1">
+          <mxGeometry x="45" y="210" width="10" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="qS_1P8PqYDcKrzpPV88Z-13" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;Azure SQL Database&lt;/font&gt;" style="text;align=center;fontStyle=1;verticalAlign=middle;spacingLeft=3;spacingRight=3;strokeColor=none;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;" parent="1" vertex="1">
+          <mxGeometry x="830" y="8.5" width="100" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="qS_1P8PqYDcKrzpPV88Z-16" value="alt" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;" parent="1" vertex="1">
+          <mxGeometry x="630" y="170" width="290" height="280" as="geometry" />
+        </mxCell>
+        <mxCell id="qS_1P8PqYDcKrzpPV88Z-17" value="&lt;div&gt;&lt;font style=&quot;color: rgb(255, 0, 0); font-size: 11px;&quot;&gt;[PokemonSpecies・Moveテーブルに存在]&lt;/font&gt;&lt;/div&gt;" style="text;align=center;fontStyle=1;verticalAlign=middle;spacingLeft=3;spacingRight=3;strokeColor=none;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;" parent="1" vertex="1">
+          <mxGeometry x="747" y="324" width="80" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="qS_1P8PqYDcKrzpPV88Z-18" value="データ返却: PokemonSpecies | Move]" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;" parent="1" source="qS_1P8PqYDcKrzpPV88Z-12" edge="1">
+          <mxGeometry x="0.05" relative="1" as="geometry">
+            <mxPoint x="805" y="370" as="sourcePoint" />
+            <mxPoint x="655.0000000000001" y="370" as="targetPoint" />
+            <mxPoint x="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qS_1P8PqYDcKrzpPV88Z-19" value="&lt;span style=&quot;color: rgb(255, 0, 0);&quot;&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;[PokemonSpecies・Moveテーブルに存在しない]&lt;/font&gt;&lt;/span&gt;" style="text;align=center;fontStyle=1;verticalAlign=middle;spacingLeft=3;spacingRight=3;strokeColor=none;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;" parent="1" vertex="1">
+          <mxGeometry x="730" y="382" width="80" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="qS_1P8PqYDcKrzpPV88Z-20" value="データ返却: []" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;" parent="1" source="qS_1P8PqYDcKrzpPV88Z-12" edge="1">
+          <mxGeometry x="-0.0035" y="-10" relative="1" as="geometry">
+            <mxPoint x="805" y="430" as="sourcePoint" />
+            <mxPoint x="655.0000000000001" y="430" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qS_1P8PqYDcKrzpPV88Z-21" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;ポケモン種族・技データ要求&lt;/font&gt;" style="html=1;verticalAlign=bottom;startArrow=oval;endArrow=block;startSize=8;curved=0;rounded=0;exitX=1;exitY=0;exitDx=0;exitDy=5;exitPerimeter=0;" parent="1" source="qS_1P8PqYDcKrzpPV88Z-24" edge="1">
+          <mxGeometry x="-0.1613" y="15" relative="1" as="geometry">
+            <mxPoint x="495" y="259.13" as="sourcePoint" />
+            <mxPoint x="650" y="255" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qS_1P8PqYDcKrzpPV88Z-22" value="ゲートウェイ" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="1" vertex="1">
+          <mxGeometry x="440" y="40" width="100" height="450" as="geometry" />
+        </mxCell>
+        <mxCell id="qS_1P8PqYDcKrzpPV88Z-23" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="qS_1P8PqYDcKrzpPV88Z-22" vertex="1">
+          <mxGeometry x="-185" y="210" width="10" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="qS_1P8PqYDcKrzpPV88Z-24" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="qS_1P8PqYDcKrzpPV88Z-22" vertex="1">
+          <mxGeometry x="45" y="210" width="10" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="qS_1P8PqYDcKrzpPV88Z-25" value="&lt;font style=&quot;font-size: 9px;&quot;&gt;GET /api/pokemon/pokemonId&amp;nbsp;&lt;/font&gt;&lt;div&gt;&lt;span style=&quot;font-size: x-small; background-color: light-dark(#ffffff, var(--ge-dark-color, #121212)); color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;/api/move/moveId&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: x-small; background-color: light-dark(#ffffff, var(--ge-dark-color, #121212)); color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;+ JWT送信&lt;/span&gt;&lt;/div&gt;" style="html=1;verticalAlign=bottom;startArrow=oval;endArrow=block;startSize=8;curved=0;rounded=0;entryX=0;entryY=0;entryDx=0;entryDy=5;" parent="qS_1P8PqYDcKrzpPV88Z-22" source="qS_1P8PqYDcKrzpPV88Z-23" target="qS_1P8PqYDcKrzpPV88Z-24" edge="1">
+          <mxGeometry x="-0.2273" y="15" relative="1" as="geometry">
+            <mxPoint x="-25" y="204" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="-30" y="215" />
+            </Array>
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qS_1P8PqYDcKrzpPV88Z-5" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="qS_1P8PqYDcKrzpPV88Z-22" vertex="1">
+          <mxGeometry x="-185" y="310" width="10" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="qS_1P8PqYDcKrzpPV88Z-26" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="qS_1P8PqYDcKrzpPV88Z-22" vertex="1">
+          <mxGeometry x="45" y="300" width="10" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="qS_1P8PqYDcKrzpPV88Z-27" value="&lt;span style=&quot;color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(251, 251, 251); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;&quot;&gt;&lt;b&gt;Azure API Management&lt;/b&gt;&lt;/span&gt;" style="text;whiteSpace=wrap;html=1;align=center;" parent="1" vertex="1">
+          <mxGeometry x="440" y="3" width="100" height="37" as="geometry" />
+        </mxCell>
+        <mxCell id="qS_1P8PqYDcKrzpPV88Z-28" value="" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;" parent="1" source="qS_1P8PqYDcKrzpPV88Z-10" target="qS_1P8PqYDcKrzpPV88Z-26" edge="1">
+          <mxGeometry y="-10" relative="1" as="geometry">
+            <mxPoint x="645" y="380" as="sourcePoint" />
+            <mxPoint x="175" y="380" as="targetPoint" />
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="580" y="370" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qS_1P8PqYDcKrzpPV88Z-29" value="200 OK: PokemonSpecies | Move (JSON)" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;" parent="1" edge="1">
+          <mxGeometry x="-0.0315" y="-10" relative="1" as="geometry">
+            <mxPoint x="485" y="370.0000000000001" as="sourcePoint" />
+            <mxPoint x="259.7307692307693" y="370" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="7i94nf757xbpg7tHm6fr-1" value="" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="645" y="430" as="sourcePoint" />
+            <mxPoint x="495" y="430" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="7i94nf757xbpg7tHm6fr-2" value="404 Error: Requested data was not found." style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="485" y="430" as="sourcePoint" />
+            <mxPoint x="265" y="430" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="R3rOweM7LjDT_0mUmRxx" name="手持ち">
+    <mxGraphModel dx="846" dy="659" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="3kGqi9_jpRnG1bCbPYAQ-1" value="&lt;div&gt;手持ち&lt;/div&gt;" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;" parent="1" vertex="1">
+          <mxGeometry width="960" height="520" as="geometry" />
+        </mxCell>
+        <mxCell id="3kGqi9_jpRnG1bCbPYAQ-2" value="プレイヤー" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="1" vertex="1">
+          <mxGeometry x="50" y="40" width="100" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="3kGqi9_jpRnG1bCbPYAQ-3" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="3kGqi9_jpRnG1bCbPYAQ-2" vertex="1">
+          <mxGeometry x="45" y="70" width="10" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="3kGqi9_jpRnG1bCbPYAQ-4" value="フロントエンド" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="1" vertex="1">
+          <mxGeometry x="210" y="40" width="100" height="470" as="geometry" />
+        </mxCell>
+        <mxCell id="3kGqi9_jpRnG1bCbPYAQ-6" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="3kGqi9_jpRnG1bCbPYAQ-4" vertex="1">
+          <mxGeometry x="45" y="330" width="10" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="3kGqi9_jpRnG1bCbPYAQ-7" value="手持ちポケモンの参照" style="html=1;verticalAlign=bottom;startArrow=oval;endArrow=block;startSize=8;curved=0;rounded=0;entryX=0;entryY=0;entryDx=0;entryDy=5;" parent="1" source="3kGqi9_jpRnG1bCbPYAQ-3" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="160" y="145" as="sourcePoint" />
+            <mxPoint x="255" y="115" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="3kGqi9_jpRnG1bCbPYAQ-8" value="Next.js" style="text;align=center;fontStyle=1;verticalAlign=middle;spacingLeft=3;spacingRight=3;strokeColor=none;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;" parent="1" vertex="1">
+          <mxGeometry x="210" y="14" width="100" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="3kGqi9_jpRnG1bCbPYAQ-13" value="バックエンド" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="1" vertex="1">
+          <mxGeometry x="600" y="40" width="100" height="410" as="geometry" />
+        </mxCell>
+        <mxCell id="3kGqi9_jpRnG1bCbPYAQ-14" value="C#(.NET)" style="text;align=center;fontStyle=1;verticalAlign=middle;spacingLeft=3;spacingRight=3;strokeColor=none;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;" parent="1" vertex="1">
+          <mxGeometry x="600" y="14" width="100" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="3kGqi9_jpRnG1bCbPYAQ-15" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="1" vertex="1">
+          <mxGeometry x="645" y="250" width="10" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="3kGqi9_jpRnG1bCbPYAQ-16" value="データベース" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="1" vertex="1">
+          <mxGeometry x="850" y="30" width="100" height="410" as="geometry" />
+        </mxCell>
+        <mxCell id="3kGqi9_jpRnG1bCbPYAQ-20" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="3kGqi9_jpRnG1bCbPYAQ-16" vertex="1">
+          <mxGeometry x="45" y="220" width="10" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="3kGqi9_jpRnG1bCbPYAQ-17" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;Azure SQL Database&lt;/font&gt;" style="text;align=center;fontStyle=1;verticalAlign=middle;spacingLeft=3;spacingRight=3;strokeColor=none;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;" parent="1" vertex="1">
+          <mxGeometry x="830" y="8.5" width="100" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="3kGqi9_jpRnG1bCbPYAQ-22" value="alt" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;" parent="1" vertex="1">
+          <mxGeometry x="630" y="210" width="290" height="240" as="geometry" />
+        </mxCell>
+        <mxCell id="3kGqi9_jpRnG1bCbPYAQ-23" value="&lt;div&gt;&lt;font style=&quot;color: rgb(255, 0, 0);&quot;&gt;[PlayerPartyテーブルに存在]&lt;/font&gt;&lt;/div&gt;" style="text;align=center;fontStyle=1;verticalAlign=middle;spacingLeft=3;spacingRight=3;strokeColor=none;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;" parent="1" vertex="1">
+          <mxGeometry x="730" y="324" width="80" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="3kGqi9_jpRnG1bCbPYAQ-24" value="データ返却: PlayerParty" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;" parent="1" source="3kGqi9_jpRnG1bCbPYAQ-20" edge="1">
+          <mxGeometry x="0.05" relative="1" as="geometry">
+            <mxPoint x="805" y="370" as="sourcePoint" />
+            <mxPoint x="655.0000000000001" y="370" as="targetPoint" />
+            <mxPoint x="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="3kGqi9_jpRnG1bCbPYAQ-25" value="&lt;div&gt;&lt;font style=&quot;color: rgb(255, 0, 0);&quot;&gt;[PlayerPartyテーブルに存在しない]&lt;/font&gt;&lt;/div&gt;" style="text;align=center;fontStyle=1;verticalAlign=middle;spacingLeft=3;spacingRight=3;strokeColor=none;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;" parent="1" vertex="1">
+          <mxGeometry x="720" y="382" width="80" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="3kGqi9_jpRnG1bCbPYAQ-26" value="データ返却: []" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;" parent="1" source="3kGqi9_jpRnG1bCbPYAQ-20" edge="1">
+          <mxGeometry x="-0.0035" y="-10" relative="1" as="geometry">
+            <mxPoint x="805" y="430" as="sourcePoint" />
+            <mxPoint x="655.0000000000001" y="430" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="3kGqi9_jpRnG1bCbPYAQ-27" value="&lt;span style=&quot;font-size: 10px; background-color: light-dark(#ffffff, var(--ge-dark-color, #121212)); color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;手持ちポケモンデータ要求&lt;/span&gt;" style="html=1;verticalAlign=bottom;startArrow=oval;endArrow=block;startSize=8;curved=0;rounded=0;exitX=1;exitY=0;exitDx=0;exitDy=5;exitPerimeter=0;" parent="1" source="3kGqi9_jpRnG1bCbPYAQ-30" edge="1">
+          <mxGeometry x="-0.1613" y="15" relative="1" as="geometry">
+            <mxPoint x="495" y="259.13" as="sourcePoint" />
+            <mxPoint x="650" y="255" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="3kGqi9_jpRnG1bCbPYAQ-28" value="ゲートウェイ" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="1" vertex="1">
+          <mxGeometry x="440" y="40" width="100" height="470" as="geometry" />
+        </mxCell>
+        <mxCell id="3kGqi9_jpRnG1bCbPYAQ-29" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="3kGqi9_jpRnG1bCbPYAQ-28" vertex="1">
+          <mxGeometry x="-185" y="210" width="10" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="3kGqi9_jpRnG1bCbPYAQ-30" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="3kGqi9_jpRnG1bCbPYAQ-28" vertex="1">
+          <mxGeometry x="45" y="210" width="10" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="3kGqi9_jpRnG1bCbPYAQ-31" value="&lt;font style=&quot;font-size: 9px;&quot;&gt;GET / JWT送信, 手持ちポケモンデータ要求&lt;/font&gt;" style="html=1;verticalAlign=bottom;startArrow=oval;endArrow=block;startSize=8;curved=0;rounded=0;entryX=0;entryY=0;entryDx=0;entryDy=5;" parent="3kGqi9_jpRnG1bCbPYAQ-28" source="3kGqi9_jpRnG1bCbPYAQ-29" target="3kGqi9_jpRnG1bCbPYAQ-30" edge="1">
+          <mxGeometry x="-0.0455" y="15" relative="1" as="geometry">
+            <mxPoint x="-25" y="204" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="-30" y="215" />
+            </Array>
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="3kGqi9_jpRnG1bCbPYAQ-32" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="3kGqi9_jpRnG1bCbPYAQ-28" vertex="1">
+          <mxGeometry x="45" y="320" width="10" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="3kGqi9_jpRnG1bCbPYAQ-33" value="&lt;span style=&quot;color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(251, 251, 251); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;&quot;&gt;&lt;b&gt;Azure API Management&lt;/b&gt;&lt;/span&gt;" style="text;whiteSpace=wrap;html=1;align=center;" parent="1" vertex="1">
+          <mxGeometry x="440" y="3" width="100" height="37" as="geometry" />
+        </mxCell>
+        <mxCell id="3kGqi9_jpRnG1bCbPYAQ-34" value="" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;" parent="1" edge="1">
+          <mxGeometry y="-10" relative="1" as="geometry">
+            <mxPoint x="645" y="370" as="sourcePoint" />
+            <mxPoint x="495" y="370" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="3kGqi9_jpRnG1bCbPYAQ-35" value="200 OK: PlayerParty(JSON)" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;" parent="1" edge="1">
+          <mxGeometry x="0.2476" y="-10" relative="1" as="geometry">
+            <mxPoint x="500" y="370" as="sourcePoint" />
+            <mxPoint x="259.54761904761904" y="370" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="C-FCgjphcISLRLEfDeJJ-2" value="404 Error: Requested data was not found." style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="485" y="430" as="sourcePoint" />
+            <mxPoint x="265" y="430" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="C-FCgjphcISLRLEfDeJJ-3" value="" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;" parent="1" edge="1">
+          <mxGeometry x="0.0032" relative="1" as="geometry">
+            <mxPoint x="645" y="430" as="sourcePoint" />
+            <mxPoint x="495" y="430" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="LX0E2Yjd2O5QznoaP2b7" name="CPU対戦">
+    <mxGraphModel dx="846" dy="659" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="HobAGvpmi9CNQZOZ9lQC-1" value="リソース" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;" parent="1" vertex="1">
+          <mxGeometry width="760" height="520" as="geometry" />
+        </mxCell>
+        <mxCell id="HobAGvpmi9CNQZOZ9lQC-2" value="プレイヤー" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="1" vertex="1">
+          <mxGeometry x="50" y="40" width="100" height="430" as="geometry" />
+        </mxCell>
+        <mxCell id="HobAGvpmi9CNQZOZ9lQC-3" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="HobAGvpmi9CNQZOZ9lQC-2" vertex="1">
+          <mxGeometry x="45" y="70" width="10" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="HobAGvpmi9CNQZOZ9lQC-4" value="フロントエンド" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="1" vertex="1">
+          <mxGeometry x="210" y="40" width="100" height="430" as="geometry" />
+        </mxCell>
+        <mxCell id="HobAGvpmi9CNQZOZ9lQC-38" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="HobAGvpmi9CNQZOZ9lQC-4" vertex="1">
+          <mxGeometry x="45" y="130" width="10" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="HobAGvpmi9CNQZOZ9lQC-5" value="ポケモン対戦の開始" style="html=1;verticalAlign=bottom;startArrow=oval;endArrow=block;startSize=8;curved=0;rounded=0;entryX=0;entryY=0;entryDx=0;entryDy=5;" parent="1" source="HobAGvpmi9CNQZOZ9lQC-3" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="160" y="145" as="sourcePoint" />
+            <mxPoint x="255" y="115" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HobAGvpmi9CNQZOZ9lQC-6" value="Next.js" style="text;align=center;fontStyle=1;verticalAlign=middle;spacingLeft=3;spacingRight=3;strokeColor=none;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;" parent="1" vertex="1">
+          <mxGeometry x="210" y="14" width="100" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="HobAGvpmi9CNQZOZ9lQC-7" value="バックエンド" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="1" vertex="1">
+          <mxGeometry x="600" y="40" width="100" height="430" as="geometry" />
+        </mxCell>
+        <mxCell id="HobAGvpmi9CNQZOZ9lQC-35" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;curved=0;" parent="HobAGvpmi9CNQZOZ9lQC-7" source="HobAGvpmi9CNQZOZ9lQC-9" target="HobAGvpmi9CNQZOZ9lQC-30" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="75" y="85" />
+              <mxPoint x="75" y="145" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HobAGvpmi9CNQZOZ9lQC-36" value="&lt;div&gt;createRoom()&lt;/div&gt;startBattle()" style="edgeLabel;html=1;align=left;verticalAlign=middle;resizable=0;points=[];" parent="HobAGvpmi9CNQZOZ9lQC-35" vertex="1" connectable="0">
+          <mxGeometry x="0.0337" relative="1" as="geometry">
+            <mxPoint x="5" y="3" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HobAGvpmi9CNQZOZ9lQC-9" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="HobAGvpmi9CNQZOZ9lQC-7" vertex="1">
+          <mxGeometry x="45" y="70" width="10" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="HobAGvpmi9CNQZOZ9lQC-18" value="&lt;span style=&quot;font-size: 10px;&quot;&gt;ポケモンバトル開始要求&lt;/span&gt;" style="html=1;verticalAlign=bottom;startArrow=oval;endArrow=block;startSize=8;curved=0;rounded=0;exitX=1;exitY=0;exitDx=0;exitDy=5;exitPerimeter=0;" parent="HobAGvpmi9CNQZOZ9lQC-7" source="HobAGvpmi9CNQZOZ9lQC-34" edge="1">
+          <mxGeometry x="-0.0323" y="5" relative="1" as="geometry">
+            <mxPoint x="-80" y="75" as="sourcePoint" />
+            <mxPoint x="50" y="75" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HobAGvpmi9CNQZOZ9lQC-20" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="HobAGvpmi9CNQZOZ9lQC-7" vertex="1">
+          <mxGeometry x="-345" y="70" width="10" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="HobAGvpmi9CNQZOZ9lQC-22" value="&lt;font style=&quot;font-size: 9px;&quot;&gt;Post /api/pokemonBattle&amp;nbsp;&lt;/font&gt;&lt;div&gt;&lt;span style=&quot;font-size: x-small; background-color: light-dark(#ffffff, var(--ge-dark-color, #121212)); color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;+ JWT送信&lt;/span&gt;&lt;/div&gt;" style="html=1;verticalAlign=bottom;startArrow=oval;endArrow=block;startSize=8;curved=0;rounded=0;entryX=0;entryY=0;entryDx=0;entryDy=5;" parent="HobAGvpmi9CNQZOZ9lQC-7" source="HobAGvpmi9CNQZOZ9lQC-20" edge="1">
+          <mxGeometry x="-0.0455" relative="1" as="geometry">
+            <mxPoint x="-185" y="64" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="-190" y="75" />
+            </Array>
+            <mxPoint as="offset" />
+            <mxPoint x="-115" y="75.00000000000011" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HobAGvpmi9CNQZOZ9lQC-30" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="HobAGvpmi9CNQZOZ9lQC-7" vertex="1">
+          <mxGeometry x="45" y="130" width="10" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="HobAGvpmi9CNQZOZ9lQC-44" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="HobAGvpmi9CNQZOZ9lQC-7" vertex="1">
+          <mxGeometry x="-345" y="250" width="10" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="HobAGvpmi9CNQZOZ9lQC-46" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="HobAGvpmi9CNQZOZ9lQC-7" vertex="1">
+          <mxGeometry x="45" y="250" width="10" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="HobAGvpmi9CNQZOZ9lQC-45" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="HobAGvpmi9CNQZOZ9lQC-7" vertex="1">
+          <mxGeometry x="-115" y="250" width="10" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="pVl3tFi6RNevZRPHliyC-1" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="HobAGvpmi9CNQZOZ9lQC-7" vertex="1">
+          <mxGeometry x="-505" y="250" width="10" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="pVl3tFi6RNevZRPHliyC-2" value="&lt;div&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;BattleRoom.roomIdで接続&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;(初回のみ)&lt;/font&gt;&lt;/div&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;Action: PlayerAction&lt;/font&gt;" style="html=1;verticalAlign=bottom;startArrow=oval;endArrow=block;startSize=8;curved=0;rounded=0;entryX=0;entryY=0;entryDx=0;entryDy=5;" parent="HobAGvpmi9CNQZOZ9lQC-7" source="pVl3tFi6RNevZRPHliyC-1" edge="1">
+          <mxGeometry y="15" relative="1" as="geometry">
+            <mxPoint x="-440" y="285" as="sourcePoint" />
+            <mxPoint x="-345" y="255" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="pVl3tFi6RNevZRPHliyC-3" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="HobAGvpmi9CNQZOZ9lQC-7" vertex="1">
+          <mxGeometry x="-345" y="250" width="10" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="pVl3tFi6RNevZRPHliyC-4" value="" style="html=1;verticalAlign=bottom;startArrow=oval;startFill=1;endArrow=block;startSize=8;curved=0;rounded=0;exitX=1;exitY=0;exitDx=0;exitDy=5;exitPerimeter=0;entryX=0;entryY=0;entryDx=0;entryDy=5;entryPerimeter=0;" parent="HobAGvpmi9CNQZOZ9lQC-7" source="pVl3tFi6RNevZRPHliyC-3" target="HobAGvpmi9CNQZOZ9lQC-45" edge="1">
+          <mxGeometry width="60" relative="1" as="geometry">
+            <mxPoint x="-260" y="250" as="sourcePoint" />
+            <mxPoint x="-200" y="250" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="pVl3tFi6RNevZRPHliyC-5" value="&lt;font style=&quot;font-size: 9px;&quot;&gt;WebSocket&lt;/font&gt;&lt;div&gt;&lt;font size=&quot;1&quot;&gt;JWT送信(初回のみ)&lt;br&gt;&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 9px;&quot;&gt;PlayerAction(&quot;move&quot;, moveId)&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 9px;&quot;&gt;PlayerAction(&quot;switch&quot;, index)&amp;nbsp;&lt;/font&gt;&lt;/div&gt;&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="pVl3tFi6RNevZRPHliyC-4" vertex="1" connectable="0">
+          <mxGeometry x="-0.0665" y="3" relative="1" as="geometry">
+            <mxPoint x="2" y="-32" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="YLKlcuhXVOFQ9w4u8aY9-1" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="HobAGvpmi9CNQZOZ9lQC-7" vertex="1">
+          <mxGeometry x="45" y="280" width="10" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="YLKlcuhXVOFQ9w4u8aY9-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;curved=0;" parent="HobAGvpmi9CNQZOZ9lQC-7" source="HobAGvpmi9CNQZOZ9lQC-46" target="YLKlcuhXVOFQ9w4u8aY9-1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="70" y="260" />
+              <mxPoint x="70" y="290" />
+            </Array>
+            <mxPoint x="80" y="245" as="sourcePoint" />
+            <mxPoint x="80" y="305" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="YLKlcuhXVOFQ9w4u8aY9-3" value="chooseMove()" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="YLKlcuhXVOFQ9w4u8aY9-2" vertex="1" connectable="0">
+          <mxGeometry x="0.0337" relative="1" as="geometry">
+            <mxPoint x="20" y="-1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HobAGvpmi9CNQZOZ9lQC-8" value="C#(.NET)" style="text;align=center;fontStyle=1;verticalAlign=middle;spacingLeft=3;spacingRight=3;strokeColor=none;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;" parent="1" vertex="1">
+          <mxGeometry x="600" y="14" width="100" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="HobAGvpmi9CNQZOZ9lQC-19" value="ゲートウェイ" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="1" vertex="1">
+          <mxGeometry x="440" y="40" width="100" height="430" as="geometry" />
+        </mxCell>
+        <mxCell id="HobAGvpmi9CNQZOZ9lQC-34" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="HobAGvpmi9CNQZOZ9lQC-19" vertex="1">
+          <mxGeometry x="45" y="70" width="10" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="HobAGvpmi9CNQZOZ9lQC-25" value="&lt;span style=&quot;color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(251, 251, 251); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;&quot;&gt;&lt;b&gt;Azure API Management&lt;/b&gt;&lt;/span&gt;" style="text;whiteSpace=wrap;html=1;align=center;" parent="1" vertex="1">
+          <mxGeometry x="440" y="3" width="100" height="37" as="geometry" />
+        </mxCell>
+        <mxCell id="HobAGvpmi9CNQZOZ9lQC-42" value="200 OK: BattleRoom(JSON)" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;" parent="1" edge="1">
+          <mxGeometry x="0.4464" y="-10" relative="1" as="geometry">
+            <mxPoint x="645" y="180" as="sourcePoint" />
+            <mxPoint x="265" y="180" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HobAGvpmi9CNQZOZ9lQC-50" value="&lt;font style=&quot;color: rgb(255, 0, 0);&quot;&gt;loop&lt;/font&gt;" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;" parent="1" vertex="1">
+          <mxGeometry x="40" y="230" width="690" height="260" as="geometry" />
+        </mxCell>
+        <mxCell id="pVl3tFi6RNevZRPHliyC-6" value="" style="html=1;verticalAlign=bottom;startArrow=oval;startFill=1;endArrow=block;startSize=8;curved=0;rounded=0;entryX=0;entryY=0;entryDx=0;entryDy=5;entryPerimeter=0;" parent="1" source="HobAGvpmi9CNQZOZ9lQC-19" target="HobAGvpmi9CNQZOZ9lQC-46" edge="1">
+          <mxGeometry width="60" relative="1" as="geometry">
+            <mxPoint x="275" y="305" as="sourcePoint" />
+            <mxPoint x="495" y="305" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="pVl3tFi6RNevZRPHliyC-7" value="&lt;font size=&quot;1&quot;&gt;対戦処理要求&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="pVl3tFi6RNevZRPHliyC-6" vertex="1" connectable="0">
+          <mxGeometry x="-0.0665" y="3" relative="1" as="geometry">
+            <mxPoint x="8" y="-12" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="pVl3tFi6RNevZRPHliyC-8" value="OK: TurnResult" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;" parent="1" edge="1">
+          <mxGeometry x="0.4737" relative="1" as="geometry">
+            <mxPoint x="650" y="330" as="sourcePoint" />
+            <mxPoint x="270" y="330" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="pVl3tFi6RNevZRPHliyC-9" value="&lt;font style=&quot;color: rgb(255, 0, 0);&quot;&gt;Break&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;color: rgb(255, 0, 0);&quot;&gt;(win | fail)&lt;/font&gt;&lt;/div&gt;" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;" parent="1" vertex="1">
+          <mxGeometry x="70" y="390" width="600" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="pVl3tFi6RNevZRPHliyC-11" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="1" vertex="1">
+          <mxGeometry x="642.5" y="400" width="15" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="pVl3tFi6RNevZRPHliyC-12" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="1" vertex="1">
+          <mxGeometry x="255" y="400" width="10" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="pVl3tFi6RNevZRPHliyC-13" value="OK: BattleResult" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;" parent="1" edge="1">
+          <mxGeometry x="0.4474" relative="1" as="geometry">
+            <mxPoint x="645" y="434.58" as="sourcePoint" />
+            <mxPoint x="265" y="434.58" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="YLKlcuhXVOFQ9w4u8aY9-4" value="&lt;font size=&quot;1&quot;&gt;対戦処理&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="1" vertex="1" connectable="0">
+          <mxGeometry x="580.0018518518517" y="320" as="geometry">
+            <mxPoint x="-4" y="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

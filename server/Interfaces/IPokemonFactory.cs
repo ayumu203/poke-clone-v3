@@ -1,4 +1,4 @@
-using server.Models.Basics;
+using server.Models.Core;
 
 namespace server.Interfaces
 {

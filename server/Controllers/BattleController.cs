@@ -1,15 +1,16 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using server.Models.Battles;
+using server.Models.Battles.Core;
+using server.Models.Battles.Services;
+using server.Models.Battles.Players;
 using server.Models.DTOs;
 using System.Security.Claims;
-using server.Models.Basics;
+using server.Models.Core;
 
 namespace server.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize]
     public class BattleController : ControllerBase
     {
         private readonly BattleRoomManager _battleManager;

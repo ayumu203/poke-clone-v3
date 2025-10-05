@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using server.Data;
-using server.Models.Basics;
+using server.Models.Core;
 using server.Interfaces;
 
 namespace server.Factories

@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.SignalR;
-using server.Models.Battles;
+using server.Models.Battles.Core;
+using server.Models.Battles.Services;
+using server.Models.Battles.Players;
 
 namespace server.Hubs
 {
