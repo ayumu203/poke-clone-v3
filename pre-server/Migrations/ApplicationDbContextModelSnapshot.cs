@@ -21,7 +21,7 @@ namespace server.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("server.Models.Move", b =>
+            modelBuilder.Entity("server.Models.Basics.Move", b =>
                 {
                     b.Property<int>("MoveId")
                         .HasColumnType("int");
@@ -102,7 +102,7 @@ namespace server.Migrations
                     b.ToTable("Moves");
                 });
 
-            modelBuilder.Entity("server.Models.Player", b =>
+            modelBuilder.Entity("server.Models.Basics.Player", b =>
                 {
                     b.Property<string>("PlayerId")
                         .HasMaxLength(255)
@@ -113,7 +113,7 @@ namespace server.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<string>("name")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(63)
                         .HasColumnType("nvarchar(63)");
@@ -123,7 +123,7 @@ namespace server.Migrations
                     b.ToTable("Players");
                 });
 
-            modelBuilder.Entity("server.Models.PlayerParty", b =>
+            modelBuilder.Entity("server.Models.Basics.PlayerParty", b =>
                 {
                     b.Property<string>("PlayerId")
                         .HasColumnType("nvarchar(255)");
@@ -141,7 +141,7 @@ namespace server.Migrations
                     b.ToTable("PlayerParties");
                 });
 
-            modelBuilder.Entity("server.Models.Pokemon", b =>
+            modelBuilder.Entity("server.Models.Basics.Pokemon", b =>
                 {
                     b.Property<int>("PokemonId")
                         .ValueGeneratedOnAdd()
@@ -191,7 +191,7 @@ namespace server.Migrations
                     b.ToTable("Pokemons");
                 });
 
-            modelBuilder.Entity("server.Models.PokemonMove", b =>
+            modelBuilder.Entity("server.Models.Basics.PokemonMove", b =>
                 {
                     b.Property<int>("PokemonSpeciesId")
                         .HasColumnType("int");
@@ -206,7 +206,7 @@ namespace server.Migrations
                     b.ToTable("PokemonMoves");
                 });
 
-            modelBuilder.Entity("server.Models.PokemonSpecies", b =>
+            modelBuilder.Entity("server.Models.Basics.PokemonSpecies", b =>
                 {
                     b.Property<int>("PokemonSpeciesId")
                         .HasColumnType("int");
@@ -261,22 +261,22 @@ namespace server.Migrations
                     b.ToTable("PokemonSpecies");
                 });
 
-            modelBuilder.Entity("server.Models.Move", b =>
+            modelBuilder.Entity("server.Models.Basics.Move", b =>
                 {
-                    b.HasOne("server.Models.PokemonSpecies", null)
+                    b.HasOne("server.Models.Basics.PokemonSpecies", null)
                         .WithMany("Moves")
                         .HasForeignKey("PokemonSpeciesId");
                 });
 
-            modelBuilder.Entity("server.Models.PlayerParty", b =>
+            modelBuilder.Entity("server.Models.Basics.PlayerParty", b =>
                 {
-                    b.HasOne("server.Models.Player", "Player")
+                    b.HasOne("server.Models.Basics.Player", "Player")
                         .WithMany("PlayerParties")
                         .HasForeignKey("PlayerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("server.Models.Pokemon", "Pokemon")
+                    b.HasOne("server.Models.Basics.Pokemon", "Pokemon")
                         .WithMany()
                         .HasForeignKey("PokemonId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -287,35 +287,35 @@ namespace server.Migrations
                     b.Navigation("Pokemon");
                 });
 
-            modelBuilder.Entity("server.Models.Pokemon", b =>
+            modelBuilder.Entity("server.Models.Basics.Pokemon", b =>
                 {
-                    b.HasOne("server.Models.Move", "Move1")
+                    b.HasOne("server.Models.Basics.Move", "Move1")
                         .WithMany()
                         .HasForeignKey("Move1Id")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("server.Models.Move", "Move2")
+                    b.HasOne("server.Models.Basics.Move", "Move2")
                         .WithMany()
                         .HasForeignKey("Move2Id")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("server.Models.Move", "Move3")
+                    b.HasOne("server.Models.Basics.Move", "Move3")
                         .WithMany()
                         .HasForeignKey("Move3Id")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("server.Models.Move", "Move4")
+                    b.HasOne("server.Models.Basics.Move", "Move4")
                         .WithMany()
                         .HasForeignKey("Move4Id")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("server.Models.Player", "Player")
+                    b.HasOne("server.Models.Basics.Player", "Player")
                         .WithMany("Pokemons")
                         .HasForeignKey("PlayerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("server.Models.PokemonSpecies", "PokemonSpecies")
+                    b.HasOne("server.Models.Basics.PokemonSpecies", "PokemonSpecies")
                         .WithMany()
                         .HasForeignKey("PokemonSpeciesId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -334,15 +334,15 @@ namespace server.Migrations
                     b.Navigation("PokemonSpecies");
                 });
 
-            modelBuilder.Entity("server.Models.PokemonMove", b =>
+            modelBuilder.Entity("server.Models.Basics.PokemonMove", b =>
                 {
-                    b.HasOne("server.Models.Move", "Move")
+                    b.HasOne("server.Models.Basics.Move", "Move")
                         .WithMany()
                         .HasForeignKey("MoveId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("server.Models.PokemonSpecies", "PokemonSpecies")
+                    b.HasOne("server.Models.Basics.PokemonSpecies", "PokemonSpecies")
                         .WithMany()
                         .HasForeignKey("PokemonSpeciesId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -353,14 +353,14 @@ namespace server.Migrations
                     b.Navigation("PokemonSpecies");
                 });
 
-            modelBuilder.Entity("server.Models.Player", b =>
+            modelBuilder.Entity("server.Models.Basics.Player", b =>
                 {
                     b.Navigation("PlayerParties");
 
                     b.Navigation("Pokemons");
                 });
 
-            modelBuilder.Entity("server.Models.PokemonSpecies", b =>
+            modelBuilder.Entity("server.Models.Basics.PokemonSpecies", b =>
                 {
                     b.Navigation("Moves");
                 });
