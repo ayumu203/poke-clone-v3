@@ -261,18 +261,18 @@ namespace server.Services
                     {
                         "damage" => Category.Damage,
                         "ailment" => Category.Ailment,
-                        "net-good-stats" => Category.Damage, // Supportが存在しないためDamageにマッピング
+                        "net-good-stats" => Category.NetGoodStats,
                         "heal" => Category.Heal,
-                        "damage+ailment" => Category.Damage,
-                        "swagger" => Category.Damage, // Supportが存在しないためDamageにマッピング
-                        "damage+lower" => Category.Damage,
-                        "damage+raise" => Category.Damage,
-                        "damage+heal" => Category.Damage,
-                        "ohko" => Category.Damage,
-                        "whole-field-effect" => Category.Damage, // Fieldが存在しないためDamageにマッピング
-                        "field-effect" => Category.Damage, // Fieldが存在しないためDamageにマッピング
-                        "force-switch" => Category.Damage, // ForceSwitchが存在しないためDamageにマッピング
-                        "unique" => Category.Damage, // Uniqueが存在しないためDamageにマッピング
+                        "damage+ailment" => Category.DamageAilment,
+                        "swagger" => Category.Swagger,
+                        "damage+lower" => Category.DamageLower,
+                        "damage+raise" => Category.DamageRaise,
+                        "damage+heal" => Category.DamageHeal,
+                        "ohko" => Category.OHKo,
+                        "whole-field-effect" => Category.WholeFieldEffect,
+                        "field-effect" => Category.FieldEffect,
+                        "force-switch" => Category.ForceSwitch,
+                        "unique" => Category.Unique,
                         _ => Category.Damage
                     };
                 }
@@ -290,10 +290,21 @@ namespace server.Services
                 "freeze" => Ailment.Freeze,
                 "burn" => Ailment.Burn,
                 "poison" => Ailment.Poison,
-                "confusion" => Ailment.None, // Confusionが存在しないためNoneにマッピング
-                "infatuation" => Ailment.None, // Infatuationが存在しないためNoneにマッピング
-                "trap" => Ailment.None, // Trapが存在しないためNoneにマッピング
-                "nightmare" => Ailment.None, // Nightmareが存在しないためNoneにマッピング
+                "confusion" => Ailment.Confusion,
+                "infatuation" => Ailment.Infatuation,
+                "trap" => Ailment.Trap,
+                "nightmare" => Ailment.Nightmare,
+                "torment" => Ailment.Torment,
+                "disable" => Ailment.Disable,
+                "yawn" => Ailment.Yawn,
+                "heal-block" => Ailment.HealBlock,
+                "no-type-immunity" => Ailment.NoTypeImmunity,
+                "leech-seed" => Ailment.LeechSeed,
+                "embargo" => Ailment.Embargo,
+                "perish-song" => Ailment.PerishSong,
+                "ingrain" => Ailment.Ingrain,
+                "silence" => Ailment.Silence,
+                "tar-shot" => Ailment.TarShot,
                 _ => Ailment.None
             };
         }
