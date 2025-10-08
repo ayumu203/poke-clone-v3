@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "4dfgATW6/+o=",
+  "dgSpecHash": "DBvKOP615Hw=",
   "success": true,
   "projectFilePath": "/mnt/c/Users/cs23017/Shizuoka University/ドキュメント/dev/03_poke_clone_v3/server/server.csproj",
   "expectedPackageFiles": [
@@ -73,6 +73,7 @@
     "/home/cs23017/.nuget/packages/system.io.pipelines/9.0.9/system.io.pipelines.9.0.9.nupkg.sha512",
     "/home/cs23017/.nuget/packages/system.memory/4.5.4/system.memory.4.5.4.nupkg.sha512",
     "/home/cs23017/.nuget/packages/system.memory.data/1.0.2/system.memory.data.1.0.2.nupkg.sha512",
+    "/home/cs23017/.nuget/packages/system.net.http.json/9.0.9/system.net.http.json.9.0.9.nupkg.sha512",
     "/home/cs23017/.nuget/packages/system.numerics.vectors/4.5.0/system.numerics.vectors.4.5.0.nupkg.sha512",
     "/home/cs23017/.nuget/packages/system.reflection.metadata/7.0.0/system.reflection.metadata.7.0.0.nupkg.sha512",
     "/home/cs23017/.nuget/packages/system.runtime/4.3.0/system.runtime.4.3.0.nupkg.sha512",

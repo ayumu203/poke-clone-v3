@@ -27,8 +27,7 @@ namespace server.Migrations
                 name: "PokemonSpecies",
                 columns: table => new
                 {
-                    PokemonSpeciesId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PokemonSpeciesId = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FrontImage = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     BackImage = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -51,8 +50,7 @@ namespace server.Migrations
                 name: "Moves",
                 columns: table => new
                 {
-                    MoveId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    MoveId = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Type = table.Column<int>(type: "int", nullable: false),
                     Category = table.Column<int>(type: "int", nullable: false),

@@ -50,10 +50,7 @@ namespace server.Migrations
             modelBuilder.Entity("server.Models.Core.Move", b =>
                 {
                     b.Property<int>("MoveId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MoveId"));
 
                     b.Property<int>("Accuracy")
                         .HasColumnType("int");
@@ -166,10 +163,7 @@ namespace server.Migrations
             modelBuilder.Entity("server.Models.Core.PokemonSpecies", b =>
                 {
                     b.Property<int>("PokemonSpeciesId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PokemonSpeciesId"));
 
                     b.Property<string>("BackImage")
                         .IsRequired()

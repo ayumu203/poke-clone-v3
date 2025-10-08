@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using server.Models.Enums;
 
 namespace server.Models.Core;
@@ -9,6 +10,7 @@ namespace server.Models.Core;
 public class PokemonSpecies
 {
     [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.None)]
     public int PokemonSpeciesId { get; set; }
     
     public string Name { get; set; } = string.Empty;
