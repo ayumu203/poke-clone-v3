@@ -168,3 +168,4 @@
 /mnt/c/Users/cs23017/Shizuoka University/ドキュメント/dev/03_poke_clone_v3/server/bin/Debug/net8.0/runtimes/win/lib/net6.0/System.Security.Cryptography.ProtectedData.dll
 /mnt/c/Users/cs23017/Shizuoka University/ドキュメント/dev/03_poke_clone_v3/server/bin/Debug/net8.0/runtimes/browser/lib/net8.0/System.Text.Encodings.Web.dll
 /mnt/c/Users/cs23017/Shizuoka University/ドキュメント/dev/03_poke_clone_v3/server/bin/Debug/net8.0/runtimes/win/lib/net6.0/System.Windows.Extensions.dll
+/mnt/c/Users/cs23017/Shizuoka University/ドキュメント/dev/03_poke_clone_v3/server/bin/Debug/net8.0/System.Net.Http.Json.dll
