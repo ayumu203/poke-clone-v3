@@ -106,11 +106,11 @@ public class PartyController : ControllerBase
             // ポケモン種族が存在するか確認
             var species = await _context.PokemonSpecies
                 .AsNoTracking()
-                .FirstOrDefaultAsync(s => s.PokemonSpeciesId == dto.PokemonSpeciesId);
+                .FirstOrDefaultAsync(s => s.PokemonSpeciesId == dto.SpeciesId);
 
             if (species == null)
             {
-                return NotFound(new { message = $"Pokemon species with id {dto.PokemonSpeciesId} not found" });
+                return NotFound(new { message = $"Pokemon species with id {dto.SpeciesId} not found" });
             }
 
             // ステータス計算
@@ -124,7 +124,7 @@ public class PartyController : ControllerBase
             var pokemon = new Pokemon
             {
                 PlayerId = playerId,
-                PokemonSpeciesId = dto.PokemonSpeciesId,
+                PokemonSpeciesId = dto.SpeciesId,
                 Level = dto.Level,
                 Exp = 0,
                 CurrentHP = maxHp,
@@ -191,9 +191,6 @@ public class PartyController : ControllerBase
             {
                 return NotFound(new { message = $"Pokemon with id {dto.PokemonId} not found" });
             }
-
-            // 更新可能なフィールドを更新
-            // Nicknameはポケモンモデルに存在しないため削除
 
             if (dto.CurrentHP.HasValue)
             {
@@ -299,7 +296,6 @@ public class PartyController : ControllerBase
         return new PokemonDto
         {
             PokemonId = pokemon.PokemonId,
-            Nickname = pokemon.Species.Name,
             Species = new PokemonSpeciesDto
             {
                 PokemonSpeciesId = pokemon.Species.PokemonSpeciesId,

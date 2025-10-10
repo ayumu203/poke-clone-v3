@@ -8,7 +8,6 @@ namespace server.Models.DTOs;
 public class UpdatePokemonDto
 {
     public int PokemonId { get; set; }
-    public string? Nickname { get; set; }
     public int? CurrentHP { get; set; }
     public int? Experience { get; set; }
     public Ailment? Ailment { get; set; }

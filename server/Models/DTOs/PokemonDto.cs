@@ -8,7 +8,6 @@ namespace server.Models.DTOs;
 public class PokemonDto
 {
     public int PokemonId { get; set; }
-    public string Nickname { get; set; } = string.Empty;
     
     // 種族情報
     public PokemonSpeciesDto Species { get; set; } = null!;

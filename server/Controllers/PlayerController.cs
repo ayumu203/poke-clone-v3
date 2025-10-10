@@ -72,52 +72,56 @@ public class PlayersController : ControllerBase
     /// <param name="dto">プレイヤー情報</param>
     /// <returns>作成されたプレイヤー情報</returns>
     [HttpPost]
-    public async Task<ActionResult<PlayerDto>> CreatePlayer([FromBody] PlayerDto dto)
+public async Task<ActionResult<PlayerDto>> CreatePlayer([FromBody] CreatePlayerDto dto)
+{
+    try
     {
-        try
+        // JWTから取得したPlayerIdを使用（クライアントからは受け取らない）
+        var playerId = JwtHelper.GetPlayerIdFromJwt(User);
+        
+        if (string.IsNullOrEmpty(playerId))
         {
-            // 認可チェック: JWTのPlayerIdと一致するか
-            var jwtPlayerId = JwtHelper.GetPlayerIdFromJwt(User);
-            if (jwtPlayerId != dto.PlayerId)
-            {
-                _logger.LogWarning("Player ID mismatch. JWT: {JwtPlayerId}, Request: {RequestPlayerId}", 
-                    jwtPlayerId, dto.PlayerId);
-                return Forbid();
-            }
-
-            // 既に存在するか確認
-            var existingPlayer = await _context.Players
-                .AsNoTracking()
-                .FirstOrDefaultAsync(p => p.PlayerId == dto.PlayerId);
-
-            if (existingPlayer != null)
-            {
-                return Conflict(new { message = "Player already exists" });
-            }
-
-            var player = new Player
-            {
-                PlayerId = dto.PlayerId,
-                Name = dto.Name,
-                IconUrl = dto.IconUrl
-            };
-
-            _context.Players.Add(player);
-            await _context.SaveChangesAsync();
-
-            _logger.LogInformation("Player created: {PlayerId}", player.PlayerId);
-
-            return CreatedAtAction(
-                nameof(GetPlayer),
-                new { playerId = player.PlayerId },
-                dto);
+            return Unauthorized(new { message = "Invalid token" });
         }
-        catch (Exception ex)
+
+        // 既に存在するか確認
+        var existingPlayer = await _context.Players
+            .AsNoTracking()
+            .FirstOrDefaultAsync(p => p.PlayerId == playerId);
+
+        if (existingPlayer != null)
         {
-            _logger.LogError(ex, "Error creating player");
-            return StatusCode(500, "Internal server error");
+            return Conflict(new { message = "Player already exists" });
         }
+
+        var player = new Player
+        {
+            PlayerId = playerId,  // JWTから取得（クライアントからではない）
+            Name = dto.Name,
+            IconUrl = dto.IconUrl ?? string.Empty
+        };
+
+        _context.Players.Add(player);
+        await _context.SaveChangesAsync();
+
+        _logger.LogInformation("Player created: {PlayerId}", player.PlayerId);
+
+        return CreatedAtAction(
+            nameof(GetPlayer),
+            new { playerId = player.PlayerId },
+            new PlayerDto 
+            { 
+                PlayerId = player.PlayerId,
+                Name = player.Name,
+                IconUrl = player.IconUrl
+            });
     }
+    catch (Exception ex)
+    {
+        _logger.LogError(ex, "Error creating player");
+        return StatusCode(500, "Internal server error");
+    }
+}
 
     /// <summary>
     /// プレイヤー情報を更新
@@ -128,15 +132,10 @@ public class PlayersController : ControllerBase
     [HttpPut("{playerId}")]
     public async Task<ActionResult<PlayerDto>> UpdatePlayer(
         string playerId,
-        [FromBody] PlayerDto dto)
+        [FromBody] UpdatePlayerDto dto)
     {
         try
         {
-            if (playerId != dto.PlayerId)
-            {
-                return BadRequest(new { message = "Player ID mismatch" });
-            }
-
             // 認可チェック: 自分のデータのみ更新可能
             if (!JwtHelper.IsAuthorized(User, playerId))
             {
@@ -153,13 +152,21 @@ public class PlayersController : ControllerBase
             }
 
             player.Name = dto.Name;
-            player.IconUrl = dto.IconUrl;
+            player.IconUrl = dto.IconUrl ?? string.Empty;
 
             await _context.SaveChangesAsync();
 
             _logger.LogInformation("Player updated: {PlayerId}", playerId);
 
-            return Ok(dto);
+            // レスポンスには全てのフィールドを含める
+            var responseDto = new PlayerDto
+            {
+                PlayerId = player.PlayerId,
+                Name = player.Name,
+                IconUrl = player.IconUrl
+            };
+
+            return Ok(responseDto);
         }
         catch (Exception ex)
         {
