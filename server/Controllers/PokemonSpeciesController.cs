@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using server.Data;
@@ -7,6 +8,7 @@ namespace server.Controllers;
 
 [ApiController]
 [Route("api/pokemon-species")]
+[Authorize]
 public class PokemonSpeciesController : ControllerBase
 {
     private readonly ApplicationDbContext _context;

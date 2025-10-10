@@ -30,5 +30,5 @@ public class PokemonDto
     public string Ailment { get; set; } = "None";
     
     // 揮発性状態 (混乱等)
-    public string? VolatileStatus { get; set; }
+    public VolatileStatus VolatileStatus { get; set; } = new();
 }
