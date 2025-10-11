@@ -18,15 +18,19 @@ public static class JwtHelper
     private static string? _audience;
 
     /// <summary>
-    /// JwtHelperを初期化（Program.csから呼ばれる）
-    /// 設定から DisableAuthentication と Jwt セクション (Key/Issuer/Audience) を読み取ります。
-    /// </summary>
-    /// <summary>
-    /// Initialize from configuration.
+    /// Initialize JwtHelper from configuration (called from Program.cs).
+    /// Reads configuration for DisableAuthentication and the Jwt section (Key/Issuer/Audience).
     /// If <paramref name="requireJwtSettings"/> is true, throws when Jwt:Key/Issuer/Audience are missing.
     /// </summary>
+    /// <param name="configuration">An <see cref="IConfiguration"/> instance. Must not be null.</param>
+    /// <param name="requireJwtSettings">When true, ensures Jwt settings are present and throws if missing.</param>
     public static void Initialize(IConfiguration configuration, bool requireJwtSettings = false)
     {
+        if (configuration == null)
+        {
+            throw new ArgumentNullException(nameof(configuration));
+        }
+
         _disableAuthentication = configuration.GetValue<bool>("DisableAuthentication");
 
         var jwtSection = configuration.GetSection("Jwt");
