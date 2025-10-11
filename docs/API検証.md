@@ -5,11 +5,8 @@
 ## 0. 認証トークン作成
 
 ```bash
-# サーバの起動
+# JWTトークンの発行
 dotnet run --project tools/jwt-generator/jwt-generator.csproj -- "your-very-strong-secret-key-change-this-minimum-32-characters" "example-player-id"
-
-## APIリクエスト
-curl -H "Authorization: Bearer <token>" http://localhost:5000/api/players/example-player-id
 ```
 
 ## 1. プレイヤー登録
