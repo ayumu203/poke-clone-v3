@@ -1,0 +1,651 @@
+diff --git a/.gitignore b/.gitignore
+index d645fbf..af11d4f 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -40,4 +40,8 @@ artifacts/
+ 
+ # .NET Core
+ project.assets.json
+-project.nuget.cache
+\ No newline at end of file
++project.nuget.cache
++
++# Seeded JSON data (local dumps)
++/server/Data/moves/
++/server/Data/pokemons/
+\ No newline at end of file
+diff --git a/pre-server/obj/Debug/net8.0/server.AssemblyInfo.cs b/pre-server/obj/Debug/net8.0/server.AssemblyInfo.cs
+index f9ff371..4c85dac 100644
+--- a/pre-server/obj/Debug/net8.0/server.AssemblyInfo.cs
++++ b/pre-server/obj/Debug/net8.0/server.AssemblyInfo.cs
+@@ -13,7 +13,7 @@ using System.Reflection;
+ [assembly: System.Reflection.AssemblyCompanyAttribute("server")]
+ [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
+ [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
+-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+35d244f91114b59172dae2729b4e8862e89173e0")]
++[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+069f15dcb324d21dc5b67f378cd20a9512fca61b")]
+ [assembly: System.Reflection.AssemblyProductAttribute("server")]
+ [assembly: System.Reflection.AssemblyTitleAttribute("server")]
+ [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
+diff --git a/pre-server/obj/Debug/net8.0/server.AssemblyInfoInputs.cache b/pre-server/obj/Debug/net8.0/server.AssemblyInfoInputs.cache
+index af3484e..e0fe10d 100644
+--- a/pre-server/obj/Debug/net8.0/server.AssemblyInfoInputs.cache
++++ b/pre-server/obj/Debug/net8.0/server.AssemblyInfoInputs.cache
+@@ -1 +1 @@
+-5b076263eeccdc41f069295ff89d0762f08f45302aef0446a8d2150e883de95c
++6a8ee8aed643af9e66cd3737c8b88e06393127709abb811d195a217dadb23b4f
+diff --git a/server/Program.cs b/server/Program.cs
+index 6acb985..181ed7d 100644
+--- a/server/Program.cs
++++ b/server/Program.cs
+@@ -19,23 +19,18 @@ builder.Services.AddControllers()
+ 
+ static bool ConfigureAuthentication(WebApplicationBuilder builder)
+ {
+-    // JWT認証設定
+     var isAuthenticationEnabled = builder.Configuration.GetValue<bool>("IsAuthenticationEnabled", true);
+-
+-    // JwtHelperを初期化（設定からDisableAuthentication / Jwtセクションを読み取る）
+     JwtHelper.Initialize(builder.Configuration);
+ 
+     if (isAuthenticationEnabled)
+     {
+         var useLocalJwt = builder.Configuration.GetValue<bool>("UseLocalJwt");
+-
+         if (useLocalJwt)
+         {
+             var jwtSection = builder.Configuration.GetSection("Jwt");
+             var key = jwtSection.GetValue<string?>("Key") ?? throw new InvalidOperationException("Jwt:Key must be configured when UseLocalJwt is true");
+             var issuer = jwtSection.GetValue<string?>("Issuer") ?? throw new InvalidOperationException("Jwt:Issuer must be configured when UseLocalJwt is true");
+             var audience = jwtSection.GetValue<string?>("Audience") ?? throw new InvalidOperationException("Jwt:Audience must be configured when UseLocalJwt is true");
+-
+             var keyBytes = System.Text.Encoding.UTF8.GetBytes(key);
+ 
+             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+@@ -62,7 +57,6 @@ static bool ConfigureAuthentication(WebApplicationBuilder builder)
+     }
+     else
+     {
+-        // 認証無効時：ダミーの認証スキームを登録して [Authorize] を無視
+         builder.Services.AddAuthentication("NoAuth")
+             .AddScheme<AuthenticationSchemeOptions, server.Services.NoAuthHandler>("NoAuth", options => { });
+         builder.Services.AddAuthorization();
+@@ -71,21 +65,14 @@ static bool ConfigureAuthentication(WebApplicationBuilder builder)
+     return isAuthenticationEnabled;
+ }
+ 
+-// Configure and register authentication/authorization. Returns whether authentication is enabled.
+ var isAuthenticationEnabled = ConfigureAuthentication(builder);
+ 
+-// HttpClient for PokeAPI
+ builder.Services.AddHttpClient<PokeApiService>();
+-
+-// Add services to the container.
+ builder.Services.AddEndpointsApiExplorer();
+ builder.Services.AddSwaggerGen();
+-
+-// Services
+ builder.Services.AddScoped<PokeApiService>();
+ builder.Services.AddScoped<PokemonSeedService>();
+ 
+-// CORS
+ builder.Services.AddCors(options =>
+ {
+     options.AddDefaultPolicy(policy =>
+@@ -96,13 +83,11 @@ builder.Services.AddCors(options =>
+     });
+ });
+ 
+-// EntityFrameworkCoreの設定
+ builder.Services.AddDbContext<ApplicationDbContext>(options =>
+     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+ 
+ var app = builder.Build();
+ 
+-// Seed
+ if (args.Contains("--seed"))
+ {
+     using var scope = app.Services.CreateScope();
+@@ -115,7 +100,6 @@ if (args.Contains("--seed"))
+     int startId = 1;
+     int endId = seedType == "moves" ? 165 : 151;
+ 
+-    // startとendの指定を確認
+     var startIndex = Array.IndexOf(args, "--start");
+     if (startIndex >= 0 && startIndex + 1 < args.Length)
+     {
+@@ -132,14 +116,17 @@ if (args.Contains("--seed"))
+ 
+     try
+     {
+-        if (seedType == "species" || seedType == "all")
++        logger.LogInformation("Dumping JSON files for seed type: {SeedType}", seedType);
++            if (seedType == "species" || seedType == "all")
+         {
+-            await seedService.SeedPokemonSpeciesAsync(startId, endId);
++            await seedService.DumpPokemonJsonAsync(startId, endId, "Data/pokemons");
++            await seedService.SeedPokemonFromJsonFolderAsync("Data/pokemons");
+         }
+ 
+         if (seedType == "moves" || seedType == "all")
+         {
+-            await seedService.SeedMovesAsync(startId, endId);
++            await seedService.DumpMovesJsonAsync(startId, endId, "Data/moves");
++            await seedService.SeedMovesFromJsonFolderAsync("Data/moves");
+         }
+ 
+         logger.LogInformation("Seed process completed successfully");
+@@ -152,8 +139,6 @@ if (args.Contains("--seed"))
+     return;
+ }
+ 
+-
+-// Configure the HTTP request pipeline.
+ if (app.Environment.IsDevelopment())
+ {
+     app.UseSwagger();
+@@ -162,14 +147,12 @@ if (app.Environment.IsDevelopment())
+ 
+ app.UseCors();
+ 
+-// 認証が有効な場合のみミドルウェアを登録
+ if (isAuthenticationEnabled)
+ {
+-    app.UseAuthentication(); // 認証ミドルウェア
+-    app.UseAuthorization();  // 認可ミドルウェア
++    app.UseAuthentication();
++    app.UseAuthorization();
+ }
+ 
+-// app.UseHttpsRedirection();
+ app.MapControllers();
+ 
+ app.Run();
+diff --git a/server/Services/PokeApiService.cs b/server/Services/PokeApiService.cs
+index 9b0e5d0..3f549d6 100644
+--- a/server/Services/PokeApiService.cs
++++ b/server/Services/PokeApiService.cs
+@@ -1,4 +1,5 @@
+ using System.Text.Json;
++using System.IO;
+ using server.Models.Core;
+ using server.Models.Enums;
+ 
+@@ -125,11 +126,11 @@ namespace server.Services
+                     Accuracy = moveData.RootElement.TryGetProperty("accuracy", out var accuracyProp) && accuracyProp.ValueKind != JsonValueKind.Null 
+                         ? accuracyProp.GetInt32() 
+                         : 100,
+-                    PP = moveData.RootElement.TryGetProperty("pp", out var ppProp) 
+-                        ? ppProp.GetInt32() 
++                    PP = (moveData.RootElement.TryGetProperty("pp", out var ppProp) && ppProp.ValueKind != JsonValueKind.Null)
++                        ? ppProp.GetInt32()
+                         : 0,
+-                    Priority = moveData.RootElement.TryGetProperty("priority", out var priorityProp) 
+-                        ? priorityProp.GetInt32() 
++                    Priority = (moveData.RootElement.TryGetProperty("priority", out var priorityProp) && priorityProp.ValueKind != JsonValueKind.Null)
++                        ? priorityProp.GetInt32()
+                         : 0,
+                     Rank = new Rank(),
+                     StatTarget = "",
+@@ -151,19 +152,19 @@ namespace server.Services
+                     }
+ 
+                     // 状態異常の発生確率
+-                    if (meta.TryGetProperty("ailment_chance", out var ailmentChanceProp))
++                    if (meta.TryGetProperty("ailment_chance", out var ailmentChanceProp) && ailmentChanceProp.ValueKind != JsonValueKind.Null)
+                     {
+                         move.AilmentChance = ailmentChanceProp.GetInt32();
+                     }
+ 
+                     // ドレイン
+-                    if (meta.TryGetProperty("drain", out var drainProp))
++                    if (meta.TryGetProperty("drain", out var drainProp) && drainProp.ValueKind != JsonValueKind.Null)
+                     {
+                         move.Drain = drainProp.GetInt32();
+                     }
+ 
+                     // 回復
+-                    if (meta.TryGetProperty("healing", out var healingProp))
++                    if (meta.TryGetProperty("healing", out var healingProp) && healingProp.ValueKind != JsonValueKind.Null)
+                     {
+                         move.Healing = healingProp.GetInt32();
+                     }
+@@ -174,7 +175,11 @@ namespace server.Services
+                 {
+                     var firstStatChange = statChanges[0];
+                     var statName = firstStatChange.GetProperty("stat").GetProperty("name").GetString() ?? "";
+-                    var change = firstStatChange.GetProperty("change").GetInt32();
++                    var change = 0;
++                    if (firstStatChange.TryGetProperty("change", out var changeProp) && changeProp.ValueKind != JsonValueKind.Null)
++                    {
++                        change = changeProp.GetInt32();
++                    }
+ 
+                     move.StatTarget = MapStatName(statName);
+                     move.Rank = CreateRankFromStatChange(statName, change);
+@@ -199,6 +204,229 @@ namespace server.Services
+             }
+         }
+ 
++        // --- 新規追加: API レスポンスをローカル JSON として保存 ---
++        public async Task SavePokemonJsonAsync(int id, string folderPath)
++        {
++            try
++            {
++                Directory.CreateDirectory(folderPath);
++
++                var pokemonResponse = await _httpClient.GetStringAsync($"{BaseUrl}/pokemon/{id}");
++                var pokemonDoc = JsonDocument.Parse(pokemonResponse);
++                var speciesUrl = pokemonDoc.RootElement.GetProperty("species").GetProperty("url").GetString();
++
++                string speciesResponse = "{}";
++                if (!string.IsNullOrEmpty(speciesUrl))
++                {
++                    speciesResponse = await _httpClient.GetStringAsync(speciesUrl);
++                }
++
++                using var combined = new MemoryStream();
++                using (var writer = new Utf8JsonWriter(combined))
++                {
++                    writer.WriteStartObject();
++                    writer.WritePropertyName("pokemon");
++                    JsonDocument.Parse(pokemonResponse).RootElement.WriteTo(writer);
++                    writer.WritePropertyName("species");
++                    JsonDocument.Parse(speciesResponse).RootElement.WriteTo(writer);
++                    writer.WriteEndObject();
++                }
++
++                var filePath = Path.Combine(folderPath, $"pokemon_{id:D3}.json");
++                await File.WriteAllBytesAsync(filePath, combined.ToArray());
++                _logger.LogInformation("Saved pokemon json to {Path}", filePath);
++            }
++            catch (Exception ex)
++            {
++                _logger.LogError(ex, "Error saving pokemon json {Id}", id);
++            }
++        }
++
++        public async Task SaveMoveJsonAsync(int id, string folderPath)
++        {
++            try
++            {
++                Directory.CreateDirectory(folderPath);
++
++                var moveResponse = await _httpClient.GetStringAsync($"{BaseUrl}/move/{id}");
++                var filePath = Path.Combine(folderPath, $"move_{id:D3}.json");
++                await File.WriteAllTextAsync(filePath, moveResponse);
++                _logger.LogInformation("Saved move json to {Path}", filePath);
++            }
++            catch (Exception ex)
++            {
++                _logger.LogError(ex, "Error saving move json {Id}", id);
++            }
++        }
++
++        // --- 新規追加: 保存済 JSON からモデルへ変換 ---
++        public PokemonSpecies? ParsePokemonSpeciesFromSavedJson(string filePath, int id)
++        {
++            try
++            {
++                var txt = File.ReadAllText(filePath);
++                using var doc = JsonDocument.Parse(txt);
++                var root = doc.RootElement;
++                var pokemon = root.GetProperty("pokemon");
++                var species = root.GetProperty("species");
++
++                var japaneseName = GetJapaneseName(JsonDocument.Parse(species.GetRawText()), "names");
++
++                var result = new PokemonSpecies
++                {
++                    PokemonSpeciesId = id,
++                    Name = japaneseName,
++                    FrontImage = pokemon.GetProperty("sprites").GetProperty("front_default").GetString() ?? "",
++                    BackImage = pokemon.GetProperty("sprites").GetProperty("back_default").GetString() ?? "",
++                    EvolveLevel = 0,
++                    BaseHP = 0,
++                    BaseAttack = 0,
++                    BaseDefense = 0,
++                    BaseSpecialAttack = 0,
++                    BaseSpecialDefense = 0,
++                    BaseSpeed = 0
++                };
++
++                var types = new List<server.Models.Enums.Type>();
++                if (pokemon.TryGetProperty("types", out var typesElem))
++                {
++                    foreach (var t in typesElem.EnumerateArray())
++                    {
++                        var typeName = t.GetProperty("type").GetProperty("name").GetString() ?? "";
++                        types.Add(MapTypeFromString(typeName));
++                    }
++                }
++                result.Type1 = types.Count > 0 ? types[0] : server.Models.Enums.Type.Normal;
++                result.Type2 = types.Count > 1 ? types[1] : null;
++
++                if (pokemon.TryGetProperty("stats", out var statsElem))
++                {
++                    foreach (var statElement in statsElem.EnumerateArray())
++                    {
++                        var statName = statElement.GetProperty("stat").GetProperty("name").GetString();
++                        var baseStat = statElement.GetProperty("base_stat").GetInt32();
++                        switch (statName)
++                        {
++                            case "hp":
++                                result.BaseHP = baseStat;
++                                break;
++                            case "attack":
++                                result.BaseAttack = baseStat;
++                                break;
++                            case "defense":
++                                result.BaseDefense = baseStat;
++                                break;
++                            case "special-attack":
++                                result.BaseSpecialAttack = baseStat;
++                                break;
++                            case "special-defense":
++                                result.BaseSpecialDefense = baseStat;
++                                break;
++                            case "speed":
++                                result.BaseSpeed = baseStat;
++                                break;
++                        }
++                    }
++                }
++
++                return result;
++            }
++            catch (Exception ex)
++            {
++                _logger.LogError(ex, "Error parsing pokemon json {Path}", filePath);
++                return null;
++            }
++        }
++
++        public Move? ParseMoveFromSavedJson(string filePath, int id)
++        {
++            try
++            {
++                var txt = File.ReadAllText(filePath);
++                using var doc = JsonDocument.Parse(txt);
++                var root = doc.RootElement;
++
++                var japaneseName = GetJapaneseName(doc, "names");
++                var typeName = root.GetProperty("type").GetProperty("name").GetString() ?? "";
++                var damageClassName = root.GetProperty("damage_class").GetProperty("name").GetString() ?? "";
++
++                var move = new Move
++                {
++                    MoveId = id,
++                    Name = japaneseName,
++                    Type = MapTypeFromString(typeName),
++                    Category = MapCategoryFromMeta(doc),
++                    DamageClass = MapDamageClassFromString(damageClassName),
++                    Power = root.TryGetProperty("power", out var powerProp) && powerProp.ValueKind != JsonValueKind.Null
++                        ? powerProp.GetInt32()
++                        : 0,
++                    Accuracy = root.TryGetProperty("accuracy", out var accuracyProp) && accuracyProp.ValueKind != JsonValueKind.Null
++                        ? accuracyProp.GetInt32()
++                        : 100,
++                    PP = root.TryGetProperty("pp", out var ppProp)
++                        ? ppProp.GetInt32()
++                        : 0,
++                    Priority = root.TryGetProperty("priority", out var priorityProp)
++                        ? priorityProp.GetInt32()
++                        : 0,
++                    Rank = new Rank(),
++                    StatTarget = "",
++                    StatChance = 0,
++                    Ailment = Ailment.None,
++                    AilmentChance = 0,
++                    Healing = 0,
++                    Drain = 0
++                };
++
++                if (root.TryGetProperty("meta", out var meta))
++                {
++                    if (meta.TryGetProperty("ailment", out var ailmentProp))
++                    {
++                        var ailmentName = ailmentProp.GetProperty("name").GetString() ?? "";
++                        move.Ailment = MapAilmentFromString(ailmentName);
++                    }
++                    if (meta.TryGetProperty("ailment_chance", out var ailmentChanceProp))
++                    {
++                        move.AilmentChance = ailmentChanceProp.GetInt32();
++                    }
++                    if (meta.TryGetProperty("drain", out var drainProp))
++                    {
++                        move.Drain = drainProp.GetInt32();
++                    }
++                    if (meta.TryGetProperty("healing", out var healingProp))
++                    {
++                        move.Healing = healingProp.GetInt32();
++                    }
++                }
++
++                if (root.TryGetProperty("stat_changes", out var statChanges) && statChanges.GetArrayLength() > 0)
++                {
++                    var firstStatChange = statChanges[0];
++                    var statName = firstStatChange.GetProperty("stat").GetProperty("name").GetString() ?? "";
++                    var change = firstStatChange.GetProperty("change").GetInt32();
++
++                    move.StatTarget = MapStatName(statName);
++                    move.Rank = CreateRankFromStatChange(statName, change);
++
++                    if (root.TryGetProperty("effect_chance", out var effectChance) && effectChance.ValueKind != JsonValueKind.Null)
++                    {
++                        move.StatChance = effectChance.GetInt32();
++                    }
++                    else
++                    {
++                        move.StatChance = 100;
++                    }
++                }
++
++                return move;
++            }
++            catch (Exception ex)
++            {
++                _logger.LogError(ex, "Error parsing move json {Path}", filePath);
++                return null;
++            }
++        }
++
+         private string GetJapaneseName(JsonDocument data, string propertyName)
+         {
+             var names = data.RootElement.GetProperty(propertyName);
+diff --git a/server/Services/PokemonSeedService.cs b/server/Services/PokemonSeedService.cs
+index ae93348..0baf673 100644
+--- a/server/Services/PokemonSeedService.cs
++++ b/server/Services/PokemonSeedService.cs
+@@ -18,7 +18,127 @@ namespace server.Services
+             _pokeApiService = pokeApiService;
+             _logger = logger;
+         }
++    // --- 新規追加: API レスポンスを JSON としてダンプ ---
++    public async Task DumpPokemonJsonAsync(int startId = 1, int endId = 151, string folderPath = "Data/pokemons")
++        {
++            _logger.LogInformation("Dumping Pokemon JSON from {Start} to {End} into {Folder}", startId, endId, folderPath);
++            for (int i = startId; i <= endId; i++)
++            {
++                try
++                {
++                    await _pokeApiService.SavePokemonJsonAsync(i, folderPath);
++                    await Task.Delay(200);
++                }
++                catch (Exception ex)
++                {
++                    _logger.LogError(ex, "Error dumping pokemon json {Id}", i);
++                }
++            }
++            _logger.LogInformation("Pokemon dump completed");
++        }
++
++    public async Task DumpMovesJsonAsync(int startId = 1, int endId = 165, string folderPath = "Data/moves")
++        {
++            _logger.LogInformation("Dumping Moves JSON from {Start} to {End} into {Folder}", startId, endId, folderPath);
++            for (int i = startId; i <= endId; i++)
++            {
++                try
++                {
++                    await _pokeApiService.SaveMoveJsonAsync(i, folderPath);
++                    await Task.Delay(200);
++                }
++                catch (Exception ex)
++                {
++                    _logger.LogError(ex, "Error dumping move json {Id}", i);
++                }
++            }
++            _logger.LogInformation("Moves dump completed");
++        }
++
++        // --- 新規追加: 保存済 JSON から DB へ一括登録 ---
++    public async Task SeedPokemonFromJsonFolderAsync(string folderPath = "Data/pokemons")
++        {
++            _logger.LogInformation("Seeding Pokemon from json folder {Folder}", folderPath);
++            if (!Directory.Exists(folderPath))
++            {
++                _logger.LogWarning("Folder {Folder} does not exist", folderPath);
++                return;
++            }
++
++            var files = Directory.GetFiles(folderPath, "pokemon_*.json").OrderBy(f => f).ToList();
++            foreach (var file in files)
++            {
++                try
++                {
++                    var fileName = Path.GetFileNameWithoutExtension(file);
++                    var parts = fileName.Split('_');
++                    if (parts.Length < 2) continue;
++                    if (!int.TryParse(parts[1], out var id)) continue;
++
++                    if (await _context.PokemonSpecies.AnyAsync(p => p.PokemonSpeciesId == id))
++                    {
++                        _logger.LogInformation("Pokemon species {Id} already exists, skipping", id);
++                        continue;
++                    }
++
++                    var species = _pokeApiService.ParsePokemonSpeciesFromSavedJson(file, id);
++                    if (species != null)
++                    {
++                        await _context.PokemonSpecies.AddAsync(species);
++                        await _context.SaveChangesAsync();
++                        _logger.LogInformation("Saved species from json {Id} {Name}", id, species.Name);
++                    }
++                }
++                catch (Exception ex)
++                {
++                    _logger.LogError(ex, "Error seeding species from file {File}", file);
++                }
++            }
++
++            _logger.LogInformation("Seeding Pokemon from json completed");
++        }
++
++    public async Task SeedMovesFromJsonFolderAsync(string folderPath = "Data/moves")
++        {
++            _logger.LogInformation("Seeding Moves from json folder {Folder}", folderPath);
++            if (!Directory.Exists(folderPath))
++            {
++                _logger.LogWarning("Folder {Folder} does not exist", folderPath);
++                return;
++            }
++
++            var files = Directory.GetFiles(folderPath, "move_*.json").OrderBy(f => f).ToList();
++            foreach (var file in files)
++            {
++                try
++                {
++                    var fileName = Path.GetFileNameWithoutExtension(file);
++                    var parts = fileName.Split('_');
++                    if (parts.Length < 2) continue;
++                    if (!int.TryParse(parts[1], out var id)) continue;
++
++                    if (await _context.Moves.AnyAsync(m => m.MoveId == id))
++                    {
++                        _logger.LogInformation("Move {Id} already exists, skipping", id);
++                        continue;
++                    }
++
++                    var move = _pokeApiService.ParseMoveFromSavedJson(file, id);
++                    if (move != null)
++                    {
++                        await _context.Moves.AddAsync(move);
++                        await _context.SaveChangesAsync();
++                        _logger.LogInformation("Saved move from json {Id} {Name}", id, move.Name);
++                    }
++                }
++                catch (Exception ex)
++                {
++                    _logger.LogError(ex, "Error seeding move from file {File}", file);
++                }
++            }
+ 
++            _logger.LogInformation("Seeding Moves from json completed");
++        }
+         public async Task SeedPokemonSpeciesAsync(int startId = 1, int endId = 151)
+         {
+             _logger.LogInformation("Starting Pokemon species seed process from {StartId} to {EndId}", startId, endId);
+diff --git a/server/obj/Debug/net8.0/ref/server.dll b/server/obj/Debug/net8.0/ref/server.dll
+index 2fa60f9..35adeaa 100644
+Binary files a/server/obj/Debug/net8.0/ref/server.dll and b/server/obj/Debug/net8.0/ref/server.dll differ
+diff --git a/server/obj/Debug/net8.0/refint/server.dll b/server/obj/Debug/net8.0/refint/server.dll
+index 2fa60f9..35adeaa 100644
+Binary files a/server/obj/Debug/net8.0/refint/server.dll and b/server/obj/Debug/net8.0/refint/server.dll differ
+diff --git a/server/obj/Debug/net8.0/server.AssemblyInfo.cs b/server/obj/Debug/net8.0/server.AssemblyInfo.cs
+index f9ff371..4c85dac 100644
+--- a/server/obj/Debug/net8.0/server.AssemblyInfo.cs
++++ b/server/obj/Debug/net8.0/server.AssemblyInfo.cs
+@@ -13,7 +13,7 @@ using System.Reflection;
+ [assembly: System.Reflection.AssemblyCompanyAttribute("server")]
+ [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
+ [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
+-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+35d244f91114b59172dae2729b4e8862e89173e0")]
++[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+069f15dcb324d21dc5b67f378cd20a9512fca61b")]
+ [assembly: System.Reflection.AssemblyProductAttribute("server")]
+ [assembly: System.Reflection.AssemblyTitleAttribute("server")]
+ [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
+diff --git a/server/obj/Debug/net8.0/server.AssemblyInfoInputs.cache b/server/obj/Debug/net8.0/server.AssemblyInfoInputs.cache
+index af3484e..e0fe10d 100644
+--- a/server/obj/Debug/net8.0/server.AssemblyInfoInputs.cache
++++ b/server/obj/Debug/net8.0/server.AssemblyInfoInputs.cache
+@@ -1 +1 @@
+-5b076263eeccdc41f069295ff89d0762f08f45302aef0446a8d2150e883de95c
++6a8ee8aed643af9e66cd3737c8b88e06393127709abb811d195a217dadb23b4f
+diff --git a/server/obj/Debug/net8.0/server.csproj.FileListAbsolute.txt b/server/obj/Debug/net8.0/server.csproj.FileListAbsolute.txt
+index 6c18bd0..693ccb2 100644
+--- a/server/obj/Debug/net8.0/server.csproj.FileListAbsolute.txt
++++ b/server/obj/Debug/net8.0/server.csproj.FileListAbsolute.txt
+@@ -186,3 +186,18 @@
+ /mnt/c/Users/cs23017/Shizuoka University/ドキュメント/dev/03_poke_clone_v3/server/bin/Debug/net8.0/Microsoft.IdentityModel.LoggingExtensions.dll
+ /mnt/c/Users/cs23017/Shizuoka University/ドキュメント/dev/03_poke_clone_v3/server/bin/Debug/net8.0/Microsoft.IdentityModel.Validators.dll
+ /mnt/c/Users/cs23017/Shizuoka University/ドキュメント/dev/03_poke_clone_v3/server/bin/Debug/net8.0/System.Security.Cryptography.Xml.dll
++/mnt/c/Users/cs23017/Shizuoka University/ドキュメント/dev/03_poke_clone_v3/server/bin/Debug/net8.0/Data/moves/move_002.json
++/mnt/c/Users/cs23017/Shizuoka University/ドキュメント/dev/03_poke_clone_v3/server/bin/Debug/net8.0/Data/moves/move_003.json
++/mnt/c/Users/cs23017/Shizuoka University/ドキュメント/dev/03_poke_clone_v3/server/bin/Debug/net8.0/Data/moves/move_004.json
++/mnt/c/Users/cs23017/Shizuoka University/ドキュメント/dev/03_poke_clone_v3/server/bin/Debug/net8.0/Data/moves/move_005.json
++/mnt/c/Users/cs23017/Shizuoka University/ドキュメント/dev/03_poke_clone_v3/server/bin/Debug/net8.0/Data/moves/move_006.json
++/mnt/c/Users/cs23017/Shizuoka University/ドキュメント/dev/03_poke_clone_v3/server/bin/Debug/net8.0/Data/moves/move_007.json
++/mnt/c/Users/cs23017/Shizuoka University/ドキュメント/dev/03_poke_clone_v3/server/bin/Debug/net8.0/Data/moves/move_008.json
++/mnt/c/Users/cs23017/Shizuoka University/ドキュメント/dev/03_poke_clone_v3/server/bin/Debug/net8.0/Data/moves/move_009.json
++/mnt/c/Users/cs23017/Shizuoka University/ドキュメント/dev/03_poke_clone_v3/server/bin/Debug/net8.0/Data/moves/move_010.json
++/mnt/c/Users/cs23017/Shizuoka University/ドキュメント/dev/03_poke_clone_v3/server/bin/Debug/net8.0/Data/moves/move_011.json
++/mnt/c/Users/cs23017/Shizuoka University/ドキュメント/dev/03_poke_clone_v3/server/bin/Debug/net8.0/Data/moves/move_012.json
++/mnt/c/Users/cs23017/Shizuoka University/ドキュメント/dev/03_poke_clone_v3/server/bin/Debug/net8.0/Data/moves/move_013.json
++/mnt/c/Users/cs23017/Shizuoka University/ドキュメント/dev/03_poke_clone_v3/server/bin/Debug/net8.0/Data/moves/move_014.json
++/mnt/c/Users/cs23017/Shizuoka University/ドキュメント/dev/03_poke_clone_v3/server/bin/Debug/net8.0/Data/moves/move_015.json
++/mnt/c/Users/cs23017/Shizuoka University/ドキュメント/dev/03_poke_clone_v3/server/bin/Debug/net8.0/Data/moves/move_001.json
+diff --git a/server/obj/Debug/net8.0/server.dll b/server/obj/Debug/net8.0/server.dll
+index 97b963e..d2ec03d 100644
+Binary files a/server/obj/Debug/net8.0/server.dll and b/server/obj/Debug/net8.0/server.dll differ
+diff --git a/server/obj/Debug/net8.0/server.pdb b/server/obj/Debug/net8.0/server.pdb
+index 2e54b7c..3c3e050 100644
+Binary files a/server/obj/Debug/net8.0/server.pdb and b/server/obj/Debug/net8.0/server.pdb differ
+diff --git a/server/obj/Debug/net8.0/server.sourcelink.json b/server/obj/Debug/net8.0/server.sourcelink.json
+index 8308817..0e4fb42 100644
+--- a/server/obj/Debug/net8.0/server.sourcelink.json
++++ b/server/obj/Debug/net8.0/server.sourcelink.json
+@@ -1 +1 @@
+-{"documents":{"/mnt/c/Users/cs23017/Shizuoka University/ドキュメント/dev/03_poke_clone_v3/*":"https://raw.githubusercontent.com/ayumu203/poke-clone-v3/35d244f91114b59172dae2729b4e8862e89173e0/*"}}
+\ No newline at end of file
++{"documents":{"/mnt/c/Users/cs23017/Shizuoka University/ドキュメント/dev/03_poke_clone_v3/*":"https://raw.githubusercontent.com/ayumu203/poke-clone-v3/069f15dcb324d21dc5b67f378cd20a9512fca61b/*"}}
+\ No newline at end of file

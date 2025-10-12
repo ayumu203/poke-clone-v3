@@ -1,4 +1,5 @@
 using System.Text.Json;
+using System.IO;
 using server.Models.Core;
 using server.Models.Enums;
 
@@ -125,11 +126,11 @@ namespace server.Services
                     Accuracy = moveData.RootElement.TryGetProperty("accuracy", out var accuracyProp) && accuracyProp.ValueKind != JsonValueKind.Null 
                         ? accuracyProp.GetInt32() 
                         : 100,
-                    PP = moveData.RootElement.TryGetProperty("pp", out var ppProp) 
-                        ? ppProp.GetInt32() 
+                    PP = (moveData.RootElement.TryGetProperty("pp", out var ppProp) && ppProp.ValueKind != JsonValueKind.Null)
+                        ? ppProp.GetInt32()
                         : 0,
-                    Priority = moveData.RootElement.TryGetProperty("priority", out var priorityProp) 
-                        ? priorityProp.GetInt32() 
+                    Priority = (moveData.RootElement.TryGetProperty("priority", out var priorityProp) && priorityProp.ValueKind != JsonValueKind.Null)
+                        ? priorityProp.GetInt32()
                         : 0,
                     Rank = new Rank(),
                     StatTarget = "",
@@ -151,19 +152,19 @@ namespace server.Services
                     }
 
                     // 状態異常の発生確率
-                    if (meta.TryGetProperty("ailment_chance", out var ailmentChanceProp))
+                    if (meta.TryGetProperty("ailment_chance", out var ailmentChanceProp) && ailmentChanceProp.ValueKind != JsonValueKind.Null)
                     {
                         move.AilmentChance = ailmentChanceProp.GetInt32();
                     }
 
                     // ドレイン
-                    if (meta.TryGetProperty("drain", out var drainProp))
+                    if (meta.TryGetProperty("drain", out var drainProp) && drainProp.ValueKind != JsonValueKind.Null)
                     {
                         move.Drain = drainProp.GetInt32();
                     }
 
                     // 回復
-                    if (meta.TryGetProperty("healing", out var healingProp))
+                    if (meta.TryGetProperty("healing", out var healingProp) && healingProp.ValueKind != JsonValueKind.Null)
                     {
                         move.Healing = healingProp.GetInt32();
                     }
@@ -174,7 +175,11 @@ namespace server.Services
                 {
                     var firstStatChange = statChanges[0];
                     var statName = firstStatChange.GetProperty("stat").GetProperty("name").GetString() ?? "";
-                    var change = firstStatChange.GetProperty("change").GetInt32();
+                    var change = 0;
+                    if (firstStatChange.TryGetProperty("change", out var changeProp) && changeProp.ValueKind != JsonValueKind.Null)
+                    {
+                        change = changeProp.GetInt32();
+                    }
 
                     move.StatTarget = MapStatName(statName);
                     move.Rank = CreateRankFromStatChange(statName, change);
@@ -195,6 +200,229 @@ namespace server.Services
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error fetching move {Id}", id);
+                return null;
+            }
+        }
+
+        // --- 新規追加: API レスポンスをローカル JSON として保存 ---
+        public async Task SavePokemonJsonAsync(int id, string folderPath)
+        {
+            try
+            {
+                Directory.CreateDirectory(folderPath);
+
+                var pokemonResponse = await _httpClient.GetStringAsync($"{BaseUrl}/pokemon/{id}");
+                var pokemonDoc = JsonDocument.Parse(pokemonResponse);
+                var speciesUrl = pokemonDoc.RootElement.GetProperty("species").GetProperty("url").GetString();
+
+                string speciesResponse = "{}";
+                if (!string.IsNullOrEmpty(speciesUrl))
+                {
+                    speciesResponse = await _httpClient.GetStringAsync(speciesUrl);
+                }
+
+                using var combined = new MemoryStream();
+                using (var writer = new Utf8JsonWriter(combined))
+                {
+                    writer.WriteStartObject();
+                    writer.WritePropertyName("pokemon");
+                    JsonDocument.Parse(pokemonResponse).RootElement.WriteTo(writer);
+                    writer.WritePropertyName("species");
+                    JsonDocument.Parse(speciesResponse).RootElement.WriteTo(writer);
+                    writer.WriteEndObject();
+                }
+
+                var filePath = Path.Combine(folderPath, $"pokemon_{id:D3}.json");
+                await File.WriteAllBytesAsync(filePath, combined.ToArray());
+                _logger.LogInformation("Saved pokemon json to {Path}", filePath);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error saving pokemon json {Id}", id);
+            }
+        }
+
+        public async Task SaveMoveJsonAsync(int id, string folderPath)
+        {
+            try
+            {
+                Directory.CreateDirectory(folderPath);
+
+                var moveResponse = await _httpClient.GetStringAsync($"{BaseUrl}/move/{id}");
+                var filePath = Path.Combine(folderPath, $"move_{id:D3}.json");
+                await File.WriteAllTextAsync(filePath, moveResponse);
+                _logger.LogInformation("Saved move json to {Path}", filePath);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error saving move json {Id}", id);
+            }
+        }
+
+        // --- 新規追加: 保存済 JSON からモデルへ変換 ---
+        public PokemonSpecies? ParsePokemonSpeciesFromSavedJson(string filePath, int id)
+        {
+            try
+            {
+                var txt = File.ReadAllText(filePath);
+                using var doc = JsonDocument.Parse(txt);
+                var root = doc.RootElement;
+                var pokemon = root.GetProperty("pokemon");
+                var species = root.GetProperty("species");
+
+                var japaneseName = GetJapaneseName(JsonDocument.Parse(species.GetRawText()), "names");
+
+                var result = new PokemonSpecies
+                {
+                    PokemonSpeciesId = id,
+                    Name = japaneseName,
+                    FrontImage = pokemon.GetProperty("sprites").GetProperty("front_default").GetString() ?? "",
+                    BackImage = pokemon.GetProperty("sprites").GetProperty("back_default").GetString() ?? "",
+                    EvolveLevel = 0,
+                    BaseHP = 0,
+                    BaseAttack = 0,
+                    BaseDefense = 0,
+                    BaseSpecialAttack = 0,
+                    BaseSpecialDefense = 0,
+                    BaseSpeed = 0
+                };
+
+                var types = new List<server.Models.Enums.Type>();
+                if (pokemon.TryGetProperty("types", out var typesElem))
+                {
+                    foreach (var t in typesElem.EnumerateArray())
+                    {
+                        var typeName = t.GetProperty("type").GetProperty("name").GetString() ?? "";
+                        types.Add(MapTypeFromString(typeName));
+                    }
+                }
+                result.Type1 = types.Count > 0 ? types[0] : server.Models.Enums.Type.Normal;
+                result.Type2 = types.Count > 1 ? types[1] : null;
+
+                if (pokemon.TryGetProperty("stats", out var statsElem))
+                {
+                    foreach (var statElement in statsElem.EnumerateArray())
+                    {
+                        var statName = statElement.GetProperty("stat").GetProperty("name").GetString();
+                        var baseStat = statElement.GetProperty("base_stat").GetInt32();
+                        switch (statName)
+                        {
+                            case "hp":
+                                result.BaseHP = baseStat;
+                                break;
+                            case "attack":
+                                result.BaseAttack = baseStat;
+                                break;
+                            case "defense":
+                                result.BaseDefense = baseStat;
+                                break;
+                            case "special-attack":
+                                result.BaseSpecialAttack = baseStat;
+                                break;
+                            case "special-defense":
+                                result.BaseSpecialDefense = baseStat;
+                                break;
+                            case "speed":
+                                result.BaseSpeed = baseStat;
+                                break;
+                        }
+                    }
+                }
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error parsing pokemon json {Path}", filePath);
+                return null;
+            }
+        }
+
+        public Move? ParseMoveFromSavedJson(string filePath, int id)
+        {
+            try
+            {
+                var txt = File.ReadAllText(filePath);
+                using var doc = JsonDocument.Parse(txt);
+                var root = doc.RootElement;
+
+                var japaneseName = GetJapaneseName(doc, "names");
+                var typeName = root.GetProperty("type").GetProperty("name").GetString() ?? "";
+                var damageClassName = root.GetProperty("damage_class").GetProperty("name").GetString() ?? "";
+
+                var move = new Move
+                {
+                    MoveId = id,
+                    Name = japaneseName,
+                    Type = MapTypeFromString(typeName),
+                    Category = MapCategoryFromMeta(doc),
+                    DamageClass = MapDamageClassFromString(damageClassName),
+                    Power = root.TryGetProperty("power", out var powerProp) && powerProp.ValueKind != JsonValueKind.Null
+                        ? powerProp.GetInt32()
+                        : 0,
+                    Accuracy = root.TryGetProperty("accuracy", out var accuracyProp) && accuracyProp.ValueKind != JsonValueKind.Null
+                        ? accuracyProp.GetInt32()
+                        : 100,
+                    PP = root.TryGetProperty("pp", out var ppProp)
+                        ? ppProp.GetInt32()
+                        : 0,
+                    Priority = root.TryGetProperty("priority", out var priorityProp)
+                        ? priorityProp.GetInt32()
+                        : 0,
+                    Rank = new Rank(),
+                    StatTarget = "",
+                    StatChance = 0,
+                    Ailment = Ailment.None,
+                    AilmentChance = 0,
+                    Healing = 0,
+                    Drain = 0
+                };
+
+                if (root.TryGetProperty("meta", out var meta))
+                {
+                    if (meta.TryGetProperty("ailment", out var ailmentProp))
+                    {
+                        var ailmentName = ailmentProp.GetProperty("name").GetString() ?? "";
+                        move.Ailment = MapAilmentFromString(ailmentName);
+                    }
+                    if (meta.TryGetProperty("ailment_chance", out var ailmentChanceProp))
+                    {
+                        move.AilmentChance = ailmentChanceProp.GetInt32();
+                    }
+                    if (meta.TryGetProperty("drain", out var drainProp))
+                    {
+                        move.Drain = drainProp.GetInt32();
+                    }
+                    if (meta.TryGetProperty("healing", out var healingProp))
+                    {
+                        move.Healing = healingProp.GetInt32();
+                    }
+                }
+
+                if (root.TryGetProperty("stat_changes", out var statChanges) && statChanges.GetArrayLength() > 0)
+                {
+                    var firstStatChange = statChanges[0];
+                    var statName = firstStatChange.GetProperty("stat").GetProperty("name").GetString() ?? "";
+                    var change = firstStatChange.GetProperty("change").GetInt32();
+
+                    move.StatTarget = MapStatName(statName);
+                    move.Rank = CreateRankFromStatChange(statName, change);
+
+                    if (root.TryGetProperty("effect_chance", out var effectChance) && effectChance.ValueKind != JsonValueKind.Null)
+                    {
+                        move.StatChance = effectChance.GetInt32();
+                    }
+                    else
+                    {
+                        move.StatChance = 100;
+                    }
+                }
+
+                return move;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error parsing move json {Path}", filePath);
                 return null;
             }
         }
