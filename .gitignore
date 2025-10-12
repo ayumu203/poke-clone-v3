@@ -45,3 +45,7 @@ project.nuget.cache
 # Seeded JSON data (local dumps)
 /server/Data/moves/
 /server/Data/pokemons/
+
+# Ignore obj directories (including server/obj)
+**/obj/
+server/obj/
