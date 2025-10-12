@@ -41,3 +41,7 @@ artifacts/
 # .NET Core
 project.assets.json
 project.nuget.cache
+
+# Seeded JSON data (local dumps)
+/server/Data/moves/
+/server/Data/pokemons/

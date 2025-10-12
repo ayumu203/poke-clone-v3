@@ -19,23 +19,18 @@ builder.Services.AddControllers()
 
 static bool ConfigureAuthentication(WebApplicationBuilder builder)
 {
-    // JWT認証設定
     var isAuthenticationEnabled = builder.Configuration.GetValue<bool>("IsAuthenticationEnabled", true);
-
-    // JwtHelperを初期化（設定からDisableAuthentication / Jwtセクションを読み取る）
     JwtHelper.Initialize(builder.Configuration);
 
     if (isAuthenticationEnabled)
     {
         var useLocalJwt = builder.Configuration.GetValue<bool>("UseLocalJwt");
-
         if (useLocalJwt)
         {
             var jwtSection = builder.Configuration.GetSection("Jwt");
             var key = jwtSection.GetValue<string?>("Key") ?? throw new InvalidOperationException("Jwt:Key must be configured when UseLocalJwt is true");
             var issuer = jwtSection.GetValue<string?>("Issuer") ?? throw new InvalidOperationException("Jwt:Issuer must be configured when UseLocalJwt is true");
             var audience = jwtSection.GetValue<string?>("Audience") ?? throw new InvalidOperationException("Jwt:Audience must be configured when UseLocalJwt is true");
-
             var keyBytes = System.Text.Encoding.UTF8.GetBytes(key);
 
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -62,7 +57,6 @@ static bool ConfigureAuthentication(WebApplicationBuilder builder)
     }
     else
     {
-        // 認証無効時：ダミーの認証スキームを登録して [Authorize] を無視
         builder.Services.AddAuthentication("NoAuth")
             .AddScheme<AuthenticationSchemeOptions, server.Services.NoAuthHandler>("NoAuth", options => { });
         builder.Services.AddAuthorization();
@@ -71,21 +65,14 @@ static bool ConfigureAuthentication(WebApplicationBuilder builder)
     return isAuthenticationEnabled;
 }
 
-// Configure and register authentication/authorization. Returns whether authentication is enabled.
 var isAuthenticationEnabled = ConfigureAuthentication(builder);
 
-// HttpClient for PokeAPI
 builder.Services.AddHttpClient<PokeApiService>();
-
-// Add services to the container.
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-// Services
 builder.Services.AddScoped<PokeApiService>();
 builder.Services.AddScoped<PokemonSeedService>();
 
-// CORS
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policy =>
@@ -96,13 +83,11 @@ builder.Services.AddCors(options =>
     });
 });
 
-// EntityFrameworkCoreの設定
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
 
-// Seed
 if (args.Contains("--seed"))
 {
     using var scope = app.Services.CreateScope();
@@ -115,7 +100,6 @@ if (args.Contains("--seed"))
     int startId = 1;
     int endId = seedType == "moves" ? 165 : 151;
 
-    // startとendの指定を確認
     var startIndex = Array.IndexOf(args, "--start");
     if (startIndex >= 0 && startIndex + 1 < args.Length)
     {
@@ -132,14 +116,17 @@ if (args.Contains("--seed"))
 
     try
     {
-        if (seedType == "species" || seedType == "all")
+        logger.LogInformation("Dumping JSON files for seed type: {SeedType}", seedType);
+            if (seedType == "species" || seedType == "all")
         {
-            await seedService.SeedPokemonSpeciesAsync(startId, endId);
+            await seedService.DumpPokemonJsonAsync(startId, endId, "Data/pokemons");
+            await seedService.SeedPokemonFromJsonFolderAsync("Data/pokemons");
         }
 
         if (seedType == "moves" || seedType == "all")
         {
-            await seedService.SeedMovesAsync(startId, endId);
+            await seedService.DumpMovesJsonAsync(startId, endId, "Data/moves");
+            await seedService.SeedMovesFromJsonFolderAsync("Data/moves");
         }
 
         logger.LogInformation("Seed process completed successfully");
@@ -152,8 +139,6 @@ if (args.Contains("--seed"))
     return;
 }
 
-
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -162,14 +147,12 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors();
 
-// 認証が有効な場合のみミドルウェアを登録
 if (isAuthenticationEnabled)
 {
-    app.UseAuthentication(); // 認証ミドルウェア
-    app.UseAuthorization();  // 認可ミドルウェア
+    app.UseAuthentication();
+    app.UseAuthorization();
 }
 
-// app.UseHttpsRedirection();
 app.MapControllers();
 
 app.Run();
