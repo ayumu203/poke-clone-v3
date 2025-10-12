@@ -1,8 +1,78 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Web;
+using Microsoft.IdentityModel.Tokens;
 using server.Data;
 using server.Services;
+using server.Helpers;
+using Microsoft.AspNetCore.Authentication;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase;
+        options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+    });
+
+static bool ConfigureAuthentication(WebApplicationBuilder builder)
+{
+    // JWT認証設定
+    var isAuthenticationEnabled = builder.Configuration.GetValue<bool>("IsAuthenticationEnabled", true);
+
+    // JwtHelperを初期化（設定からDisableAuthentication / Jwtセクションを読み取る）
+    JwtHelper.Initialize(builder.Configuration);
+
+    if (isAuthenticationEnabled)
+    {
+        var useLocalJwt = builder.Configuration.GetValue<bool>("UseLocalJwt");
+
+        if (useLocalJwt)
+        {
+            var jwtSection = builder.Configuration.GetSection("Jwt");
+            var key = jwtSection.GetValue<string?>("Key") ?? throw new InvalidOperationException("Jwt:Key must be configured when UseLocalJwt is true");
+            var issuer = jwtSection.GetValue<string?>("Issuer") ?? throw new InvalidOperationException("Jwt:Issuer must be configured when UseLocalJwt is true");
+            var audience = jwtSection.GetValue<string?>("Audience") ?? throw new InvalidOperationException("Jwt:Audience must be configured when UseLocalJwt is true");
+
+            var keyBytes = System.Text.Encoding.UTF8.GetBytes(key);
+
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidIssuer = issuer,
+                        ValidateAudience = true,
+                        ValidAudience = audience,
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(keyBytes),
+                        ValidateLifetime = true
+                    };
+                });
+        }
+        else
+        {
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureEntraId"));
+        }
+        builder.Services.AddAuthorization();
+    }
+    else
+    {
+        // 認証無効時：ダミーの認証スキームを登録して [Authorize] を無視
+        builder.Services.AddAuthentication("NoAuth")
+            .AddScheme<AuthenticationSchemeOptions, server.Services.NoAuthHandler>("NoAuth", options => { });
+        builder.Services.AddAuthorization();
+    }
+
+    return isAuthenticationEnabled;
+}
+
+// Configure and register authentication/authorization. Returns whether authentication is enabled.
+var isAuthenticationEnabled = ConfigureAuthentication(builder);
 
 // HttpClient for PokeAPI
 builder.Services.AddHttpClient<PokeApiService>();
@@ -90,31 +160,16 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+app.UseCors();
 
-var summaries = new[]
+// 認証が有効な場合のみミドルウェアを登録
+if (isAuthenticationEnabled)
 {
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+    app.UseAuthentication(); // 認証ミドルウェア
+    app.UseAuthorization();  // 認可ミドルウェア
+}
 
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast")
-.WithOpenApi();
+// app.UseHttpsRedirection();
+app.MapControllers();
 
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
