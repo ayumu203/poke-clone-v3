@@ -5,8 +5,8 @@
 このリポジトリはWebプラットフォームにおけるオンラインゲーム開発の練習の一環として作成しました. \
 今回の最終目標はCPUとの対戦だけでなく, オンライン対戦を行うことができるようにしていく予定です. 
 
-<img width="2159" height="1126" alt="サンプル画面" src="https://github.com/user-attachments/assets/e850496e-d3cc-4226-a4fa-fdd49f910046" />
-※ 画像はpoke-clone で開発したものです.
+<img width="1363" height="1990" alt="画面設計" src="https://github.com/user-attachments/assets/7e2f89f6-56e8-4dec-b0f3-086c73392f7c" />
+※ 画像は設計時点のものです.
 
 ## 使用技術
 
