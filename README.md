@@ -38,18 +38,3 @@ cd poke-clone-v3
 
 <img width="1656" height="1123" alt="バックエンドクラス図" src="https://github.com/ayumu203/poke-clone-v3/blob/main/docs/UML/%E3%82%AF%E3%83%A9%E3%82%B9%E5%9B%B3.png" />
 
-## 進捗
-
-### バックエンド
-
-- [x] .NETを利用したAPIサーバの作成.
-- [x] EF Coreによるモデルの作成.
-- [x] ポケモン・技データ保存バッチ処理の実装.
-- [x] APIエンドポイントの作成.
-- [x] 簡易JWT認証の作成.
-- [ ] 対戦ロジックの実装
-- [ ] SignalRによるリアルタイム対戦の実装.
-
-### フロントエンド
-
-- [ ] 未定（まだ考えてない...）
