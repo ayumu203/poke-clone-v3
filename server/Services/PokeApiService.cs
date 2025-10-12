@@ -363,10 +363,10 @@ namespace server.Services
                     Accuracy = root.TryGetProperty("accuracy", out var accuracyProp) && accuracyProp.ValueKind != JsonValueKind.Null
                         ? accuracyProp.GetInt32()
                         : 100,
-                    PP = root.TryGetProperty("pp", out var ppProp)
+                    PP = (root.TryGetProperty("pp", out var ppProp) && ppProp.ValueKind != JsonValueKind.Null)
                         ? ppProp.GetInt32()
                         : 0,
-                    Priority = root.TryGetProperty("priority", out var priorityProp)
+                    Priority = (root.TryGetProperty("priority", out var priorityProp) && priorityProp.ValueKind != JsonValueKind.Null)
                         ? priorityProp.GetInt32()
                         : 0,
                     Rank = new Rank(),
@@ -385,15 +385,15 @@ namespace server.Services
                         var ailmentName = ailmentProp.GetProperty("name").GetString() ?? "";
                         move.Ailment = MapAilmentFromString(ailmentName);
                     }
-                    if (meta.TryGetProperty("ailment_chance", out var ailmentChanceProp))
+                    if (meta.TryGetProperty("ailment_chance", out var ailmentChanceProp) && ailmentChanceProp.ValueKind != JsonValueKind.Null)
                     {
                         move.AilmentChance = ailmentChanceProp.GetInt32();
                     }
-                    if (meta.TryGetProperty("drain", out var drainProp))
+                    if (meta.TryGetProperty("drain", out var drainProp) && drainProp.ValueKind != JsonValueKind.Null)
                     {
                         move.Drain = drainProp.GetInt32();
                     }
-                    if (meta.TryGetProperty("healing", out var healingProp))
+                    if (meta.TryGetProperty("healing", out var healingProp) && healingProp.ValueKind != JsonValueKind.Null)
                     {
                         move.Healing = healingProp.GetInt32();
                     }
