@@ -1,14 +1,11 @@
-# ServerTests - APIテストプロジェクト
-
-## 概要
-
-このプロジェクトは、ASP.NET Core Web APIのための統合テストとスナップショットテストを提供します。
+# APIテスト
 
 ## テスト構成
 
 ### 実装済みテスト
 
-#### 統合テスト (`ApiIntegrationTests.cs`) - 4テスト
+#### 統合テスト (`ApiIntegrationTests.cs`)
+
 1. **Test1_CreatePlayer_ShouldReturnCreatedPlayer**
    - プレイヤー作成APIのテスト
    - POST `/api/players`
@@ -29,7 +26,8 @@
    - GET `/api/players/{id}/party`
    - 期待: 200 OK、1匹のポケモンを含む
 
-#### スナップショットテスト (`ApiSnapshotTests.cs`) - 3テスト
+#### スナップショットテスト (`ApiSnapshotTests.cs`)
+
 1. **CreatePlayer_ShouldMatchSnapshot**
    - プレイヤー作成レスポンスのスナップショット検証
 
@@ -65,11 +63,6 @@ dotnet test --filter "Test1_CreatePlayer"
 
 # カバレッジ付きで実行
 dotnet test --collect:"XPlat Code Coverage"
-```
-
-### 実行結果（期待値）
-```
-Passed!  - Failed:     0, Passed:     8, Skipped:     0, Total:     8
 ```
 
 ## 新しいテストの作成方法
@@ -132,9 +125,11 @@ public async Task FeatureName_ShouldMatchSnapshot()
 
 1. テスト実行時に`.received.txt`ファイルが生成される
 2. 内容を確認して正しければ、`.verified.txt`にコピー
+
    ```bash
    cp Snapshots/TestName.received.txt Snapshots/TestName.verified.txt
    ```
+
 3. 次回以降、`.verified.txt`と比較される
 
 ### 3. テストデータの追加
@@ -150,6 +145,7 @@ public async Task FeatureName_ShouldMatchSnapshot()
 ```
 
 `.csproj`ファイルで自動コピーを設定（既に設定済み）：
+
 ```xml
 <ItemGroup>
   <None Update="TestData\**\*">
@@ -159,6 +155,7 @@ public async Task FeatureName_ShouldMatchSnapshot()
 ```
 
 テスト内で読み込み：
+
 ```csharp
 var data = await LoadTestDataAsync<MyDto>("new_data.json");
 ```
@@ -190,6 +187,7 @@ public class ApiIntegrationTests : IDisposable
 ```
 
 **利点**:
+
 - テスト間のデータ競合がない
 - 並列実行が可能
 - テストの順序に依存しない
@@ -252,46 +250,22 @@ public class CustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProg
 
 ## トラブルシューティング
 
-### よくある問題
+#### 1. 認証エラー（401 Unauthorized）
 
-#### 1. テストが404 Not Foundを返す
-**原因**: データベースが共有されていない、または各テストでデータが作成されていない
-
-**解決**: 各テストで必要なデータ（プレイヤー、ポケモン種族など）を作成
-
-```csharp
-// プレイヤーを作成
-var createDto = await LoadTestDataAsync<CreatePlayerDto>("player.json");
-await _client.PostAsJsonAsync("/api/players", createDto);
-
-// ポケモン種族をシード
-await SeedTestPokemonSpecies();
-```
-
-#### 2. スナップショットテストの失敗
-**原因**: `.verified.txt`ファイルが最新のレスポンスと一致しない
-
-**解決**: 
-1. `.received.txt`の内容を確認
-2. 正しければ`.verified.txt`に上書き
-3. 間違っていればコードを修正
-
-```bash
-cp Snapshots/TestName.received.txt Snapshots/TestName.verified.txt
-```
-
-#### 3. 認証エラー（401 Unauthorized）
 **原因**: `SetupAuthentication()`が呼ばれていない
 
-**解決**: 各テストの最初で認証を設定
+**解決策**: 各テストの最初で認証を設定
+
 ```csharp
 SetupAuthentication();
 ```
 
 #### 4. データベースプロバイダーの競合
+
 **原因**: SQL ServerとInMemory DBが両方登録されている
 
 **解決**: `Program.cs`でTest環境の場合はSQL Serverをスキップ
+
 ```csharp
 if (!builder.Environment.IsEnvironment("Test"))
 {
@@ -302,12 +276,14 @@ if (!builder.Environment.IsEnvironment("Test"))
 ## ベストプラクティス
 
 ### 1. テスト命名規則
-```
+
+```bash
 [テストメソッド]_[期待する動作]
 例: Test1_CreatePlayer_ShouldReturnCreatedPlayer
 ```
 
 ### 2. Arrange-Act-Assert パターン
+
 ```csharp
 // Arrange - テストの準備
 SetupAuthentication();
@@ -321,53 +297,29 @@ response.StatusCode.Should().Be(HttpStatusCode.Created);
 ```
 
 ### 3. テストデータの管理
+
 - JSONファイルで管理（バージョン管理しやすい）
 - 再利用可能なデータを`TestData/`に配置
 - テスト固有のデータはテスト内で直接定義
 
 ### 4. スナップショットの更新
+
 - 意図的な変更の場合のみ`.verified.txt`を更新
 - 大きな変更の場合はレビュー時に`.received.txt`と`.verified.txt`の差分を確認
 
 ### 5. テストの独立性
+
 - 各テストは他のテストに依存しない
 - 必要なデータは毎回作成
 - 共有状態を避ける
 
-## CI/CD統合
-
-### GitHub Actions例
-
-```yaml
-name: Run Tests
-
-on: [push, pull_request]
-
-jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: '8.0.x'
-      - name: Restore dependencies
-        run: dotnet restore
-      - name: Build
-        run: dotnet build --no-restore
-      - name: Test
-        run: dotnet test --no-build --verbosity normal
-```
-
 ## ディレクトリ構造
 
-```
+```bash
 ServerTests/
 ├── ApiIntegrationTests.cs      # 統合テスト
 ├── ApiSnapshotTests.cs         # スナップショットテスト
 ├── CustomWebApplicationFactory.cs  # テスト用ファクトリ
-├── UnitTest1.cs                # デフォルトテスト（削除可）
 ├── TestData/                   # テストデータ
 │   ├── player.json
 │   ├── expected_player.json

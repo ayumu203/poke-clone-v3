@@ -23,11 +23,10 @@ public class CustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProg
         
         builder.ConfigureAppConfiguration((context, config) =>
         {
-            // 既存の設定ソースをクリアして、テスト用設定のみを使用
             config.Sources.Clear();
             config.AddInMemoryCollection(new Dictionary<string, string?>
             {
-                ["IsAuthenticationEnabled"] = "false",  // 認証を完全に無効化
+                ["IsAuthenticationEnabled"] = "false",  
                 ["Jwt:Key"] = "test-secret-key-for-jwt-authentication-minimum-32-characters",
                 ["Jwt:Issuer"] = "test-issuer",
                 ["Jwt:Audience"] = "test-audience"
@@ -36,7 +35,6 @@ public class CustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProg
 
         builder.ConfigureServices((context, services) =>
         {
-            // DbContextを削除
             var descriptor = services.SingleOrDefault(
                 d => d.ServiceType == typeof(DbContextOptions<ApplicationDbContext>));
             if (descriptor != null)
@@ -44,7 +42,6 @@ public class CustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProg
                 services.Remove(descriptor);
             }
 
-            // インメモリDBを追加（コンストラクタで指定されたDB名を使用）
             services.AddDbContext<ApplicationDbContext>(options =>
             {
                 options.UseInMemoryDatabase(_databaseName);

@@ -30,7 +30,6 @@ public class ApiIntegrationTests : IDisposable
 
     public ApiIntegrationTests()
     {
-        // 各テストごとにユニークなデータベースを使用
         _factory = new CustomWebApplicationFactory<Program>();
         _client = _factory.CreateClient();
     }
