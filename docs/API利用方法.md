@@ -79,3 +79,11 @@ curl -H "Authorization: Bearer <token>" \
 curl -H "Authorization: Bearer <token>" \
   http://localhost:5000/api/players/example-player-id/party
 ```
+
+## その他のエンドポイント
+
+その他のエンドポイントはSwagger UIで確認。
+
+```bash
+http://localhost:5000/swagger/index.html
+```
