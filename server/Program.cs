@@ -172,3 +172,6 @@ if (isAuthenticationEnabled)
 app.MapControllers();
 
 app.Run();
+
+// テスト用に Program クラスを公開
+public partial class Program { }
