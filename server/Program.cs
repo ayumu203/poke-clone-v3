@@ -88,6 +88,22 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 var app = builder.Build();
 
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+    
+    try
+    {
+        dbContext.Database.Migrate();
+    }
+    catch (Exception ex)
+    {
+        logger.LogError(ex, "Error applying database migrations");
+        throw;
+    }
+}
+
 if (args.Contains("--seed"))
 {
     using var scope = app.Services.CreateScope();

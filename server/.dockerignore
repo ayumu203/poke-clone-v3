@@ -1,0 +1,13 @@
+bin
+obj
+**/bin
+**/obj
+*.user
+*.suo
+*.userosscache
+Dockerfile
+.dockerignore
+*.log
+.vscode
+*.db
+*.DS_Store

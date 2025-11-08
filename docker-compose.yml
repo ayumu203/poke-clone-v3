@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: pokeclone_db
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=Your_Password123!
+      - MSSQL_PID=Developer
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+    healthcheck:
+      test: /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P 'Your_Password123!' -C -Q "SELECT 1" || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    networks:
+      - pokeclone_network
+
+  app:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: pokeclone_app
+    ports:
+      - "5000:5000"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:5000
+      - ConnectionStrings__DefaultConnection=Server=db,1433;Database=PokeCloneDb;User Id=sa;Password=Your_Password123!;TrustServerCertificate=True;
+      - IsAuthenticationEnabled=true
+      - UseLocalJwt=true
+      - Jwt__Key=your-very-strong-secret-key-change-this-minimum-32-characters
+      - Jwt__Issuer=pokeclone.local
+      - Jwt__Audience=pokeclone.local
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - pokeclone_network
+    volumes:
+      - ./server/Data:/app/Data
+
+volumes:
+  sqlserver_data:
+
+networks:
+  pokeclone_network:
+    driver: bridge
