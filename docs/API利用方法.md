@@ -11,13 +11,13 @@ dotnet run --project tools/jwt-generator/jwt-generator.csproj -- "your-very-stro
 
 ## 1. プレイヤー登録
 
-### エンドポイント
+### エンドポイント(Player)
 
 ```http
 POST /api/players
 ```
 
-### リクエスト例
+### リクエスト例(Player)
 
 ```json
 {
@@ -28,7 +28,7 @@ POST /api/players
 
 **注意**: `playerId`はJWTトークンの`sub`/`oid`/`nameidentifier`クレームから自動的に取得されます。リクエストボディに含めないでください。
 
-### curl例
+### curl例(Player)
 
 ```bash
 curl -X POST http://localhost:5000/api/players \
@@ -39,13 +39,13 @@ curl -X POST http://localhost:5000/api/players \
 
 ## 2. ポケモン登録
 
-### エンドポイント
+### エンドポイント(Party)
 
 ```http
 POST /api/players/{playerId}/party
 ```
 
-### リクエスト例
+### リクエスト例(Party)
 
 ```json
 {
@@ -54,7 +54,7 @@ POST /api/players/{playerId}/party
 }
 ```
 
-### curl例
+### curl例(Party)
 
 ```bash
 curl -X POST http://localhost:5000/api/players/example-player-id/party \
@@ -62,6 +62,7 @@ curl -X POST http://localhost:5000/api/players/example-player-id/party \
   -H "Authorization: Bearer <token>" \
   -d '{"speciesId":1, "level":5}'
 ```  
+
 ---
 
 ## テスト後の確認
