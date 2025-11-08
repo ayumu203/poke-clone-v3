@@ -23,7 +23,7 @@ services:
 
   app:
     build:
-      context: ./server
+      context: ./Server
       dockerfile: Dockerfile
     container_name: pokeclone_app
     ports:

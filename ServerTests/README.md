@@ -250,7 +250,7 @@ public class CustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProg
 
 ## トラブルシューティング
 
-#### 1. 認証エラー（401 Unauthorized）
+### 1. 認証エラー（401 Unauthorized）
 
 **原因**: `SetupAuthentication()`が呼ばれていない
 
@@ -260,7 +260,7 @@ public class CustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProg
 SetupAuthentication();
 ```
 
-#### 4. データベースプロバイダーの競合
+### 2. データベースプロバイダーの競合
 
 **原因**: SQL ServerとInMemory DBが両方登録されている
 
