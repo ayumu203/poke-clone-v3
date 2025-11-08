@@ -1,5 +1,7 @@
 # Poke-Clone-V3
 
+暇になったら頑張る.
+
 <img width="1363" height="1990" alt="画面設計" src="https://github.com/user-attachments/assets/7e2f89f6-56e8-4dec-b0f3-086c73392f7c" />
 ※ 画像は設計時点のものです.
 
