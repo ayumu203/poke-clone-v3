@@ -382,7 +382,38 @@ ServerTests/
 
 ## 参考リンク
 
-- [xUnit Documentation](https://xunit.net/)
-- [FluentAssertions Documentation](https://fluentassertions.com/)
-- [Verify Documentation](https://github.com/VerifyTests/Verify)
-- [ASP.NET Core Integration Tests](https://learn.microsoft.com/en-us/aspnet/core/test/integration-tests)
+### テストフレームワーク・ライブラリ
+
+- [xUnit Documentation](https://xunit.net/) - .NETのテストフレームワーク
+  - [Getting Started](https://xunit.net/docs/getting-started/netcore/cmdline)
+  - [Shared Context between Tests](https://xunit.net/docs/shared-context)
+  
+- [FluentAssertions Documentation](https://fluentassertions.com/) - 読みやすいアサーションライブラリ
+  - [Collections](https://fluentassertions.com/collections/)
+  - [Exception Assertions](https://fluentassertions.com/exceptions/)
+  
+- [Verify Documentation](https://github.com/VerifyTests/Verify) - スナップショットテスト
+  - [Getting Started with Xunit](https://github.com/VerifyTests/Verify/blob/main/docs/xunit.md)
+  - [Naming Conventions](https://github.com/VerifyTests/Verify/blob/main/docs/naming.md)
+
+### ASP.NET Core テスト
+
+- [ASP.NET Core Integration Tests](https://learn.microsoft.com/en-us/aspnet/core/test/integration-tests) - Microsoft公式ドキュメント
+- [WebApplicationFactory](https://learn.microsoft.com/en-us/aspnet/core/test/integration-tests#basic-tests-with-the-default-webapplicationfactory) - テスト用ファクトリ
+- [Test middleware](https://learn.microsoft.com/en-us/aspnet/core/test/middleware) - ミドルウェアのテスト
+
+### Entity Framework Core テスト
+
+- [Testing EF Core Applications](https://learn.microsoft.com/en-us/ef/core/testing/) - EFCoreテスト概要
+- [Testing with InMemory](https://learn.microsoft.com/en-us/ef/core/testing/testing-without-the-database#inmemory-provider) - InMemoryプロバイダー
+- [Testing with SQLite](https://learn.microsoft.com/en-us/ef/core/testing/testing-without-the-database#sqlite-in-memory) - SQLiteを使った代替手法
+
+### テストのベストプラクティス・参考資料
+
+- [Unit testing best practices](https://learn.microsoft.com/en-us/dotnet/core/testing/unit-testing-best-practices) - .NET単体テストのベストプラクティス
+- [Test-Driven Development (TDD)](https://learn.microsoft.com/en-us/visualstudio/test/quick-start-test-driven-development-with-test-explorer) - TDD入門
+
+### CI/CD
+
+- [GitHub Actions for .NET](https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net) - GitHub Actionsでの.NETビルド・テスト
+- [Azure Pipelines for .NET](https://learn.microsoft.com/en-us/azure/devops/pipelines/ecosystems/dotnet-core) - Azure Pipelinesでの.NETビルド
