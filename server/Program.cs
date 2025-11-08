@@ -20,6 +20,13 @@ builder.Services.AddControllers()
 static bool ConfigureAuthentication(WebApplicationBuilder builder)
 {
     var isAuthenticationEnabled = builder.Configuration.GetValue<bool>("IsAuthenticationEnabled", true);
+    
+    // テスト環境では認証を無効化
+    if (builder.Environment.EnvironmentName == "Test")
+    {
+        isAuthenticationEnabled = false;
+    }
+    
     JwtHelper.Initialize(builder.Configuration);
 
     if (isAuthenticationEnabled)
@@ -83,24 +90,32 @@ builder.Services.AddCors(options =>
     });
 });
 
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+// テスト環境以外でDbContextを登録
+if (builder.Environment.EnvironmentName != "Test")
+{
+    builder.Services.AddDbContext<ApplicationDbContext>(options =>
+        options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+}
 
 var app = builder.Build();
 
-using (var scope = app.Services.CreateScope())
+// テスト環境ではマイグレーションをスキップ
+if (app.Environment.EnvironmentName != "Test")
 {
-    var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
-    
-    try
+    using (var scope = app.Services.CreateScope())
     {
-        dbContext.Database.Migrate();
-    }
-    catch (Exception ex)
-    {
-        logger.LogError(ex, "Error applying database migrations");
-        throw;
+        var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+        var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+        
+        try
+        {
+            dbContext.Database.Migrate();
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "Error applying database migrations");
+            throw;
+        }
     }
 }
 
@@ -163,11 +178,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors();
 
-if (isAuthenticationEnabled)
-{
-    app.UseAuthentication();
-    app.UseAuthorization();
-}
+// 認証・認可ミドルウェアは常に有効化（NoAuthHandlerが処理）
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
 

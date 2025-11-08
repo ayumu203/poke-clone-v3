@@ -1,0 +1,5 @@
+﻿{
+  PlayerId: test-player-id,
+  Name: テストユーザー,
+  IconUrl: https://example.com/icon.png
+}

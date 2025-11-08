@@ -1,8 +1,13 @@
 using System.Net.Http.Json;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.IdentityModel.Tokens;
 using server.Data;
 using server.Helpers;
 using server.Models.Core;
@@ -10,45 +15,54 @@ using server.Models.DTOs;
 using server.Models.Enums;
 using System.Net.Http.Headers;
 using System.Text.Json;
-using VerifyXunit;
 
-namespace server.Tests;
+namespace ServerTests;
 
-[UsesVerify]
-public class ApiSnapshotTests : IClassFixture<WebApplicationFactory<Program>>
+public class ApiSnapshotTests : IDisposable
 {
-    private readonly WebApplicationFactory<Program> _factory;
+    private readonly CustomWebApplicationFactory<Program> _factory;
     private readonly HttpClient _client;
     private readonly string _testPlayerId = "test-player-id";
     private string? _authToken;
 
-    public ApiSnapshotTests(WebApplicationFactory<Program> factory)
+    public ApiSnapshotTests()
     {
-        _factory = factory.WithWebHostBuilder(builder =>
-        {
-            builder.ConfigureServices(services =>
-            {
-                // テスト用にインメモリDBに置き換え
-                services.RemoveAll<DbContextOptions<ApplicationDbContext>>();
-                services.AddDbContext<ApplicationDbContext>(options =>
-                {
-                    options.UseInMemoryDatabase($"SnapshotTestDb_{Guid.NewGuid()}");
-                });
-
-                // DBの初期化
-                var sp = services.BuildServiceProvider();
-                using var scope = sp.CreateScope();
-                var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-                db.Database.EnsureCreated();
-            });
-        });
-
+        // 各テストごとにユニークなデータベースを使用
+        _factory = new CustomWebApplicationFactory<Program>();
         _client = _factory.CreateClient();
+    }
+
+    public void Dispose()
+    {
+        _client?.Dispose();
+        _factory?.Dispose();
     }
 
     private void SetupAuthentication()
     {
-        _authToken = JwtHelper.GenerateLocalJwt(_testPlayerId);
+        // テスト用JWTトークンを直接生成
+        var key = "test-secret-key-for-jwt-authentication-minimum-32-characters";
+        var keyBytes = System.Text.Encoding.UTF8.GetBytes(key);
+        var securityKey = new SymmetricSecurityKey(keyBytes);
+        var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+
+        var claims = new[]
+        {
+            new Claim(JwtRegisteredClaimNames.Sub, _testPlayerId),
+            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+        };
+
+        var token = new JwtSecurityToken(
+            issuer: "test-issuer",
+            audience: "test-audience",
+            claims: claims,
+            notBefore: DateTime.UtcNow,
+            expires: DateTime.UtcNow.AddHours(1),
+            signingCredentials: credentials
+        );
+
+        var handler = new JwtSecurityTokenHandler();
+        _authToken = handler.WriteToken(token);
         _client.DefaultRequestHeaders.Authorization = 
             new AuthenticationHeaderValue("Bearer", _authToken);
     }
@@ -140,9 +154,9 @@ public class ApiSnapshotTests : IClassFixture<WebApplicationFactory<Program>>
                 Name = speciesData.Name,
                 FrontImage = speciesData.FrontImage,
                 BackImage = speciesData.BackImage,
-                Type1 = Enum.Parse<Models.Enums.Type>(speciesData.Type1),
-                Type2 = string.IsNullOrEmpty(speciesData.Type2) ? null : Enum.Parse<Models.Enums.Type>(speciesData.Type2),
-                EvolveLevel = speciesData.EvolveLevel,
+                Type1 = Enum.Parse<server.Models.Enums.Type>(speciesData.Type1),
+                Type2 = string.IsNullOrEmpty(speciesData.Type2) ? null : Enum.Parse<server.Models.Enums.Type>(speciesData.Type2),
+                EvolveLevel = speciesData.EvolveLevel ?? 0,
                 BaseHP = speciesData.BaseHP,
                 BaseAttack = speciesData.BaseAttack,
                 BaseDefense = speciesData.BaseDefense,

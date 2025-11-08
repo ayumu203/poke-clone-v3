@@ -1,0 +1,35 @@
+﻿{
+  Pokemons: [
+    {
+      PokemonId: 1,
+      Species: {
+        PokemonSpeciesId: 1,
+        Name: フシギダネ,
+        FrontImage: https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png,
+        BackImage: https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/1.png,
+        Type1: Grass,
+        Type2: Poison,
+        EvolveLevel: 16,
+        BaseHp: 45,
+        BaseAttack: 49,
+        BaseDefence: 49,
+        BaseSpecialAttack: 65,
+        BaseSpecialDefence: 65,
+        BaseSpeed: 45
+      },
+      Level: 5,
+      CurrentHp: 19,
+      Rank: {},
+      Ailment: None,
+      VolatileStatus: {
+        IsConfused: false,
+        IsFlinched: false,
+        IsTrapped: false,
+        IsSeeded: false,
+        IsEncored: false,
+        IsCharging: false,
+        IsProtected: false
+      }
+    }
+  ]
+}
