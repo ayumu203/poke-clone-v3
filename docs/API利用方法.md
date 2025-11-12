@@ -1,4 +1,4 @@
-# APIテスト方法
+# API テスト方法
 
 ---
 
@@ -26,9 +26,9 @@ POST /api/players
 }
 ```
 
-**注意**: `playerId`はJWTトークンの`sub`/`oid`/`nameidentifier`クレームから自動的に取得されます。リクエストボディに含めないでください。
+**注意**: `playerId`は JWT トークンの`sub`/`oid`/`nameidentifier`クレームから自動的に取得されます。リクエストボディに含めないでください。
 
-### curl例(Player)
+### curl 例(Player)
 
 ```bash
 curl -X POST http://localhost:5000/api/players \
@@ -54,14 +54,14 @@ POST /api/players/{playerId}/party
 }
 ```
 
-### curl例(Party)
+### curl 例(Party)
 
 ```bash
 curl -X POST http://localhost:5000/api/players/example-player-id/party \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer <token>" \
   -d '{"speciesId":1, "level":5}'
-```  
+```
 
 ---
 
@@ -83,7 +83,7 @@ curl -H "Authorization: Bearer <token>" \
 
 ## その他のエンドポイント
 
-その他のエンドポイントはSwagger UIで確認。
+その他のエンドポイントは Swagger UI で確認。
 
 ```bash
 http://localhost:5000/swagger/index.html

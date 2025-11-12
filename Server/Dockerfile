@@ -3,8 +3,8 @@ WORKDIR /src
 
 COPY . .
 
-RUN dotnet restore "./server.csproj"
-RUN dotnet publish "./server.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet restore "./Server.csproj"
+RUN dotnet publish "./Server.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
 WORKDIR /app
@@ -14,4 +14,4 @@ EXPOSE 5000
 
 COPY --from=build /app/publish .
 
-ENTRYPOINT ["dotnet", "server.dll"]
+ENTRYPOINT ["dotnet", "Server.dll"]

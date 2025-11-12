@@ -15,8 +15,8 @@ public class NoAuthHandler : AuthenticationHandler<AuthenticationSchemeOptions>
 
     protected override Task<AuthenticateResult> HandleAuthenticateAsync()
     {
-        // 開発用にデフォルトのClaimsPrincipalを返す
-        var claims = new[] { new Claim(ClaimTypes.NameIdentifier, "dev-user") };
+        // テスト用にtest-player-idを使用
+        var claims = new[] { new Claim(ClaimTypes.NameIdentifier, "test-player-id") };
         var identity = new ClaimsIdentity(claims, Scheme.Name);
         var principal = new ClaimsPrincipal(identity);
         var ticket = new AuthenticationTicket(principal, Scheme.Name);
