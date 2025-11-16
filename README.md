@@ -36,3 +36,7 @@ cd poke-clone-v3
 ## クラス図(バックエンド)
 
 <img width="1656" height="1123" alt="バックエンドクラス図" src="https://github.com/ayumu203/poke-clone-v3/blob/main/docs/UML/%E3%82%AF%E3%83%A9%E3%82%B9%E5%9B%B3.png" />
+
+## API
+
+<img width="1483" height="1064" alt="image" src="https://github.com/user-attachments/assets/04e1b660-d8dd-4780-a10f-77dd4b190416" />
