@@ -2,6 +2,9 @@
 
 暇になったら頑張る.
 
+<img width="1256" height="710" alt="画面設計" src="https://github.com/user-attachments/assets/728eb2d1-56a4-4021-89ca-b8913618eff6" />
+
+
 ※ 画像は設計時点のものです.
 
 ## 使用技術
