@@ -1,6 +1,6 @@
 # Poke-Clone-V3
 
-暇になったら頑張る.
+暇になったら頑張ります.
 
 <img width="1256" height="710" alt="画面設計" src="https://github.com/user-attachments/assets/728eb2d1-56a4-4021-89ca-b8913618eff6" />
 
