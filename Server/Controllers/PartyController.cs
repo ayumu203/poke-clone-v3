@@ -10,7 +10,7 @@ namespace server.Controllers;
 
 [ApiController]
 [Route("api/players/{playerId}/party")]
-[Authorize] 
+
 public class PartyController : ControllerBase
 {
     private readonly ApplicationDbContext _context;
@@ -34,11 +34,7 @@ public class PartyController : ControllerBase
     {
         try
         {
-            if (!JwtHelper.IsAuthorized(User, playerId))
-            {
-                _logger.LogWarning("Unauthorized access attempt to party for player {PlayerId}", playerId);
-                return Forbid();
-            }
+
 
             var player = await _context.Players
                 .AsNoTracking()
@@ -81,12 +77,7 @@ public class PartyController : ControllerBase
     {
         try
         {
-            // 認可チェック: 自分のデータのみ追加可能
-            if (!JwtHelper.IsAuthorized(User, playerId))
-            {
-                _logger.LogWarning("Unauthorized add attempt to party for player {PlayerId}", playerId);
-                return Forbid();
-            }
+
 
             var player = await _context.Players
                 .Include(p => p.Pokemons)
@@ -174,12 +165,7 @@ public class PartyController : ControllerBase
     {
         try
         {
-            // 認可チェック: 自分のデータのみ更新可能
-            if (!JwtHelper.IsAuthorized(User, playerId))
-            {
-                _logger.LogWarning("Unauthorized update attempt to party for player {PlayerId}", playerId);
-                return Forbid();
-            }
+
 
             var pokemon = await _context.Pokemons
                 .Include(p => p.Species)
@@ -236,12 +222,7 @@ public class PartyController : ControllerBase
     {
         try
         {
-            // 認可チェック: 自分のデータのみ削除可能
-            if (!JwtHelper.IsAuthorized(User, playerId))
-            {
-                _logger.LogWarning("Unauthorized delete attempt to party for player {PlayerId}", playerId);
-                return Forbid();
-            }
+
 
             var pokemon = await _context.Pokemons
                 .FirstOrDefaultAsync(p => p.PokemonId == pokemonId && p.PlayerId == playerId);

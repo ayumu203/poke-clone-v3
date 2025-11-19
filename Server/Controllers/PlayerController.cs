@@ -10,7 +10,7 @@ namespace server.Controllers;
 
 [ApiController]
 [Route("api/players")]
-[Authorize] 
+
 public class PlayersController : ControllerBase
 {
     private readonly ApplicationDbContext _context;
@@ -34,12 +34,7 @@ public class PlayersController : ControllerBase
     {
         try
         {
-            // 認可チェック: 自分のデータのみアクセス可能
-            if (!JwtHelper.IsAuthorized(User, playerId))
-            {
-                _logger.LogWarning("Unauthorized access attempt to player {PlayerId}", playerId);
-                return Forbid();
-            }
+
 
             var player = await _context.Players
                 .AsNoTracking()
@@ -76,12 +71,12 @@ public async Task<ActionResult<PlayerDto>> CreatePlayer([FromBody] CreatePlayerD
 {
     try
     {
-        // JWTから取得したPlayerIdを使用（クライアントからは受け取らない）
-        var playerId = JwtHelper.GetPlayerIdFromJwt(User);
+        // クライアントから受け取ったPlayerIdを使用
+        var playerId = dto.PlayerId;
         
         if (string.IsNullOrEmpty(playerId))
         {
-            return Unauthorized(new { message = "Invalid token" });
+            return BadRequest(new { message = "PlayerId is required" });
         }
 
         // 既に存在するか確認
@@ -96,7 +91,7 @@ public async Task<ActionResult<PlayerDto>> CreatePlayer([FromBody] CreatePlayerD
 
         var player = new Player
         {
-            PlayerId = playerId,  // JWTから取得（クライアントからではない）
+            PlayerId = playerId,
             Name = dto.Name,
             IconUrl = dto.IconUrl ?? string.Empty
         };
@@ -136,12 +131,7 @@ public async Task<ActionResult<PlayerDto>> CreatePlayer([FromBody] CreatePlayerD
     {
         try
         {
-            // 認可チェック: 自分のデータのみ更新可能
-            if (!JwtHelper.IsAuthorized(User, playerId))
-            {
-                _logger.LogWarning("Unauthorized update attempt to player {PlayerId}", playerId);
-                return Forbid();
-            }
+
 
             var player = await _context.Players
                 .FirstOrDefaultAsync(p => p.PlayerId == playerId);

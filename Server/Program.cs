@@ -1,11 +1,8 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Web;
-using Microsoft.IdentityModel.Tokens;
 using server.Data;
 using server.Services;
-using server.Helpers;
-using Microsoft.AspNetCore.Authentication;
+
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,62 +14,9 @@ builder.Services.AddControllers()
         options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
     });
 
-static bool ConfigureAuthentication(WebApplicationBuilder builder)
-{
-    var isAuthenticationEnabled = builder.Configuration.GetValue<bool>("IsAuthenticationEnabled", true);
-    
-    // テスト環境では認証を無効化
-    if (builder.Environment.EnvironmentName == "Test")
-    {
-        isAuthenticationEnabled = false;
-    }
-    
-    JwtHelper.Initialize(builder.Configuration);
 
-    if (isAuthenticationEnabled)
-    {
-        var useLocalJwt = builder.Configuration.GetValue<bool>("UseLocalJwt");
-        if (useLocalJwt)
-        {
-            var jwtSection = builder.Configuration.GetSection("Jwt");
-            var key = jwtSection.GetValue<string?>("Key") ?? throw new InvalidOperationException("Jwt:Key must be configured when UseLocalJwt is true");
-            var issuer = jwtSection.GetValue<string?>("Issuer") ?? throw new InvalidOperationException("Jwt:Issuer must be configured when UseLocalJwt is true");
-            var audience = jwtSection.GetValue<string?>("Audience") ?? throw new InvalidOperationException("Jwt:Audience must be configured when UseLocalJwt is true");
-            var keyBytes = System.Text.Encoding.UTF8.GetBytes(key);
 
-            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options =>
-                {
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuer = true,
-                        ValidIssuer = issuer,
-                        ValidateAudience = true,
-                        ValidAudience = audience,
-                        ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(keyBytes),
-                        ValidateLifetime = true
-                    };
-                });
-        }
-        else
-        {
-            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureEntraId"));
-        }
-        builder.Services.AddAuthorization();
-    }
-    else
-    {
-        builder.Services.AddAuthentication("NoAuth")
-            .AddScheme<AuthenticationSchemeOptions, server.Services.NoAuthHandler>("NoAuth", options => { });
-        builder.Services.AddAuthorization();
-    }
 
-    return isAuthenticationEnabled;
-}
-
-var isAuthenticationEnabled = ConfigureAuthentication(builder);
 
 builder.Services.AddHttpClient<PokeApiService>();
 builder.Services.AddEndpointsApiExplorer();
@@ -178,9 +122,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors();
 
-// 認証・認可ミドルウェアは常に有効化（NoAuthHandlerが処理）
-app.UseAuthentication();
-app.UseAuthorization();
+
 
 app.MapControllers();
 

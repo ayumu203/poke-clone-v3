@@ -8,7 +8,7 @@ namespace server.Controllers;
 
 [ApiController]
 [Route("api/pokemon-species")]
-[Authorize]
+
 public class PokemonSpeciesController : ControllerBase
 {
     private readonly ApplicationDbContext _context;
