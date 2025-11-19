@@ -8,7 +8,7 @@ namespace server.Controllers;
 
 [ApiController]
 [Route("api/moves")]
-[Authorize]
+
 public class MovesController : ControllerBase
 {
     private readonly ApplicationDbContext _context;
