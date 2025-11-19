@@ -21,6 +21,10 @@
 
 [![本番環境](https://skillicons.dev/icons?i=azure,vercel&theme=light)](https://skillicons.dev)
 
+## アーキテクチャ構成
+
+<img width="1302" height="571" alt="アーキテクチャ構成 drawio" src="https://github.com/user-attachments/assets/52060975-64fd-4d71-9586-977b07653623" />
+
 ## 導入方法
 
 ```bash
