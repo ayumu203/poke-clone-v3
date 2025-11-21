@@ -33,10 +33,6 @@ services:
       - ASPNETCORE_URLS=http://+:5000
       - ConnectionStrings__DefaultConnection=Server=db,1433;Database=PokeCloneDb;User Id=sa;Password=Your_Password123!;TrustServerCertificate=True;
       - IsAuthenticationEnabled=true
-      - UseLocalJwt=true
-      - Jwt__Key=your-very-strong-secret-key-change-this-minimum-32-characters
-      - Jwt__Issuer=pokeclone.local
-      - Jwt__Audience=pokeclone.local
     depends_on:
       db:
         condition: service_healthy
