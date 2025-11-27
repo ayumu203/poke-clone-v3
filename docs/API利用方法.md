@@ -12,14 +12,6 @@ POST /api/players
 
 ### リクエスト例(Player)
 
-```json
-{
-  "name": "テストユーザー",
-  "iconUrl": "https://example.com/icon.png"
-}
-```
-### curl 例(Player)
-
 ```bash
 curl -X POST http://localhost:5000/api/players \
   -H "Content-Type: application/json" \
@@ -32,15 +24,6 @@ curl -X POST http://localhost:5000/api/players \
 
 ```http
 POST /api/players/{playerId}/party
-```
-
-### リクエスト例(Party)
-
-```json
-{
-  "speciesId": 1,
-  "level": 5
-}
 ```
 
 ### curl 例(Party)
