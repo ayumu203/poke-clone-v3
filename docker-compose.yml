@@ -21,25 +21,25 @@ services:
     networks:
       - pokeclone_network
 
-  app:
-    build:
-      context: ./Server
-      dockerfile: Dockerfile
-    container_name: pokeclone_app
-    ports:
-      - "5000:5000"
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://+:5000
-      - ConnectionStrings__DefaultConnection=Server=db,1433;Database=PokeCloneDb;User Id=sa;Password=Your_Password123!;TrustServerCertificate=True;
-      - IsAuthenticationEnabled=true
-    depends_on:
-      db:
-        condition: service_healthy
-    networks:
-      - pokeclone_network
-    volumes:
-      - ./server/Data:/app/Data
+  # app:
+  #   build:
+  #     context: ./Server
+  #     dockerfile: Dockerfile
+  #   container_name: pokeclone_app
+  #   ports:
+  #     - "5000:5000"
+  #   environment:
+  #     - ASPNETCORE_ENVIRONMENT=Development
+  #     - ASPNETCORE_URLS=http://+:5000
+  #     - ConnectionStrings__DefaultConnection=Server=db,1433;Database=PokeCloneDb;User Id=sa;Password=Your_Password123!;TrustServerCertificate=True;
+  #     - IsAuthenticationEnabled=true
+  #   depends_on:
+  #     db:
+  #       condition: service_healthy
+  #   networks:
+  #     - pokeclone_network
+  #   volumes:
+  #     - ./server/Data:/app/Data
 
 volumes:
   sqlserver_data:
