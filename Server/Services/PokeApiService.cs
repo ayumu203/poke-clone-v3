@@ -204,7 +204,6 @@ namespace server.Services
             }
         }
 
-        // --- 新規追加: API レスポンスをローカル JSON として保存 ---
         public async Task SavePokemonJsonAsync(int id, string folderPath)
         {
             try
@@ -259,7 +258,6 @@ namespace server.Services
             }
         }
 
-        // --- 新規追加: 保存済 JSON からモデルへ変換 ---
         public PokemonSpecies? ParsePokemonSpeciesFromSavedJson(string filePath, int id)
         {
             try
