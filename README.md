@@ -31,11 +31,7 @@
 # リポジトリのクローン
 git clone https://github.com/ayumu203/poke-clone-v3.git
 cd poke-clone-v3
-# 以降は以下のドキュメントを参考に実行
 ```
-
-- [起動方法](https://github.com/ayumu203/poke-clone-v3/blob/main/docs/%E8%B5%B7%E5%8B%95%E6%96%B9%E6%B3%95%E7%AD%89.md)
-- [API使用方法](https://github.com/ayumu203/poke-clone-v3/blob/main/docs/API%E6%A4%9C%E8%A8%BC.md)
 
 ## クラス図(バックエンド)
 
