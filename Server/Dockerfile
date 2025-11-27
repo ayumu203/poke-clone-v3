@@ -15,3 +15,4 @@ EXPOSE 5000
 COPY --from=build /app/publish .
 
 ENTRYPOINT ["dotnet", "Server.dll"]
+
