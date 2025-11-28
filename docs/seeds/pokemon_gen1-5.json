@@ -1,0 +1,62 @@
+[
+    {
+        "pokemonSpeciesId": 1,
+        "name": "フシギダネ",
+        "frontImage": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
+        "backImage": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/1.png",
+        "type1": "Grass",
+        "type2": "Poison",
+        "evolveLevel": 16,
+        "baseHp": 45,
+        "baseAttack": 49,
+        "baseDefense": 49,
+        "baseSpecialAttack": 65,
+        "baseSpecialDefense": 65,
+        "baseSpeed": 45
+    },
+    {
+        "pokemonSpeciesId": 4,
+        "name": "ヒトカゲ",
+        "frontImage": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png",
+        "backImage": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/4.png",
+        "type1": "Fire",
+        "type2": null,
+        "evolveLevel": 16,
+        "baseHp": 39,
+        "baseAttack": 52,
+        "baseDefense": 43,
+        "baseSpecialAttack": 60,
+        "baseSpecialDefense": 50,
+        "baseSpeed": 65
+    },
+    {
+        "pokemonSpeciesId": 7,
+        "name": "ゼニガメ",
+        "frontImage": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png",
+        "backImage": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/7.png",
+        "type1": "Water",
+        "type2": null,
+        "evolveLevel": 16,
+        "baseHp": 44,
+        "baseAttack": 48,
+        "baseDefense": 65,
+        "baseSpecialAttack": 50,
+        "baseSpecialDefense": 64,
+        "baseSpeed": 43
+    },
+    {
+        "pokemonSpeciesId": 25,
+        "name": "ピカチュウ",
+        "frontImage": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png",
+        "backImage": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/25.png",
+        "type1": "Electric",
+        "type2": null,
+        "evolveLevel": 99,
+        "baseHp": 35,
+        "baseAttack": 55,
+        "baseDefense": 40,
+        "baseSpecialAttack": 50,
+        "baseSpecialDefense": 50,
+        "baseSpeed": 90
+    }
+]
