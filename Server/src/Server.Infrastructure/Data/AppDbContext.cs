@@ -47,7 +47,7 @@ public class AppDbContext : DbContext
         {
             entity.ToTable("PokemonSpecies");
             entity.HasKey(ps => ps.PokemonSpeciesId);
-            entity.Property(ps => ps.PokemonSpeciesId).HasColumnName("pokemonSpeciesId");
+            entity.Property(ps => ps.PokemonSpeciesId).HasColumnName("pokemonSpeciesId").ValueGeneratedNever();
             entity.Property(ps => ps.Name).HasColumnName("name").HasMaxLength(255).IsRequired();
             entity.Property(ps => ps.FrontImage).HasColumnName("frontImage").HasMaxLength(255);
             entity.Property(ps => ps.BackImage).HasColumnName("backImage").HasMaxLength(255);
@@ -80,7 +80,7 @@ public class AppDbContext : DbContext
         {
             entity.ToTable("Move");
             entity.HasKey(m => m.MoveId);
-            entity.Property(m => m.MoveId).HasColumnName("moveId");
+            entity.Property(m => m.MoveId).HasColumnName("moveId").ValueGeneratedNever();
             entity.Property(m => m.Name).HasColumnName("name").HasMaxLength(255).IsRequired();
             entity.Property(m => m.Type).HasColumnName("type").HasMaxLength(63).HasConversion(pokemonTypeConverter);
             entity.Property(m => m.Power).HasColumnName("power");
