@@ -34,13 +34,13 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("login/mock")]
-    public IActionResult MockLogin([FromQuery] string username)
+    public IActionResult MockLogin([FromBody] MockLoginRequest request)
     {
-        if (string.IsNullOrEmpty(username)) return BadRequest("Username is required");
+        if (string.IsNullOrEmpty(request?.Username)) return BadRequest("Username is required");
 
         var claims = new[]
         {
-            new Claim(ClaimTypes.Name, username),
+            new Claim(ClaimTypes.Name, request.Username),
             new Claim(ClaimTypes.NameIdentifier, Guid.NewGuid().ToString())
         };
 
@@ -65,8 +65,10 @@ public class AuthController : ControllerBase
             Expires = DateTime.Now.AddDays(1)
         });
 
-        return Ok(new { message = "Logged in", username });
+        return Ok(new { message = "Logged in", username = request.Username, token = tokenString });
     }
+
+    public record MockLoginRequest(string Username, string? Password);
 
     [HttpPost("logout")]
     public IActionResult Logout()
