@@ -16,6 +16,7 @@ public class BattleService : IBattleService
     private readonly IPlayerPartyRepository _playerPartyRepository;
     private readonly IExpCalculator _expCalculator;
     private readonly IEvolutionService _evolutionService;
+    private readonly IPokemonSpeciesRepository _pokemonSpeciesRepository;
 
     public BattleService(
         IBattleRepository battleRepository,
@@ -26,7 +27,8 @@ public class BattleService : IBattleService
         IPokemonRepository pokemonRepository,
         IPlayerPartyRepository playerPartyRepository,
         IExpCalculator expCalculator,
-        IEvolutionService evolutionService)
+        IEvolutionService evolutionService,
+        IPokemonSpeciesRepository pokemonSpeciesRepository)
     {
         _battleRepository = battleRepository;
         _playerRepository = playerRepository;
@@ -37,6 +39,7 @@ public class BattleService : IBattleService
         _playerPartyRepository = playerPartyRepository;
         _expCalculator = expCalculator;
         _evolutionService = evolutionService;
+        _pokemonSpeciesRepository = pokemonSpeciesRepository;
     }
 
     public async Task<BattleState> CreateBattleAsync(string player1Id, string player2Id)
@@ -71,19 +74,45 @@ public class BattleService : IBattleService
             throw new InvalidOperationException("Player not found");
         }
 
-        // Create CPU player and party (simplified for now)
+        // Load player's party from database
+        var playerParty = await _pokemonRepository.GetPlayerPartyAsync(playerId);
+        if (playerParty == null || playerParty.Count == 0)
+        {
+            throw new InvalidOperationException("Player has no Pokemon in party. Please add Pokemon to your party first.");
+        }
+
+        // Create CPU player
         var cpuPlayer = new Player
         {
             PlayerId = "CPU",
-            Name = "CPU Opponent",
+            Name = "Wild Pokemon",
             IconUrl = string.Empty
         };
+
+        // Create random wild Pokemon for CPU (using first available species)
+        var allSpecies = await _pokemonSpeciesRepository.GetAllAsync();
+        if (allSpecies == null || !allSpecies.Any())
+        {
+            throw new InvalidOperationException("No Pokemon species data found. Please seed the database first.");
+        }
+
+        var wildSpecies = allSpecies.First();
+        var wildPokemon = new Pokemon
+        {
+            PokemonId = Guid.NewGuid().ToString(),
+            Species = wildSpecies,
+            Level = 5,
+            Exp = 0,
+            Moves = wildSpecies.MoveList.Take(4).ToList()
+        };
+
+        var cpuParty = new List<Pokemon> { wildPokemon };
 
         var battleState = new BattleState
         {
             BattleId = Guid.NewGuid().ToString(),
-            Player1 = InitializePlayerState(player, new List<Pokemon>()),
-            Player2 = InitializePlayerState(cpuPlayer, new List<Pokemon>()),
+            Player1 = InitializePlayerState(player, playerParty),
+            Player2 = InitializePlayerState(cpuPlayer, cpuParty),
             Turn = 0,
             CreatedAt = DateTime.UtcNow,
             ExpireAt = DateTime.UtcNow.AddHours(1)

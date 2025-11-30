@@ -23,21 +23,13 @@ docker compose up -d --build
 docker compose logs -f app
 ```
 
-### 2. 初期データの注入
-
-```bash
-# 第1世代のポケモンと技をシード
-docker compose run --rm app --seed --species --start 1 --end 151
-docker compose run --rm app --seed --moves --start 1 --end 165
-```
-
-### 3. PoCクライアントの起動
+### 2. PoCクライアントの起動
 
 別のターミナルで:
 
 ```bash
 cd Client-PoC
-python -m http.server 8080
+python3 -m http.server 8080
 ```
 
 ブラウザで `http://localhost:8080` にアクセス
@@ -68,7 +60,34 @@ curl -X POST http://localhost:5000/api/player/me \
   }' | jq .
 ```
 
-### 3. CPUバトルを作成
+### 3. ポケモンをパーティに追加
+
+**重要**: バトルを作成する前に、プレイヤーに最低1体のポケモンが必要です。
+
+```bash
+# 例: フシギダネをパーティに追加
+# 実際のポケモン追加APIはまだ未実装のため、DBに直接追加する必要があります
+docker exec -it pokeclone_db /opt/mssql-tools18/bin/sqlcmd \
+  -S localhost -U sa -P 'Your_Password123!' -d PokeCloneDb -C -Q "
+  DECLARE @PokemonId NVARCHAR(255) = NEWID();
+  INSERT INTO Pokemon (pokemonId, pokemonSpeciesId, level, exp)
+  VALUES (@PokemonId, 1, 5, 0);
+  
+  DECLARE @PartyId INT;
+  SELECT @PartyId = playerPartyId FROM PlayerParty WHERE playerId = 'testplayer1';
+  
+  IF @PartyId IS NULL
+  BEGIN
+    INSERT INTO PlayerParty (playerId) VALUES ('testplayer1');
+    SET @PartyId = SCOPE_IDENTITY();
+  END
+  
+  INSERT INTO PlayerPartyPokemon (playerPartyId, pokemonId)
+  VALUES (@PartyId, @PokemonId);
+  "
+```
+
+### 4. CPUバトルを作成
 
 ```bash
 curl -X POST http://localhost:5000/api/Battle/cpu \
@@ -79,7 +98,7 @@ curl -X POST http://localhost:5000/api/Battle/cpu \
 
 レスポンスから`battleId`を取得。
 
-### 4. PoCクライアントで接続
+### 5. PoCクライアントで接続
 
 1. **API URL**: `http://localhost:5000`
 2. **Battle ID**: 上記で取得した`battleId`（例: `battle-xxx-xxx`）
