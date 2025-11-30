@@ -150,7 +150,15 @@ public class BattleService : IBattleService
                 battlePlayer1,
                 battlePlayer2);
 
-            var result = battle.ProcessTurn(action1, action2);
+            // Identify which action belongs to which player
+            var p1Action = action1.PlayerId == battleState.Player1.PlayerId ? action1 : action2;
+            var p2Action = action1.PlayerId == battleState.Player2.PlayerId ? action1 : action2;
+
+            // Fallback if IDs don't match (should not happen with correct logic)
+            if (p1Action.PlayerId != battleState.Player1.PlayerId) p1Action = action1;
+            if (p2Action.PlayerId != battleState.Player2.PlayerId) p2Action = action2;
+
+            var result = battle.ProcessTurn(p1Action, p2Action);
 
             // ダメージをHPに反映
             ApplyDamage(result, battleState);

@@ -27,6 +27,7 @@ public class BattleHub : Hub
 
     public async Task SubmitAction(string battleId, PlayerAction action)
     {
+        // 1. Add Player's Action
         lock (_pendingActions)
         {
             if (!_pendingActions.ContainsKey(battleId))
@@ -34,18 +35,65 @@ public class BattleHub : Hub
                 _pendingActions[battleId] = new List<PlayerAction>();
             }
             
-            _pendingActions[battleId].Add(action);
+            // Prevent duplicate actions from the same player
+            if (!_pendingActions[battleId].Any(a => a.PlayerId == action.PlayerId))
+            {
+                _pendingActions[battleId].Add(action);
+            }
         }
 
-        // 両プレイヤーのアクションが揃ったらターン処理
-        if (_pendingActions[battleId].Count == 2)
+        // 2. Check for CPU Opponent and generate action if needed
+        // Note: This assumes Player2 is always the CPU in a CPU battle
+        var battleState = await _battleService.GetBattleStateAsync(battleId);
+        if (battleState != null && battleState.Player2.PlayerId == "CPU" && action.PlayerId != "CPU")
         {
-            var actions = _pendingActions[battleId].ToList();
-            _pendingActions.Remove(battleId);
+            // Generate CPU Action
+            var cpuPlayer = battleState.Player2;
+            var activePokemon = cpuPlayer.PokemonEntities[cpuPlayer.ActivePokemonIndex];
+            var random = new Random();
+            
+            // Simple AI: Randomly select a move
+            // Ensure we have moves
+            int moveId = 0;
+            if (activePokemon.Moves != null && activePokemon.Moves.Any())
+            {
+                var randomMove = activePokemon.Moves[random.Next(activePokemon.Moves.Count)];
+                moveId = randomMove.MoveId;
+            }
 
+            var cpuAction = new PlayerAction
+            {
+                PlayerId = "CPU",
+                ActionType = Server.Domain.Enums.ActionType.Attack,
+                Value = moveId
+            };
+
+            lock (_pendingActions)
+            {
+                 if (!_pendingActions[battleId].Any(a => a.PlayerId == "CPU"))
+                 {
+                     _pendingActions[battleId].Add(cpuAction);
+                 }
+            }
+        }
+
+        // 3. Check if we have 2 actions to process
+        List<PlayerAction>? actionsToProcess = null;
+        lock (_pendingActions)
+        {
+            if (_pendingActions.ContainsKey(battleId) && _pendingActions[battleId].Count == 2)
+            {
+                actionsToProcess = _pendingActions[battleId].ToList();
+                _pendingActions.Remove(battleId);
+            }
+        }
+
+        // 4. Process Turn
+        if (actionsToProcess != null)
+        {
             try
             {
-                var result = await _battleService.ProcessTurnAsync(battleId, actions[0], actions[1]);
+                var result = await _battleService.ProcessTurnAsync(battleId, actionsToProcess[0], actionsToProcess[1]);
                 
                 // ターン結果をグループ全体にブロードキャスト
                 await Clients.Group(battleId).SendAsync("ReceiveTurnResult", result);
@@ -85,6 +133,7 @@ public class BattleHub : Hub
             }
             catch (Exception ex)
             {
+                Console.WriteLine($"Error in ProcessTurn: {ex}");
                 await Clients.Group(battleId).SendAsync("Error", ex.Message);
             }
         }
