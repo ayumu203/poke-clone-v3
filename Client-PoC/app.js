@@ -17,6 +17,28 @@ $(document).ready(function () {
     $('#escape-button').on('click', submitEscapeAction);
 });
 
+async function getAuthToken() {
+    const apiUrl = $('#api-url').val();
+    try {
+        const response = await fetch(`${apiUrl}/api/Auth/login/mock`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username: 'testplayer1',
+                password: 'testpassword'
+            })
+        });
+
+        const data = await response.json();
+        return data.token;
+    } catch (error) {
+        console.error('Failed to get auth token:', error);
+        throw error;
+    }
+}
+
 async function connectToBattle() {
     const apiUrl = $('#api-url').val();
     const battleId = $('#battle-id').val();
@@ -28,9 +50,14 @@ async function connectToBattle() {
     }
 
     try {
+        // JWTトークンを取得
+        const token = await getAuthToken();
+
         // SignalR接続の作成
         connection = new signalR.HubConnectionBuilder()
-            .withUrl(`${apiUrl}/battlehub`)
+            .withUrl(`${apiUrl}/battlehub`, {
+                accessTokenFactory: () => token
+            })
             .withAutomaticReconnect()
             .configureLogging(signalR.LogLevel.Information)
             .build();

@@ -23,8 +23,6 @@ docker compose logs -f app
 
 ### 2. PoCクライアントの起動
 
-別のターミナルで:
-
 ```bash
 cd Client-PoC
 python3 -m http.server 8080
