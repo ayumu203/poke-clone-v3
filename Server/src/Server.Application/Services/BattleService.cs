@@ -40,8 +40,8 @@ public class BattleService : IBattleService
         var battleState = new BattleState
         {
             BattleId = Guid.NewGuid().ToString(),
-            Player1 = new BattlePlayer { Player = player1, Party = new List<Pokemon>(), ActivePokemonIndex = 0 },
-            Player2 = new BattlePlayer { Player = player2, Party = new List<Pokemon>(), ActivePokemonIndex = 0 },
+            Player1 = InitializePlayerState(player1, new List<Pokemon>()),
+            Player2 = InitializePlayerState(player2, new List<Pokemon>()),
             Turn = 0,
             CreatedAt = DateTime.UtcNow,
             ExpireAt = DateTime.UtcNow.AddHours(1)
@@ -64,14 +64,14 @@ public class BattleService : IBattleService
         {
             PlayerId = "CPU",
             Name = "CPU Opponent",
-            IconUrl = null
+            IconUrl = string.Empty
         };
 
         var battleState = new BattleState
         {
             BattleId = Guid.NewGuid().ToString(),
-            Player1 = new BattlePlayer { Player = player, Party = new List<Pokemon>(), ActivePokemonIndex = 0 },
-            Player2 = new BattlePlayer { Player = cpuPlayer, Party = new List<Pokemon>(), ActivePokemonIndex = 0 },
+            Player1 = InitializePlayerState(player, new List<Pokemon>()),
+            Player2 = InitializePlayerState(cpuPlayer, new List<Pokemon>()),
             Turn = 0,
             CreatedAt = DateTime.UtcNow,
             ExpireAt = DateTime.UtcNow.AddHours(1)
@@ -98,14 +98,24 @@ public class BattleService : IBattleService
                 throw new InvalidOperationException("Battle not found");
             }
 
+            // PlayerStateからBattlePlayerへ変換
+            var battlePlayer1 = ConvertToBattlePlayer(battleState.Player1);
+            var battlePlayer2 = ConvertToBattlePlayer(battleState.Player2);
+
             var battle = new Battle(
                 _damageCalculator,
                 _typeEffectivenessManager,
                 _statCalculator,
-                battleState.Player1,
-                battleState.Player2);
+                battlePlayer1,
+                battlePlayer2);
 
             var result = battle.ProcessTurn(action1, action2);
+
+            // ダメージをHPに反映
+            ApplyDamage(result, battleState);
+
+            // バトル終了判定
+            CheckBattleEnd(result, battleState);
 
             battleState.Turn++;
             await _battleRepository.SaveAsync(battleState);
@@ -131,5 +141,83 @@ public class BattleService : IBattleService
     public async Task DeleteBattleAsync(string battleId)
     {
         await _battleRepository.DeleteAsync(battleId);
+    }
+
+    /// <summary>
+    /// PlayerとPokemonリストからPlayerStateを作成し、HPを初期化する
+    /// </summary>
+    private PlayerState InitializePlayerState(Player player, List<Pokemon> party)
+    {
+        var pokemonStates = party.Select(pokemon =>
+        {
+            var maxHp = _statCalculator.CalcHp(pokemon.Level, pokemon.Species.BaseHp);
+            return PokemonState.FromPokemon(pokemon, maxHp);
+        }).ToList();
+
+        return new PlayerState
+        {
+            PlayerId = player.PlayerId,
+            Player = player,
+            ActivePokemonIndex = 0,
+            Party = pokemonStates,
+            PokemonEntities = party
+        };
+    }
+
+    /// <summary>
+    /// PlayerStateからBattlePlayerに変換する
+    /// </summary>
+    private BattlePlayer ConvertToBattlePlayer(PlayerState playerState)
+    {
+        return new BattlePlayer
+        {
+            Player = playerState.Player,
+            Party = playerState.PokemonEntities,
+            ActivePokemonIndex = playerState.ActivePokemonIndex
+        };
+    }
+
+    /// <summary>
+    /// ターン処理結果に基づいてダメージをHPに反映する
+    /// </summary>
+    private void ApplyDamage(ProcessResult result, BattleState battleState)
+    {
+        foreach (var actionResult in result.ActionResults)
+        {
+            if (actionResult.MoveResult != null && actionResult.MoveResult.Damage > 0)
+            {
+                // TargetIdを使って対象のポケモンを特定
+                var targetId = actionResult.MoveResult.TargetId;
+                
+                // Player1のポケモンか確認
+                var player1Pokemon = battleState.Player1.Party.FirstOrDefault(p => p.PokemonId == targetId);
+                if (player1Pokemon != null)
+                {
+                    player1Pokemon.CurrentHp = Math.Max(0, player1Pokemon.CurrentHp - actionResult.MoveResult.Damage);
+                    continue;
+                }
+
+                // Player2のポケモンか確認
+                var player2Pokemon = battleState.Player2.Party.FirstOrDefault(p => p.PokemonId == targetId);
+                if (player2Pokemon != null)
+                {
+                    player2Pokemon.CurrentHp = Math.Max(0, player2Pokemon.CurrentHp - actionResult.MoveResult.Damage);
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// バトル終了判定を行う
+    /// </summary>
+    private void CheckBattleEnd(ProcessResult result, BattleState battleState)
+    {
+        if (battleState.Player1.AllPokemonFainted || battleState.Player2.AllPokemonFainted)
+        {
+            result.IsBattleEnd = true;
+            result.WinnerId = battleState.Player1.AllPokemonFainted
+                ? battleState.Player2.PlayerId
+                : battleState.Player1.PlayerId;
+        }
     }
 }
