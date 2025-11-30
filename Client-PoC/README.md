@@ -53,47 +53,52 @@ curl -X POST http://localhost:5000/api/player/me \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
-    "name": "testplayer",
+    "name": "プレイヤー名",
     "iconUrl": "https://example.com/icon.png"
   }' | jq .
 ```
 
+レスポンスから`playerId`を取得してください（例: `b0764a84-bed5-4ef6-83c3-09b707e5ae40`）
+
 ### 3. ポケモンをパーティに追加
 
+**重要**: JWTトークンに含まれる実際のplayerIdを使用してください。
+
 ```bash
-# 実際のポケモン追加APIはまだ未実装のため、DBに直接追加する
+# JWTトークンからplayerIdを抽出
+PLAYER_ID=$(curl -s -X GET http://localhost:5000/api/player/me \
+  -H "Authorization: Bearer $TOKEN" | jq -r '.playerId')
+
+echo "Player ID: $PLAYER_ID"
+
+# ポケモンを追加（実際のplayerIdを使用）
 docker exec -it pokeclone_db /opt/mssql-tools18/bin/sqlcmd \
   -S localhost -U sa -P 'Your_Password123!' -d PokeCloneDb -C -Q "
-  -- Playerが存在しない場合は作成
-  IF NOT EXISTS (SELECT 1 FROM Player WHERE playerId = 'testplayer1')
-  BEGIN
-    INSERT INTO Player (playerId, name, iconUrl)
-    VALUES ('testplayer1', 'testplayer', 'https://example.com/icon.png');
-  END
-  
-  -- Pokemonを作成（技も追加）
+  -- Pokemonを作成
   DECLARE @PokemonId NVARCHAR(255) = NEWID();
+  DECLARE @PlayerId NVARCHAR(255) = '$PLAYER_ID';
+  
   INSERT INTO Pokemon (pokemonId, pokemonSpeciesId, level, exp)
   VALUES (@PokemonId, 1, 5, 0);
-  
-  -- Pokemon用の技を追加（例: 最初の4つの技）
+
+  -- Pokemon用の技を追加
   INSERT INTO PokemonMoveInstance (pokemonId, moveId)
   SELECT TOP 4 @PokemonId, moveId FROM PokemonMove WHERE pokemonSpeciesId = 1;
-  
+
   -- PlayerPartyを作成または取得
   DECLARE @PartyId INT;
-  SELECT @PartyId = playerPartyId FROM PlayerParty WHERE playerId = 'testplayer1';
-  
+  SELECT @PartyId = playerPartyId FROM PlayerParty WHERE playerId = @PlayerId;
+
   IF @PartyId IS NULL
   BEGIN
-    INSERT INTO PlayerParty (playerId) VALUES ('testplayer1');
+    INSERT INTO PlayerParty (playerId) VALUES (@PlayerId);
     SET @PartyId = SCOPE_IDENTITY();
   END
-  
+
   -- Pokemonをパーティに追加
   INSERT INTO PlayerPartyPokemon (playerPartyId, pokemonId)
   VALUES (@PartyId, @PokemonId);
-  
+
   SELECT 'Pokemon added successfully. Pokemon ID: ' + @PokemonId AS Result;
   "
 ```
@@ -101,10 +106,11 @@ docker exec -it pokeclone_db /opt/mssql-tools18/bin/sqlcmd \
 ### 4. CPUバトルを作成
 
 ```bash
+# PLAYER_IDを使用してバトルを作成
 curl -X POST http://localhost:5000/api/Battle/cpu \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer $TOKEN" \
-  -d '{"playerId":"testplayer1"}' | jq .
+  -d "{\"playerId\":\"$PLAYER_ID\"}" | jq .
 ```
 
 レスポンスから`battleId`を取得。

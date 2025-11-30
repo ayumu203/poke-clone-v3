@@ -24,18 +24,26 @@ public class PokemonRepository : IPokemonRepository
 
     public async Task<List<Pokemon>> GetPlayerPartyAsync(string playerId)
     {
+        Console.WriteLine($"[DEBUG] GetPlayerPartyAsync called for playerId: {playerId}");
+        
         var playerParty = await _context.PlayerParties
             .FirstOrDefaultAsync(pp => pp.PlayerId == playerId);
 
         if (playerParty == null)
         {
+            Console.WriteLine("[DEBUG] PlayerParty not found for playerId: " + playerId);
             return new List<Pokemon>();
         }
+
+        Console.WriteLine($"[DEBUG] PlayerParty found. PlayerPartyId: {playerParty.PlayerPartyId}");
+        Console.WriteLine($"[DEBUG] Party count before LoadAsync: {playerParty.Party.Count}");
 
         // 明示的にPokemonコレクションをロード
         await _context.Entry(playerParty)
             .Collection(pp => pp.Party)
             .LoadAsync();
+
+        Console.WriteLine($"[DEBUG] Party count after LoadAsync: {playerParty.Party.Count}");
 
         // 各PokemonのSpeciesとMovesをロード
         foreach (var pokemon in playerParty.Party)
@@ -49,6 +57,7 @@ public class PokemonRepository : IPokemonRepository
                 .LoadAsync();
         }
 
+        Console.WriteLine($"[DEBUG] Returning {playerParty.Party.Count} Pokemon");
         return playerParty.Party;
     }
 
