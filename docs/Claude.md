@@ -8,19 +8,7 @@
 
 ## 作業内容
 
-### 捕獲・逃走の実装
-
-`/mnt/c/Users/cs23017/Shizuoka University/ドキュメント/dev/01_poke_clone-v3/Server/src/Server.WebAPI/Hubs/BattleHub.cs`のSubmitActionにて, 捕獲・逃走のロジックを実装する(他に良い実装先があれば要提案).
-捕獲時のDBへの書き込みや捕獲・逃走成功時のSignalRの切断, Redisの削除などを実装する.
-
-### 簡単な対戦用クライアントの作成(PoC)
-
-- HTML, CSS, jQueryを使用して簡易な対戦用クライアントを作成する.
-  - SignalRを利用した対戦
-  - バトル状態の表示
-  - プレイヤーの操作
-  - 手持ちポケモン情報の取得
-  - UIは簡素でいいです
+- 未定.
 
 ### ドキュメント
 

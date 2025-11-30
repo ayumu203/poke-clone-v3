@@ -1,6 +1,6 @@
 # PokeAPI Data Fetcher
 
-This C# console application fetches Pokemon and Move data from PokeAPI for generations 1-5 (Pokemon IDs 1-649).
+- PokeAPIからPokemonとMoveのデータを取得し, JSONファイルに保存する.
 
 ## Requirements
 
