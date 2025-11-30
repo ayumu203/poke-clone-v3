@@ -25,6 +25,7 @@ public class PokemonRepository : IPokemonRepository
     public async Task<List<Pokemon>> GetPlayerPartyAsync(string playerId)
     {
         var playerParty = await _context.PlayerParties
+            .AsSplitQuery()
             .Include(pp => pp.Party)
                 .ThenInclude(p => p.Species)
             .Include(pp => pp.Party)

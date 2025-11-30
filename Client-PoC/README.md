@@ -1,20 +1,18 @@
 # PoC Battle Client
 
-シンプルなポケモンバトル用クライアント（Proof of Concept）
-
-## 前提条件
+## 環境
 
 - Docker & Docker Compose
-- Python 3.x (クライアント起動用)
+- Python 3.x
 
 ## セットアップと起動
 
-### 1. サーバーの起動（Docker Compose）
+### 1. サーバーの起動
 
 プロジェクトルートで以下を実行:
 
 ```bash
-cd /mnt/c/Users/cs23017/Shizuoka\ University/ドキュメント/dev/01_poke_clone-v3
+# プロジェクトのルートに移動
 
 # コンテナをビルド・起動
 docker compose up -d --build
@@ -62,11 +60,8 @@ curl -X POST http://localhost:5000/api/player/me \
 
 ### 3. ポケモンをパーティに追加
 
-**重要**: バトルを作成する前に、プレイヤーに最低1体のポケモンが必要です。
-
 ```bash
-# 例: フシギダネをパーティに追加
-# 実際のポケモン追加APIはまだ未実装のため、DBに直接追加する必要があります
+# 実際のポケモン追加APIはまだ未実装のため、DBに直接追加する
 docker exec -it pokeclone_db /opt/mssql-tools18/bin/sqlcmd \
   -S localhost -U sa -P 'Your_Password123!' -d PokeCloneDb -C -Q "
   -- Playerが存在しない場合は作成
