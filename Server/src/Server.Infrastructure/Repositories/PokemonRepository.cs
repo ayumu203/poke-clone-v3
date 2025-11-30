@@ -25,14 +25,31 @@ public class PokemonRepository : IPokemonRepository
     public async Task<List<Pokemon>> GetPlayerPartyAsync(string playerId)
     {
         var playerParty = await _context.PlayerParties
-            .AsSplitQuery()
-            .Include(pp => pp.Party)
-                .ThenInclude(p => p.Species)
-            .Include(pp => pp.Party)
-                .ThenInclude(p => p.Moves)
             .FirstOrDefaultAsync(pp => pp.PlayerId == playerId);
 
-        return playerParty?.Party ?? new List<Pokemon>();
+        if (playerParty == null)
+        {
+            return new List<Pokemon>();
+        }
+
+        // 明示的にPokemonコレクションをロード
+        await _context.Entry(playerParty)
+            .Collection(pp => pp.Party)
+            .LoadAsync();
+
+        // 各PokemonのSpeciesとMovesをロード
+        foreach (var pokemon in playerParty.Party)
+        {
+            await _context.Entry(pokemon)
+                .Reference(p => p.Species)
+                .LoadAsync();
+            
+            await _context.Entry(pokemon)
+                .Collection(p => p.Moves)
+                .LoadAsync();
+        }
+
+        return playerParty.Party;
     }
 
     public async Task AddToPartyAsync(string playerId, Pokemon pokemon)
