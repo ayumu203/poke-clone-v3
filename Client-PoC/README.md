@@ -55,7 +55,7 @@ curl -X POST http://localhost:5000/api/player/me \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
-    "name": "プレイヤー名",
+    "name": "testplayer",
     "iconUrl": "https://example.com/icon.png"
   }' | jq .
 ```
@@ -69,10 +69,23 @@ curl -X POST http://localhost:5000/api/player/me \
 # 実際のポケモン追加APIはまだ未実装のため、DBに直接追加する必要があります
 docker exec -it pokeclone_db /opt/mssql-tools18/bin/sqlcmd \
   -S localhost -U sa -P 'Your_Password123!' -d PokeCloneDb -C -Q "
+  -- Playerが存在しない場合は作成
+  IF NOT EXISTS (SELECT 1 FROM Player WHERE playerId = 'testplayer1')
+  BEGIN
+    INSERT INTO Player (playerId, name, iconUrl)
+    VALUES ('testplayer1', 'testplayer', 'https://example.com/icon.png');
+  END
+  
+  -- Pokemonを作成（技も追加）
   DECLARE @PokemonId NVARCHAR(255) = NEWID();
   INSERT INTO Pokemon (pokemonId, pokemonSpeciesId, level, exp)
   VALUES (@PokemonId, 1, 5, 0);
   
+  -- Pokemon用の技を追加（例: 最初の4つの技）
+  INSERT INTO PokemonMoveInstance (pokemonId, moveId)
+  SELECT TOP 4 @PokemonId, moveId FROM PokemonMove WHERE pokemonSpeciesId = 1;
+  
+  -- PlayerPartyを作成または取得
   DECLARE @PartyId INT;
   SELECT @PartyId = playerPartyId FROM PlayerParty WHERE playerId = 'testplayer1';
   
@@ -82,8 +95,11 @@ docker exec -it pokeclone_db /opt/mssql-tools18/bin/sqlcmd \
     SET @PartyId = SCOPE_IDENTITY();
   END
   
+  -- Pokemonをパーティに追加
   INSERT INTO PlayerPartyPokemon (playerPartyId, pokemonId)
   VALUES (@PartyId, @PokemonId);
+  
+  SELECT 'Pokemon added successfully. Pokemon ID: ' + @PokemonId AS Result;
   "
 ```
 
