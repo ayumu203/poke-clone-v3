@@ -36,7 +36,17 @@ public static class SeedData
                         Pp = dto.Pp,
                         Priority = dto.Priority,
                         DamageClass = Enum.Parse<DamageClass>(dto.DamageClass),
-                        Category = Enum.Parse<Category>(dto.Category)
+                        Category = Enum.Parse<Category>(dto.Category),
+                        Ailment = Enum.TryParse<Ailment>(dto.Ailment, true, out var ailment) ? ailment : Ailment.None,
+                        AilmentChance = dto.AilmentChance,
+                        Healing = dto.Healing,
+                        Drain = dto.Drain,
+                        CritRate = dto.CritRate,
+                        StatChanges = dto.StatChanges?.Select(sc => new StatChange
+                        {
+                            Stat = Enum.Parse<PokemonStat>(sc.Stat.Replace("-", ""), true),
+                            Change = sc.Change
+                        }).ToList() ?? new List<StatChange>()
                     });
                 }
                 await context.SaveChangesAsync();
@@ -102,6 +112,18 @@ public static class SeedData
         public int Priority { get; set; }
         public string DamageClass { get; set; } = string.Empty;
         public string Category { get; set; } = string.Empty;
+        public string Ailment { get; set; } = string.Empty;
+        public int AilmentChance { get; set; }
+        public int Healing { get; set; }
+        public int Drain { get; set; }
+        public int CritRate { get; set; }
+        public List<StatChangeDto>? StatChanges { get; set; }
+    }
+
+    private class StatChangeDto
+    {
+        public string Stat { get; set; } = string.Empty;
+        public int Change { get; set; }
     }
     
     private class PokemonSpeciesDto

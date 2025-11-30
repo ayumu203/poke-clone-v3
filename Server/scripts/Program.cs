@@ -209,7 +209,7 @@ class Program
 
         var japaneseName = data.Names.FirstOrDefault(n => n.Language.Name == "ja")?.Value ?? data.Name;
 
-        return new MoveDto
+        var dto = new MoveDto
         {
             MoveId = data.Id,
             Name = japaneseName,
@@ -219,8 +219,20 @@ class Program
             Pp = data.Pp ?? 0,
             Priority = data.Priority ?? 0,
             DamageClass = CapitalizeFirstLetter(data.DamageClass.Name),
-            Category = "Damage" // Simplified
+            Category = data.Meta?.Category?.Name ?? "damage", // Use meta category if available
+            Ailment = data.Meta?.Ailment?.Name ?? "none",
+            AilmentChance = data.Meta?.AilmentChance ?? 0,
+            Healing = data.Meta?.Healing ?? 0,
+            Drain = data.Meta?.Drain ?? 0,
+            CritRate = data.Meta?.CritRate ?? 0,
+            StatChanges = data.StatChanges.Select(sc => new StatChangeDto
+            {
+                Stat = sc.Stat.Name,
+                Change = sc.Change
+            }).ToList()
         };
+
+        return dto;
     }
 
     static string CapitalizeFirstLetter(string str)
@@ -304,6 +316,33 @@ public class MoveDto
     
     [JsonPropertyName("category")]
     public string Category { get; set; } = string.Empty;
+
+    [JsonPropertyName("ailment")]
+    public string Ailment { get; set; } = string.Empty;
+
+    [JsonPropertyName("ailmentChance")]
+    public int AilmentChance { get; set; }
+
+    [JsonPropertyName("healing")]
+    public int Healing { get; set; }
+
+    [JsonPropertyName("drain")]
+    public int Drain { get; set; }
+
+    [JsonPropertyName("critRate")]
+    public int CritRate { get; set; }
+
+    [JsonPropertyName("statChanges")]
+    public List<StatChangeDto> StatChanges { get; set; } = new();
+}
+
+public class StatChangeDto
+{
+    [JsonPropertyName("stat")]
+    public string Stat { get; set; } = string.Empty;
+
+    [JsonPropertyName("change")]
+    public int Change { get; set; }
 }
 
 // PokeAPI response models
@@ -437,6 +476,60 @@ public class PokeApiMove
     
     [JsonPropertyName("damage_class")]
     public NamedResource DamageClass { get; set; } = new();
+
+    [JsonPropertyName("meta")]
+    public MoveMeta? Meta { get; set; }
+
+    [JsonPropertyName("stat_changes")]
+    public List<MoveStatChange> StatChanges { get; set; } = new();
+}
+
+public class MoveMeta
+{
+    [JsonPropertyName("ailment")]
+    public NamedResource Ailment { get; set; } = new();
+
+    [JsonPropertyName("category")]
+    public NamedResource Category { get; set; } = new();
+
+    [JsonPropertyName("min_hits")]
+    public int? MinHits { get; set; }
+
+    [JsonPropertyName("max_hits")]
+    public int? MaxHits { get; set; }
+
+    [JsonPropertyName("min_turns")]
+    public int? MinTurns { get; set; }
+
+    [JsonPropertyName("max_turns")]
+    public int? MaxTurns { get; set; }
+
+    [JsonPropertyName("drain")]
+    public int Drain { get; set; }
+
+    [JsonPropertyName("healing")]
+    public int Healing { get; set; }
+
+    [JsonPropertyName("crit_rate")]
+    public int CritRate { get; set; }
+
+    [JsonPropertyName("ailment_chance")]
+    public int AilmentChance { get; set; }
+
+    [JsonPropertyName("flinch_chance")]
+    public int FlinchChance { get; set; }
+
+    [JsonPropertyName("stat_chance")]
+    public int StatChance { get; set; }
+}
+
+public class MoveStatChange
+{
+    [JsonPropertyName("change")]
+    public int Change { get; set; }
+
+    [JsonPropertyName("stat")]
+    public NamedResource Stat { get; set; } = new();
 }
 
 public class NamedResource

@@ -106,6 +106,15 @@ public class AppDbContext : DbContext
             entity.Property(m => m.AilmentChance).HasColumnName("ailmentChance");
             entity.Property(m => m.Healing).HasColumnName("healing");
             entity.Property(m => m.Drain).HasColumnName("drain");
+            entity.Property(m => m.CritRate).HasColumnName("critRate");
+
+            entity.OwnsMany(m => m.StatChanges, sc =>
+            {
+                sc.ToTable("MoveStatChange");
+                sc.WithOwner().HasForeignKey("MoveId");
+                sc.Property(s => s.Stat).HasColumnName("stat").HasConversion<string>();
+                sc.Property(s => s.Change).HasColumnName("change");
+            });
         });
 
         // Pokemon Entity Configuration

@@ -4,5 +4,6 @@ public enum ActionType
 {
     Attack,
     Switch,
-    Catch
+    Catch,
+    Escape
 }

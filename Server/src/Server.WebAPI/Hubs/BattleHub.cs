@@ -47,11 +47,38 @@ public class BattleHub : Hub
             {
                 var result = await _battleService.ProcessTurnAsync(battleId, actions[0], actions[1]);
                 
-                // 結果をグループ全体にブロードキャスト
+                // ターン結果をグループ全体にブロードキャスト
                 await Clients.Group(battleId).SendAsync("ReceiveTurnResult", result);
 
+                // 捕獲成功の処理
+                var catchResult = result.ActionResults
+                    .FirstOrDefault(ar => ar.CatchResult?.IsSuccess == true);
+                if (catchResult != null)
+                {
+                    await _battleService.ProcessPostBattleAsync(battleId, result);
+                    await Clients.Group(battleId).SendAsync("BattleEnded", "Caught");
+                    await _battleService.DeleteBattleAsync(battleId);
+                    await Clients.Group(battleId).SendAsync("BattleClosed");
+                    return;
+                }
+
+                // 逃走成功の処理
+                var escapeResult = result.ActionResults
+                    .FirstOrDefault(ar => ar.EscapeResult?.IsSuccess == true);
+                if (escapeResult != null)
+                {
+                    await Clients.Group(battleId).SendAsync("BattleEnded", "Escaped");
+                    await _battleService.DeleteBattleAsync(battleId);
+                    await Clients.Group(battleId).SendAsync("BattleClosed");
+                    return;
+                }
+
+                // 通常のバトル終了処理
                 if (result.IsBattleEnd)
                 {
+                    // 経験値・進化処理
+                    await _battleService.ProcessPostBattleAsync(battleId, result);
+                    
                     await Clients.Group(battleId).SendAsync("BattleEnded", result.WinnerId);
                     await _battleService.DeleteBattleAsync(battleId);
                 }

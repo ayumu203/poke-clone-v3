@@ -20,4 +20,6 @@ public class Move
     public int AilmentChance { get; set; }
     public int Healing { get; set; }
     public int Drain { get; set; }
+    public int CritRate { get; set; }
+    public List<StatChange> StatChanges { get; set; } = new();
 }

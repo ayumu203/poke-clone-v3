@@ -5,10 +5,10 @@ using Server.Domain.Repositories;
 using Server.Infrastructure.Repositories;
 using Server.Application.Services;
 using Server.Domain.Services;
+using Server.Infrastructure.Services;
 using Server.WebAPI.Hubs;
 using Server.WebAPI.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -78,11 +78,15 @@ builder.Services.AddScoped<IPlayerRepository, PlayerRepository>();
 builder.Services.AddScoped<IPokemonSpeciesRepository, PokemonSpeciesRepository>();
 builder.Services.AddScoped<IMoveRepository, MoveRepository>();
 builder.Services.AddScoped<IBattleRepository, RedisBattleRepository>();
+builder.Services.AddScoped<IPokemonRepository, PokemonRepository>();
+builder.Services.AddScoped<IPlayerPartyRepository, PlayerPartyRepository>();
 
 // Domain Services Registration
 builder.Services.AddSingleton<ITypeEffectivenessManager, TypeEffectivenessManager>();
 builder.Services.AddSingleton<IStatCalculator, StatCalculator>();
 builder.Services.AddScoped<IDamageCalculator, DamageCalculator>();
+builder.Services.AddScoped<IExpCalculator, ExpCalculator>();
+builder.Services.AddScoped<IEvolutionService, EvolutionService>();
 
 // Application Services Registration
 builder.Services.AddScoped<IBattleService, BattleService>();

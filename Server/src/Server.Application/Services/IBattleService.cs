@@ -10,4 +10,5 @@ public interface IBattleService
     Task<BattleState?> GetBattleStateAsync(string battleId);
     Task SaveBattleStateAsync(BattleState battleState);
     Task DeleteBattleAsync(string battleId);
+    Task ProcessPostBattleAsync(string battleId, ProcessResult result);
 }

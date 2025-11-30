@@ -16,9 +16,11 @@ public class MoveResult
     public string FailureReason { get; set; } = string.Empty;
     public int Damage { get; set; }
     public HitContext? HitContext { get; set; }
-    public Rank? SourceRankChange { get; set; }
-    public Rank? TargetRankChange { get; set; }
+    public List<StatChange> SourceStatChanges { get; set; } = new();
+    public List<StatChange> TargetStatChanges { get; set; } = new();
     public Ailment? Ailment { get; set; }
+    public int Healing { get; set; }
+    public int Drain { get; set; }
 }
 
 public class SwitchResult
@@ -40,6 +42,7 @@ public class ActionResult
     public MoveResult? MoveResult { get; set; }
     public SwitchResult? SwitchResult { get; set; }
     public CatchResult? CatchResult { get; set; }
+    public EscapeResult? EscapeResult { get; set; }
 }
 
 public class ProcessResult

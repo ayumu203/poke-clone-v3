@@ -12,19 +12,31 @@ public class BattleService : IBattleService
     private readonly IDamageCalculator _damageCalculator;
     private readonly ITypeEffectivenessManager _typeEffectivenessManager;
     private readonly IStatCalculator _statCalculator;
+    private readonly IPokemonRepository _pokemonRepository;
+    private readonly IPlayerPartyRepository _playerPartyRepository;
+    private readonly IExpCalculator _expCalculator;
+    private readonly IEvolutionService _evolutionService;
 
     public BattleService(
         IBattleRepository battleRepository,
         IPlayerRepository playerRepository,
         IDamageCalculator damageCalculator,
         ITypeEffectivenessManager typeEffectivenessManager,
-        IStatCalculator statCalculator)
+        IStatCalculator statCalculator,
+        IPokemonRepository pokemonRepository,
+        IPlayerPartyRepository playerPartyRepository,
+        IExpCalculator expCalculator,
+        IEvolutionService evolutionService)
     {
         _battleRepository = battleRepository;
         _playerRepository = playerRepository;
         _damageCalculator = damageCalculator;
         _typeEffectivenessManager = typeEffectivenessManager;
         _statCalculator = statCalculator;
+        _pokemonRepository = pokemonRepository;
+        _playerPartyRepository = playerPartyRepository;
+        _expCalculator = expCalculator;
+        _evolutionService = evolutionService;
     }
 
     public async Task<BattleState> CreateBattleAsync(string player1Id, string player2Id)
@@ -218,6 +230,97 @@ public class BattleService : IBattleService
             result.WinnerId = battleState.Player1.AllPokemonFainted
                 ? battleState.Player2.PlayerId
                 : battleState.Player1.PlayerId;
+        }
+    }
+
+    /// <summary>
+    /// バトル終了後処理：経験値加算、レベルアップ、進化処理
+    /// </summary>
+    public async Task ProcessPostBattleAsync(string battleId, ProcessResult result)
+    {
+        var battleState = await _battleRepository.GetAsync(battleId);
+        if (battleState == null)
+        {
+            return;
+        }
+
+        // 勝者を判定
+        if (!result.IsBattleEnd || string.IsNullOrEmpty(result.WinnerId))
+        {
+            return;
+        }
+
+        var winnerState = result.WinnerId == battleState.Player1.PlayerId
+            ? battleState.Player1
+            : battleState.Player2;
+        var loserState = result.WinnerId == battleState.Player1.PlayerId
+            ? battleState.Player2
+            : battleState.Player1;
+
+        // CPUバトルの場合のみ経験値処理
+        if (loserState.PlayerId != "CPU")
+        {
+            return;
+        }
+
+        // 勝利したポケモンに経験値を加算
+        var winnerPokemon = winnerState.PokemonEntities[winnerState.ActivePokemonIndex];
+        var loserPokemon = loserState.PokemonEntities[loserState.ActivePokemonIndex];
+
+        var expGain = _expCalculator.CalculateExpGain(loserPokemon.Level, winnerPokemon.Level);
+        winnerPokemon.Exp += expGain;
+
+        // レベルアップ判定
+        var (newLevel, remainingExp) = _expCalculator.CalculateLevelUp(winnerPokemon.Exp, winnerPokemon.Level);
+        
+        if (newLevel > winnerPokemon.Level)
+        {
+            winnerPokemon.Level = newLevel;
+            winnerPokemon.Exp = remainingExp;
+
+            // 進化判定
+            var canEvolve = await _evolutionService.CanEvolveAsync(
+                winnerPokemon.Species.PokemonSpeciesId, newLevel);
+            
+            if (canEvolve)
+            {
+                var evolutionSpecies = await _evolutionService.GetEvolutionAsync(
+                    winnerPokemon.Species.PokemonSpeciesId, newLevel);
+                
+                if (evolutionSpecies != null)
+                {
+                    winnerPokemon.Species = evolutionSpecies;
+                }
+            }
+        }
+
+        // DBへ保存
+        await _pokemonRepository.UpdateAsync(winnerPokemon);
+
+        // 捕獲処理
+        var catchResult = result.ActionResults
+            .FirstOrDefault(ar => ar.CatchResult?.IsSuccess == true);
+        
+        if (catchResult != null)
+        {
+            var caughtPokemonId = catchResult.CatchResult!.CaughtPokemonId;
+            var caughtPokemon = loserState.Party.FirstOrDefault(p => p.PokemonId == caughtPokemonId);
+            
+            if (caughtPokemon != null)
+            {
+                // 野生ポケモンのデータから新しいPokemonエンティティを作成
+                var caughtPokemonEntity = loserState.PokemonEntities
+                    .FirstOrDefault(p => p.PokemonId == caughtPokemonId);
+                
+                if (caughtPokemonEntity != null)
+                {
+                    var isPartyFull = await _pokemonRepository.IsPartyFullAsync(winnerState.PlayerId);
+                    if (!isPartyFull)
+                    {
+                        await _pokemonRepository.AddToPartyAsync(winnerState.PlayerId, caughtPokemonEntity);
+                    }
+                }
+            }
         }
     }
 }

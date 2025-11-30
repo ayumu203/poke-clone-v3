@@ -60,7 +60,7 @@ public class Battle
 
     private ActionResult ProcessAction(BattlePlayer actor, BattlePlayer target, PlayerAction action)
     {
-        var actionResult = new ActionResult
+        var result = new ActionResult
         {
             ActionPokemonId = actor.Party[actor.ActivePokemonIndex].PokemonId,
             ActionType = action.ActionType
@@ -69,19 +69,22 @@ public class Battle
         switch (action.ActionType)
         {
             case Enums.ActionType.Attack:
-                actionResult.MoveResult = ProcessMoveAction(actor, target, action.Value);
+                result.MoveResult = ProcessMoveAction(actor, target, action.Value);
                 break;
 
             case Enums.ActionType.Switch:
-                actionResult.SwitchResult = ProcessSwitchAction(actor, action.Value);
+                result.SwitchResult = ProcessSwitchAction(actor, action.Value);
                 break;
 
             case Enums.ActionType.Catch:
-                actionResult.CatchResult = ProcessCatchAction(target);
+                result.CatchResult = ProcessCatchAction(target);
+                break;
+            case Enums.ActionType.Escape:
+                result.EscapeResult = ProcessEscapeAction(actor, target);
                 break;
         }
 
-        return actionResult;
+        return result;
     }
 
     //TODO: 状態異常・ステータス上昇技の処理の追加
@@ -103,17 +106,22 @@ public class Battle
         }
 
         // 命中判定（Accuracyに基づく判定）
+        // 変化技も命中判定は行う
         var random = new Random();
-        var hitRoll = random.Next(1, 101); // 1-100の乱数
-        if (hitRoll > move.Accuracy)
+        if (move.Accuracy > 0) // 必中技(Accuracy=0/null)以外
         {
-            return new MoveResult
+            // 命中ランク補正などを考慮すべきだが、まずは簡易実装
+            var hitRoll = random.Next(1, 101); // 1-100の乱数
+            if (hitRoll > move.Accuracy)
             {
-                MoveId = moveId,
-                TargetId = defenderPokemon.PokemonId,
-                IsSuccess = false,
-                FailureReason = "Move missed"
-            };
+                return new MoveResult
+                {
+                    MoveId = moveId,
+                    TargetId = defenderPokemon.PokemonId,
+                    IsSuccess = false,
+                    FailureReason = "Move missed"
+                };
+            }
         }
 
         // タイプ相性の計算
@@ -126,15 +134,114 @@ public class Battle
                 move.Type, defenderPokemon.Species.Type2.Value);
         }
 
-        // ダメージ計算
-        var damage = _damageCalculator.CalcDamage(
-            attackerPokemon, defenderPokemon, move, typeEffectiveness);
-
-        // クリティカル判定（簡易版：6.25%の確率）
-        var isCritical = random.Next(0, 16) == 0;
-        if (isCritical)
+        // タイプ相性で無効化された場合（例：地面に電気技）
+        // 変化技でも無効化される（例：地面に電磁波）
+        if (typeEffectiveness == 0)
         {
-            damage = (int)(damage * 1.5);
+            return new MoveResult
+            {
+                MoveId = moveId,
+                TargetId = defenderPokemon.PokemonId,
+                IsSuccess = false,
+                FailureReason = "It doesn't affect..."
+            };
+        }
+
+        int damage = 0;
+        bool isCritical = false;
+
+        // ダメージ計算（物理・特殊技のみ）
+        if (move.DamageClass != Enums.DamageClass.Status)
+        {
+            damage = _damageCalculator.CalcDamage(
+                attackerPokemon, defenderPokemon, move, typeEffectiveness);
+
+            // クリティカル判定
+            // CritRate: 0=1/16, 1=1/8, 2=1/2, 3+=1/1
+            // 簡易実装
+            int critChanceDenominator = move.CritRate switch
+            {
+                0 => 16,
+                1 => 8,
+                2 => 2,
+                _ => 1
+            };
+
+            isCritical = random.Next(0, critChanceDenominator) == 0;
+            if (isCritical)
+            {
+                damage = (int)(damage * 1.5);
+            }
+        }
+
+        // 状態異常の判定
+        Enums.Ailment? ailment = null;
+        if (move.Ailment != Enums.Ailment.None)
+        {
+            // AilmentChanceが0の場合は100%とみなす（簡易実装）
+            var chance = move.AilmentChance == 0 ? 100 : move.AilmentChance;
+            if (random.Next(1, 101) <= chance)
+            {
+                // 既に状態異常にかかっているかどうかのチェックはBattleService/BattleState側で行う想定
+                // ここでは「付与成功」の結果を返す
+                ailment = move.Ailment;
+            }
+        }
+
+        // ステータス変化
+        var sourceStatChanges = new List<StatChange>();
+        var targetStatChanges = new List<StatChange>();
+
+        foreach (var change in move.StatChanges)
+        {
+            // 対象判定（簡易ロジック）
+            // 変化技で上昇 -> 自分
+            // それ以外 -> 相手
+            bool isSelfTarget = move.DamageClass == Enums.DamageClass.Status && change.Change > 0;
+
+            if (isSelfTarget)
+            {
+                sourceStatChanges.Add(change);
+            }
+            else
+            {
+                // 変化技で下降、または攻撃技の追加効果 -> 相手
+                // ただし、攻撃技の追加効果の場合、確率判定が必要な場合がある（stat_chance）
+                // PokeAPIのデータ構造上、stat_changesリストに含まれるものは確定発動のものが多いが、
+                // meta.stat_chance がある場合は確率発動。
+                // 今回は meta.stat_chance を取得していないため、stat_changes にあるものは確定とみなすか、
+                // あるいは MoveDto に StatChance を追加して判定するか。
+                // Program.cs では StatChance を取得していない。
+                // 簡易実装として、stat_changes にあるものは確定とする。
+                targetStatChanges.Add(change);
+            }
+        }
+
+        // 回復
+        int healing = 0;
+        if (move.Healing > 0)
+        {
+            // 最大HPの割合回復
+            // MaxHpはPokemonStateにあるが、ここではPokemonエンティティしか参照できない
+            // PokemonエンティティにはMaxHpがない（計算が必要）
+            // _statCalculator.CalcHp(level, baseHp, iv, ev) が必要
+            // ここでは割合(%)だけ返すか、回復量を計算して返すか。
+            // MoveResult.Healing は int なので回復量を期待している。
+            // PokemonStateのMaxHpが必要。
+            // BattlePlayer.Party は Pokemon (Entity) のリスト。
+            // PokemonState はどこ？ -> BattleState にある。
+            // Battle クラスは BattleState を持っていない。
+            // 設計上の課題：BattleクラスでHP計算をするにはMaxHpが必要。
+            // 暫定対応：_statCalculator を使って MaxHp を計算する。
+            var maxHp = _statCalculator.CalcHp(attackerPokemon.Level, attackerPokemon.Species.BaseHp);
+            healing = (int)(maxHp * (move.Healing / 100.0));
+        }
+
+        // ドレイン
+        int drain = 0;
+        if (move.Drain != 0 && damage > 0)
+        {
+            drain = (int)(damage * (move.Drain / 100.0));
         }
 
         return new MoveResult
@@ -147,7 +254,12 @@ public class Battle
             {
                 IsCritical = isCritical,
                 TypeEffectiveness = typeEffectiveness
-            }
+            },
+            SourceStatChanges = sourceStatChanges,
+            TargetStatChanges = targetStatChanges,
+            Ailment = ailment,
+            Healing = healing,
+            Drain = drain
         };
     }
 
@@ -186,6 +298,20 @@ public class Battle
         {
             IsSuccess = isSuccess,
             CaughtPokemonId = isSuccess ? targetPokemon.PokemonId : string.Empty
+        };
+    }
+
+    private EscapeResult ProcessEscapeAction(BattlePlayer actor, BattlePlayer opponent)
+    {
+        // CPUバトル(野生ポケモン戦)の場合は100%成功
+        // 対人バトルでは逃走不可
+        bool isCpuBattle = opponent.Player.PlayerId == "CPU";
+        
+        return new EscapeResult
+        {
+            IsSuccess = isCpuBattle,
+            EscapingPlayerId = actor.Player.PlayerId,
+            FailureReason = isCpuBattle ? string.Empty : "対人戦では逃走できません"
         };
     }
 }
