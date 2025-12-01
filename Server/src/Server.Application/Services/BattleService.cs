@@ -294,9 +294,38 @@ public class BattleService : IBattleService
             ? battleState.Player2
             : battleState.Player1;
 
+        // EndResultを初期化
+        var endResult = new EndResult
+        {
+            WinnerId = result.WinnerId,
+            LoserId = loserState.PlayerId,
+            Reason = Domain.Enums.EndReason.AllPokemonFainted,
+            ExperienceGained = 0,
+            Evolutions = new List<EvolutionInfo>()
+        };
+
+        // 捕獲判定
+        var catchResult = result.ActionResults
+            .FirstOrDefault(ar => ar.CatchResult?.IsSuccess == true);
+        
+        if (catchResult != null)
+        {
+            endResult.Reason = Domain.Enums.EndReason.Caught;
+        }
+
+        // 逃走判定
+        var escapeResult = result.ActionResults
+            .FirstOrDefault(ar => ar.EscapeResult?.IsSuccess == true);
+        
+        if (escapeResult != null)
+        {
+            endResult.Reason = Domain.Enums.EndReason.Escaped;
+        }
+
         // CPUバトルの場合のみ経験値処理
         if (loserState.PlayerId != "CPU")
         {
+            result.EndResult = endResult;
             return;
         }
 
@@ -306,12 +335,14 @@ public class BattleService : IBattleService
 
         var expGain = _expCalculator.CalculateExpGain(loserPokemon.Level, winnerPokemon.Level);
         winnerPokemon.Exp += expGain;
+        endResult.ExperienceGained = expGain;
 
         // レベルアップ判定
         var (newLevel, remainingExp) = _expCalculator.CalculateLevelUp(winnerPokemon.Exp, winnerPokemon.Level);
         
         if (newLevel > winnerPokemon.Level)
         {
+            var oldSpeciesId = winnerPokemon.Species.PokemonSpeciesId;
             winnerPokemon.Level = newLevel;
             winnerPokemon.Exp = remainingExp;
 
@@ -327,6 +358,14 @@ public class BattleService : IBattleService
                 if (evolutionSpecies != null)
                 {
                     winnerPokemon.Species = evolutionSpecies;
+                    
+                    // 進化情報を記録
+                    endResult.Evolutions.Add(new EvolutionInfo
+                    {
+                        PokemonId = winnerPokemon.PokemonId,
+                        FromSpeciesId = oldSpeciesId,
+                        ToSpeciesId = evolutionSpecies.PokemonSpeciesId
+                    });
                 }
             }
         }
@@ -335,9 +374,6 @@ public class BattleService : IBattleService
         await _pokemonRepository.UpdateAsync(winnerPokemon);
 
         // 捕獲処理
-        var catchResult = result.ActionResults
-            .FirstOrDefault(ar => ar.CatchResult?.IsSuccess == true);
-        
         if (catchResult != null)
         {
             var caughtPokemonId = catchResult.CatchResult!.CaughtPokemonId;
@@ -359,5 +395,8 @@ public class BattleService : IBattleService
                 }
             }
         }
+
+        // EndResultをProcessResultに設定
+        result.EndResult = endResult;
     }
 }

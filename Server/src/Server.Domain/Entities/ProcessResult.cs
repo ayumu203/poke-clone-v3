@@ -50,4 +50,5 @@ public class ProcessResult
     public List<ActionResult> ActionResults { get; set; } = new();
     public bool IsBattleEnd { get; set; }
     public string WinnerId { get; set; } = string.Empty;
+    public EndResult? EndResult { get; set; }
 }

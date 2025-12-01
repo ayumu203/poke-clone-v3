@@ -127,7 +127,8 @@ public class BattleHub : Hub
                     // 経験値・進化処理
                     await _battleService.ProcessPostBattleAsync(battleId, result);
                     
-                    await Clients.Group(battleId).SendAsync("BattleEnded", result.WinnerId);
+                    // EndResultを含めてバトル終了を通知
+                    await Clients.Group(battleId).SendAsync("BattleEnded", result.EndResult);
                     await _battleService.DeleteBattleAsync(battleId);
                 }
             }
