@@ -101,4 +101,40 @@ public class PokemonRepository : IPokemonRepository
 
         return playerParty != null && playerParty.Party.Count >= 6;
     }
+
+    public async Task<int> GetPartyCountAsync(string playerId)
+    {
+        var playerParty = await _context.PlayerParties
+            .Include(pp => pp.Party)
+            .FirstOrDefaultAsync(pp => pp.PlayerId == playerId);
+
+        return playerParty?.Party.Count ?? 0;
+    }
+
+    public async Task RemoveFromPartyAsync(string playerId, string pokemonId)
+    {
+        var playerParty = await _context.PlayerParties
+            .Include(pp => pp.Party)
+            .FirstOrDefaultAsync(pp => pp.PlayerId == playerId);
+
+        if (playerParty != null)
+        {
+            var pokemon = playerParty.Party.FirstOrDefault(p => p.PokemonId == pokemonId);
+            if (pokemon != null)
+            {
+                playerParty.Party.Remove(pokemon);
+                await _context.SaveChangesAsync();
+            }
+        }
+    }
+
+    public async Task DeletePokemonAsync(string pokemonId)
+    {
+        var pokemon = await _context.Pokemons.FindAsync(pokemonId);
+        if (pokemon != null)
+        {
+            _context.Pokemons.Remove(pokemon);
+            await _context.SaveChangesAsync();
+        }
+    }
 }

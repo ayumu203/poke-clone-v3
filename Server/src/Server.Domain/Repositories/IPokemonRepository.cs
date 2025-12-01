@@ -9,4 +9,7 @@ public interface IPokemonRepository
     Task AddToPartyAsync(string playerId, Pokemon pokemon);
     Task UpdateAsync(Pokemon pokemon);
     Task<bool> IsPartyFullAsync(string playerId);
+    Task<int> GetPartyCountAsync(string playerId);
+    Task RemoveFromPartyAsync(string playerId, string pokemonId);
+    Task DeletePokemonAsync(string pokemonId);
 }
