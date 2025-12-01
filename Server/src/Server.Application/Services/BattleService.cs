@@ -158,6 +158,49 @@ public class BattleService : IBattleService
             if (p1Action.PlayerId != battleState.Player1.PlayerId) p1Action = action1;
             if (p2Action.PlayerId != battleState.Player2.PlayerId) p2Action = action2;
 
+            // 捕獲アクションの場合、パーティサイズをチェック
+            if (p1Action.ActionType == Domain.Enums.ActionType.Catch)
+            {
+                var isPartyFull = await _pokemonRepository.IsPartyFullAsync(battleState.Player1.PlayerId);
+                if (isPartyFull)
+                {
+                    // パーティが満杯の場合、捕獲を失敗させる
+                    var failedResult = new ProcessResult();
+                    failedResult.ActionResults.Add(new ActionResult
+                    {
+                        ActionPokemonId = battleState.Player1.PokemonEntities[battleState.Player1.ActivePokemonIndex].PokemonId,
+                        ActionType = Domain.Enums.ActionType.Catch,
+                        CatchResult = new CatchResult
+                        {
+                            IsSuccess = false,
+                            CaughtPokemonId = string.Empty
+                        }
+                    });
+                    return failedResult;
+                }
+            }
+
+            if (p2Action.ActionType == Domain.Enums.ActionType.Catch)
+            {
+                var isPartyFull = await _pokemonRepository.IsPartyFullAsync(battleState.Player2.PlayerId);
+                if (isPartyFull)
+                {
+                    // パーティが満杯の場合、捕獲を失敗させる
+                    var failedResult = new ProcessResult();
+                    failedResult.ActionResults.Add(new ActionResult
+                    {
+                        ActionPokemonId = battleState.Player2.PokemonEntities[battleState.Player2.ActivePokemonIndex].PokemonId,
+                        ActionType = Domain.Enums.ActionType.Catch,
+                        CatchResult = new CatchResult
+                        {
+                            IsSuccess = false,
+                            CaughtPokemonId = string.Empty
+                        }
+                    });
+                    return failedResult;
+                }
+            }
+
             var result = battle.ProcessTurn(p1Action, p2Action);
 
             // ダメージをHPに反映
