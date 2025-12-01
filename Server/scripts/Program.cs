@@ -18,7 +18,7 @@ class Program
         Console.WriteLine("PokeAPI Data Fetcher - Generations 1-5");
         Console.WriteLine("=".PadRight(60, '='));
 
-        var outputDir = Path.Combine("..", "..", "Docs", "seeds");
+        var outputDir = Path.Combine("..", "..", "Server", "seeds");
         Directory.CreateDirectory(outputDir);
 
         // Fetch Pokemon data

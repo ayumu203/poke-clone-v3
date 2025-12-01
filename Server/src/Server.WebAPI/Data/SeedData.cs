@@ -19,7 +19,7 @@ public static class SeedData
         // Seed Moves
         if (!context.Moves.Any())
         {
-            var movesJson = await File.ReadAllTextAsync("/seeds/moves.json");
+            var movesJson = await File.ReadAllTextAsync("Server/seeds/moves.json");
             var moves = JsonSerializer.Deserialize<List<MoveDto>>(movesJson, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             
             if (moves != null)
@@ -56,7 +56,7 @@ public static class SeedData
         // Seed PokemonSpecies with MoveList
         if (!context.PokemonSpecies.Any())
         {
-            var pokemonJson = await File.ReadAllTextAsync("/seeds/pokemons.json");
+            var pokemonJson = await File.ReadAllTextAsync("Server/seeds/pokemons.json");
             var pokemonList = JsonSerializer.Deserialize<List<PokemonSpeciesDto>>(pokemonJson, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             
             if (pokemonList != null)
