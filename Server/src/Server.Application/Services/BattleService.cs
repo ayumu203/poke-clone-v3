@@ -337,6 +337,16 @@ public class BattleService : IBattleService
         winnerPokemon.Exp += expGain;
         endResult.ExperienceGained = expGain;
 
+        // 勝利報酬として所持金を加算
+        var moneyReward = loserPokemon.Level * 100;
+        var winnerPlayer = await _playerRepository.GetByIdAsync(winnerState.PlayerId);
+        if (winnerPlayer != null)
+        {
+            winnerPlayer.Money += moneyReward;
+            await _playerRepository.UpdateAsync(winnerPlayer);
+            endResult.MoneyGained = moneyReward;
+        }
+
         // レベルアップ判定
         var (newLevel, remainingExp) = _expCalculator.CalculateLevelUp(winnerPokemon.Exp, winnerPokemon.Level);
         

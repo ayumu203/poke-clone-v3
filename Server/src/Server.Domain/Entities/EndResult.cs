@@ -28,6 +28,11 @@ public class EndResult
     public int ExperienceGained { get; set; }
 
     /// <summary>
+    /// 獲得した所持金
+    /// </summary>
+    public int MoneyGained { get; set; }
+
+    /// <summary>
     /// 進化したポケモンの情報
     /// </summary>
     public List<EvolutionInfo> Evolutions { get; set; } = new();
