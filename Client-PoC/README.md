@@ -32,7 +32,31 @@ python3 -m http.server 8080
 
 ## バトルの作成とテスト
 
-### 1. 認証トークンの取得
+### 簡単な方法（推奨）
+
+スクリプトを使用して自動的にセットアップできます:
+
+```bash
+# プロジェクトルートから実行
+cd scripts
+chmod +x setup-battle.sh
+./setup-battle.sh
+```
+
+スクリプトが以下の情報を出力します:
+- **API URL**: `http://localhost:5000`
+- **Battle ID**: バトルID（例: `battle-xxx-xxx`）
+- **Player ID**: `testplayer1`
+
+これらの情報をPoCクライアントで使用してバトルに接続してください。
+
+---
+
+### 詳細な手順（手動セットアップ）
+
+手動でセットアップする場合は、以下の手順に従ってください。
+
+#### 1. 認証トークンの取得
 
 ```bash
 TOKEN=$(curl -s -X POST http://localhost:5000/api/Auth/login/mock \
@@ -44,7 +68,7 @@ TOKEN=$(curl -s -X POST http://localhost:5000/api/Auth/login/mock \
 echo "取得したトークン: $TOKEN"
 ```
 
-### 2. プレイヤー情報の登録
+#### 2. プレイヤー情報の登録
 
 ```bash
 curl -X POST http://localhost:5000/api/player/me \
@@ -58,7 +82,7 @@ curl -X POST http://localhost:5000/api/player/me \
 
 レスポンスから`playerId`を取得してください（例: `b0764a84-bed5-4ef6-83c3-09b707e5ae40`）
 
-### 3. ポケモンをパーティに追加
+#### 3. ポケモンをパーティに追加
 
 **重要**: JWTトークンに含まれる実際のplayerIdを使用してください。
 
@@ -101,7 +125,7 @@ docker exec -it pokeclone_db /opt/mssql-tools18/bin/sqlcmd \
   "
 ```
 
-### 4. CPUバトルを作成
+#### 4. CPUバトルを作成
 
 ```bash
 # PLAYER_IDを使用してバトルを作成
@@ -113,7 +137,7 @@ curl -X POST http://localhost:5000/api/Battle/cpu \
 
 レスポンスから`battleId`を取得。
 
-### 5. PoCクライアントで接続
+#### 5. PoCクライアントで接続
 
 1. **API URL**: `http://localhost:5000`
 2. **Battle ID**: 上記で取得した`battleId`（例: `battle-xxx-xxx`）
