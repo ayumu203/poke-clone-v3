@@ -9,9 +9,12 @@ public class DamageCalculator : IDamageCalculator
     
     private const double StabMultiplier = 1.5;
     private const double NoStabMultiplier = 1.0;
-    private const int DamageFormulaConstant1 = 2;
-    private const int DamageFormulaConstant2 = 5;
-    private const int DamageFormulaConstant3 = 50;
+    
+    // ポケモンのダメージ計算式の定数
+    // 計算式: damage = ((LevelMultiplier * level / LevelDivisor + LevelMultiplier) * power * attack / defense) / DefenseDivisor + LevelMultiplier
+    private const int LevelMultiplier = 2;      // レベルに掛ける倍率
+    private const int LevelDivisor = 5;         // レベルを割る除数
+    private const int DefenseDivisor = 50;      // 防御力で割る除数
     private const int MinDamage = 1;
 
     public DamageCalculator(IStatCalculator statCalculator)
@@ -49,7 +52,7 @@ public class DamageCalculator : IDamageCalculator
 
         var stab = (move.Type == attacker.Species.Type1 || (attacker.Species.Type2.HasValue && move.Type == attacker.Species.Type2.Value)) ? StabMultiplier : NoStabMultiplier;
 
-        var baseDamage = ((DamageFormulaConstant1 * level / DamageFormulaConstant2 + DamageFormulaConstant1) * power * attackStat / defenseStat) / DamageFormulaConstant3 + DamageFormulaConstant1;
+        var baseDamage = ((LevelMultiplier * level / LevelDivisor + LevelMultiplier) * power * attackStat / defenseStat) / DefenseDivisor + LevelMultiplier;
 
         var damage = (int)(baseDamage * stab * typeEffectiveness);
 
