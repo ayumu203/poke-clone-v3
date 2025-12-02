@@ -349,6 +349,43 @@
 
 ---
 
+---
+
+## 開発用モック認証（公開まで利用可能）
+
+> [!IMPORTANT]
+> 開発効率向上のため、Azure環境が整っていない場合でも動作する「モック認証」を提供しています。
+> **この機能は本番公開時（Production Release）に無効化または削除されます。**
+
+### 1. モック認証の仕組み
+
+- **エンドポイント**: `POST /api/Auth/login/mock`
+- **機能**: 任意のユーザー名でログインし、有効なJWTトークンを発行します。
+- **制限**: パスワード検証は行われません。
+
+### 2. 使用方法（APIテスト）
+
+cURLコマンド例:
+```bash
+curl -X POST http://localhost:5278/api/Auth/login/mock \
+  -H "Content-Type: application/json" \
+  -d '{"username": "TestUser"}'
+```
+
+レスポンス（Cookieに `access_token` がセットされます）:
+```json
+{
+  "message": "Mock login successful",
+  "username": "TestUser"
+}
+```
+
+### 3. フロントエンドでの利用
+
+環境変数 `NEXT_PUBLIC_USE_MOCK_AUTH=true` を設定することで、ログイン画面に「Mock Login」ボタンが表示されるように実装します（推奨）。
+
+---
+
 ## Azure Key Vault設定
 
 ### 1. Key Vaultの作成
