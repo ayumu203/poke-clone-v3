@@ -23,8 +23,17 @@ fi
 
 echo "✓ トークン取得成功"
 
-# 2. プレイヤーID取得
-echo "2. プレイヤーIDを取得中..."
+# 2. プレイヤーを作成
+echo "2. プレイヤーを作成中..."
+curl -s -X POST $API_URL/api/player/me \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"name":"TestPlayer","iconUrl":"https://example.com/icon.png"}' > /dev/null
+
+echo "✓ プレイヤー作成成功"
+
+# 3. プレイヤーID取得
+echo "3. プレイヤーIDを取得中..."
 PLAYER_ID=$(curl -s -X GET $API_URL/api/player/me \
   -H "Authorization: Bearer $TOKEN" | jq -r '.playerId')
 
@@ -35,8 +44,8 @@ fi
 
 echo "✓ プレイヤーID: $PLAYER_ID"
 
-# 3. ポケモンをパーティに追加
-echo "3. ポケモンをパーティに追加中..."
+# 4. ポケモンをパーティに追加
+echo "4. ポケモンをパーティに追加中..."
 POKEMON_ID=$(docker exec -i $DB_CONTAINER /opt/mssql-tools18/bin/sqlcmd \
   -S localhost -U sa -P "$DB_PASSWORD" -d PokeCloneDb -C -h -1 -Q "
   SET NOCOUNT ON;
@@ -66,8 +75,8 @@ POKEMON_ID=$(docker exec -i $DB_CONTAINER /opt/mssql-tools18/bin/sqlcmd \
 
 echo "✓ ポケモンID: $POKEMON_ID"
 
-# 4. CPUバトル作成
-echo "4. CPUバトルを作成中..."
+# 5. CPUバトル作成
+echo "5. CPUバトルを作成中..."
 BATTLE_RESPONSE=$(curl -s -X POST $API_URL/api/Battle/cpu \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer $TOKEN" \
@@ -83,7 +92,7 @@ fi
 
 echo "✓ バトルID: $BATTLE_ID"
 
-# 5. 結果表示
+# 6. 結果表示
 echo ""
 echo "=== セットアップ完了 ==="
 echo "API URL: $API_URL"
