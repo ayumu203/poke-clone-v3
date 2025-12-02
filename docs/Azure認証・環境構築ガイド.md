@@ -382,7 +382,10 @@ curl -X POST http://localhost:5278/api/Auth/login/mock \
 
 ### 3. フロントエンドでの利用
 
-環境変数 `NEXT_PUBLIC_USE_MOCK_AUTH=true` を設定することで、ログイン画面に「Mock Login」ボタンが表示されるように実装します（推奨）。
+> [!WARNING]
+> **フロントエンドにはMock認証機能を実装しません。**
+> フロントエンドは常にAzure Entra External ID（Microsoft/Google/Email OTP）を使用してください。
+> Mock認証は、PostmanやcURLを使用したバックエンドAPIの単体テスト・デバッグ専用です。
 
 ---
 
