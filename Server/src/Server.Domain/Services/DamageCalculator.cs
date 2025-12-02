@@ -6,6 +6,13 @@ namespace Server.Domain.Services;
 public class DamageCalculator : IDamageCalculator
 {
     private readonly IStatCalculator _statCalculator;
+    
+    private const double StabMultiplier = 1.5;
+    private const double NoStabMultiplier = 1.0;
+    private const int DamageFormulaConstant1 = 2;
+    private const int DamageFormulaConstant2 = 5;
+    private const int DamageFormulaConstant3 = 50;
+    private const int MinDamage = 1;
 
     public DamageCalculator(IStatCalculator statCalculator)
     {
@@ -40,12 +47,12 @@ public class DamageCalculator : IDamageCalculator
             return 0;
         }
 
-        var stab = (move.Type == attacker.Species.Type1 || (attacker.Species.Type2.HasValue && move.Type == attacker.Species.Type2.Value)) ? 1.5 : 1.0;
+        var stab = (move.Type == attacker.Species.Type1 || (attacker.Species.Type2.HasValue && move.Type == attacker.Species.Type2.Value)) ? StabMultiplier : NoStabMultiplier;
 
-        var baseDamage = ((2 * level / 5 + 2) * power * attackStat / defenseStat) / 50 + 2;
+        var baseDamage = ((DamageFormulaConstant1 * level / DamageFormulaConstant2 + DamageFormulaConstant1) * power * attackStat / defenseStat) / DamageFormulaConstant3 + DamageFormulaConstant1;
 
         var damage = (int)(baseDamage * stab * typeEffectiveness);
 
-        return Math.Max(damage, 1);
+        return Math.Max(damage, MinDamage);
     }
 }

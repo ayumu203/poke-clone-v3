@@ -84,12 +84,16 @@ builder.Services.AddScoped<IPlayerPartyRepository, PlayerPartyRepository>();
 // Domain Services Registration
 builder.Services.AddSingleton<ITypeEffectivenessManager, TypeEffectivenessManager>();
 builder.Services.AddSingleton<IStatCalculator, StatCalculator>();
+builder.Services.AddSingleton<IRandomProvider, RandomProvider>();
 builder.Services.AddScoped<IDamageCalculator, DamageCalculator>();
 builder.Services.AddScoped<IExpCalculator, ExpCalculator>();
 builder.Services.AddScoped<IEvolutionService, EvolutionService>();
+builder.Services.AddScoped<ICaptureCalculator, CaptureCalculator>();
+builder.Services.AddScoped<IRewardCalculator, RewardCalculator>();
 
 // Application Services Registration
 builder.Services.AddScoped<IBattleService, BattleService>();
+builder.Services.AddScoped<IGachaService, GachaService>();
 
 var app = builder.Build();
 

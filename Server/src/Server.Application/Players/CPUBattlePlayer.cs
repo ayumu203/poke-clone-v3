@@ -23,10 +23,13 @@ public class CPUBattlePlayer
 
         // ランダムに技を選択
         var moveIndex = _random.Next(activePokemon.Moves.Count);
+        var selectedMove = activePokemon.Moves[moveIndex];
+        
         return new PlayerAction
         {
             ActionType = ActionType.Attack,
-            Value = moveIndex
+            Value = selectedMove.MoveId,
+            PlayerId = cpuPlayer.Player.PlayerId
         };
     }
 

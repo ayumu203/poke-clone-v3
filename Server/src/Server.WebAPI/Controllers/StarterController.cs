@@ -14,8 +14,9 @@ public class StarterController : ControllerBase
     private readonly IPokemonRepository _pokemonRepository;
     private readonly IPlayerRepository _playerRepository;
 
-    // スターターポケモンのID
-    private static readonly int[] StarterSpeciesIds = { 390, 7, 495 }; // ヒコザル, ゼニガメ, ツタージャ
+    // Starter Pokemon: ヒコザル(390), ゼニガメ(7), ツタージャ(495)
+    private static readonly int[] StarterSpeciesIds = { 390, 7, 495 };
+    private const int StarterPokemonLevel = 5;
 
     public StarterController(
         IPokemonSpeciesRepository pokemonSpeciesRepository,
@@ -83,7 +84,7 @@ public class StarterController : ControllerBase
         {
             PokemonId = Guid.NewGuid().ToString(),
             Species = species,
-            Level = 5,
+            Level = StarterPokemonLevel,
             Exp = 0,
             Moves = species.MoveList.Take(4).ToList()
         };

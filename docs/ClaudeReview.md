@@ -8,12 +8,6 @@
 
 ### 1.1 Battle.cs
 
-#### ✅ 良い点
-
-- **適切な依存性注入**: `IDamageCalculator`, `ITypeEffectivenessManager`, `IStatCalculator`を適切にDIしている
-- **責務の分離**: ダメージ計算、タイプ相性、ステータス計算をそれぞれのサービスに委譲している
-- **詳細な戦闘ロジック**: クリティカル判定、状態異常、ステータス変化、回復、ドレインなど多様な処理を実装
-
 #### ⚠️ 改善点
 
 **1. マジックナンバーの多用 (行110, 114, 162-168, 173, 183, 237, 244, 295)**
@@ -56,22 +50,7 @@ private static class CriticalHitChance
 }
 ```
 
-**2. Randomインスタンスの生成位置 (行110, 293)**
-
-```csharp
-// 現在
-var random = new Random(); // メソッド内で毎回生成
-```
-
-**提案**: クラスフィールドとして共有する
-
-```csharp
-private readonly Random _random = new Random();
-```
-
-**理由**: 短時間に複数回`new Random()`を呼ぶと同じシード値になる可能性があり、予測可能な乱数が生成される
-
-**3. 捕獲率の簡易実装 (行294-295)**
+**2. 捕獲率の簡易実装 (行294-295)**
 
 ```csharp
 var catchRate = random.Next(0, 100);
@@ -91,7 +70,7 @@ public interface ICaptureCalculator
 - 捕獲処理は独立したビジネスロジック
 - 将来的にHP残量、状態異常、ボールの種類などを考慮する拡張が容易
 
-**4. 手続き的な処理 (行236-237, 384)**
+**3. 手続き的な処理 (行236-237, 384)**
 
 ```csharp
 // Battle.cs内でMaxHp計算
@@ -161,10 +140,6 @@ public int Money { get; set; } = InitialMoney;
 
 #### DamageCalculator.cs
 
-**✅ 良い点**
-- シンプルで理解しやすい実装
-- STAB(Same Type Attack Bonus)の計算が正確
-
 **⚠️ 改善点**
 
 **マジックナンバー (行43, 45)**
@@ -184,36 +159,7 @@ private const int DamageFormulaConstant2 = 5;
 private const int DamageFormulaConstant3 = 50;
 ```
 
-#### StatCalculator.cs
-
-**⚠️ 改善点**
-
-**マジックナンバーと固定IV/EV値 (行9-12)**
-
-```csharp
-const int iv = 15;
-const int ev = 65535;
-var evBonus = (int)Math.Floor(Math.Ceiling(Math.Sqrt(ev)) / 4.0);
-return ((baseStat + iv) * 2 + evBonus) * level / 100 + level + 10;
-```
-
-**提案**: IV/EVを引数として受け取る
-
-```csharp
-public int CalcHp(int level, int baseStat, int iv = DefaultIV, int ev = DefaultEV)
-{
-    private const int DefaultIV = 15;
-    private const int DefaultEV = 65535;
-    private const int EvDivisor = 4;
-    // ...
-}
-```
-
 #### TypeEffectivenessManager.cs
-
-**✅ 良い点**
-- タイプ相性テーブルが網羅的
-- Dictionary使用で高速な検索
 
 **⚠️ 改善点**
 
@@ -242,15 +188,12 @@ public int CalcHp(int level, int baseStat, int iv = DefaultIV, int ev = DefaultE
 
 ### 2.1 BattleService.cs
 
-#### ✅ 良い点
-
-- **適切なロック機構**: Redis分散ロックで同時処理を防止 (行128-132)
-- **トランザクション管理**: try-finallyでロック解放を保証
-- **経験値・進化処理**: バトル後処理が適切に実装されている
-
 #### ⚠️ 改善点
 
 **1. 重複したコード (行162-202)**
+
+**追記**
+捕獲はCPU戦のみとなるように実装を修正.
 
 ```csharp
 // Player1の捕獲チェック
@@ -374,24 +317,6 @@ return new PlayerAction
 
 `PlayerAction`に`PlayerId`プロパティがあるが設定されていない
 
-**3. ランダム性の問題**
-
-CPUが常にランダムに技を選択するため、戦略性がない
-
-**提案**: 簡易的なAI実装
-
-```csharp
-public PlayerAction ChooseAction(BattlePlayer cpuPlayer, BattlePlayer opponent)
-{
-    var activePokemon = cpuPlayer.Party[cpuPlayer.ActivePokemonIndex];
-    var opponentPokemon = opponent.Party[opponent.ActivePokemonIndex];
-    
-    // HPが低い場合は交代を検討
-    // タイプ相性を考慮した技選択
-    // など
-}
-```
-
 ---
 
 ## 3. Server.Infrastructure レビュー
@@ -453,10 +378,6 @@ var pokemon = await _context.Pokemons
 
 ### 3.2 PlayerRepository.cs
 
-#### ✅ 良い点
-- シンプルで明確な実装
-- 標準的なCRUD操作
-
 #### ⚠️ 改善点
 
 **エラーハンドリング不足**
@@ -484,10 +405,6 @@ public async Task UpdateAsync(Player player)
 ## 4. Server.WebAPI レビュー
 
 ### 4.1 PartyController.cs
-
-#### ✅ 良い点
-- 適切な認証チェック
-- ビジネスルール検証 (最後のポケモンは逃がせない)
 
 #### ⚠️ 改善点
 
@@ -532,9 +449,6 @@ if (party.Count <= 1)
 
 ### 4.2 StarterController.cs
 
-#### ✅ 良い点
-- スターターポケモンの検証が適切
-- 既存パーティのチェック
 
 #### ⚠️ 改善点
 
@@ -544,16 +458,7 @@ if (party.Count <= 1)
 private static readonly int[] StarterSpeciesIds = { 390, 7, 495 };
 ```
 
-**提案**: 設定ファイルまたはデータベースで管理
-
-```json
-// appsettings.json
-{
-  "GameSettings": {
-    "StarterPokemonIds": [390, 7, 495]
-  }
-}
-```
+**提案**: コメントを追記しておく.
 
 **2. レベルのハードコーディング (行86)**
 
@@ -561,7 +466,7 @@ private static readonly int[] StarterSpeciesIds = { 390, 7, 495 };
 Level = 5,
 ```
 
-**提案**: 定数化
+**提案**: 定数化する.
 
 ```csharp
 private const int StarterPokemonLevel = 5;

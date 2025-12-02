@@ -26,7 +26,7 @@ public class PartyController : ControllerBase
         var playerId = User.Identity?.Name;
         if (string.IsNullOrEmpty(playerId))
         {
-            return Unauthorized();
+            return StatusCode(500, "ユーザー情報の取得に失敗しました");
         }
 
         var party = await _pokemonRepository.GetPlayerPartyAsync(playerId);
@@ -50,15 +50,13 @@ public class PartyController : ControllerBase
             return Unauthorized();
         }
 
-        // プレイヤーの所持ポケモン数を確認
-        var partyCount = await _pokemonRepository.GetPartyCountAsync(playerId);
-        if (partyCount <= 1)
+        // 指定されたポケモンがプレイヤーのパーティに存在するか確認
+        var party = await _pokemonRepository.GetPlayerPartyAsync(playerId);
+        if (party.Count <= 1)
         {
             return BadRequest("最後のポケモンは逃がせません");
         }
-
-        // 指定されたポケモンがプレイヤーのパーティに存在するか確認
-        var party = await _pokemonRepository.GetPlayerPartyAsync(playerId);
+        
         var pokemon = party?.FirstOrDefault(p => p.PokemonId == pokemonId);
         
         if (pokemon == null)

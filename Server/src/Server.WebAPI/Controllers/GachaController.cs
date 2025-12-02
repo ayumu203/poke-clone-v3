@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Server.Application.Services;
 using Server.Domain.Entities;
-using Server.Domain.Repositories;
 
 namespace Server.WebAPI.Controllers;
 
@@ -10,19 +10,11 @@ namespace Server.WebAPI.Controllers;
 [Authorize]
 public class GachaController : ControllerBase
 {
-    private readonly IPokemonSpeciesRepository _pokemonSpeciesRepository;
-    private readonly IPokemonRepository _pokemonRepository;
-    private readonly IPlayerRepository _playerRepository;
-    private const int GachaCost = 5000;
+    private readonly IGachaService _gachaService;
 
-    public GachaController(
-        IPokemonSpeciesRepository pokemonSpeciesRepository,
-        IPokemonRepository pokemonRepository,
-        IPlayerRepository playerRepository)
+    public GachaController(IGachaService gachaService)
     {
-        _pokemonSpeciesRepository = pokemonSpeciesRepository;
-        _pokemonRepository = pokemonRepository;
-        _playerRepository = playerRepository;
+        _gachaService = gachaService;
     }
 
     /// <summary>
@@ -34,61 +26,25 @@ public class GachaController : ControllerBase
         var playerId = User.Identity?.Name;
         if (string.IsNullOrEmpty(playerId))
         {
-            return Unauthorized();
+            return StatusCode(500, "ユーザー情報の取得に失敗しました");
         }
 
-        // プレイヤー情報を取得
-        var player = await _playerRepository.GetByIdAsync(playerId);
-        if (player == null)
+        try
         {
-            return NotFound("プレイヤーが見つかりません");
+            var pokemon = await _gachaService.ExecuteGachaAsync(playerId);
+            return Ok(new 
+            { 
+                message = "ガチャを引きました",
+                pokemon
+            });
         }
-
-        // 所持金が足りるか確認
-        if (player.Money < GachaCost)
+        catch (InvalidOperationException ex)
         {
-            return BadRequest($"所持金が不足しています（必要: {GachaCost}円, 所持: {player.Money}円）");
+            return BadRequest(ex.Message);
         }
-
-        // パーティが6体未満であることを確認
-        var isPartyFull = await _pokemonRepository.IsPartyFullAsync(playerId);
-        if (isPartyFull)
+        catch (Exception)
         {
-            return BadRequest("パーティが満杯です");
+            return StatusCode(500, "ガチャの実行に失敗しました");
         }
-
-        // ランダムなポケモンを生成
-        var allSpecies = await _pokemonSpeciesRepository.GetAllAsync();
-        if (allSpecies == null || allSpecies.Count == 0)
-        {
-            return StatusCode(500, "ポケモンデータが見つかりません");
-        }
-
-        var random = new Random();
-        var randomSpecies = allSpecies[random.Next(allSpecies.Count)];
-        var randomLevel = random.Next(1, 11); // レベル1-10
-
-        var pokemon = new Pokemon
-        {
-            PokemonId = Guid.NewGuid().ToString(),
-            Species = randomSpecies,
-            Level = randomLevel,
-            Exp = 0,
-            Moves = randomSpecies.MoveList.Take(4).ToList()
-        };
-
-        // 所持金を減算
-        player.Money -= GachaCost;
-        await _playerRepository.UpdateAsync(player);
-
-        // パーティに追加
-        await _pokemonRepository.AddToPartyAsync(playerId, pokemon);
-
-        return Ok(new 
-        { 
-            message = "ガチャを引きました",
-            pokemon,
-            remainingMoney = player.Money
-        });
     }
 }
