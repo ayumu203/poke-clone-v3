@@ -81,18 +81,18 @@
 │  │  (secrets.json)  │         │   Development.   │          │
 │  │                  │         │   json           │          │
 │  │  - JWT Secret    │         │                  │          │
-│  │  - Client IDs    │         │  - Mock Auth     │          │
-│  │  - Client Secrets│         │  - Local DB      │          │
+│  │  - External ID   │         │  - Azure Config  │          │
+│  │    Tenant ID     │         │  - Local DB      │          │
 │  └────────┬─────────┘         └──────────┬───────┘          │
 │           │                              │                  │
 │           │ 読み込み                     │ 読み込み         │
 │  ┌────────▼──────────────────────────────▼──────┐          │
 │  │   ASP.NET Core WebAPI (localhost:5000)      │          │
 │  │   ┌──────────────────────────────┐          │          │
-│  │   │  開発用認証                  │          │          │
-│  │   │  - Mock Login (開発専用)     │          │          │
-│  │   │  - Google OAuth (任意)       │          │          │
-│  │   │  - Microsoft OAuth (任意)    │          │          │
+│  │   │  Azure認証                   │          │          │
+│  │   │  - Email OTP                 │          │          │
+│  │   │  - Google OAuth              │          │          │
+│  │   │  - Microsoft OAuth           │          │          │
 │  │   └──────────────────────────────┘          │          │
 │  └─────────────┬────────────────────────────────┘          │
 │                │                                             │
@@ -112,75 +112,240 @@
           └────────────────────┘
 ```
 
+> [!IMPORTANT]
+> **開発環境でもAzure認証を使用**
+> 
+> - 開発環境と本番環境で同じ認証フローを使用
+> - Mock認証は使用しない
+> - Azure Entra External IDテナントを開発用に1つ作成
+> - 本番用テナントは別途作成を推奨
+
 ---
 
-## Azure Entra ID（旧Azure AD）設定
+## Azure Entra External ID 設定
 
-### 1. Entra IDアプリケーションの作成
+> [!NOTE]
+> Azure Entra External ID（旧 Azure AD B2C）は、外部ユーザー向けの認証サービスです。
+> - 最初の50,000 MAU（月間アクティブユーザー）まで無料
+> - Email OTP、Google、Microsoft、Facebook など多様な認証方法に対応
+> - 開発環境と本番環境で別々のテナントを作成することを推奨
 
-#### Azure Portalでの手順
+### 1. External ID テナントの作成
+
+#### Step 1: Azure Portal でテナント作成
 
 1. **Azure Portalにログイン**
    - https://portal.azure.com
 
-2. **Microsoft Entra ID（旧Azure AD）に移動**
+2. **Microsoft Entra External ID に移動**
    ```
-   Microsoft Entra ID → アプリの登録 → 新規登録
+   検索バーで「External ID」と入力 → 「External ID」を選択
    ```
 
-3. **アプリケーション登録**
+3. **新しいテナントを作成**
    ```
+   「テナントの作成」→ 「External ID」を選択
+
+   テナント名: poke-clone-dev (開発用)
+   　または: poke-clone-prod (本番用)
+   
+   ドメイン名: pokeclone-dev (ユニークである必要があります)
+   場所/リージョン: Japan East
+   ```
+
+4. **作成完了後、テナントIDを記録**
+   ```
+   テナントID: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+   ドメイン: pokeclone-dev.onmicrosoft.com
+   ```
+
+---
+
+### 2. IDプロバイダーの設定
+
+#### Step 2-1: Email OTP (ワンタイムパスワード) の有効化
+
+> [!TIP]
+> Email OTPは最もシンプルな認証方法で、メールアドレスだけでユーザー登録・ログインが可能です。
+
+1. **External IDテナントに切り替え**
+   ```
+   Azure Portal右上のディレクトリアイコン → pokeclone-dev を選択
+   ```
+
+2. **Email OTP プロバイダーの有効化**
+   ```
+   Microsoft Entra External ID → 外部 ID → ID プロバイダー
+   → 「Email ワンタイムパスコード」を選択
+   
+   設定:
+   - Email OTPを有効にする: はい
+   - すべてのユーザーに使用可能: はい
+   ```
+
+3. **保存**
+
+#### Step 2-2: Google OAuth の設定
+
+1. **Google Cloud Console でOAuthクライアント作成**
+   - https://console.cloud.google.com
+   
+   ```
+   プロジェクトを作成 → API とサービス → 認証情報
+   
+   OAuth 2.0 クライアント ID の作成:
+   ア
+
+プリケーションの種類: ウェブアプリケーション
+   名前: poke-clone-google-auth
+   
+   承認済みのリダイレクトURI:
+   - https://pokeclone-dev.b2clogin.com/pokeclone-dev.onmicrosoft.com/oauth2/authresp
+   ```
+
+2. **Client IDとClient Secretを記録**
+   ```
+   クライアントID: xxxx.apps.googleusercontent.com
+   クライアントシークレット: GOCSPX-xxxxxxxxxxxxx
+   ```
+
+3. **Azure Portal でGoogle IDプロバイダー追加**
+   ```
+   External ID → ID プロバイダー → 「Google」を選択
+   
+   クライアントID: (上記で取得したID)
+   クライアントシークレット: (上記で取得したシークレット)
+   ```
+
+4. **保存**
+
+#### Step 2-3: Microsoft アカウント の設定
+
+> [!NOTE]
+> Microsoft アカウントはデフォルトで有効になっていますが、明示的に設定することを推奨します。
+
+1. **Microsoft IDプロバイダーの確認**
+   ```
+   External ID → ID プロバイダー → 「Microsoft アカウント」
+   
+   状態: 有効
+   ```
+
+2. **追加設定は不要**（Microsoftアカウントは自動設定されます）
+
+---
+
+### 3. ユーザーフローの作成
+
+#### Step 3: サインアップとサインイン フローの設定
+
+1. **ユーザーフロー作成**
+   ```
+   External ID → ユーザーフロー → 「新しいユーザーフロー」
+   
+   フローの種類: サインアップとサインイン
+   名前: B2C_1_signupsignin1
+   ```
+
+2. **IDプロバイダーを選択**
+   ```
+   ☑ Email ワンタイムパスコード
+   ☑ Google
+   ☑ Microsoft アカウント
+   ```
+
+3. **ユーザー属性とトークンクレームを設定**
+   ```
+   サインアップ時に収集する属性:
+   ☑ Email Address (必須)
+   ☑ Display Name (任意)
+   
+   トークンに返すクレーム:
+   ☑ Email Addresses
+   ☑ Display Name
+   ☑ User's Object ID
+   ☑ Identity Provider
+   ```
+
+4. **作成**
+
+---
+
+### 4. アプリケーション登録
+
+#### Step 4: バックエンドAPIアプリの登録
+
+1. **アプリケーション登録**
+   ```
+   External ID → アプリの登録 → 「新規登録」
+   
    名前: poke-clone-api
-   サポートされているアカウントの種類: 
-     - シングルテナント（組織内のみ）
-     または
-     - マルチテナント + 個人用Microsoftアカウント
+   サポートされているアカウントの種類:
+     → この組織ディレクトリのみのアカウント
    
-   リダイレクトURI: 
-     - Web: https://your-app.azurewebsites.net/signin-oidc
-     - SPA: https://your-frontend.vercel.app/auth/callback
+   リダイレクトURI: (今は空でOK、後で設定)
    ```
 
-4. **クライアントIDとテナントIDを記録**
+2. **アプリケーション(クライアント)IDを記録**
    ```
-   アプリケーション（クライアント）ID: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
-   ディレクトリ（テナント）ID: yyyyyyyy-yyyy-yyyy-yyyy-yyyyyyyyyyyy
+   アプリケーション(クライアント)ID: yyyyyyyy-yyyy-yyyy-yyyy-yyyyyyyyyyyy
    ```
 
-5. **クライアントシークレットを作成**
+3. **APIを公開する**
    ```
-   証明書とシークレット → 新しいクライアントシークレット
-   説明: poke-clone-secret
-   有効期限: 24か月（推奨）
+   アプリの登録 → poke-clone-api → APIの公開
    
-   → シークレット値をコピー（一度しか表示されない！）
+   アプリケーションIDのURI: api://poke-clone-api
+   
+   スコープの追加:
+   スコープ名: access_as_user
+   管理者の同意の表示名: Access poke-clone API as user
+   管理者の同意の説明: Allows the app to access poke-clone API as the signed-in user
+   状態: 有効
    ```
 
-### 2. API権限の設定
+#### Step 5: フロントエンドSPAアプリの登録
 
-```
-APIのアクセス許可 → アクセス許可の追加
+1. **フロントエンドアプリケーション登録**
+   ```
+   External ID → アプリの登録 → 「新規登録」
+   
+   名前: poke-clone-frontend
+   サポートされているアカウントの種類:
+     → この組織ディレクトリのみのアカウント
+   
+   リダイレクトURI:
+   プラットフォーム: シングルページアプリケーション (SPA)
+   URL (開発環境): http://localhost:3000/auth/callback
+   URL (本番環境): https://your-app.vercel.app/auth/callback
+   ```
 
-Microsoft Graph:
-  - User.Read
-  - email
-  - openid
-  - profile
+2. **フロントエンドアプリケーションIDを記録**
+   ```
+   アプリケーション(クライアント)ID: zzzzzzzz-zzzz-zzzz-zzzz-zzzzzzzzzzzz
+   ```
 
-管理者の同意が必要な場合:
-  → "○○に管理者の同意を与えます"をクリック
-```
+3. **API権限の追加**
+   ```
+   アプリの登録 → poke-clone-frontend → API のアクセス許可
+   
+   「アクセス許可の追加」→ 「自分のAPI」→ poke-clone-api
+   
+   ☑ access_as_user
+   
+   「アクセス許可の追加」をクリック
+   ```
 
-### 3. 公開スコープの設定
+4. **暗黙的な許可とハイブリッドフロー**
+   ```
+   アプリの登録 → poke-clone-frontend → 認証
+   
+   暗黙的な許可とハイブリッドフロー:
+   ☑ IDトークン
+   ☑ アクセストークン
+   ```
 
-```
-APIの公開 → スコープの追加
-
-スコープ名: access_as_user
-管理者の同意の表示名: Access poke-clone API
-管理者の同意の説明: Allows the app to access poke-clone API as the user
-状態: 有効
-```
+---
 
 ---
 
