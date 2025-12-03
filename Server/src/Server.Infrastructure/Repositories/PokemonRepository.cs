@@ -25,6 +25,7 @@ public class PokemonRepository : IPokemonRepository
     public async Task<List<Pokemon>> GetPlayerPartyAsync(string playerId)
     {
         var playerParty = await _context.PlayerParties
+            .AsNoTracking()  // BattleState is read-only, no need to track
             .Include(pp => pp.Party)
                 .ThenInclude(p => p.Species)
             .Include(pp => pp.Party)
