@@ -2,7 +2,7 @@ namespace Server.Domain.Entities;
 
 public class Player
 {
-    public const int InitialMoney = 3000;
+    public const int InitialMoney = 10000;
     
     public string PlayerId { get; set; } = string.Empty;
     public string Name { get; set; } = string.Empty;

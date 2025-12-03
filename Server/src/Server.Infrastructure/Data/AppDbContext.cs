@@ -123,12 +123,13 @@ public class AppDbContext : DbContext
             entity.ToTable("Pokemon");
             entity.HasKey(p => p.PokemonId);
             entity.Property(p => p.PokemonId).HasColumnName("pokemonId").HasMaxLength(255);
+            entity.Property(p => p.PokemonSpeciesId).HasColumnName("pokemonSpeciesId");
             entity.Property(p => p.Level).HasColumnName("level");
             entity.Property(p => p.Exp).HasColumnName("exp");
 
             entity.HasOne(p => p.Species)
                   .WithMany()
-                  .HasForeignKey("pokemonSpeciesId")
+                  .HasForeignKey(p => p.PokemonSpeciesId)
                   .OnDelete(DeleteBehavior.Restrict);
 
             // Pokemon.Moves: One-to-Many (最大4つ)
@@ -153,10 +154,9 @@ public class AppDbContext : DbContext
             entity.Property(pp => pp.PlayerPartyId).HasColumnName("playerPartyId");
             entity.Property(pp => pp.PlayerId).HasColumnName("playerId").HasMaxLength(255);
 
-            entity.HasOne(pp => pp.Player)
-                  .WithMany()
-                  .HasForeignKey(pp => pp.PlayerId)
-                  .OnDelete(DeleteBehavior.Cascade);
+            // Playerへのナビゲーションプロパティは削除し、外部キー制約のみ保持
+            // PlayerId列はPlayerテーブルへの外部キーとして機能するが、
+            // ナビゲーションプロパティがないためEFは自動追跡を行わない
 
             entity.HasMany(pp => pp.Party)
                   .WithMany()

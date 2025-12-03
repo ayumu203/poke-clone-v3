@@ -41,8 +41,6 @@ public class PokemonRepository : IPokemonRepository
 
     public async Task AddToPartyAsync(string playerId, Pokemon pokemon)
     {
-        await _context.Pokemons.AddAsync(pokemon);
-        
         var playerParty = await _context.PlayerParties
             .Include(pp => pp.Party)
             .FirstOrDefaultAsync(pp => pp.PlayerId == playerId);
@@ -57,7 +55,6 @@ public class PokemonRepository : IPokemonRepository
             }
 
             // PlayerPartyが存在しない場合は新規作成
-            // Playerナビゲーションプロパティは設定せず、PlayerIdのみを設定
             playerParty = new PlayerParty
             {
                 PlayerId = playerId,
@@ -67,6 +64,7 @@ public class PokemonRepository : IPokemonRepository
         }
         else
         {
+            // PartyリストにPokemonを追加すると、EFが自動的にPokemonを追跡する
             playerParty.Party.Add(pokemon);
         }
 

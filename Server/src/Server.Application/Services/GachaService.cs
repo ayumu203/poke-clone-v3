@@ -62,7 +62,7 @@ public class GachaService : IGachaService
         var pokemon = new Pokemon
         {
             PokemonId = Guid.NewGuid().ToString(),
-            Species = randomSpecies,
+            PokemonSpeciesId = randomSpecies.PokemonSpeciesId,
             Level = randomLevel,
             Exp = 0,
             Moves = randomSpecies.MoveList.Take(4).ToList()

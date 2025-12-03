@@ -84,7 +84,7 @@ public class StarterController : ControllerBase
         var pokemon = new Pokemon
         {
             PokemonId = Guid.NewGuid().ToString(),
-            Species = species,
+            PokemonSpeciesId = species.PokemonSpeciesId,
             Level = StarterPokemonLevel,
             Exp = 0,
             Moves = species.MoveList.Take(4).ToList()

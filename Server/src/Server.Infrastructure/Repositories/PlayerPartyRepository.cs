@@ -17,7 +17,6 @@ public class PlayerPartyRepository : IPlayerPartyRepository
     public async Task<PlayerParty?> GetByPlayerIdAsync(string playerId)
     {
         return await _context.PlayerParties
-            .Include(pp => pp.Player)
             .Include(pp => pp.Party)
                 .ThenInclude(p => p.Species)
             .Include(pp => pp.Party)
