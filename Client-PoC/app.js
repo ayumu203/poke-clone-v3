@@ -86,6 +86,19 @@ async function connectToBattle() {
 function onBattleStarted(state) {
     console.log("Battle started:", state);
     battleState = state;
+
+    // Auto-detect playerId: if player2 is CPU, then we are player1
+    if (state.player2.playerId === "CPU") {
+        playerId = state.player1.playerId;
+        console.log("Auto-detected playerId as player1:", playerId);
+    } else if (state.player1.playerId === "CPU") {
+        playerId = state.player2.playerId;
+        console.log("Auto-detected playerId as player2:", playerId);
+    } else {
+        // For PvP battles, use the entered playerId
+        console.log("PvP battle detected, using entered playerId:", playerId);
+    }
+
     updateUI();
     $('#connection-status').text('接続済み').addClass('connected');
     addLog('バトルが開始されました！', 'info');
@@ -169,11 +182,18 @@ async function submitMoveAction(moveIndex) {
     if (!connection || !playerId || !battleState) return;
 
     try {
+        console.log('DEBUG: playerId:', playerId);
+        console.log('DEBUG: battleState.player1.playerId:', battleState.player1.playerId);
+        console.log('DEBUG: battleState.player2.playerId:', battleState.player2.playerId);
+
         // Get actual moveId from battleState.pokemonEntities
         const playerState = battleState.player1.playerId === playerId ? battleState.player1 : battleState.player2;
+        console.log('DEBUG: selected playerState:', playerState.playerId);
+
         const playerPokemonEntity = playerState.pokemonEntities[playerState.activePokemonIndex];
 
         console.log('DEBUG: playerPokemonEntity:', playerPokemonEntity);
+        console.log('DEBUG: species name:', playerPokemonEntity.species.name);
         console.log('DEBUG: moves:', playerPokemonEntity.moves);
         console.log('DEBUG: moveIndex:', moveIndex);
 
