@@ -182,20 +182,9 @@ async function submitMoveAction(moveIndex) {
     if (!connection || !playerId || !battleState) return;
 
     try {
-        console.log('DEBUG: playerId:', playerId);
-        console.log('DEBUG: battleState.player1.playerId:', battleState.player1.playerId);
-        console.log('DEBUG: battleState.player2.playerId:', battleState.player2.playerId);
-
         // Get actual moveId from battleState.pokemonEntities
         const playerState = battleState.player1.playerId === playerId ? battleState.player1 : battleState.player2;
-        console.log('DEBUG: selected playerState:', playerState.playerId);
-
         const playerPokemonEntity = playerState.pokemonEntities[playerState.activePokemonIndex];
-
-        console.log('DEBUG: playerPokemonEntity:', playerPokemonEntity);
-        console.log('DEBUG: species name:', playerPokemonEntity.species.name);
-        console.log('DEBUG: moves:', playerPokemonEntity.moves);
-        console.log('DEBUG: moveIndex:', moveIndex);
 
         if (!playerPokemonEntity.moves || moveIndex >= playerPokemonEntity.moves.length) {
             addLog(`技${moveIndex + 1}が見つかりません`, 'damage');
@@ -203,8 +192,6 @@ async function submitMoveAction(moveIndex) {
         }
 
         const move = playerPokemonEntity.moves[moveIndex];
-        console.log('DEBUG: selected move:', move);
-        console.log('DEBUG: sending moveId:', move.moveId);
 
         await connection.invoke("SubmitAction", $('#battle-id').val(), {
             playerId: playerId,
