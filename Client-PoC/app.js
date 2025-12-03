@@ -169,24 +169,24 @@ async function submitMoveAction(moveIndex) {
     if (!connection || !playerId || !battleState) return;
 
     try {
-        // Get actual moveId from battleState
+        // Get actual moveId from battleState.pokemonEntities
         const playerState = battleState.player1.playerId === playerId ? battleState.player1 : battleState.player2;
-        const playerPokemon = playerState.party[playerState.activePokemonIndex];
+        const playerPokemonEntity = playerState.pokemonEntities[playerState.activePokemonIndex];
 
-        if (!playerPokemon.moves || moveIndex >= playerPokemon.moves.length) {
+        if (!playerPokemonEntity.moves || moveIndex >= playerPokemonEntity.moves.length) {
             addLog(`技${moveIndex + 1}が見つかりません`, 'damage');
             return;
         }
 
-        const moveId = playerPokemon.moves[moveIndex].moveId;
+        const move = playerPokemonEntity.moves[moveIndex];
 
         await connection.invoke("SubmitAction", $('#battle-id').val(), {
             playerId: playerId,
             actionType: 0, // Attack
-            value: moveId
+            value: move.moveId
         });
 
-        addLog(`技${moveIndex + 1}を使用！`, 'info');
+        addLog(`${move.name}を使用！`, 'info');
         disableAllButtons();
     } catch (err) {
         console.error(err);
@@ -236,21 +236,28 @@ function updateUI() {
     const playerState = battleState.player1.playerId === playerId ? battleState.player1 : battleState.player2;
     const opponentState = battleState.player1.playerId === playerId ? battleState.player2 : battleState.player1;
 
-    // プレイヤーのポケモン情報を更新
-    const playerPokemon = playerState.party[playerState.activePokemonIndex];
-    $('#player-name').text(playerPokemon.pokemonId);
-    $('#player-level').text(playerPokemon.level || '??');
-    $('#player-hp-current').text(playerPokemon.currentHp);
-    $('#player-hp-max').text(playerPokemon.maxHp);
-    updateHPBar('#player-hp-bar', playerPokemon.currentHp, playerPokemon.maxHp);
+    // プレイヤーのポケモン情報を更新（pokemonEntitiesから取得）
+    const playerPokemonEntity = playerState.pokemonEntities[playerState.activePokemonIndex];
+    const playerPokemonState = playerState.party[playerState.activePokemonIndex];
 
-    // 相手のポケモン情報を更新
-    const opponentPokemon = opponentState.party[opponentState.activePokemonIndex];
-    $('#opponent-name').text(opponentPokemon.pokemonId);
-    $('#opponent-level').text(opponentPokemon.level || '??');
-    $('#opponent-hp-current').text(opponentPokemon.currentHp);
-    $('#opponent-hp-max').text(opponentPokemon.maxHp);
-    updateHPBar('#opponent-hp-bar', opponentPokemon.currentHp, opponentPokemon.maxHp);
+    $('#player-name').text(playerPokemonEntity.species.name);
+    $('#player-level').text(playerPokemonEntity.level);
+    $('#player-hp-current').text(playerPokemonState.currentHp);
+    $('#player-hp-max').text(playerPokemonState.maxHp);
+    updateHPBar('#player-hp-bar', playerPokemonState.currentHp, playerPokemonState.maxHp);
+
+    // 相手のポケモン情報を更新（pokemonEntitiesから取得）
+    const opponentPokemonEntity = opponentState.pokemonEntities[opponentState.activePokemonIndex];
+    const opponentPokemonState = opponentState.party[opponentState.activePokemonIndex];
+
+    $('#opponent-name').text(opponentPokemonEntity.species.name);
+    $('#opponent-level').text(opponentPokemonEntity.level);
+    $('#opponent-hp-current').text(opponentPokemonState.currentHp);
+    $('#opponent-hp-max').text(opponentPokemonState.maxHp);
+    updateHPBar('#opponent-hp-bar', opponentPokemonState.currentHp, opponentPokemonState.maxHp);
+
+    // 技ボタンのラベルを更新
+    updateMoveButtons(playerPokemonEntity.moves);
 
     // ボタンを有効化
     enableActionButtons();
@@ -274,6 +281,19 @@ function updateHPBar(selector, current, max) {
 function updateHPBars() {
     // 簡易実装: 実際のHPはサーバーから送られてくるBattleStateを再取得する必要がある
     // ここでは表示のみ
+}
+
+function updateMoveButtons(moves) {
+    for (let i = 0; i < 4; i++) {
+        const $button = $(`#move-${i}`);
+        if (i < moves.length) {
+            $button.text(moves[i].name);
+            $button.show();
+        } else {
+            $button.text(`技${i + 1}`);
+            $button.hide();
+        }
+    }
 }
 
 function enableActionButtons() {

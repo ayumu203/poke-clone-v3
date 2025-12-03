@@ -8,149 +8,1510 @@
 
 ## 作業内容
 
-- test-battle.shとsetup-battle.shどっちかでよくない?
-- まだMove not found
-- デザインをもっと下のHTMLのCSSによせてほしい.
-  - 色, 3画面分割(プレイヤー, 対戦情報, 相手プレイヤー), 
+- 対戦開始の際のJSONは以下のようになっているようです.
+  - これに合わせたapp.js, index.htmlの修正が必要です.
 
 ```json
 {
-    "actionResults": [
-        {
-            "actionPokemonId": "55bece0b-20ec-4618-8497-365da5b28bec",
-            "actionType": 0,
-            "moveResult": {
-                "moveId": 3,
-                "targetId": "1778c9de-dab4-42d5-a2a8-d6a49a76ab9a",
-                "isSuccess": false,
-                "failureReason": "Move not found",
-                "damage": 0,
-                "hitContext": null,
-                "sourceStatChanges": [],
-                "targetStatChanges": [],
-                "ailment": null,
-                "healing": 0,
-                "drain": 0
-            },
-            "switchResult": null,
-            "catchResult": null,
-            "escapeResult": null
+    "battleId": "f1e7dbdd-46ad-4ccf-a2b1-fb7eb504c0c8",
+    "player1": {
+        "playerId": "6d522f4e-c0b9-4c6d-9324-d77adb5f4b1d",
+        "player": {
+            "playerId": "6d522f4e-c0b9-4c6d-9324-d77adb5f4b1d",
+            "name": "TestPlayer_1764769066",
+            "iconUrl": "https://example.com/icon.png",
+            "money": 10000
         },
-        {
-            "actionPokemonId": "1778c9de-dab4-42d5-a2a8-d6a49a76ab9a",
-            "actionType": 0,
-            "moveResult": {
-                "moveId": 14,
-                "targetId": "55bece0b-20ec-4618-8497-365da5b28bec",
-                "isSuccess": true,
-                "failureReason": "",
-                "damage": 0,
-                "hitContext": {
-                    "isCritical": false,
-                    "typeEffectiveness": 1
+        "activePokemonIndex": 0,
+        "party": [
+            {
+                "pokemonId": "3e866bb2-600b-4e29-b7fc-5ae5c5ba685b",
+                "pokemonSpeciesId": 390,
+                "currentHp": 24,
+                "maxHp": 24,
+                "ailment": 0,
+                "rank": {
+                    "attack": 0,
+                    "defence": 0,
+                    "specialAttack": 0,
+                    "specialDefence": 0,
+                    "speed": 0,
+                    "accuracy": 0,
+                    "evasion": 0
                 },
-                "sourceStatChanges": [],
-                "targetStatChanges": [],
-                "ailment": null,
-                "healing": 0,
-                "drain": 0
+                "isFainted": false
+            }
+        ],
+        "pokemonEntities": [
+            {
+                "pokemonId": "3e866bb2-600b-4e29-b7fc-5ae5c5ba685b",
+                "pokemonSpeciesId": 390,
+                "species": {
+                    "pokemonSpeciesId": 390,
+                    "name": "ヒコザル",
+                    "frontImage": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/390.png",
+                    "backImage": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/390.png",
+                    "type1": 1,
+                    "type2": null,
+                    "evolveLevel": 99,
+                    "baseHp": 44,
+                    "baseAttack": 58,
+                    "baseDefence": 44,
+                    "baseSpecialAttack": 58,
+                    "baseSpecialDefence": 44,
+                    "baseSpeed": 61,
+                    "moveList": [
+                        {
+                            "moveId": 7,
+                            "name": "ほのおのパンチ",
+                            "type": 1,
+                            "category": 0,
+                            "damageClass": 0,
+                            "power": 75,
+                            "accuracy": 100,
+                            "pp": 15,
+                            "priority": 0,
+                            "rank": {
+                                "attack": 0,
+                                "defence": 0,
+                                "specialAttack": 0,
+                                "specialDefence": 0,
+                                "speed": 0,
+                                "accuracy": 0,
+                                "evasion": 0
+                            },
+                            "rankTarget": "",
+                            "rankChance": 0,
+                            "ailment": 0,
+                            "ailmentChance": 0,
+                            "healing": 0,
+                            "drain": 0,
+                            "critRate": 0,
+                            "statChanges": []
+                        },
+                        {
+                            "moveId": 9,
+                            "name": "かみなりパンチ",
+                            "type": 3,
+                            "category": 0,
+                            "damageClass": 0,
+                            "power": 75,
+                            "accuracy": 100,
+                            "pp": 15,
+                            "priority": 0,
+                            "rank": {
+                                "attack": 0,
+                                "defence": 0,
+                                "specialAttack": 0,
+                                "specialDefence": 0,
+                                "speed": 0,
+                                "accuracy": 0,
+                                "evasion": 0
+                            },
+                            "rankTarget": "",
+                            "rankChance": 0,
+                            "ailment": 0,
+                            "ailmentChance": 0,
+                            "healing": 0,
+                            "drain": 0,
+                            "critRate": 0,
+                            "statChanges": []
+                        },
+                        {
+                            "moveId": 10,
+                            "name": "ひっかく",
+                            "type": 0,
+                            "category": 0,
+                            "damageClass": 0,
+                            "power": 40,
+                            "accuracy": 100,
+                            "pp": 35,
+                            "priority": 0,
+                            "rank": {
+                                "attack": 0,
+                                "defence": 0,
+                                "specialAttack": 0,
+                                "specialDefence": 0,
+                                "speed": 0,
+                                "accuracy": 0,
+                                "evasion": 0
+                            },
+                            "rankTarget": "",
+                            "rankChance": 0,
+                            "ailment": 0,
+                            "ailmentChance": 0,
+                            "healing": 0,
+                            "drain": 0,
+                            "critRate": 0,
+                            "statChanges": []
+                        },
+                        {
+                            "moveId": 14,
+                            "name": "つるぎのまい",
+                            "type": 0,
+                            "category": 0,
+                            "damageClass": 2,
+                            "power": 0,
+                            "accuracy": 100,
+                            "pp": 20,
+                            "priority": 0,
+                            "rank": {
+                                "attack": 0,
+                                "defence": 0,
+                                "specialAttack": 0,
+                                "specialDefence": 0,
+                                "speed": 0,
+                                "accuracy": 0,
+                                "evasion": 0
+                            },
+                            "rankTarget": "",
+                            "rankChance": 0,
+                            "ailment": 0,
+                            "ailmentChance": 0,
+                            "healing": 0,
+                            "drain": 0,
+                            "critRate": 0,
+                            "statChanges": []
+                        },
+                        {
+                            "moveId": 15,
+                            "name": "いあいぎり",
+                            "type": 0,
+                            "category": 0,
+                            "damageClass": 0,
+                            "power": 50,
+                            "accuracy": 95,
+                            "pp": 30,
+                            "priority": 0,
+                            "rank": {
+                                "attack": 0,
+                                "defence": 0,
+                                "specialAttack": 0,
+                                "specialDefence": 0,
+                                "speed": 0,
+                                "accuracy": 0,
+                                "evasion": 0
+                            },
+                            "rankTarget": "",
+                            "rankChance": 0,
+                            "ailment": 0,
+                            "ailmentChance": 0,
+                            "healing": 0,
+                            "drain": 0,
+                            "critRate": 0,
+                            "statChanges": []
+                        },
+                        {
+                            "moveId": 24,
+                            "name": "にどげり",
+                            "type": 6,
+                            "category": 0,
+                            "damageClass": 0,
+                            "power": 30,
+                            "accuracy": 100,
+                            "pp": 30,
+                            "priority": 0,
+                            "rank": {
+                                "attack": 0,
+                                "defence": 0,
+                                "specialAttack": 0,
+                                "specialDefence": 0,
+                                "speed": 0,
+                                "accuracy": 0,
+                                "evasion": 0
+                            },
+                            "rankTarget": "",
+                            "rankChance": 0,
+                            "ailment": 0,
+                            "ailmentChance": 0,
+                            "healing": 0,
+                            "drain": 0,
+                            "critRate": 0,
+                            "statChanges": []
+                        },
+                        {
+                            "moveId": 29,
+                            "name": "ずつき",
+                            "type": 0,
+                            "category": 0,
+                            "damageClass": 0,
+                            "power": 70,
+                            "accuracy": 100,
+                            "pp": 15,
+                            "priority": 0,
+                            "rank": {
+                                "attack": 0,
+                                "defence": 0,
+                                "specialAttack": 0,
+                                "specialDefence": 0,
+                                "speed": 0,
+                                "accuracy": 0,
+                                "evasion": 0
+                            },
+                            "rankTarget": "",
+                            "rankChance": 0,
+                            "ailment": 0,
+                            "ailmentChance": 0,
+                            "healing": 0,
+                            "drain": 0,
+                            "critRate": 0,
+                            "statChanges": []
+                        },
+                        {
+                            "moveId": 33,
+                            "name": "たいあたり",
+                            "type": 0,
+                            "category": 0,
+                            "damageClass": 0,
+                            "power": 40,
+                            "accuracy": 100,
+                            "pp": 35,
+                            "priority": 0,
+                            "rank": {
+                                "attack": 0,
+                                "defence": 0,
+                                "specialAttack": 0,
+                                "specialDefence": 0,
+                                "speed": 0,
+                                "accuracy": 0,
+                                "evasion": 0
+                            },
+                            "rankTarget": "",
+                            "rankChance": 0,
+                            "ailment": 0,
+                            "ailmentChance": 0,
+                            "healing": 0,
+                            "drain": 0,
+                            "critRate": 0,
+                            "statChanges": []
+                        },
+                        {
+                            "moveId": 36,
+                            "name": "とっしん",
+                            "type": 0,
+                            "category": 0,
+                            "damageClass": 0,
+                            "power": 90,
+                            "accuracy": 85,
+                            "pp": 20,
+                            "priority": 0,
+                            "rank": {
+                                "attack": 0,
+                                "defence": 0,
+                                "specialAttack": 0,
+                                "specialDefence": 0,
+                                "speed": 0,
+                                "accuracy": 0,
+                                "evasion": 0
+                            },
+                            "rankTarget": "",
+                            "rankChance": 0,
+                            "ailment": 0,
+                            "ailmentChance": 0,
+                            "healing": 0,
+                            "drain": 0,
+                            "critRate": 0,
+                            "statChanges": []
+                        },
+                        {
+                            "moveId": 38,
+                            "name": "すてみタックル",
+                            "type": 0,
+                            "category": 0,
+                            "damageClass": 0,
+                            "power": 120,
+                            "accuracy": 100,
+                            "pp": 15,
+                            "priority": 0,
+                            "rank": {
+                                "attack": 0,
+                                "defence": 0,
+                                "specialAttack": 0,
+                                "specialDefence": 0,
+                                "speed": 0,
+                                "accuracy": 0,
+                                "evasion": 0
+                            },
+                            "rankTarget": "",
+                            "rankChance": 0,
+                            "ailment": 0,
+                            "ailmentChance": 0,
+                            "healing": 0,
+                            "drain": 0,
+                            "critRate": 0,
+                            "statChanges": []
+                        },
+                        {
+                            "moveId": 43,
+                            "name": "にらみつける",
+                            "type": 0,
+                            "category": 0,
+                            "damageClass": 2,
+                            "power": 0,
+                            "accuracy": 100,
+                            "pp": 30,
+                            "priority": 0,
+                            "rank": {
+                                "attack": 0,
+                                "defence": 0,
+                                "specialAttack": 0,
+                                "specialDefence": 0,
+                                "speed": 0,
+                                "accuracy": 0,
+                                "evasion": 0
+                            },
+                            "rankTarget": "",
+                            "rankChance": 0,
+                            "ailment": 0,
+                            "ailmentChance": 0,
+                            "healing": 0,
+                            "drain": 0,
+                            "critRate": 0,
+                            "statChanges": []
+                        },
+                        {
+                            "moveId": 52,
+                            "name": "ひのこ",
+                            "type": 1,
+                            "category": 0,
+                            "damageClass": 1,
+                            "power": 40,
+                            "accuracy": 100,
+                            "pp": 25,
+                            "priority": 0,
+                            "rank": {
+                                "attack": 0,
+                                "defence": 0,
+                                "specialAttack": 0,
+                                "specialDefence": 0,
+                                "speed": 0,
+                                "accuracy": 0,
+                                "evasion": 0
+                            },
+                            "rankTarget": "",
+                            "rankChance": 0,
+                            "ailment": 0,
+                            "ailmentChance": 0,
+                            "healing": 0,
+                            "drain": 0,
+                            "critRate": 0,
+                            "statChanges": []
+                        },
+                        {
+                            "moveId": 53,
+                            "name": "かえんほうしゃ",
+                            "type": 1,
+                            "category": 0,
+                            "damageClass": 1,
+                            "power": 90,
+                            "accuracy": 100,
+                            "pp": 15,
+                            "priority": 0,
+                            "rank": {
+                                "attack": 0,
+                                "defence": 0,
+                                "specialAttack": 0,
+                                "specialDefence": 0,
+                                "speed": 0,
+                                "accuracy": 0,
+                                "evasion": 0
+                            },
+                            "rankTarget": "",
+                            "rankChance": 0,
+                            "ailment": 0,
+                            "ailmentChance": 0,
+                            "healing": 0,
+                            "drain": 0,
+                            "critRate": 0,
+                            "statChanges": []
+                        },
+                        {
+                            "moveId": 66,
+                            "name": "じごくぐるま",
+                            "type": 6,
+                            "category": 0,
+                            "damageClass": 0,
+                            "power": 80,
+                            "accuracy": 80,
+                            "pp": 20,
+                            "priority": 0,
+                            "rank": {
+                                "attack": 0,
+                                "defence": 0,
+                                "specialAttack": 0,
+                                "specialDefence": 0,
+                                "speed": 0,
+                                "accuracy": 0,
+                                "evasion": 0
+                            },
+                            "rankTarget": "",
+                            "rankChance": 0,
+                            "ailment": 0,
+                            "ailmentChance": 0,
+                            "healing": 0,
+                            "drain": 0,
+                            "critRate": 0,
+                            "statChanges": []
+                        },
+                        {
+                            "moveId": 67,
+                            "name": "けたぐり",
+                            "type": 6,
+                            "category": 0,
+                            "damageClass": 0,
+                            "power": 0,
+                            "accuracy": 100,
+                            "pp": 20,
+                            "priority": 0,
+                            "rank": {
+                                "attack": 0,
+                                "defence": 0,
+                                "specialAttack": 0,
+                                "specialDefence": 0,
+                                "speed": 0,
+                                "accuracy": 0,
+                                "evasion": 0
+                            },
+                            "rankTarget": "",
+                            "rankChance": 0,
+                            "ailment": 0,
+                            "ailmentChance": 0,
+                            "healing": 0,
+                            "drain": 0,
+                            "critRate": 0,
+                            "statChanges": []
+                        },
+                        {
+                            "moveId": 68,
+                            "name": "カウンター",
+                            "type": 6,
+                            "category": 0,
+                            "damageClass": 0,
+                            "power": 0,
+                            "accuracy": 100,
+                            "pp": 20,
+                            "priority": -5,
+                            "rank": {
+                                "attack": 0,
+                                "defence": 0,
+                                "specialAttack": 0,
+                                "specialDefence": 0,
+                                "speed": 0,
+                                "accuracy": 0,
+                                "evasion": 0
+                            },
+                            "rankTarget": "",
+                            "rankChance": 0,
+                            "ailment": 0,
+                            "ailmentChance": 0,
+                            "healing": 0,
+                            "drain": 0,
+                            "critRate": 0,
+                            "statChanges": []
+                        },
+                        {
+                            "moveId": 70,
+                            "name": "かいりき",
+                            "type": 0,
+                            "category": 0,
+                            "damageClass": 0,
+                            "power": 80,
+                            "accuracy": 100,
+                            "pp": 15,
+                            "priority": 0,
+                            "rank": {
+                                "attack": 0,
+                                "defence": 0,
+                                "specialAttack": 0,
+                                "specialDefence": 0,
+                                "speed": 0,
+                                "accuracy": 0,
+                                "evasion": 0
+                            },
+                            "rankTarget": "",
+                            "rankChance": 0,
+                            "ailment": 0,
+                            "ailmentChance": 0,
+                            "healing": 0,
+                            "drain": 0,
+                            "critRate": 0,
+                            "statChanges": []
+                        },
+                        {
+                            "moveId": 83,
+                            "name": "ほのおのうず",
+                            "type": 1,
+                            "category": 0,
+                            "damageClass": 1,
+                            "power": 35,
+                            "accuracy": 85,
+                            "pp": 15,
+                            "priority": 0,
+                            "rank": {
+                                "attack": 0,
+                                "defence": 0,
+                                "specialAttack": 0,
+                                "specialDefence": 0,
+                                "speed": 0,
+                                "accuracy": 0,
+                                "evasion": 0
+                            },
+                            "rankTarget": "",
+                            "rankChance": 0,
+                            "ailment": 0,
+                            "ailmentChance": 0,
+                            "healing": 0,
+                            "drain": 0,
+                            "critRate": 0,
+                            "statChanges": []
+                        },
+                        {
+                            "moveId": 91,
+                            "name": "あなをほる",
+                            "type": 8,
+                            "category": 0,
+                            "damageClass": 0,
+                            "power": 80,
+                            "accuracy": 100,
+                            "pp": 10,
+                            "priority": 0,
+                            "rank": {
+                                "attack": 0,
+                                "defence": 0,
+                                "specialAttack": 0,
+                                "specialDefence": 0,
+                                "speed": 0,
+                                "accuracy": 0,
+                                "evasion": 0
+                            },
+                            "rankTarget": "",
+                            "rankChance": 0,
+                            "ailment": 0,
+                            "ailmentChance": 0,
+                            "healing": 0,
+                            "drain": 0,
+                            "critRate": 0,
+                            "statChanges": []
+                        },
+                        {
+                            "moveId": 92,
+                            "name": "どくどく",
+                            "type": 7,
+                            "category": 0,
+                            "damageClass": 2,
+                            "power": 0,
+                            "accuracy": 90,
+                            "pp": 10,
+                            "priority": 0,
+                            "rank": {
+                                "attack": 0,
+                                "defence": 0,
+                                "specialAttack": 0,
+                                "specialDefence": 0,
+                                "speed": 0,
+                                "accuracy": 0,
+                                "evasion": 0
+                            },
+                            "rankTarget": "",
+                            "rankChance": 0,
+                            "ailment": 0,
+                            "ailmentChance": 0,
+                            "healing": 0,
+                            "drain": 0,
+                            "critRate": 0,
+                            "statChanges": []
+                        }
+                    ]
+                },
+                "level": 5,
+                "exp": 0,
+                "moves": [
+                    {
+                        "moveId": 7,
+                        "name": "ほのおのパンチ",
+                        "type": 1,
+                        "category": 0,
+                        "damageClass": 0,
+                        "power": 75,
+                        "accuracy": 100,
+                        "pp": 15,
+                        "priority": 0,
+                        "rank": {
+                            "attack": 0,
+                            "defence": 0,
+                            "specialAttack": 0,
+                            "specialDefence": 0,
+                            "speed": 0,
+                            "accuracy": 0,
+                            "evasion": 0
+                        },
+                        "rankTarget": "",
+                        "rankChance": 0,
+                        "ailment": 0,
+                        "ailmentChance": 0,
+                        "healing": 0,
+                        "drain": 0,
+                        "critRate": 0,
+                        "statChanges": []
+                    },
+                    {
+                        "moveId": 9,
+                        "name": "かみなりパンチ",
+                        "type": 3,
+                        "category": 0,
+                        "damageClass": 0,
+                        "power": 75,
+                        "accuracy": 100,
+                        "pp": 15,
+                        "priority": 0,
+                        "rank": {
+                            "attack": 0,
+                            "defence": 0,
+                            "specialAttack": 0,
+                            "specialDefence": 0,
+                            "speed": 0,
+                            "accuracy": 0,
+                            "evasion": 0
+                        },
+                        "rankTarget": "",
+                        "rankChance": 0,
+                        "ailment": 0,
+                        "ailmentChance": 0,
+                        "healing": 0,
+                        "drain": 0,
+                        "critRate": 0,
+                        "statChanges": []
+                    },
+                    {
+                        "moveId": 10,
+                        "name": "ひっかく",
+                        "type": 0,
+                        "category": 0,
+                        "damageClass": 0,
+                        "power": 40,
+                        "accuracy": 100,
+                        "pp": 35,
+                        "priority": 0,
+                        "rank": {
+                            "attack": 0,
+                            "defence": 0,
+                            "specialAttack": 0,
+                            "specialDefence": 0,
+                            "speed": 0,
+                            "accuracy": 0,
+                            "evasion": 0
+                        },
+                        "rankTarget": "",
+                        "rankChance": 0,
+                        "ailment": 0,
+                        "ailmentChance": 0,
+                        "healing": 0,
+                        "drain": 0,
+                        "critRate": 0,
+                        "statChanges": []
+                    },
+                    {
+                        "moveId": 14,
+                        "name": "つるぎのまい",
+                        "type": 0,
+                        "category": 0,
+                        "damageClass": 2,
+                        "power": 0,
+                        "accuracy": 100,
+                        "pp": 20,
+                        "priority": 0,
+                        "rank": {
+                            "attack": 0,
+                            "defence": 0,
+                            "specialAttack": 0,
+                            "specialDefence": 0,
+                            "speed": 0,
+                            "accuracy": 0,
+                            "evasion": 0
+                        },
+                        "rankTarget": "",
+                        "rankChance": 0,
+                        "ailment": 0,
+                        "ailmentChance": 0,
+                        "healing": 0,
+                        "drain": 0,
+                        "critRate": 0,
+                        "statChanges": []
+                    }
+                ]
+            }
+        ],
+        "action": null,
+        "allPokemonFainted": false,
+        "activePokemon": {
+            "pokemonId": "3e866bb2-600b-4e29-b7fc-5ae5c5ba685b",
+            "pokemonSpeciesId": 390,
+            "currentHp": 24,
+            "maxHp": 24,
+            "ailment": 0,
+            "rank": {
+                "attack": 0,
+                "defence": 0,
+                "specialAttack": 0,
+                "specialDefence": 0,
+                "speed": 0,
+                "accuracy": 0,
+                "evasion": 0
             },
-            "switchResult": null,
-            "catchResult": null,
-            "escapeResult": null
+            "isFainted": false
         }
-    ],
-    "isBattleEnd": false,
-    "winnerId": "",
-    "endResult": null
+    },
+    "player2": {
+        "playerId": "CPU",
+        "player": {
+            "playerId": "CPU",
+            "name": "Wild Pokemon",
+            "iconUrl": "",
+            "money": 10000
+        },
+        "activePokemonIndex": 0,
+        "party": [
+            {
+                "pokemonId": "d173e53d-f79b-40ac-ad0f-8e5bcce4e7a0",
+                "pokemonSpeciesId": 1,
+                "currentHp": 24,
+                "maxHp": 24,
+                "ailment": 0,
+                "rank": {
+                    "attack": 0,
+                    "defence": 0,
+                    "specialAttack": 0,
+                    "specialDefence": 0,
+                    "speed": 0,
+                    "accuracy": 0,
+                    "evasion": 0
+                },
+                "isFainted": false
+            }
+        ],
+        "pokemonEntities": [
+            {
+                "pokemonId": "d173e53d-f79b-40ac-ad0f-8e5bcce4e7a0",
+                "pokemonSpeciesId": 0,
+                "species": {
+                    "pokemonSpeciesId": 1,
+                    "name": "フシギダネ",
+                    "frontImage": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
+                    "backImage": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/1.png",
+                    "type1": 4,
+                    "type2": 7,
+                    "evolveLevel": 99,
+                    "baseHp": 45,
+                    "baseAttack": 49,
+                    "baseDefence": 49,
+                    "baseSpecialAttack": 65,
+                    "baseSpecialDefence": 65,
+                    "baseSpeed": 45,
+                    "moveList": [
+                        {
+                            "moveId": 13,
+                            "name": "かまいたち",
+                            "type": 0,
+                            "category": 0,
+                            "damageClass": 1,
+                            "power": 80,
+                            "accuracy": 100,
+                            "pp": 10,
+                            "priority": 0,
+                            "rank": {
+                                "attack": 0,
+                                "defence": 0,
+                                "specialAttack": 0,
+                                "specialDefence": 0,
+                                "speed": 0,
+                                "accuracy": 0,
+                                "evasion": 0
+                            },
+                            "rankTarget": "",
+                            "rankChance": 0,
+                            "ailment": 0,
+                            "ailmentChance": 0,
+                            "healing": 0,
+                            "drain": 0,
+                            "critRate": 0,
+                            "statChanges": []
+                        },
+                        {
+                            "moveId": 14,
+                            "name": "つるぎのまい",
+                            "type": 0,
+                            "category": 0,
+                            "damageClass": 2,
+                            "power": 0,
+                            "accuracy": 100,
+                            "pp": 20,
+                            "priority": 0,
+                            "rank": {
+                                "attack": 0,
+                                "defence": 0,
+                                "specialAttack": 0,
+                                "specialDefence": 0,
+                                "speed": 0,
+                                "accuracy": 0,
+                                "evasion": 0
+                            },
+                            "rankTarget": "",
+                            "rankChance": 0,
+                            "ailment": 0,
+                            "ailmentChance": 0,
+                            "healing": 0,
+                            "drain": 0,
+                            "critRate": 0,
+                            "statChanges": []
+                        },
+                        {
+                            "moveId": 15,
+                            "name": "いあいぎり",
+                            "type": 0,
+                            "category": 0,
+                            "damageClass": 0,
+                            "power": 50,
+                            "accuracy": 95,
+                            "pp": 30,
+                            "priority": 0,
+                            "rank": {
+                                "attack": 0,
+                                "defence": 0,
+                                "specialAttack": 0,
+                                "specialDefence": 0,
+                                "speed": 0,
+                                "accuracy": 0,
+                                "evasion": 0
+                            },
+                            "rankTarget": "",
+                            "rankChance": 0,
+                            "ailment": 0,
+                            "ailmentChance": 0,
+                            "healing": 0,
+                            "drain": 0,
+                            "critRate": 0,
+                            "statChanges": []
+                        },
+                        {
+                            "moveId": 20,
+                            "name": "しめつける",
+                            "type": 0,
+                            "category": 0,
+                            "damageClass": 0,
+                            "power": 15,
+                            "accuracy": 85,
+                            "pp": 20,
+                            "priority": 0,
+                            "rank": {
+                                "attack": 0,
+                                "defence": 0,
+                                "specialAttack": 0,
+                                "specialDefence": 0,
+                                "speed": 0,
+                                "accuracy": 0,
+                                "evasion": 0
+                            },
+                            "rankTarget": "",
+                            "rankChance": 0,
+                            "ailment": 0,
+                            "ailmentChance": 0,
+                            "healing": 0,
+                            "drain": 0,
+                            "critRate": 0,
+                            "statChanges": []
+                        },
+                        {
+                            "moveId": 22,
+                            "name": "つるのムチ",
+                            "type": 4,
+                            "category": 0,
+                            "damageClass": 0,
+                            "power": 45,
+                            "accuracy": 100,
+                            "pp": 25,
+                            "priority": 0,
+                            "rank": {
+                                "attack": 0,
+                                "defence": 0,
+                                "specialAttack": 0,
+                                "specialDefence": 0,
+                                "speed": 0,
+                                "accuracy": 0,
+                                "evasion": 0
+                            },
+                            "rankTarget": "",
+                            "rankChance": 0,
+                            "ailment": 0,
+                            "ailmentChance": 0,
+                            "healing": 0,
+                            "drain": 0,
+                            "critRate": 0,
+                            "statChanges": []
+                        },
+                        {
+                            "moveId": 29,
+                            "name": "ずつき",
+                            "type": 0,
+                            "category": 0,
+                            "damageClass": 0,
+                            "power": 70,
+                            "accuracy": 100,
+                            "pp": 15,
+                            "priority": 0,
+                            "rank": {
+                                "attack": 0,
+                                "defence": 0,
+                                "specialAttack": 0,
+                                "specialDefence": 0,
+                                "speed": 0,
+                                "accuracy": 0,
+                                "evasion": 0
+                            },
+                            "rankTarget": "",
+                            "rankChance": 0,
+                            "ailment": 0,
+                            "ailmentChance": 0,
+                            "healing": 0,
+                            "drain": 0,
+                            "critRate": 0,
+                            "statChanges": []
+                        },
+                        {
+                            "moveId": 33,
+                            "name": "たいあたり",
+                            "type": 0,
+                            "category": 0,
+                            "damageClass": 0,
+                            "power": 40,
+                            "accuracy": 100,
+                            "pp": 35,
+                            "priority": 0,
+                            "rank": {
+                                "attack": 0,
+                                "defence": 0,
+                                "specialAttack": 0,
+                                "specialDefence": 0,
+                                "speed": 0,
+                                "accuracy": 0,
+                                "evasion": 0
+                            },
+                            "rankTarget": "",
+                            "rankChance": 0,
+                            "ailment": 0,
+                            "ailmentChance": 0,
+                            "healing": 0,
+                            "drain": 0,
+                            "critRate": 0,
+                            "statChanges": []
+                        },
+                        {
+                            "moveId": 34,
+                            "name": "のしかかり",
+                            "type": 0,
+                            "category": 0,
+                            "damageClass": 0,
+                            "power": 85,
+                            "accuracy": 100,
+                            "pp": 15,
+                            "priority": 0,
+                            "rank": {
+                                "attack": 0,
+                                "defence": 0,
+                                "specialAttack": 0,
+                                "specialDefence": 0,
+                                "speed": 0,
+                                "accuracy": 0,
+                                "evasion": 0
+                            },
+                            "rankTarget": "",
+                            "rankChance": 0,
+                            "ailment": 0,
+                            "ailmentChance": 0,
+                            "healing": 0,
+                            "drain": 0,
+                            "critRate": 0,
+                            "statChanges": []
+                        },
+                        {
+                            "moveId": 36,
+                            "name": "とっしん",
+                            "type": 0,
+                            "category": 0,
+                            "damageClass": 0,
+                            "power": 90,
+                            "accuracy": 85,
+                            "pp": 20,
+                            "priority": 0,
+                            "rank": {
+                                "attack": 0,
+                                "defence": 0,
+                                "specialAttack": 0,
+                                "specialDefence": 0,
+                                "speed": 0,
+                                "accuracy": 0,
+                                "evasion": 0
+                            },
+                            "rankTarget": "",
+                            "rankChance": 0,
+                            "ailment": 0,
+                            "ailmentChance": 0,
+                            "healing": 0,
+                            "drain": 0,
+                            "critRate": 0,
+                            "statChanges": []
+                        },
+                        {
+                            "moveId": 38,
+                            "name": "すてみタックル",
+                            "type": 0,
+                            "category": 0,
+                            "damageClass": 0,
+                            "power": 120,
+                            "accuracy": 100,
+                            "pp": 15,
+                            "priority": 0,
+                            "rank": {
+                                "attack": 0,
+                                "defence": 0,
+                                "specialAttack": 0,
+                                "specialDefence": 0,
+                                "speed": 0,
+                                "accuracy": 0,
+                                "evasion": 0
+                            },
+                            "rankTarget": "",
+                            "rankChance": 0,
+                            "ailment": 0,
+                            "ailmentChance": 0,
+                            "healing": 0,
+                            "drain": 0,
+                            "critRate": 0,
+                            "statChanges": []
+                        },
+                        {
+                            "moveId": 45,
+                            "name": "なきごえ",
+                            "type": 0,
+                            "category": 0,
+                            "damageClass": 2,
+                            "power": 0,
+                            "accuracy": 100,
+                            "pp": 40,
+                            "priority": 0,
+                            "rank": {
+                                "attack": 0,
+                                "defence": 0,
+                                "specialAttack": 0,
+                                "specialDefence": 0,
+                                "speed": 0,
+                                "accuracy": 0,
+                                "evasion": 0
+                            },
+                            "rankTarget": "",
+                            "rankChance": 0,
+                            "ailment": 0,
+                            "ailmentChance": 0,
+                            "healing": 0,
+                            "drain": 0,
+                            "critRate": 0,
+                            "statChanges": []
+                        },
+                        {
+                            "moveId": 70,
+                            "name": "かいりき",
+                            "type": 0,
+                            "category": 0,
+                            "damageClass": 0,
+                            "power": 80,
+                            "accuracy": 100,
+                            "pp": 15,
+                            "priority": 0,
+                            "rank": {
+                                "attack": 0,
+                                "defence": 0,
+                                "specialAttack": 0,
+                                "specialDefence": 0,
+                                "speed": 0,
+                                "accuracy": 0,
+                                "evasion": 0
+                            },
+                            "rankTarget": "",
+                            "rankChance": 0,
+                            "ailment": 0,
+                            "ailmentChance": 0,
+                            "healing": 0,
+                            "drain": 0,
+                            "critRate": 0,
+                            "statChanges": []
+                        },
+                        {
+                            "moveId": 72,
+                            "name": "メガドレイン",
+                            "type": 4,
+                            "category": 0,
+                            "damageClass": 1,
+                            "power": 40,
+                            "accuracy": 100,
+                            "pp": 15,
+                            "priority": 0,
+                            "rank": {
+                                "attack": 0,
+                                "defence": 0,
+                                "specialAttack": 0,
+                                "specialDefence": 0,
+                                "speed": 0,
+                                "accuracy": 0,
+                                "evasion": 0
+                            },
+                            "rankTarget": "",
+                            "rankChance": 0,
+                            "ailment": 0,
+                            "ailmentChance": 0,
+                            "healing": 0,
+                            "drain": 0,
+                            "critRate": 0,
+                            "statChanges": []
+                        },
+                        {
+                            "moveId": 73,
+                            "name": "やどりぎのタネ",
+                            "type": 4,
+                            "category": 0,
+                            "damageClass": 2,
+                            "power": 0,
+                            "accuracy": 90,
+                            "pp": 10,
+                            "priority": 0,
+                            "rank": {
+                                "attack": 0,
+                                "defence": 0,
+                                "specialAttack": 0,
+                                "specialDefence": 0,
+                                "speed": 0,
+                                "accuracy": 0,
+                                "evasion": 0
+                            },
+                            "rankTarget": "",
+                            "rankChance": 0,
+                            "ailment": 0,
+                            "ailmentChance": 0,
+                            "healing": 0,
+                            "drain": 0,
+                            "critRate": 0,
+                            "statChanges": []
+                        },
+                        {
+                            "moveId": 74,
+                            "name": "せいちょう",
+                            "type": 0,
+                            "category": 0,
+                            "damageClass": 2,
+                            "power": 0,
+                            "accuracy": 100,
+                            "pp": 20,
+                            "priority": 0,
+                            "rank": {
+                                "attack": 0,
+                                "defence": 0,
+                                "specialAttack": 0,
+                                "specialDefence": 0,
+                                "speed": 0,
+                                "accuracy": 0,
+                                "evasion": 0
+                            },
+                            "rankTarget": "",
+                            "rankChance": 0,
+                            "ailment": 0,
+                            "ailmentChance": 0,
+                            "healing": 0,
+                            "drain": 0,
+                            "critRate": 0,
+                            "statChanges": []
+                        },
+                        {
+                            "moveId": 75,
+                            "name": "はっぱカッター",
+                            "type": 4,
+                            "category": 0,
+                            "damageClass": 0,
+                            "power": 55,
+                            "accuracy": 95,
+                            "pp": 25,
+                            "priority": 0,
+                            "rank": {
+                                "attack": 0,
+                                "defence": 0,
+                                "specialAttack": 0,
+                                "specialDefence": 0,
+                                "speed": 0,
+                                "accuracy": 0,
+                                "evasion": 0
+                            },
+                            "rankTarget": "",
+                            "rankChance": 0,
+                            "ailment": 0,
+                            "ailmentChance": 0,
+                            "healing": 0,
+                            "drain": 0,
+                            "critRate": 0,
+                            "statChanges": []
+                        },
+                        {
+                            "moveId": 76,
+                            "name": "ソーラービーム",
+                            "type": 4,
+                            "category": 0,
+                            "damageClass": 1,
+                            "power": 120,
+                            "accuracy": 100,
+                            "pp": 10,
+                            "priority": 0,
+                            "rank": {
+                                "attack": 0,
+                                "defence": 0,
+                                "specialAttack": 0,
+                                "specialDefence": 0,
+                                "speed": 0,
+                                "accuracy": 0,
+                                "evasion": 0
+                            },
+                            "rankTarget": "",
+                            "rankChance": 0,
+                            "ailment": 0,
+                            "ailmentChance": 0,
+                            "healing": 0,
+                            "drain": 0,
+                            "critRate": 0,
+                            "statChanges": []
+                        },
+                        {
+                            "moveId": 77,
+                            "name": "どくのこな",
+                            "type": 7,
+                            "category": 0,
+                            "damageClass": 2,
+                            "power": 0,
+                            "accuracy": 75,
+                            "pp": 35,
+                            "priority": 0,
+                            "rank": {
+                                "attack": 0,
+                                "defence": 0,
+                                "specialAttack": 0,
+                                "specialDefence": 0,
+                                "speed": 0,
+                                "accuracy": 0,
+                                "evasion": 0
+                            },
+                            "rankTarget": "",
+                            "rankChance": 0,
+                            "ailment": 0,
+                            "ailmentChance": 0,
+                            "healing": 0,
+                            "drain": 0,
+                            "critRate": 0,
+                            "statChanges": []
+                        },
+                        {
+                            "moveId": 79,
+                            "name": "ねむりごな",
+                            "type": 4,
+                            "category": 0,
+                            "damageClass": 2,
+                            "power": 0,
+                            "accuracy": 75,
+                            "pp": 15,
+                            "priority": 0,
+                            "rank": {
+                                "attack": 0,
+                                "defence": 0,
+                                "specialAttack": 0,
+                                "specialDefence": 0,
+                                "speed": 0,
+                                "accuracy": 0,
+                                "evasion": 0
+                            },
+                            "rankTarget": "",
+                            "rankChance": 0,
+                            "ailment": 0,
+                            "ailmentChance": 0,
+                            "healing": 0,
+                            "drain": 0,
+                            "critRate": 0,
+                            "statChanges": []
+                        },
+                        {
+                            "moveId": 80,
+                            "name": "はなびらのまい",
+                            "type": 4,
+                            "category": 0,
+                            "damageClass": 1,
+                            "power": 120,
+                            "accuracy": 100,
+                            "pp": 10,
+                            "priority": 0,
+                            "rank": {
+                                "attack": 0,
+                                "defence": 0,
+                                "specialAttack": 0,
+                                "specialDefence": 0,
+                                "speed": 0,
+                                "accuracy": 0,
+                                "evasion": 0
+                            },
+                            "rankTarget": "",
+                            "rankChance": 0,
+                            "ailment": 0,
+                            "ailmentChance": 0,
+                            "healing": 0,
+                            "drain": 0,
+                            "critRate": 0,
+                            "statChanges": []
+                        }
+                    ]
+                },
+                "level": 5,
+                "exp": 0,
+                "moves": [
+                    {
+                        "moveId": 13,
+                        "name": "かまいたち",
+                        "type": 0,
+                        "category": 0,
+                        "damageClass": 1,
+                        "power": 80,
+                        "accuracy": 100,
+                        "pp": 10,
+                        "priority": 0,
+                        "rank": {
+                            "attack": 0,
+                            "defence": 0,
+                            "specialAttack": 0,
+                            "specialDefence": 0,
+                            "speed": 0,
+                            "accuracy": 0,
+                            "evasion": 0
+                        },
+                        "rankTarget": "",
+                        "rankChance": 0,
+                        "ailment": 0,
+                        "ailmentChance": 0,
+                        "healing": 0,
+                        "drain": 0,
+                        "critRate": 0,
+                        "statChanges": []
+                    },
+                    {
+                        "moveId": 14,
+                        "name": "つるぎのまい",
+                        "type": 0,
+                        "category": 0,
+                        "damageClass": 2,
+                        "power": 0,
+                        "accuracy": 100,
+                        "pp": 20,
+                        "priority": 0,
+                        "rank": {
+                            "attack": 0,
+                            "defence": 0,
+                            "specialAttack": 0,
+                            "specialDefence": 0,
+                            "speed": 0,
+                            "accuracy": 0,
+                            "evasion": 0
+                        },
+                        "rankTarget": "",
+                        "rankChance": 0,
+                        "ailment": 0,
+                        "ailmentChance": 0,
+                        "healing": 0,
+                        "drain": 0,
+                        "critRate": 0,
+                        "statChanges": []
+                    },
+                    {
+                        "moveId": 15,
+                        "name": "いあいぎり",
+                        "type": 0,
+                        "category": 0,
+                        "damageClass": 0,
+                        "power": 50,
+                        "accuracy": 95,
+                        "pp": 30,
+                        "priority": 0,
+                        "rank": {
+                            "attack": 0,
+                            "defence": 0,
+                            "specialAttack": 0,
+                            "specialDefence": 0,
+                            "speed": 0,
+                            "accuracy": 0,
+                            "evasion": 0
+                        },
+                        "rankTarget": "",
+                        "rankChance": 0,
+                        "ailment": 0,
+                        "ailmentChance": 0,
+                        "healing": 0,
+                        "drain": 0,
+                        "critRate": 0,
+                        "statChanges": []
+                    },
+                    {
+                        "moveId": 20,
+                        "name": "しめつける",
+                        "type": 0,
+                        "category": 0,
+                        "damageClass": 0,
+                        "power": 15,
+                        "accuracy": 85,
+                        "pp": 20,
+                        "priority": 0,
+                        "rank": {
+                            "attack": 0,
+                            "defence": 0,
+                            "specialAttack": 0,
+                            "specialDefence": 0,
+                            "speed": 0,
+                            "accuracy": 0,
+                            "evasion": 0
+                        },
+                        "rankTarget": "",
+                        "rankChance": 0,
+                        "ailment": 0,
+                        "ailmentChance": 0,
+                        "healing": 0,
+                        "drain": 0,
+                        "critRate": 0,
+                        "statChanges": []
+                    }
+                ]
+            }
+        ],
+        "action": null,
+        "allPokemonFainted": false,
+        "activePokemon": {
+            "pokemonId": "d173e53d-f79b-40ac-ad0f-8e5bcce4e7a0",
+            "pokemonSpeciesId": 1,
+            "currentHp": 24,
+            "maxHp": 24,
+            "ailment": 0,
+            "rank": {
+                "attack": 0,
+                "defence": 0,
+                "specialAttack": 0,
+                "specialDefence": 0,
+                "speed": 0,
+                "accuracy": 0,
+                "evasion": 0
+            },
+            "isFainted": false
+        }
+    },
+    "turn": 0,
+    "createdAt": "2025-12-03T13:37:46.9880086Z",
+    "expireAt": "2025-12-03T14:37:46.9880087Z"
 }
-```
-
-
-```html
-<!DOCTYPE html>
-<html lang="jp">
-<head>
-<style type="text/css">
-    table {
-        border-collapse: separate;
-        border-spacing: 0px;
-    }
-    tr,td {
-        padding: 0px;
-    }
-    td.reg {
-        font-size: large;
-    }
-    td.R6radio {
-        width: 45px;
-        text-align: right;
-        padding: 0px 5px 0px 0px;
-    }
-    input.variable {
-        width: 70px;
-        font-size: large;
-    }
-    input.variable2 {
-        width: 120px;
-        font-size: large;
-    }
-    input.variable3 {
-        width: 180px;
-        font-size: large;
-    }
-    span.address {
-	padding: 0pt 8pt;
-        font-size: large;
-    }
-    label.address {
-	padding: 0pt 8pt;
-        font-size: large;
-    }
-    select.variable2 {
-        width: 120px;
-        font-size: large;
-    }
-    select.variable3 {
-        width: 180px;
-        font-size: large;
-    }
-    button.run {
-        font-size: large;
-    }
-    .flex{
-        display: flex;
-        border: 1px solid #333;
-    }
-    .flex div{
-        border: 1px solid #333;
-    }
-    .middle{
-        width: 700px;
-        background: #ffd87c;
-    }
-    .left{
-        width: 500px;
-        background: #9ddbfc;
-    }
-    .right{
-	width: 800px;
-        background: #9dfcdb;
-    }
-    .freeArea{
-        max-width: 100%;
-        width: 900%;
-        height: 800px;
-        font-size: 18pt;
-    }
-    span.stackValue {
-        width: 200px;
-        background-color: white;
-        border-style: solid;
-        border-width: 1px 1px 1px 1px;
-        border-color: blue;
-    }
-</style>
 ```
 
 ## ドキュメント
