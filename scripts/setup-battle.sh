@@ -44,43 +44,28 @@ fi
 
 echo "✓ プレイヤーID: $PLAYER_ID"
 
-# 4. ポケモンをパーティに追加
-echo "4. ポケモンをパーティに追加中..."
-POKEMON_ID=$(docker exec -i $DB_CONTAINER /opt/mssql-tools18/bin/sqlcmd \
-  -S localhost -U sa -P "$DB_PASSWORD" -d PokeCloneDb -C -h -1 -Q "
-  SET NOCOUNT ON;
-  DECLARE @PokemonId NVARCHAR(255) = NEWID();
-  DECLARE @PlayerId NVARCHAR(255) = '$PLAYER_ID';
-  
-  INSERT INTO Pokemon (pokemonId, pokemonSpeciesId, level, exp)
-  VALUES (@PokemonId, 1, 5, 0);
+# 4. スターターポケモンを選択
+echo "4. スターターポケモンを選択中..."
+# ヒコザル(390)を選択
+STARTER_RESPONSE=$(curl -s -X POST $API_URL/api/Starter/select \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"pokemonSpeciesId":390}')
 
-  INSERT INTO PokemonMoveInstance (pokemonId, moveId)
-  SELECT TOP 4 @PokemonId, moveId FROM PokemonMove WHERE pokemonSpeciesId = 1;
+if echo "$STARTER_RESPONSE" | grep -q "error\|Error\|Exception"; then
+    echo "エラー: スターターポケモンの選択に失敗しました"
+    echo "レスポンス: $STARTER_RESPONSE"
+    exit 1
+fi
 
-  DECLARE @PartyId INT;
-  SELECT @PartyId = playerPartyId FROM PlayerParty WHERE playerId = @PlayerId;
-
-  IF @PartyId IS NULL
-  BEGIN
-    INSERT INTO PlayerParty (playerId) VALUES (@PlayerId);
-    SET @PartyId = SCOPE_IDENTITY();
-  END
-
-  INSERT INTO PlayerPartyPokemon (playerPartyId, pokemonId)
-  VALUES (@PartyId, @PokemonId);
-
-  SELECT @PokemonId;
-" | tr -d '[:space:]')
-
-echo "✓ ポケモンID: $POKEMON_ID"
+echo "✓ スターターポケモン選択成功"
 
 # 5. CPUバトル作成
 echo "5. CPUバトルを作成中..."
 BATTLE_RESPONSE=$(curl -s -X POST $API_URL/api/Battle/cpu \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer $TOKEN" \
-  -d "{\"playerId\":\"$PLAYER_ID\"}")
+  -d "{}")
 
 BATTLE_ID=$(echo $BATTLE_RESPONSE | jq -r '.battleId')
 

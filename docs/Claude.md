@@ -8,10 +8,10 @@
 
 ## 作業内容
 
--StarterController, GacheControllerのSpeciesの部分でエラーが発生しているようです.
-- 原因の究明と解決方法の提案をお願いします.
-- Speciesが取得できているかログで出すなどのステップバイステップの手法を試してください.
-### ドキュメント
+- setup-battle.shにtest-battle.shの内容を反映してください.
+  - 出力の形式, 機能はsetup-battle.shと同様ですがエンドポイントなどはtest-battle.shを参考にしてください.
+
+## ドキュメント
 
 - 特に以下のドキュメントをよく確認して作業をしてください.
   - `/mnt/c/Users/cs23017/Shizuoka University/ドキュメント/dev/01_poke_clone-v3/Docs/Claude.md`
