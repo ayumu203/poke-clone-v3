@@ -166,13 +166,24 @@ function onError(message) {
 }
 
 async function submitMoveAction(moveIndex) {
-    if (!connection || !playerId) return;
+    if (!connection || !playerId || !battleState) return;
 
     try {
+        // Get actual moveId from battleState
+        const playerState = battleState.player1.playerId === playerId ? battleState.player1 : battleState.player2;
+        const playerPokemon = playerState.party[playerState.activePokemonIndex];
+
+        if (!playerPokemon.moves || moveIndex >= playerPokemon.moves.length) {
+            addLog(`技${moveIndex + 1}が見つかりません`, 'damage');
+            return;
+        }
+
+        const moveId = playerPokemon.moves[moveIndex].moveId;
+
         await connection.invoke("SubmitAction", $('#battle-id').val(), {
             playerId: playerId,
             actionType: 0, // Attack
-            value: moveIndex
+            value: moveId
         });
 
         addLog(`技${moveIndex + 1}を使用！`, 'info');

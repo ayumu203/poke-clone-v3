@@ -7,7 +7,7 @@ body {
 }
 
 .container {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     background: rgba(255, 255, 255, 0.95);
     border-radius: 15px;
@@ -40,6 +40,122 @@ header h1 {
 
 #connection-status.disconnected {
     color: #dc3545;
+}
+
+/* 3列のFlexレイアウト */
+.flex {
+    display: flex;
+    border: 1px solid #333;
+    gap: 0;
+    margin-bottom: 20px;
+}
+
+.flex>div {
+    border: 1px solid #333;
+    padding: 20px;
+}
+
+.left {
+    width: 400px;
+    background: #9ddbfc;
+}
+
+.middle {
+    flex: 1;
+    background: #ffd87c;
+}
+
+.right {
+    width: 500px;
+    background: #9dfcdb;
+}
+
+/* テーブルスタイル */
+table {
+    border-collapse: separate;
+    border-spacing: 0px;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+table caption {
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+table th,
+table td {
+    padding: 8px;
+    border: 1px solid #666;
+    text-align: center;
+}
+
+table th {
+    background: rgba(0, 0, 0, 0.1);
+    font-weight: bold;
+}
+
+/* ボタンスタイル */
+button.run {
+    font-size: large;
+    padding: 8px 16px;
+    cursor: pointer;
+    background: #667eea;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+button.run:hover:not(:disabled) {
+    background: #5568d3;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
+}
+
+button.run:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* 入力フィールド */
+input.variable {
+    width: 70px;
+    font-size: large;
+    padding: 4px;
+    border: 1px solid #666;
+}
+
+input.variable2 {
+    width: 120px;
+    font-size: large;
+    padding: 4px;
+    border: 1px solid #666;
+}
+
+input.variable3 {
+    width: 180px;
+    font-size: large;
+    padding: 4px;
+    border: 1px solid #666;
+}
+
+select.variable2 {
+    width: 120px;
+    font-size: large;
+    padding: 4px;
+    border: 1px solid #666;
+}
+
+select.variable3 {
+    width: 180px;
+    font-size: large;
+    padding: 4px;
+    border: 1px solid #666;
 }
 
 .battle-area {
@@ -130,7 +246,8 @@ header h1 {
     margin-bottom: 30px;
 }
 
-.control-section, .connect-section {
+.control-section,
+.connect-section {
     background: #ffffff;
     padding: 20px;
     border-radius: 10px;
@@ -151,7 +268,8 @@ h3 {
     margin-bottom: 15px;
 }
 
-.move-button, .action-button {
+.move-button,
+.action-button {
     padding: 12px;
     border: none;
     border-radius: 8px;
