@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PoC Battle Client</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <div class="container">
         <header>
@@ -15,45 +17,40 @@
             </div>
         </header>
 
-        <div class="battle-area">
-            <!-- プレイヤー2 (相手) -->
-            <div class="pokemon-display opponent">
-                <div class="pokemon-info">
-                    <div class="pokemon-name">相手: <span id="opponent-name">---</span></div>
-                    <div class="pokemon-level">Lv.<span id="opponent-level">--</span></div>
-                </div>
-                <div class="hp-container">
-                    <div class="hp-label">HP</div>
-                    <div class="hp-bar">
-                        <div id="opponent-hp-bar" class="hp-fill" style="width: 100%"></div>
-                    </div>
-                    <div class="hp-text">
-                        <span id="opponent-hp-current">--</span> / <span id="opponent-hp-max">--</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- プレイヤー1 (自分) -->
-            <div class="pokemon-display player">
-                <div class="pokemon-info">
-                    <div class="pokemon-name">自分: <span id="player-name">---</span></div>
-                    <div class="pokemon-level">Lv.<span id="player-level">--</span></div>
-                </div>
-                <div class="hp-container">
-                    <div class="hp-label">HP</div>
+        <!-- 3列レイアウト -->
+        <div class="flex">
+            <!-- 左列: プレイヤー情報 -->
+            <div class="left">
+                <h2>自分</h2>
+                <table>
+                    <caption>プレイヤーポケモン</caption>
+                    <tr>
+                        <th>項目</th>
+                        <th>値</th>
+                    </tr>
+                    <tr>
+                        <td>ポケモン</td>
+                        <td><span id="player-name">---</span></td>
+                    </tr>
+                    <tr>
+                        <td>レベル</td>
+                        <td>Lv.<span id="player-level">--</span></td>
+                    </tr>
+                    <tr>
+                        <td>HP</td>
+                        <td><span id="player-hp-current">--</span> / <span id="player-hp-max">--</span></td>
+                    </tr>
+                </table>
+                <div class="hp-bar-container">
                     <div class="hp-bar">
                         <div id="player-hp-bar" class="hp-fill" style="width: 100%"></div>
                     </div>
-                    <div class="hp-text">
-                        <span id="player-hp-current">--</span> / <span id="player-hp-max">--</span>
-                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="controls">
-            <div class="control-section">
-                <h3>アクション</h3>
+            <!-- 中央列: 対戦情報 -->
+            <div class="middle">
+                <h2>アクション</h2>
                 <div class="moves-grid">
                     <button class="move-button" id="move-0" disabled>技1</button>
                     <button class="move-button" id="move-1" disabled>技2</button>
@@ -61,33 +58,61 @@
                     <button class="move-button" id="move-3" disabled>技4</button>
                 </div>
                 <div class="action-buttons">
-                    <button class="action-button" id="switch-button" disabled>ポケモン交代</button>
                     <button class="action-button" id="catch-button" disabled>捕獲</button>
                     <button class="action-button" id="escape-button" disabled>逃走</button>
                 </div>
+
+                <div class="connect-section">
+                    <h3>接続設定</h3>
+                    <div class="input-group">
+                        <label>API URL:</label>
+                        <input type="text" id="api-url" value="http://localhost:5000" />
+                    </div>
+                    <div class="input-group">
+                        <label>Battle ID:</label>
+                        <input type="text" id="battle-id" placeholder="battle-uuid-1234" />
+                    </div>
+                    <div class="input-group">
+                        <label>Player ID:</label>
+                        <input type="text" id="player-id" placeholder="player1" />
+                    </div>
+                    <button class="connect-button" id="connect-button">バトルに接続</button>
+                </div>
+
+                <div class="battle-log-section">
+                    <h3>バトルログ</h3>
+                    <div id="battle-log" class="battle-log"></div>
+                </div>
             </div>
 
-            <div class="connect-section">
-                <h3>接続</h3>
-                <div class="input-group">
-                    <label>API URL:</label>
-                    <input type="text" id="api-url" value="http://localhost:5000" />
+            <!-- 右列: 相手プレイヤー情報 -->
+            <div class="right">
+                <h2>相手</h2>
+                <table>
+                    <caption>相手ポケモン</caption>
+                    <tr>
+                        <th>項目</th>
+                        <th>値</th>
+                    </tr>
+                    <tr>
+                        <td>ポケモン</td>
+                        <td><span id="opponent-name">---</span></td>
+                    </tr>
+                    <tr>
+                        <td>レベル</td>
+                        <td>Lv.<span id="opponent-level">--</span></td>
+                    </tr>
+                    <tr>
+                        <td>HP</td>
+                        <td><span id="opponent-hp-current">--</span> / <span id="opponent-hp-max">--</span></td>
+                    </tr>
+                </table>
+                <div class="hp-bar-container">
+                    <div class="hp-bar">
+                        <div id="opponent-hp-bar" class="hp-fill" style="width: 100%"></div>
+                    </div>
                 </div>
-                <div class="input-group">
-                    <label>Battle ID:</label>
-                    <input type="text" id="battle-id" placeholder="battle-uuid-1234" />
-                </div>
-                <div class="input-group">
-                    <label>Player ID:</label>
-                    <input type="text" id="player-id" placeholder="player1" />
-                </div>
-                <button class="connect-button" id="connect-button">バトルに接続</button>
             </div>
-        </div>
-
-        <div class="battle-log-section">
-            <h3>バトルログ</h3>
-            <div id="battle-log" class="battle-log"></div>
         </div>
     </div>
 
@@ -95,4 +120,5 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="app.js"></script>
 </body>
+
 </html>

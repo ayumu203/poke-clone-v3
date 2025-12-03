@@ -1,16 +1,21 @@
 #!/bin/bash
+# Unified Battle Setup and Test Script
+
+set -e
+
+API_URL="http://localhost:5000"
 
 # テスト用のユニークなPlayerIdを生成
 TIMESTAMP=$(date +%s)
 PLAYER_ID="${TIMESTAMP}testplayer"
 
-echo "=== ポケモンバトルテストスクリプト ==="
+echo "=== ポケモンバトルセットアップ ===" 
 echo "PlayerId: $PLAYER_ID"
 echo ""
 
 # 1. 認証
 echo "1. 認証中..."
-AUTH_RESPONSE=$(curl -s -X POST http://localhost:5000/api/Auth/login/mock \
+AUTH_RESPONSE=$(curl -s -X POST $API_URL/api/Auth/login/mock \
   -H "Content-Type: application/json" \
   -d "{\"username\":\"$PLAYER_ID\",\"password\":\"testpassword\"}")
 
@@ -23,21 +28,20 @@ if [ -z "$TOKEN" ]; then
 fi
 
 echo "✅ 認証成功"
-echo "トークン: ${TOKEN:0:50}..."
 echo ""
 
 # 2. スターターポケモンの選択肢を取得
 echo "2. スターターポケモンの選択肢を取得中..."
-STARTERS=$(curl -s -X GET http://localhost:5000/api/Starter/options \
+STARTERS=$(curl -s -X GET $API_URL/api/Starter/options \
   -H "Authorization: Bearer $TOKEN")
 
 echo "✅ スターターポケモン取得成功"
 echo "選択肢: ヒコザル(390), ゼニガメ(7), ツタージャ(495)"
 echo ""
 
-# 2.5. プレイヤープロフィールを作成
-echo "2.5. プレイヤープロフィールを作成中..."
-PLAYER_RESPONSE=$(curl -s -X POST http://localhost:5000/api/player/me \
+# 3. プレイヤープロフィールを作成
+echo "3. プレイヤープロフィールを作成中..."
+PLAYER_RESPONSE=$(curl -s -X POST $API_URL/api/player/me \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d "{\"name\":\"TestPlayer_${TIMESTAMP}\",\"iconUrl\":\"https://example.com/icon.png\"}")
@@ -51,9 +55,9 @@ fi
 echo "✅ プレイヤープロフィール作成成功"
 echo ""
 
-# 3. スターターポケモンを選択 (ヒコザル: 390)
-echo "3. スターターポケモンを選択中 (ヒコザル)..."
-STARTER_RESPONSE=$(curl -s -X POST http://localhost:5000/api/Starter/select \
+# 4. スターターポケモンを選択 (ヒコザル: 390)
+echo "4. スターターポケモンを選択中 (ヒコザル)..."
+STARTER_RESPONSE=$(curl -s -X POST $API_URL/api/Starter/select \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"pokemonSpeciesId":390}')
@@ -67,9 +71,9 @@ fi
 echo "✅ スターターポケモン選択成功"
 echo ""
 
-# 4. CPUバトルを作成
-echo "4. CPUバトルを作成中..."
-BATTLE_RESPONSE=$(curl -s -X POST http://localhost:5000/api/Battle/cpu \
+# 5. CPUバトルを作成
+echo "5. CPUバトルを作成中..."
+BATTLE_RESPONSE=$(curl -s -X POST $API_URL/api/Battle/cpu \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json")
 
@@ -88,20 +92,20 @@ if [ -z "$BATTLE_ID" ]; then
 fi
 
 echo "✅ バトル作成成功"
-echo "バトルID: $BATTLE_ID"
 echo ""
 
-# 5. バトル状態を取得
-echo "5. バトル状態を確認中..."
-BATTLE_STATE=$(curl -s -X GET http://localhost:5000/api/Battle/$BATTLE_ID \
+# 6. バトル状態を取得
+echo "6. バトル状態を確認中..."
+BATTLE_STATE=$(curl -s -X GET $API_URL/api/Battle/$BATTLE_ID \
   -H "Authorization: Bearer $TOKEN")
 
 echo "✅ バトル状態取得成功"
 echo ""
 
-echo "=== テスト完了 ==="
-echo "すべてのエンドポイントが正常に動作しました！"
+# 結果表示
+echo "=== セットアップ完了 ==="
+echo "API URL: $API_URL"
+echo "Battle ID: $BATTLE_ID"
+echo "Player ID: $PLAYER_ID"
 echo ""
-echo "次のステップ:"
-echo "- SignalRを使用してバトルを進行"
-echo "- 技を使用して「Move not found」エラーが解消されているか確認"
+echo "PoCクライアントで上記の情報を使用してバトルに接続してください。"
