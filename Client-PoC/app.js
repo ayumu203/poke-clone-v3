@@ -173,12 +173,18 @@ async function submitMoveAction(moveIndex) {
         const playerState = battleState.player1.playerId === playerId ? battleState.player1 : battleState.player2;
         const playerPokemonEntity = playerState.pokemonEntities[playerState.activePokemonIndex];
 
+        console.log('DEBUG: playerPokemonEntity:', playerPokemonEntity);
+        console.log('DEBUG: moves:', playerPokemonEntity.moves);
+        console.log('DEBUG: moveIndex:', moveIndex);
+
         if (!playerPokemonEntity.moves || moveIndex >= playerPokemonEntity.moves.length) {
             addLog(`技${moveIndex + 1}が見つかりません`, 'damage');
             return;
         }
 
         const move = playerPokemonEntity.moves[moveIndex];
+        console.log('DEBUG: selected move:', move);
+        console.log('DEBUG: sending moveId:', move.moveId);
 
         await connection.invoke("SubmitAction", $('#battle-id').val(), {
             playerId: playerId,
