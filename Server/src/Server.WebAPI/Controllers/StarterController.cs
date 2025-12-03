@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Server.Domain.Entities;
 using Server.Domain.Repositories;
+using System.Security.Claims;
 
 namespace Server.WebAPI.Controllers;
 
@@ -53,7 +54,7 @@ public class StarterController : ControllerBase
     [HttpPost("select")]
     public async Task<Microsoft.AspNetCore.Mvc.ActionResult> SelectStarter([FromBody] SelectStarterRequest request)
     {
-        var playerId = User.Identity?.Name;
+        var playerId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         if (string.IsNullOrEmpty(playerId))
         {
             return Unauthorized();

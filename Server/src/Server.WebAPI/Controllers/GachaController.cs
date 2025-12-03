@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Server.Application.Services;
 using Server.Domain.Entities;
+using System.Security.Claims;
 
 namespace Server.WebAPI.Controllers;
 
@@ -23,7 +24,7 @@ public class GachaController : ControllerBase
     [HttpPost("pull")]
     public async Task<ActionResult<Pokemon>> PullGacha()
     {
-        var playerId = User.Identity?.Name;
+        var playerId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         if (string.IsNullOrEmpty(playerId))
         {
             return StatusCode(500, "ユーザー情報の取得に失敗しました");

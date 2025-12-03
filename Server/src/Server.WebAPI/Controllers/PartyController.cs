@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Server.Domain.Entities;
 using Server.Domain.Repositories;
+using System.Security.Claims;
 
 namespace Server.WebAPI.Controllers;
 
@@ -23,7 +24,7 @@ public class PartyController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<List<Pokemon>>> GetParty()
     {
-        var playerId = User.Identity?.Name;
+        var playerId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         if (string.IsNullOrEmpty(playerId))
         {
             return StatusCode(500, "ユーザー情報の取得に失敗しました");
@@ -44,7 +45,7 @@ public class PartyController : ControllerBase
     [HttpDelete("{pokemonId}")]
     public async Task<Microsoft.AspNetCore.Mvc.ActionResult> ReleasePokemon(string pokemonId)
     {
-        var playerId = User.Identity?.Name;
+        var playerId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         if (string.IsNullOrEmpty(playerId))
         {
             return Unauthorized();

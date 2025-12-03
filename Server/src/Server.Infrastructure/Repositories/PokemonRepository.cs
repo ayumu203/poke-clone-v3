@@ -49,7 +49,15 @@ public class PokemonRepository : IPokemonRepository
 
         if (playerParty == null)
         {
+            // Playerが存在するか確認
+            var playerExists = await _context.Players.AnyAsync(p => p.PlayerId == playerId);
+            if (!playerExists)
+            {
+                throw new InvalidOperationException($"Player with ID '{playerId}' does not exist. Please create a player profile first.");
+            }
+
             // PlayerPartyが存在しない場合は新規作成
+            // Playerナビゲーションプロパティは設定せず、PlayerIdのみを設定
             playerParty = new PlayerParty
             {
                 PlayerId = playerId,
