@@ -35,6 +35,22 @@ echo "✅ スターターポケモン取得成功"
 echo "選択肢: ヒコザル(390), ゼニガメ(7), ツタージャ(495)"
 echo ""
 
+# 2.5. プレイヤープロフィールを作成
+echo "2.5. プレイヤープロフィールを作成中..."
+PLAYER_RESPONSE=$(curl -s -X POST http://localhost:5000/api/player/me \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" \
+  -d "{\"name\":\"TestPlayer_${TIMESTAMP}\",\"iconUrl\":\"https://example.com/icon.png\"}")
+
+if echo "$PLAYER_RESPONSE" | grep -q "error\|Error\|Exception"; then
+  echo "❌ プレイヤープロフィール作成失敗"
+  echo "レスポンス: ${PLAYER_RESPONSE:0:500}"
+  exit 1
+fi
+
+echo "✅ プレイヤープロフィール作成成功"
+echo ""
+
 # 3. スターターポケモンを選択 (ヒコザル: 390)
 echo "3. スターターポケモンを選択中 (ヒコザル)..."
 STARTER_RESPONSE=$(curl -s -X POST http://localhost:5000/api/Starter/select \

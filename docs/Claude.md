@@ -8,11 +8,36 @@
 
 ## 作業内容
 
-- setup-battle.shではPlayerId, BattleIdを最後に出力しますが, 途中で使用しているものが正しいため, 最後に出力しているものを修正してください.
 - 以下JSONのようにMove not foundの原因究明をお願いします.
   MoveIdを間違えて使用していたりする？
+  - まだNot found
+  - 追加でエラー
 - 下記HTMLのようなUIにしてほしい.
   - 機能は今のままで十分なので変更しないでokです.
+  - CSSをできるだけ寄せてほしい.
+  - 紫の背景とかダサすぎるので.
+
+```bash
+$ ./setup-battle.sh
+cs23017@DESKTOP-AO278P9:/mnt/c/Users/cs23017/Shizuoka University/ドキュメント/dev/01_poke_clone-v3/scripts$ ./test-battle.sh
+=== ポケモンバトルテストスクリプト ===
+PlayerId: 1764766996testplayer
+
+1. 認証中...
+✅ 認証成功
+トークン: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc...
+
+2. スターターポケモンの選択肢を取得中...
+✅ スターターポケモン取得成功
+選択肢: ヒコザル(390), ゼニガメ(7), ツタージャ(495)
+
+3. スターターポケモンを選択中 (ヒコザル)...
+❌ スターターポケモン選択失敗
+レスポンス: System.InvalidOperationException: Player with ID 'c9b29123-079a-4011-826f-028cfc3c8ef4' does not exist. Please create a player profile first.
+   at Server.Infrastructure.Repositories.PokemonRepository.AddToPartyAsync(String playerId, Pokemon pokemon) in /src/src/Server.Infrastructure/Repositories/PokemonRepository.cs:line 54
+   at Server.WebAPI.Controllers.StarterController.SelectStarter(SelectStarterRequest request) in /src/src/Server.WebAPI/Controllers/StarterController.cs:line 94
+   at lambda
+```
 
 ```json
 {
