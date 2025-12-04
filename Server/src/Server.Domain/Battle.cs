@@ -178,8 +178,8 @@ public class Battle
         Enums.Ailment? ailment = null;
         if (move.Ailment != Enums.Ailment.None)
         {
-            // AilmentChanceが0の場合は100%とみなす（簡易実装）
-            var chance = move.AilmentChance == 0 ? 100 : move.AilmentChance;
+            // AilmentChanceが0の場合は50%とみなす（簡易実装）
+            var chance = move.AilmentChance == 0 ? 50 : move.AilmentChance;
             if (random.Next(1, 101) <= chance)
             {
                 // 既に状態異常にかかっているかどうかのチェックはBattleService/BattleState側で行う想定
