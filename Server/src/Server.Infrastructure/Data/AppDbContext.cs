@@ -150,8 +150,7 @@ public class AppDbContext : DbContext
         modelBuilder.Entity<PlayerParty>(entity =>
         {
             entity.ToTable("PlayerParty");
-            entity.HasKey(pp => pp.PlayerPartyId);
-            entity.Property(pp => pp.PlayerPartyId).HasColumnName("playerPartyId");
+            entity.HasKey(pp => pp.PlayerId);
             entity.Property(pp => pp.PlayerId).HasColumnName("playerId").HasMaxLength(255);
 
             // Playerへのナビゲーションプロパティは削除し、外部キー制約のみ保持
@@ -163,11 +162,11 @@ public class AppDbContext : DbContext
                   .UsingEntity<Dictionary<string, object>>(
                       "PlayerPartyPokemon",
                       j => j.HasOne<Pokemon>().WithMany().HasForeignKey("pokemonId"),
-                      j => j.HasOne<PlayerParty>().WithMany().HasForeignKey("playerPartyId"),
+                      j => j.HasOne<PlayerParty>().WithMany().HasForeignKey("playerId"),
                       j =>
                       {
                           j.ToTable("PlayerPartyPokemon");
-                          j.HasKey("playerPartyId", "pokemonId");
+                          j.HasKey("playerId", "pokemonId");
                       });
         });
     }
