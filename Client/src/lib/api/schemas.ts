@@ -55,9 +55,7 @@ const PokemonStat = z.union([
   z.literal(5),
   z.literal(6),
 ]);
-const StatChange = z
-  .object({ stat: PokemonStat, change: z.number().int() })
-  .partial();
+const StatChange = z.object({ stat: PokemonStat, change: z.number().int() }).partial();
 const Move = z
   .object({
     moveId: z.number().int(),
@@ -110,9 +108,7 @@ const Pokemon = z
 const PlayerDto = z
   .object({ name: z.string().nullable(), iconUrl: z.string().nullable() })
   .partial();
-const SelectStarterRequest = z
-  .object({ pokemonSpeciesId: z.number().int() })
-  .partial();
+const SelectStarterRequest = z.object({ pokemonSpeciesId: z.number().int() }).partial();
 
 export const schemas = {
   MockLoginRequest,
