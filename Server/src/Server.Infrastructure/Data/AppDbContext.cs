@@ -87,21 +87,8 @@ public class AppDbContext : DbContext
             entity.Property(m => m.Accuracy).HasColumnName("accuracy");
             entity.Property(m => m.Pp).HasColumnName("pp");
             entity.Property(m => m.Priority).HasColumnName("priority");
-            
-            // Rank is a complex type - use OwnsOne
-            entity.OwnsOne(m => m.Rank, rank =>
-            {
-                rank.Property(r => r.Attack).HasColumnName("rankAttack");
-                rank.Property(r => r.Defence).HasColumnName("rankDefence");
-                rank.Property(r => r.SpecialAttack).HasColumnName("rankSpecialAttack");
-                rank.Property(r => r.SpecialDefence).HasColumnName("rankSpecialDefence");
-                rank.Property(r => r.Speed).HasColumnName("rankSpeed");
-                rank.Property(r => r.Accuracy).HasColumnName("rankAccuracy");
-                rank.Property(r => r.Evasion).HasColumnName("rankEvasion");
-            });
-            
-            entity.Property(m => m.RankTarget).HasColumnName("rankTarget").HasMaxLength(63);
-            entity.Property(m => m.RankChance).HasColumnName("rankChance");
+            entity.Property(m => m.Target).HasColumnName("target").HasMaxLength(63);
+            entity.Property(m => m.StatChance).HasColumnName("statChance");
             entity.Property(m => m.Ailment).HasColumnName("ailment").HasMaxLength(63);
             entity.Property(m => m.AilmentChance).HasColumnName("ailmentChance");
             entity.Property(m => m.Healing).HasColumnName("healing");

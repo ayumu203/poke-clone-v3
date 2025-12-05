@@ -8,7 +8,15 @@
     "pp": 35,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 2,
@@ -19,7 +27,15 @@
     "pp": 25,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 1,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 3,
@@ -30,7 +46,15 @@
     "pp": 10,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 4,
@@ -41,7 +65,15 @@
     "pp": 15,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 5,
@@ -52,7 +84,15 @@
     "pp": 20,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 6,
@@ -63,7 +103,15 @@
     "pp": 20,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 7,
@@ -74,7 +122,15 @@
     "pp": 15,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage+ailment",
+    "ailment": "burn",
+    "ailmentChance": 10,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 10
   },
   {
     "moveId": 8,
@@ -85,7 +141,15 @@
     "pp": 15,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage+ailment",
+    "ailment": "freeze",
+    "ailmentChance": 10,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 10
   },
   {
     "moveId": 9,
@@ -96,7 +160,15 @@
     "pp": 15,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage+ailment",
+    "ailment": "paralysis",
+    "ailmentChance": 10,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 10
   },
   {
     "moveId": 10,
@@ -107,7 +179,15 @@
     "pp": 35,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 11,
@@ -118,7 +198,15 @@
     "pp": 30,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 12,
@@ -129,7 +217,15 @@
     "pp": 5,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "ohko",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 13,
@@ -140,7 +236,15 @@
     "pp": 10,
     "priority": 0,
     "damageClass": "Special",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 1,
+    "statChanges": [],
+    "target": "all-opponents",
+    "statChance": 100
   },
   {
     "moveId": 14,
@@ -151,7 +255,20 @@
     "pp": 20,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "net-good-stats",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [
+      {
+        "stat": "attack",
+        "change": 2
+      }
+    ],
+    "target": "user",
+    "statChance": 100
   },
   {
     "moveId": 15,
@@ -162,7 +279,15 @@
     "pp": 30,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 16,
@@ -173,7 +298,15 @@
     "pp": 35,
     "priority": 0,
     "damageClass": "Special",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 17,
@@ -184,7 +317,15 @@
     "pp": 35,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 18,
@@ -195,7 +336,15 @@
     "pp": 20,
     "priority": -6,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "force-switch",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 19,
@@ -206,7 +355,15 @@
     "pp": 15,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 20,
@@ -217,7 +374,15 @@
     "pp": 20,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage+ailment",
+    "ailment": "trap",
+    "ailmentChance": 100,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 21,
@@ -228,7 +393,15 @@
     "pp": 20,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 22,
@@ -239,7 +412,15 @@
     "pp": 25,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 23,
@@ -250,7 +431,15 @@
     "pp": 20,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 30
   },
   {
     "moveId": 24,
@@ -261,7 +450,15 @@
     "pp": 30,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 25,
@@ -272,7 +469,15 @@
     "pp": 5,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 26,
@@ -283,7 +488,15 @@
     "pp": 10,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 27,
@@ -294,7 +507,15 @@
     "pp": 15,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 30
   },
   {
     "moveId": 28,
@@ -305,7 +526,20 @@
     "pp": 15,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "net-good-stats",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [
+      {
+        "stat": "accuracy",
+        "change": -1
+      }
+    ],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 29,
@@ -316,7 +550,15 @@
     "pp": 15,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 30
   },
   {
     "moveId": 30,
@@ -327,7 +569,15 @@
     "pp": 25,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 31,
@@ -338,7 +588,15 @@
     "pp": 20,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 32,
@@ -349,7 +607,15 @@
     "pp": 5,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "ohko",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 33,
@@ -360,7 +626,15 @@
     "pp": 35,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 34,
@@ -371,7 +645,15 @@
     "pp": 15,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage+ailment",
+    "ailment": "paralysis",
+    "ailmentChance": 30,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 30
   },
   {
     "moveId": 35,
@@ -382,7 +664,15 @@
     "pp": 20,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage+ailment",
+    "ailment": "trap",
+    "ailmentChance": 100,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 36,
@@ -393,7 +683,15 @@
     "pp": 20,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": -25,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 37,
@@ -404,7 +702,15 @@
     "pp": 10,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "random-opponent",
+    "statChance": 100
   },
   {
     "moveId": 38,
@@ -415,7 +721,15 @@
     "pp": 15,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": -33,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 39,
@@ -426,7 +740,20 @@
     "pp": 30,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "net-good-stats",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [
+      {
+        "stat": "defense",
+        "change": -1
+      }
+    ],
+    "target": "all-opponents",
+    "statChance": 100
   },
   {
     "moveId": 40,
@@ -437,7 +764,15 @@
     "pp": 35,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage+ailment",
+    "ailment": "poison",
+    "ailmentChance": 30,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 30
   },
   {
     "moveId": 41,
@@ -448,7 +783,15 @@
     "pp": 20,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage+ailment",
+    "ailment": "poison",
+    "ailmentChance": 20,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 20
   },
   {
     "moveId": 42,
@@ -459,7 +802,15 @@
     "pp": 20,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 43,
@@ -470,7 +821,20 @@
     "pp": 30,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "net-good-stats",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [
+      {
+        "stat": "defense",
+        "change": -1
+      }
+    ],
+    "target": "all-opponents",
+    "statChance": 100
   },
   {
     "moveId": 44,
@@ -481,7 +845,15 @@
     "pp": 25,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 30
   },
   {
     "moveId": 45,
@@ -492,7 +864,20 @@
     "pp": 40,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "net-good-stats",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [
+      {
+        "stat": "attack",
+        "change": -1
+      }
+    ],
+    "target": "all-opponents",
+    "statChance": 100
   },
   {
     "moveId": 46,
@@ -503,7 +888,15 @@
     "pp": 20,
     "priority": -6,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "force-switch",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 47,
@@ -514,7 +907,15 @@
     "pp": 15,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "ailment",
+    "ailment": "sleep",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 48,
@@ -525,7 +926,15 @@
     "pp": 20,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "ailment",
+    "ailment": "confusion",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 49,
@@ -536,7 +945,15 @@
     "pp": 20,
     "priority": 0,
     "damageClass": "Special",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 50,
@@ -547,7 +964,15 @@
     "pp": 20,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "unique",
+    "ailment": "disable",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 51,
@@ -558,7 +983,20 @@
     "pp": 30,
     "priority": 0,
     "damageClass": "Special",
-    "category": "Damage"
+    "category": "damage+lower",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [
+      {
+        "stat": "special-defense",
+        "change": -1
+      }
+    ],
+    "target": "all-opponents",
+    "statChance": 10
   },
   {
     "moveId": 52,
@@ -569,7 +1007,15 @@
     "pp": 25,
     "priority": 0,
     "damageClass": "Special",
-    "category": "Damage"
+    "category": "damage+ailment",
+    "ailment": "burn",
+    "ailmentChance": 10,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 10
   },
   {
     "moveId": 53,
@@ -580,7 +1026,15 @@
     "pp": 15,
     "priority": 0,
     "damageClass": "Special",
-    "category": "Damage"
+    "category": "damage+ailment",
+    "ailment": "burn",
+    "ailmentChance": 10,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 10
   },
   {
     "moveId": 54,
@@ -591,7 +1045,15 @@
     "pp": 30,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "field-effect",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "users-field",
+    "statChance": 100
   },
   {
     "moveId": 55,
@@ -602,7 +1064,15 @@
     "pp": 25,
     "priority": 0,
     "damageClass": "Special",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 56,
@@ -613,7 +1083,15 @@
     "pp": 5,
     "priority": 0,
     "damageClass": "Special",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 57,
@@ -624,7 +1102,15 @@
     "pp": 15,
     "priority": 0,
     "damageClass": "Special",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "all-other-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 58,
@@ -635,7 +1121,15 @@
     "pp": 10,
     "priority": 0,
     "damageClass": "Special",
-    "category": "Damage"
+    "category": "damage+ailment",
+    "ailment": "freeze",
+    "ailmentChance": 10,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 10
   },
   {
     "moveId": 59,
@@ -646,7 +1140,15 @@
     "pp": 5,
     "priority": 0,
     "damageClass": "Special",
-    "category": "Damage"
+    "category": "damage+ailment",
+    "ailment": "freeze",
+    "ailmentChance": 10,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "all-opponents",
+    "statChance": 10
   },
   {
     "moveId": 60,
@@ -657,7 +1159,15 @@
     "pp": 20,
     "priority": 0,
     "damageClass": "Special",
-    "category": "Damage"
+    "category": "damage+ailment",
+    "ailment": "confusion",
+    "ailmentChance": 10,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 10
   },
   {
     "moveId": 61,
@@ -668,7 +1178,20 @@
     "pp": 20,
     "priority": 0,
     "damageClass": "Special",
-    "category": "Damage"
+    "category": "damage+lower",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [
+      {
+        "stat": "speed",
+        "change": -1
+      }
+    ],
+    "target": "selected-pokemon",
+    "statChance": 10
   },
   {
     "moveId": 62,
@@ -679,7 +1202,20 @@
     "pp": 20,
     "priority": 0,
     "damageClass": "Special",
-    "category": "Damage"
+    "category": "damage+lower",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [
+      {
+        "stat": "attack",
+        "change": -1
+      }
+    ],
+    "target": "selected-pokemon",
+    "statChance": 10
   },
   {
     "moveId": 63,
@@ -690,7 +1226,15 @@
     "pp": 5,
     "priority": 0,
     "damageClass": "Special",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 64,
@@ -701,7 +1245,15 @@
     "pp": 35,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 65,
@@ -712,7 +1264,15 @@
     "pp": 20,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 66,
@@ -723,7 +1283,15 @@
     "pp": 20,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": -25,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 67,
@@ -734,7 +1302,15 @@
     "pp": 20,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 68,
@@ -745,7 +1321,15 @@
     "pp": 20,
     "priority": -5,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "specific-move",
+    "statChance": 100
   },
   {
     "moveId": 69,
@@ -756,7 +1340,15 @@
     "pp": 20,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 70,
@@ -767,7 +1359,15 @@
     "pp": 15,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 71,
@@ -778,7 +1378,15 @@
     "pp": 25,
     "priority": 0,
     "damageClass": "Special",
-    "category": "Damage"
+    "category": "damage+heal",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 50,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 72,
@@ -789,7 +1397,15 @@
     "pp": 15,
     "priority": 0,
     "damageClass": "Special",
-    "category": "Damage"
+    "category": "damage+heal",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 50,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 73,
@@ -800,7 +1416,15 @@
     "pp": 10,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "ailment",
+    "ailment": "leech-seed",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 74,
@@ -811,7 +1435,24 @@
     "pp": 20,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "net-good-stats",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [
+      {
+        "stat": "attack",
+        "change": 1
+      },
+      {
+        "stat": "special-attack",
+        "change": 1
+      }
+    ],
+    "target": "user",
+    "statChance": 100
   },
   {
     "moveId": 75,
@@ -822,7 +1463,15 @@
     "pp": 25,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 1,
+    "statChanges": [],
+    "target": "all-opponents",
+    "statChance": 100
   },
   {
     "moveId": 76,
@@ -833,7 +1482,15 @@
     "pp": 10,
     "priority": 0,
     "damageClass": "Special",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 77,
@@ -844,7 +1501,15 @@
     "pp": 35,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "ailment",
+    "ailment": "poison",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 78,
@@ -855,7 +1520,15 @@
     "pp": 30,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "ailment",
+    "ailment": "paralysis",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 79,
@@ -866,7 +1539,15 @@
     "pp": 15,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "ailment",
+    "ailment": "sleep",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 80,
@@ -877,7 +1558,15 @@
     "pp": 10,
     "priority": 0,
     "damageClass": "Special",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "random-opponent",
+    "statChance": 100
   },
   {
     "moveId": 81,
@@ -888,7 +1577,20 @@
     "pp": 40,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "net-good-stats",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [
+      {
+        "stat": "speed",
+        "change": -2
+      }
+    ],
+    "target": "all-opponents",
+    "statChance": 100
   },
   {
     "moveId": 82,
@@ -899,7 +1601,15 @@
     "pp": 10,
     "priority": 0,
     "damageClass": "Special",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 83,
@@ -910,7 +1620,15 @@
     "pp": 15,
     "priority": 0,
     "damageClass": "Special",
-    "category": "Damage"
+    "category": "damage+ailment",
+    "ailment": "trap",
+    "ailmentChance": 100,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 84,
@@ -921,7 +1639,15 @@
     "pp": 30,
     "priority": 0,
     "damageClass": "Special",
-    "category": "Damage"
+    "category": "damage+ailment",
+    "ailment": "paralysis",
+    "ailmentChance": 10,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 10
   },
   {
     "moveId": 85,
@@ -932,7 +1658,15 @@
     "pp": 15,
     "priority": 0,
     "damageClass": "Special",
-    "category": "Damage"
+    "category": "damage+ailment",
+    "ailment": "paralysis",
+    "ailmentChance": 10,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 10
   },
   {
     "moveId": 86,
@@ -943,7 +1677,15 @@
     "pp": 20,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "ailment",
+    "ailment": "paralysis",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 87,
@@ -954,7 +1696,15 @@
     "pp": 10,
     "priority": 0,
     "damageClass": "Special",
-    "category": "Damage"
+    "category": "damage+ailment",
+    "ailment": "paralysis",
+    "ailmentChance": 30,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 30
   },
   {
     "moveId": 88,
@@ -965,7 +1715,15 @@
     "pp": 15,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 89,
@@ -976,7 +1734,15 @@
     "pp": 10,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "all-other-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 90,
@@ -987,7 +1753,15 @@
     "pp": 5,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "ohko",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 91,
@@ -998,7 +1772,15 @@
     "pp": 10,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 92,
@@ -1009,7 +1791,15 @@
     "pp": 10,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "ailment",
+    "ailment": "poison",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 93,
@@ -1020,7 +1810,15 @@
     "pp": 25,
     "priority": 0,
     "damageClass": "Special",
-    "category": "Damage"
+    "category": "damage+ailment",
+    "ailment": "confusion",
+    "ailmentChance": 10,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 10
   },
   {
     "moveId": 94,
@@ -1031,7 +1829,20 @@
     "pp": 10,
     "priority": 0,
     "damageClass": "Special",
-    "category": "Damage"
+    "category": "damage+lower",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [
+      {
+        "stat": "special-defense",
+        "change": -1
+      }
+    ],
+    "target": "selected-pokemon",
+    "statChance": 10
   },
   {
     "moveId": 95,
@@ -1042,7 +1853,15 @@
     "pp": 20,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "ailment",
+    "ailment": "sleep",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 96,
@@ -1053,7 +1872,20 @@
     "pp": 40,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "net-good-stats",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [
+      {
+        "stat": "attack",
+        "change": 1
+      }
+    ],
+    "target": "user",
+    "statChance": 100
   },
   {
     "moveId": 97,
@@ -1064,7 +1896,20 @@
     "pp": 30,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "net-good-stats",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [
+      {
+        "stat": "speed",
+        "change": 2
+      }
+    ],
+    "target": "user",
+    "statChance": 100
   },
   {
     "moveId": 98,
@@ -1075,7 +1920,15 @@
     "pp": 30,
     "priority": 1,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 99,
@@ -1086,7 +1939,15 @@
     "pp": 20,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 100,
@@ -1097,7 +1958,15 @@
     "pp": 20,
     "priority": -6,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "unique",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "user",
+    "statChance": 100
   },
   {
     "moveId": 101,
@@ -1108,7 +1977,15 @@
     "pp": 15,
     "priority": 0,
     "damageClass": "Special",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 102,
@@ -1119,7 +1996,15 @@
     "pp": 10,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "unique",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 103,
@@ -1130,7 +2015,20 @@
     "pp": 40,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "net-good-stats",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [
+      {
+        "stat": "defense",
+        "change": -2
+      }
+    ],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 104,
@@ -1141,7 +2039,20 @@
     "pp": 15,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "net-good-stats",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [
+      {
+        "stat": "evasion",
+        "change": 1
+      }
+    ],
+    "target": "user",
+    "statChance": 100
   },
   {
     "moveId": 105,
@@ -1152,7 +2063,15 @@
     "pp": 5,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "heal",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 50,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "user",
+    "statChance": 100
   },
   {
     "moveId": 106,
@@ -1163,7 +2082,20 @@
     "pp": 30,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "net-good-stats",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [
+      {
+        "stat": "defense",
+        "change": 1
+      }
+    ],
+    "target": "user",
+    "statChance": 100
   },
   {
     "moveId": 107,
@@ -1174,7 +2106,20 @@
     "pp": 10,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "net-good-stats",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [
+      {
+        "stat": "evasion",
+        "change": 2
+      }
+    ],
+    "target": "user",
+    "statChance": 100
   },
   {
     "moveId": 108,
@@ -1185,7 +2130,20 @@
     "pp": 20,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "net-good-stats",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [
+      {
+        "stat": "accuracy",
+        "change": -1
+      }
+    ],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 109,
@@ -1196,7 +2154,15 @@
     "pp": 10,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "ailment",
+    "ailment": "confusion",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 110,
@@ -1207,7 +2173,20 @@
     "pp": 40,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "net-good-stats",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [
+      {
+        "stat": "defense",
+        "change": 1
+      }
+    ],
+    "target": "user",
+    "statChance": 100
   },
   {
     "moveId": 111,
@@ -1218,7 +2197,20 @@
     "pp": 40,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "net-good-stats",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [
+      {
+        "stat": "defense",
+        "change": 1
+      }
+    ],
+    "target": "user",
+    "statChance": 100
   },
   {
     "moveId": 112,
@@ -1229,7 +2221,20 @@
     "pp": 20,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "net-good-stats",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [
+      {
+        "stat": "defense",
+        "change": 2
+      }
+    ],
+    "target": "user",
+    "statChance": 100
   },
   {
     "moveId": 113,
@@ -1240,7 +2245,15 @@
     "pp": 30,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "field-effect",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "users-field",
+    "statChance": 100
   },
   {
     "moveId": 114,
@@ -1251,7 +2264,15 @@
     "pp": 30,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "whole-field-effect",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "entire-field",
+    "statChance": 100
   },
   {
     "moveId": 115,
@@ -1262,7 +2283,15 @@
     "pp": 20,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "field-effect",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "users-field",
+    "statChance": 100
   },
   {
     "moveId": 116,
@@ -1273,7 +2302,15 @@
     "pp": 30,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "unique",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "user",
+    "statChance": 100
   },
   {
     "moveId": 117,
@@ -1284,7 +2321,15 @@
     "pp": 10,
     "priority": 1,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "user",
+    "statChance": 100
   },
   {
     "moveId": 118,
@@ -1295,7 +2340,15 @@
     "pp": 10,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "unique",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "user",
+    "statChance": 100
   },
   {
     "moveId": 119,
@@ -1306,7 +2359,15 @@
     "pp": 20,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "unique",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 120,
@@ -1317,7 +2378,15 @@
     "pp": 5,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "all-other-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 122,
@@ -1328,7 +2397,15 @@
     "pp": 30,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage+ailment",
+    "ailment": "paralysis",
+    "ailmentChance": 30,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 30
   },
   {
     "moveId": 123,
@@ -1339,7 +2416,15 @@
     "pp": 20,
     "priority": 0,
     "damageClass": "Special",
-    "category": "Damage"
+    "category": "damage+ailment",
+    "ailment": "poison",
+    "ailmentChance": 40,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 40
   },
   {
     "moveId": 124,
@@ -1350,7 +2435,15 @@
     "pp": 20,
     "priority": 0,
     "damageClass": "Special",
-    "category": "Damage"
+    "category": "damage+ailment",
+    "ailment": "poison",
+    "ailmentChance": 30,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 30
   },
   {
     "moveId": 126,
@@ -1361,7 +2454,15 @@
     "pp": 5,
     "priority": 0,
     "damageClass": "Special",
-    "category": "Damage"
+    "category": "damage+ailment",
+    "ailment": "burn",
+    "ailmentChance": 10,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 10
   },
   {
     "moveId": 127,
@@ -1372,7 +2473,15 @@
     "pp": 15,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 20
   },
   {
     "moveId": 128,
@@ -1383,7 +2492,15 @@
     "pp": 15,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage+ailment",
+    "ailment": "trap",
+    "ailmentChance": 100,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 129,
@@ -1394,7 +2511,15 @@
     "pp": 20,
     "priority": 0,
     "damageClass": "Special",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "all-opponents",
+    "statChance": 100
   },
   {
     "moveId": 130,
@@ -1405,7 +2530,15 @@
     "pp": 10,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 100,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 132,
@@ -1416,7 +2549,20 @@
     "pp": 35,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage+lower",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [
+      {
+        "stat": "speed",
+        "change": -1
+      }
+    ],
+    "target": "selected-pokemon",
+    "statChance": 10
   },
   {
     "moveId": 133,
@@ -1427,7 +2573,20 @@
     "pp": 20,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "net-good-stats",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [
+      {
+        "stat": "special-defense",
+        "change": 2
+      }
+    ],
+    "target": "user",
+    "statChance": 100
   },
   {
     "moveId": 135,
@@ -1438,7 +2597,15 @@
     "pp": 5,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "heal",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 50,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "user",
+    "statChance": 100
   },
   {
     "moveId": 136,
@@ -1449,7 +2616,15 @@
     "pp": 10,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 137,
@@ -1460,7 +2635,15 @@
     "pp": 30,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "ailment",
+    "ailment": "paralysis",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 138,
@@ -1471,7 +2654,15 @@
     "pp": 15,
     "priority": 0,
     "damageClass": "Special",
-    "category": "Damage"
+    "category": "damage+heal",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 50,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 139,
@@ -1482,7 +2673,15 @@
     "pp": 40,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "ailment",
+    "ailment": "poison",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "all-opponents",
+    "statChance": 100
   },
   {
     "moveId": 141,
@@ -1493,7 +2692,15 @@
     "pp": 10,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage+heal",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 50,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 143,
@@ -1504,7 +2711,15 @@
     "pp": 5,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 1,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 30
   },
   {
     "moveId": 144,
@@ -1515,7 +2730,15 @@
     "pp": 10,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "unique",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 145,
@@ -1526,7 +2749,20 @@
     "pp": 30,
     "priority": 0,
     "damageClass": "Special",
-    "category": "Damage"
+    "category": "damage+lower",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [
+      {
+        "stat": "speed",
+        "change": -1
+      }
+    ],
+    "target": "all-opponents",
+    "statChance": 10
   },
   {
     "moveId": 147,
@@ -1537,7 +2773,15 @@
     "pp": 15,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "ailment",
+    "ailment": "sleep",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 148,
@@ -1548,7 +2792,20 @@
     "pp": 20,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "net-good-stats",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [
+      {
+        "stat": "accuracy",
+        "change": -1
+      }
+    ],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 149,
@@ -1559,7 +2816,15 @@
     "pp": 15,
     "priority": 0,
     "damageClass": "Special",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 150,
@@ -1570,7 +2835,15 @@
     "pp": 40,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "unique",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "user",
+    "statChance": 100
   },
   {
     "moveId": 151,
@@ -1581,7 +2854,20 @@
     "pp": 20,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "net-good-stats",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [
+      {
+        "stat": "defense",
+        "change": 2
+      }
+    ],
+    "target": "user",
+    "statChance": 100
   },
   {
     "moveId": 153,
@@ -1592,7 +2878,15 @@
     "pp": 5,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "all-other-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 154,
@@ -1603,7 +2897,15 @@
     "pp": 15,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 156,
@@ -1614,7 +2916,15 @@
     "pp": 5,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "unique",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "user",
+    "statChance": 100
   },
   {
     "moveId": 157,
@@ -1625,7 +2935,15 @@
     "pp": 10,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "all-opponents",
+    "statChance": 30
   },
   {
     "moveId": 158,
@@ -1636,7 +2954,15 @@
     "pp": 15,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 10
   },
   {
     "moveId": 162,
@@ -1647,7 +2973,15 @@
     "pp": 10,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 163,
@@ -1658,7 +2992,15 @@
     "pp": 20,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 1,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 164,
@@ -1669,7 +3011,15 @@
     "pp": 10,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "unique",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "user",
+    "statChance": 100
   },
   {
     "moveId": 166,
@@ -1680,7 +3030,15 @@
     "pp": 1,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "unique",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 168,
@@ -1691,7 +3049,15 @@
     "pp": 25,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 170,
@@ -1702,7 +3068,15 @@
     "pp": 5,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "unique",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 171,
@@ -1713,7 +3087,15 @@
     "pp": 15,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "ailment",
+    "ailment": "nightmare",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 173,
@@ -1724,7 +3106,15 @@
     "pp": 15,
     "priority": 0,
     "damageClass": "Special",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 30
   },
   {
     "moveId": 174,
@@ -1735,7 +3125,15 @@
     "pp": 10,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "unique",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "specific-move",
+    "statChance": 100
   },
   {
     "moveId": 175,
@@ -1746,7 +3144,15 @@
     "pp": 15,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 178,
@@ -1757,7 +3163,20 @@
     "pp": 40,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "net-good-stats",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [
+      {
+        "stat": "speed",
+        "change": -2
+      }
+    ],
+    "target": "all-opponents",
+    "statChance": 100
   },
   {
     "moveId": 179,
@@ -1768,7 +3187,15 @@
     "pp": 15,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 180,
@@ -1779,7 +3206,15 @@
     "pp": 10,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "unique",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 181,
@@ -1790,7 +3225,15 @@
     "pp": 25,
     "priority": 0,
     "damageClass": "Special",
-    "category": "Damage"
+    "category": "damage+ailment",
+    "ailment": "freeze",
+    "ailmentChance": 10,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "all-opponents",
+    "statChance": 10
   },
   {
     "moveId": 182,
@@ -1801,7 +3244,15 @@
     "pp": 10,
     "priority": 4,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "unique",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "user",
+    "statChance": 100
   },
   {
     "moveId": 184,
@@ -1812,7 +3263,20 @@
     "pp": 10,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "net-good-stats",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [
+      {
+        "stat": "speed",
+        "change": -2
+      }
+    ],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 185,
@@ -1823,7 +3287,15 @@
     "pp": 20,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 188,
@@ -1834,7 +3306,15 @@
     "pp": 10,
     "priority": 0,
     "damageClass": "Special",
-    "category": "Damage"
+    "category": "damage+ailment",
+    "ailment": "poison",
+    "ailmentChance": 30,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 30
   },
   {
     "moveId": 189,
@@ -1845,7 +3325,20 @@
     "pp": 10,
     "priority": 0,
     "damageClass": "Special",
-    "category": "Damage"
+    "category": "damage+lower",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [
+      {
+        "stat": "accuracy",
+        "change": -1
+      }
+    ],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 191,
@@ -1856,7 +3349,15 @@
     "pp": 20,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "field-effect",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "opponents-field",
+    "statChance": 100
   },
   {
     "moveId": 192,
@@ -1867,7 +3368,15 @@
     "pp": 5,
     "priority": 0,
     "damageClass": "Special",
-    "category": "Damage"
+    "category": "damage+ailment",
+    "ailment": "paralysis",
+    "ailmentChance": 100,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 194,
@@ -1878,7 +3387,15 @@
     "pp": 5,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "unique",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "user",
+    "statChance": 100
   },
   {
     "moveId": 196,
@@ -1889,7 +3406,20 @@
     "pp": 15,
     "priority": 0,
     "damageClass": "Special",
-    "category": "Damage"
+    "category": "damage+lower",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [
+      {
+        "stat": "speed",
+        "change": -1
+      }
+    ],
+    "target": "all-opponents",
+    "statChance": 100
   },
   {
     "moveId": 197,
@@ -1900,7 +3430,15 @@
     "pp": 5,
     "priority": 4,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "unique",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "user",
+    "statChance": 100
   },
   {
     "moveId": 199,
@@ -1911,7 +3449,15 @@
     "pp": 5,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "unique",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 201,
@@ -1922,7 +3468,15 @@
     "pp": 10,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "whole-field-effect",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "entire-field",
+    "statChance": 100
   },
   {
     "moveId": 202,
@@ -1933,7 +3487,15 @@
     "pp": 10,
     "priority": 0,
     "damageClass": "Special",
-    "category": "Damage"
+    "category": "damage+heal",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 50,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 203,
@@ -1944,7 +3506,15 @@
     "pp": 10,
     "priority": 4,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "unique",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "user",
+    "statChance": 100
   },
   {
     "moveId": 204,
@@ -1955,7 +3525,20 @@
     "pp": 20,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "net-good-stats",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [
+      {
+        "stat": "attack",
+        "change": -2
+      }
+    ],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 205,
@@ -1966,7 +3549,15 @@
     "pp": 20,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 207,
@@ -1977,7 +3568,20 @@
     "pp": 15,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "swagger",
+    "ailment": "confusion",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [
+      {
+        "stat": "attack",
+        "change": 2
+      }
+    ],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 209,
@@ -1988,7 +3592,15 @@
     "pp": 20,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage+ailment",
+    "ailment": "paralysis",
+    "ailmentChance": 30,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 30
   },
   {
     "moveId": 211,
@@ -1999,7 +3611,20 @@
     "pp": 25,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage+raise",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [
+      {
+        "stat": "defense",
+        "change": 1
+      }
+    ],
+    "target": "selected-pokemon",
+    "statChance": 10
   },
   {
     "moveId": 212,
@@ -2010,7 +3635,15 @@
     "pp": 5,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "unique",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 213,
@@ -2021,7 +3654,15 @@
     "pp": 15,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "ailment",
+    "ailment": "infatuation",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 214,
@@ -2032,7 +3673,15 @@
     "pp": 10,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "unique",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "user",
+    "statChance": 100
   },
   {
     "moveId": 216,
@@ -2043,7 +3692,15 @@
     "pp": 20,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 219,
@@ -2054,7 +3711,15 @@
     "pp": 25,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "field-effect",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "users-field",
+    "statChance": 100
   },
   {
     "moveId": 227,
@@ -2065,7 +3730,15 @@
     "pp": 5,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "unique",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 230,
@@ -2076,7 +3749,20 @@
     "pp": 20,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "net-good-stats",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [
+      {
+        "stat": "evasion",
+        "change": -2
+      }
+    ],
+    "target": "all-opponents",
+    "statChance": 100
   },
   {
     "moveId": 237,
@@ -2087,7 +3773,15 @@
     "pp": 15,
     "priority": 0,
     "damageClass": "Special",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 243,
@@ -2098,7 +3792,15 @@
     "pp": 20,
     "priority": -5,
     "damageClass": "Special",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "specific-move",
+    "statChance": 100
   },
   {
     "moveId": 253,
@@ -2109,7 +3811,15 @@
     "pp": 10,
     "priority": 0,
     "damageClass": "Special",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "random-opponent",
+    "statChance": 100
   },
   {
     "moveId": 268,
@@ -2120,7 +3830,20 @@
     "pp": 20,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "net-good-stats",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [
+      {
+        "stat": "special-defense",
+        "change": 1
+      }
+    ],
+    "target": "user",
+    "statChance": 100
   },
   {
     "moveId": 282,
@@ -2131,7 +3854,15 @@
     "pp": 20,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 283,
@@ -2142,7 +3873,15 @@
     "pp": 5,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 314,
@@ -2153,7 +3892,15 @@
     "pp": 25,
     "priority": 0,
     "damageClass": "Special",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 1,
+    "statChanges": [],
+    "target": "all-opponents",
+    "statChance": 100
   },
   {
     "moveId": 334,
@@ -2164,7 +3911,20 @@
     "pp": 15,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "net-good-stats",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [
+      {
+        "stat": "defense",
+        "change": 2
+      }
+    ],
+    "target": "user",
+    "statChance": 100
   },
   {
     "moveId": 340,
@@ -2175,7 +3935,15 @@
     "pp": 5,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage+ailment",
+    "ailment": "paralysis",
+    "ailmentChance": 30,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 30
   },
   {
     "moveId": 366,
@@ -2186,7 +3954,15 @@
     "pp": 15,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "field-effect",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "users-field",
+    "statChance": 100
   },
   {
     "moveId": 393,
@@ -2197,7 +3973,15 @@
     "pp": 10,
     "priority": 0,
     "damageClass": "Status",
-    "category": "Damage"
+    "category": "unique",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "user",
+    "statChance": 100
   },
   {
     "moveId": 405,
@@ -2208,7 +3992,20 @@
     "pp": 10,
     "priority": 0,
     "damageClass": "Special",
-    "category": "Damage"
+    "category": "damage+lower",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [
+      {
+        "stat": "special-defense",
+        "change": -1
+      }
+    ],
+    "target": "selected-pokemon",
+    "statChance": 10
   },
   {
     "moveId": 428,
@@ -2219,7 +4016,15 @@
     "pp": 15,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 20
   },
   {
     "moveId": 442,
@@ -2230,7 +4035,15 @@
     "pp": 15,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 30
   },
   {
     "moveId": 450,
@@ -2241,7 +4054,15 @@
     "pp": 20,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 451,
@@ -2252,7 +4073,20 @@
     "pp": 10,
     "priority": 0,
     "damageClass": "Special",
-    "category": "Damage"
+    "category": "damage+raise",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [
+      {
+        "stat": "special-attack",
+        "change": 1
+      }
+    ],
+    "target": "selected-pokemon",
+    "statChance": 70
   },
   {
     "moveId": 466,
@@ -2263,7 +4097,36 @@
     "pp": 5,
     "priority": 0,
     "damageClass": "Special",
-    "category": "Damage"
+    "category": "damage+raise",
+    "ailment": "none",
+    "ailmentChance": 10,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [
+      {
+        "stat": "attack",
+        "change": 1
+      },
+      {
+        "stat": "defense",
+        "change": 1
+      },
+      {
+        "stat": "special-attack",
+        "change": 1
+      },
+      {
+        "stat": "special-defense",
+        "change": 1
+      },
+      {
+        "stat": "speed",
+        "change": 1
+      }
+    ],
+    "target": "selected-pokemon",
+    "statChance": 10
   },
   {
     "moveId": 522,
@@ -2274,7 +4137,20 @@
     "pp": 20,
     "priority": 0,
     "damageClass": "Special",
-    "category": "Damage"
+    "category": "damage+lower",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [
+      {
+        "stat": "special-attack",
+        "change": -1
+      }
+    ],
+    "target": "all-opponents",
+    "statChance": 100
   },
   {
     "moveId": 527,
@@ -2285,7 +4161,20 @@
     "pp": 15,
     "priority": 0,
     "damageClass": "Special",
-    "category": "Damage"
+    "category": "damage+lower",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [
+      {
+        "stat": "speed",
+        "change": -1
+      }
+    ],
+    "target": "all-opponents",
+    "statChance": 100
   },
   {
     "moveId": 679,
@@ -2296,7 +4185,20 @@
     "pp": 15,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage+lower",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [
+      {
+        "stat": "attack",
+        "change": -1
+      }
+    ],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 796,
@@ -2307,7 +4209,15 @@
     "pp": 5,
     "priority": 0,
     "damageClass": "Special",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 806,
@@ -2318,7 +4228,20 @@
     "pp": 10,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage+lower",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [
+      {
+        "stat": "special-attack",
+        "change": -1
+      }
+    ],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 814,
@@ -2329,7 +4252,15 @@
     "pp": 10,
     "priority": 0,
     "damageClass": "Physical",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   },
   {
     "moveId": 851,
@@ -2340,6 +4271,14 @@
     "pp": 10,
     "priority": 0,
     "damageClass": "Special",
-    "category": "Damage"
+    "category": "damage",
+    "ailment": "none",
+    "ailmentChance": 0,
+    "healing": 0,
+    "drain": 0,
+    "critRate": 0,
+    "statChanges": [],
+    "target": "selected-pokemon",
+    "statChance": 100
   }
 ]

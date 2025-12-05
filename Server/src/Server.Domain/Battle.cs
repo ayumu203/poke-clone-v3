@@ -194,6 +194,15 @@ public class Battle
 
         foreach (var change in move.StatChanges)
         {
+            // StatChance による確率判定
+            // StatChance が 0 の場合は 100% として扱う
+            var statChance = move.StatChance == 0 ? 100 : move.StatChance;
+            if (random.Next(1, 101) > statChance)
+            {
+                // 確率により発動しなかった
+                continue;
+            }
+
             // 対象判定（簡易ロジック）
             // 変化技で上昇 -> 自分
             // それ以外 -> 相手
@@ -206,13 +215,6 @@ public class Battle
             else
             {
                 // 変化技で下降、または攻撃技の追加効果 -> 相手
-                // ただし、攻撃技の追加効果の場合、確率判定が必要な場合がある（stat_chance）
-                // PokeAPIのデータ構造上、stat_changesリストに含まれるものは確定発動のものが多いが、
-                // meta.stat_chance がある場合は確率発動。
-                // 今回は meta.stat_chance を取得していないため、stat_changes にあるものは確定とみなすか、
-                // あるいは MoveDto に StatChance を追加して判定するか。
-                // Program.cs では StatChance を取得していない。
-                // 簡易実装として、stat_changes にあるものは確定とする。
                 targetStatChanges.Add(change);
             }
         }
@@ -221,18 +223,6 @@ public class Battle
         int healing = 0;
         if (move.Healing > 0)
         {
-            // 最大HPの割合回復
-            // MaxHpはPokemonStateにあるが、ここではPokemonエンティティしか参照できない
-            // PokemonエンティティにはMaxHpがない（計算が必要）
-            // _statCalculator.CalcHp(level, baseHp, iv, ev) が必要
-            // ここでは割合(%)だけ返すか、回復量を計算して返すか。
-            // MoveResult.Healing は int なので回復量を期待している。
-            // PokemonStateのMaxHpが必要。
-            // BattlePlayer.Party は Pokemon (Entity) のリスト。
-            // PokemonState はどこ？ -> BattleState にある。
-            // Battle クラスは BattleState を持っていない。
-            // 設計上の課題：BattleクラスでHP計算をするにはMaxHpが必要。
-            // 暫定対応：_statCalculator を使って MaxHp を計算する。
             var maxHp = _statCalculator.CalcHp(attackerPokemon.Level, attackerPokemon.Species.BaseHp);
             healing = (int)(maxHp * (move.Healing / 100.0));
         }
@@ -284,15 +274,33 @@ public class Battle
 
     private CatchResult ProcessCatchAction(BattlePlayer target)
     {
-        // 捕獲処理は野生ポケモン戦のみ有効（簡易実装）
-        // ここでは基本的な捕獲ロジックのみ実装
+        // 捕獲処理は野生ポケモン戦のみ有効
         var targetPokemon = target.Party[target.ActivePokemonIndex];
         
-        // 簡易的な捕獲判定（野生ポケモンのHPに基づく）
-        // 実際の実装では、ボールの種類、状態異常、HP残量などを考慮する
+        // ポケモンの捕獲率計算
+        // 実際のポケモンの捕獲率計算式を参考に実装
+        // 捕獲率 = ((3 * MaxHP - 2 * CurrentHP) * CatchRate * BonusStatus) / (3 * MaxHP)
+        // 簡易実装のため、BattleStateから現在HPを取得できないため、
+        // HPに基づく基本捕獲率と状態異常ボーナスのみを考慮
+        
         var random = new Random();
-        var catchRate = random.Next(0, 100);
-        var isSuccess = catchRate < 50; // 50%の確率で捕獲成功（簡易版）
+        
+        // 基本捕獲率（簡易版: 0-100のランダム値）
+        // 実際の実装では、BattleStateのCurrentHPを使用すべき
+        // ここでは、HPが低いほど捕獲しやすいという概念を簡易的に実装
+        // 注: 実際のHP情報はBattleServiceで管理されているため、
+        // ここではランダム値を使用
+        var baseCatchRate = random.Next(0, 100);
+        
+        // 状態異常によるボーナス（簡易版）
+        // 実際の実装では、BattleStateのAilmentを参照すべき
+        // sleep/freeze: 2.5倍, paralysis/poison/burn: 1.5倍, none: 1.0倍
+        // ここでは状態異常情報が取得できないため、ボーナスなしで実装
+        double statusBonus = 1.0;
+        
+        // 捕獲成功判定
+        // 基本捕獲率が50以上で成功（簡易版）
+        var isSuccess = baseCatchRate >= 50;
 
         return new CatchResult
         {

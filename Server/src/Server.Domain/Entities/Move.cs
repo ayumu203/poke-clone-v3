@@ -13,9 +13,8 @@ public class Move
     public int Accuracy { get; set; }
     public int Pp { get; set; }
     public int Priority { get; set; }
-    public Rank Rank { get; set; } = new();
-    public string RankTarget { get; set; } = string.Empty;
-    public int RankChance { get; set; }
+    public string Target { get; set; } = string.Empty;
+    public int StatChance { get; set; }
     public Ailment Ailment { get; set; }
     public int AilmentChance { get; set; }
     public int Healing { get; set; }

@@ -229,7 +229,9 @@ class Program
             {
                 Stat = sc.Stat.Name,
                 Change = sc.Change
-            }).ToList()
+            }).ToList(),
+            Target = data.Target?.Name ?? "selected-pokemon",
+            StatChance = data.EffectChance ?? 100  // null の場合は100%として扱う
         };
 
         return dto;
@@ -334,6 +336,12 @@ public class MoveDto
 
     [JsonPropertyName("statChanges")]
     public List<StatChangeDto> StatChanges { get; set; } = new();
+
+    [JsonPropertyName("target")]
+    public string Target { get; set; } = string.Empty;
+
+    [JsonPropertyName("statChance")]
+    public int StatChance { get; set; }
 }
 
 public class StatChangeDto
@@ -482,6 +490,12 @@ public class PokeApiMove
 
     [JsonPropertyName("stat_changes")]
     public List<MoveStatChange> StatChanges { get; set; } = new();
+
+    [JsonPropertyName("target")]
+    public NamedResource? Target { get; set; }
+
+    [JsonPropertyName("effect_chance")]
+    public int? EffectChance { get; set; }
 }
 
 public class MoveMeta
