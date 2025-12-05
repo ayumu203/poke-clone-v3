@@ -37,6 +37,8 @@ public static class SeedData
                         Priority = dto.Priority,
                         DamageClass = Enum.Parse<DamageClass>(dto.DamageClass),
                         Category = Enum.Parse<Category>(dto.Category),
+                        Target = dto.Target ?? "selected-pokemon",
+                        StatChance = dto.StatChance,
                         Ailment = Enum.TryParse<Ailment>(dto.Ailment, true, out var ailment) ? ailment : Ailment.None,
                         AilmentChance = dto.AilmentChance,
                         Healing = dto.Healing,
@@ -118,6 +120,8 @@ public static class SeedData
         public int Drain { get; set; }
         public int CritRate { get; set; }
         public List<StatChangeDto>? StatChanges { get; set; }
+        public string? Target { get; set; }
+        public int StatChance { get; set; }
     }
 
     private class StatChangeDto
