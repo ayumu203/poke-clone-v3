@@ -23,19 +23,13 @@ namespace Server.WebAPI.Migrations
                     accuracy = table.Column<int>(type: "int", nullable: false),
                     pp = table.Column<int>(type: "int", nullable: false),
                     priority = table.Column<int>(type: "int", nullable: false),
-                    rankAttack = table.Column<int>(type: "int", nullable: false),
-                    rankDefence = table.Column<int>(type: "int", nullable: false),
-                    rankSpecialAttack = table.Column<int>(type: "int", nullable: false),
-                    rankSpecialDefence = table.Column<int>(type: "int", nullable: false),
-                    rankSpeed = table.Column<int>(type: "int", nullable: false),
-                    rankAccuracy = table.Column<int>(type: "int", nullable: false),
-                    rankEvasion = table.Column<int>(type: "int", nullable: false),
-                    rankTarget = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: false),
-                    rankChance = table.Column<int>(type: "int", nullable: false),
+                    target = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: false),
+                    statChance = table.Column<int>(type: "int", nullable: false),
                     ailment = table.Column<int>(type: "int", maxLength: 63, nullable: false),
                     ailmentChance = table.Column<int>(type: "int", nullable: false),
                     healing = table.Column<int>(type: "int", nullable: false),
-                    drain = table.Column<int>(type: "int", nullable: false)
+                    drain = table.Column<int>(type: "int", nullable: false),
+                    critRate = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -48,11 +42,23 @@ namespace Server.WebAPI.Migrations
                 {
                     playerId = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     name = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    iconUrl = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false)
+                    iconUrl = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    Money = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Player", x => x.playerId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PlayerParty",
+                columns: table => new
+                {
+                    playerId = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PlayerParty", x => x.playerId);
                 });
 
             migrationBuilder.CreateTable(
@@ -79,21 +85,23 @@ namespace Server.WebAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PlayerParty",
+                name: "MoveStatChange",
                 columns: table => new
                 {
-                    playerPartyId = table.Column<int>(type: "int", nullable: false)
+                    MoveId = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    playerId = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false)
+                    stat = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    change = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PlayerParty", x => x.playerPartyId);
+                    table.PrimaryKey("PK_MoveStatChange", x => new { x.MoveId, x.Id });
                     table.ForeignKey(
-                        name: "FK_PlayerParty_Player_playerId",
-                        column: x => x.playerId,
-                        principalTable: "Player",
-                        principalColumn: "playerId",
+                        name: "FK_MoveStatChange_Move_MoveId",
+                        column: x => x.MoveId,
+                        principalTable: "Move",
+                        principalColumn: "moveId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -145,17 +153,17 @@ namespace Server.WebAPI.Migrations
                 name: "PlayerPartyPokemon",
                 columns: table => new
                 {
-                    playerPartyId = table.Column<int>(type: "int", nullable: false),
+                    playerId = table.Column<string>(type: "nvarchar(255)", nullable: false),
                     pokemonId = table.Column<string>(type: "nvarchar(255)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PlayerPartyPokemon", x => new { x.playerPartyId, x.pokemonId });
+                    table.PrimaryKey("PK_PlayerPartyPokemon", x => new { x.playerId, x.pokemonId });
                     table.ForeignKey(
-                        name: "FK_PlayerPartyPokemon_PlayerParty_playerPartyId",
-                        column: x => x.playerPartyId,
+                        name: "FK_PlayerPartyPokemon_PlayerParty_playerId",
+                        column: x => x.playerId,
                         principalTable: "PlayerParty",
-                        principalColumn: "playerPartyId",
+                        principalColumn: "playerId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_PlayerPartyPokemon_Pokemon_pokemonId",
@@ -190,11 +198,6 @@ namespace Server.WebAPI.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_PlayerParty_playerId",
-                table: "PlayerParty",
-                column: "playerId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_PlayerPartyPokemon_pokemonId",
                 table: "PlayerPartyPokemon",
                 column: "pokemonId");
@@ -219,6 +222,12 @@ namespace Server.WebAPI.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "MoveStatChange");
+
+            migrationBuilder.DropTable(
+                name: "Player");
+
+            migrationBuilder.DropTable(
                 name: "PlayerPartyPokemon");
 
             migrationBuilder.DropTable(
@@ -235,9 +244,6 @@ namespace Server.WebAPI.Migrations
 
             migrationBuilder.DropTable(
                 name: "Pokemon");
-
-            migrationBuilder.DropTable(
-                name: "Player");
 
             migrationBuilder.DropTable(
                 name: "PokemonSpecies");

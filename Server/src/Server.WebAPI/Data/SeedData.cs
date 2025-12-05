@@ -26,6 +26,8 @@ public static class SeedData
             {
                 foreach (var dto in moves)
                 {
+                    var category = MapCategory(dto.Category);
+                    
                     context.Moves.Add(new Move
                     {
                         MoveId = dto.MoveId,
@@ -36,7 +38,7 @@ public static class SeedData
                         Pp = dto.Pp,
                         Priority = dto.Priority,
                         DamageClass = Enum.Parse<DamageClass>(dto.DamageClass),
-                        Category = Enum.Parse<Category>(dto.Category),
+                        Category = category,
                         Target = dto.Target ?? "selected-pokemon",
                         StatChance = dto.StatChance,
                         Ailment = Enum.TryParse<Ailment>(dto.Ailment, true, out var ailment) ? ailment : Ailment.None,
@@ -101,6 +103,24 @@ public static class SeedData
                 await context.SaveChangesAsync();
             }
         }
+    }
+
+    private static Category MapCategory(string apiCategory)
+    {
+        // PokeAPIのcategory値をCategory Enumにマッピング
+        return apiCategory.ToLower() switch
+        {
+            "damage" => Category.Damage,
+            "ailment" => Category.Ailment,
+            "net-good-stats" => Category.NetGoodStats,
+            "heal" => Category.Heal,
+            "damage+ailment" => Category.DamageAilment,
+            "swagger" => Category.Swagger,
+            "damage+raise" => Category.DamageRaise,
+            "damage+lower" => Category.DamageLower,
+            "inflict-status" => Category.InflictStatus,
+            _ => Category.UniqueEffect  // デフォルト
+        };
     }
     
     private class MoveDto

@@ -11,8 +11,8 @@ using Server.Infrastructure.Data;
 namespace Server.WebAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251201154636_AddMoneyToPlayer")]
-    partial class AddMoneyToPlayer
+    [Migration("20251205155311_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -26,13 +26,13 @@ namespace Server.WebAPI.Migrations
 
             modelBuilder.Entity("PlayerPartyPokemon", b =>
                 {
-                    b.Property<int>("playerPartyId")
-                        .HasColumnType("int");
+                    b.Property<string>("playerId")
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("pokemonId")
                         .HasColumnType("nvarchar(255)");
 
-                    b.HasKey("playerPartyId", "pokemonId");
+                    b.HasKey("playerId", "pokemonId");
 
                     b.HasIndex("pokemonId");
 
@@ -124,15 +124,15 @@ namespace Server.WebAPI.Migrations
                         .HasColumnType("int")
                         .HasColumnName("priority");
 
-                    b.Property<int>("RankChance")
+                    b.Property<int>("StatChance")
                         .HasColumnType("int")
-                        .HasColumnName("rankChance");
+                        .HasColumnName("statChance");
 
-                    b.Property<string>("RankTarget")
+                    b.Property<string>("Target")
                         .IsRequired()
                         .HasMaxLength(63)
                         .HasColumnType("nvarchar(63)")
-                        .HasColumnName("rankTarget");
+                        .HasColumnName("target");
 
                     b.Property<string>("Type")
                         .IsRequired()
@@ -174,22 +174,12 @@ namespace Server.WebAPI.Migrations
 
             modelBuilder.Entity("Server.Domain.Entities.PlayerParty", b =>
                 {
-                    b.Property<int>("PlayerPartyId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("playerPartyId");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PlayerPartyId"));
-
                     b.Property<string>("PlayerId")
-                        .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)")
                         .HasColumnName("playerId");
 
-                    b.HasKey("PlayerPartyId");
-
-                    b.HasIndex("PlayerId");
+                    b.HasKey("PlayerId");
 
                     b.ToTable("PlayerParty", (string)null);
                 });
@@ -209,12 +199,13 @@ namespace Server.WebAPI.Migrations
                         .HasColumnType("int")
                         .HasColumnName("level");
 
-                    b.Property<int>("pokemonSpeciesId")
-                        .HasColumnType("int");
+                    b.Property<int>("PokemonSpeciesId")
+                        .HasColumnType("int")
+                        .HasColumnName("pokemonSpeciesId");
 
                     b.HasKey("PokemonId");
 
-                    b.HasIndex("pokemonSpeciesId");
+                    b.HasIndex("PokemonSpeciesId");
 
                     b.ToTable("Pokemon", (string)null);
                 });
@@ -291,7 +282,7 @@ namespace Server.WebAPI.Migrations
                 {
                     b.HasOne("Server.Domain.Entities.PlayerParty", null)
                         .WithMany()
-                        .HasForeignKey("playerPartyId")
+                        .HasForeignKey("playerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -334,47 +325,6 @@ namespace Server.WebAPI.Migrations
 
             modelBuilder.Entity("Server.Domain.Entities.Move", b =>
                 {
-                    b.OwnsOne("Server.Domain.Entities.Rank", "Rank", b1 =>
-                        {
-                            b1.Property<int>("MoveId")
-                                .HasColumnType("int");
-
-                            b1.Property<int>("Accuracy")
-                                .HasColumnType("int")
-                                .HasColumnName("rankAccuracy");
-
-                            b1.Property<int>("Attack")
-                                .HasColumnType("int")
-                                .HasColumnName("rankAttack");
-
-                            b1.Property<int>("Defence")
-                                .HasColumnType("int")
-                                .HasColumnName("rankDefence");
-
-                            b1.Property<int>("Evasion")
-                                .HasColumnType("int")
-                                .HasColumnName("rankEvasion");
-
-                            b1.Property<int>("SpecialAttack")
-                                .HasColumnType("int")
-                                .HasColumnName("rankSpecialAttack");
-
-                            b1.Property<int>("SpecialDefence")
-                                .HasColumnType("int")
-                                .HasColumnName("rankSpecialDefence");
-
-                            b1.Property<int>("Speed")
-                                .HasColumnType("int")
-                                .HasColumnName("rankSpeed");
-
-                            b1.HasKey("MoveId");
-
-                            b1.ToTable("Move");
-
-                            b1.WithOwner()
-                                .HasForeignKey("MoveId");
-                        });
-
                     b.OwnsMany("Server.Domain.Entities.StatChange", "StatChanges", b1 =>
                         {
                             b1.Property<int>("MoveId")
@@ -403,28 +353,14 @@ namespace Server.WebAPI.Migrations
                                 .HasForeignKey("MoveId");
                         });
 
-                    b.Navigation("Rank")
-                        .IsRequired();
-
                     b.Navigation("StatChanges");
-                });
-
-            modelBuilder.Entity("Server.Domain.Entities.PlayerParty", b =>
-                {
-                    b.HasOne("Server.Domain.Entities.Player", "Player")
-                        .WithMany()
-                        .HasForeignKey("PlayerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Player");
                 });
 
             modelBuilder.Entity("Server.Domain.Entities.Pokemon", b =>
                 {
                     b.HasOne("Server.Domain.Entities.PokemonSpecies", "Species")
                         .WithMany()
-                        .HasForeignKey("pokemonSpeciesId")
+                        .HasForeignKey("PokemonSpeciesId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
