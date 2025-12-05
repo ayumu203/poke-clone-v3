@@ -11,8 +11,8 @@ using Server.Infrastructure.Data;
 namespace Server.WebAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251205144859_RemoveRankAndRenameTargetFields")]
-    partial class RemoveRankAndRenameTargetFields
+    [Migration("20251205152536_RemoveRankFromMoveAndRename")]
+    partial class RemoveRankFromMoveAndRename
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
