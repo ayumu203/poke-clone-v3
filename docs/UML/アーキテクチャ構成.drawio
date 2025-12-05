@@ -1,6 +1,6 @@
 <mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.0.9 Chrome/128.0.6613.186 Electron/32.2.5 Safari/537.36" version="26.0.9">
   <diagram name="マイクロアーキテクチャ" id="8hUocoQ0YRJoFsAz7BZK">
-    <mxGraphModel dx="1416" dy="938" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1339" dy="957" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -34,7 +34,7 @@
         <mxCell id="fDDaKoJMhnfVtC0KZOg8-34" value="" style="swimlane;startSize=0;dashed=1;strokeColor=#CCCCCC;strokeWidth=2;fontSize=15;" parent="fDDaKoJMhnfVtC0KZOg8-41" vertex="1">
           <mxGeometry x="881" y="80" width="160" height="160" as="geometry" />
         </mxCell>
-        <mxCell id="fDDaKoJMhnfVtC0KZOg8-35" value="Azure Database" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=15;" parent="fDDaKoJMhnfVtC0KZOg8-34" vertex="1">
+        <mxCell id="fDDaKoJMhnfVtC0KZOg8-35" value="Azure SQL Server" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=15;" parent="fDDaKoJMhnfVtC0KZOg8-34" vertex="1">
           <mxGeometry x="25" y="10" width="110" height="30" as="geometry" />
         </mxCell>
         <mxCell id="fDDaKoJMhnfVtC0KZOg8-33" value="" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=15;image=img/lib/azure2/databases/Azure_Database_MySQL_Server.svg;" parent="fDDaKoJMhnfVtC0KZOg8-34" vertex="1">
