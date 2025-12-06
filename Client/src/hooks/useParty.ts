@@ -1,24 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
+import type { Pokemon } from '@/types/pokemon';
+
 import { useApi } from './useApi';
-
-interface Move {
-    moveId: number;
-    name: string;
-    type: string;
-    damageClass: string;
-    power: number;
-    accuracy: number;
-    pp: number;
-}
-
-interface Pokemon {
-    pokemonId: string;
-    pokemonSpeciesId: number;
-    level: number;
-    exp: number;
-    moves: Move[];
-}
 
 export function useParty() {
     const { request } = useApi<Pokemon[]>();

@@ -1,21 +1,8 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 
-import { useApi } from './useApi';
+import type { StarterOption } from '@/types/starter';
 
-interface StarterOption {
-    pokemonSpeciesId: number;
-    name: string;
-    frontImage: string;
-    backImage: string;
-    type1: string;
-    type2?: string;
-    baseHp: number;
-    baseAttack: number;
-    baseDefence: number;
-    baseSpecialAttack: number;
-    baseSpecialDefence: number;
-    baseSpeed: number;
-}
+import { useApi } from './useApi';
 
 export function useStarter() {
     const { request } = useApi<StarterOption[]>();

@@ -1,12 +1,8 @@
 import { useCallback, useState } from 'react';
 
-import { useAuth } from './useAuth';
+import type { UseApiOptions } from '@/types/api';
 
-interface UseApiOptions {
-    method?: 'GET' | 'POST' | 'PUT' | 'DELETE';
-    body?: unknown;
-    headers?: Record<string, string>;
-}
+import { useAuth } from './useAuth';
 
 export function useApi<T = unknown>() {
     const [data, setData] = useState<T | null>(null);

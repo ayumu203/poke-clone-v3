@@ -1,12 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
-import { useApi } from './useApi';
+import type { Player } from '@/types/player';
 
-interface Player {
-    playerId: string;
-    name: string;
-    iconUrl?: string;
-}
+import { useApi } from './useApi';
 
 export function usePlayer() {
     const { request } = useApi<Player>();
