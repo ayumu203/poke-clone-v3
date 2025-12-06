@@ -1,4 +1,4 @@
-import { type ActionType,type PlayerAction } from './action';
+import { type ActionType, type PlayerAction } from './action';
 
 export interface BattleState {
     battleId: string;
@@ -66,6 +66,19 @@ export interface StatChange {
     stat: PokemonStat;
     change: number;  // -6 ~ +6 の範囲
 }
+
+/**
+ * バトルの待機状態を表す型
+ * - idle: 待機なし（通常状態）
+ * - waiting-action: 行動入力待ち
+ * - waiting-opponent: 対戦相手の行動待ち
+ * - processing: ターン処理中
+ */
+export type BattleWaitStatus =
+    | 'idle'
+    | 'waiting-action'
+    | 'waiting-opponent'
+    | 'processing';
 
 export interface ProcessResult {
     actionResults: ActionResult[];
