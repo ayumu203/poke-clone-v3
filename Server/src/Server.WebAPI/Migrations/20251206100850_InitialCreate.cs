@@ -88,15 +88,13 @@ namespace Server.WebAPI.Migrations
                 name: "MoveStatChange",
                 columns: table => new
                 {
+                    stat = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     MoveId = table.Column<int>(type: "int", nullable: false),
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    stat = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     change = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MoveStatChange", x => new { x.MoveId, x.Id });
+                    table.PrimaryKey("PK_MoveStatChange", x => new { x.MoveId, x.stat });
                     table.ForeignKey(
                         name: "FK_MoveStatChange_Move_MoveId",
                         column: x => x.MoveId,

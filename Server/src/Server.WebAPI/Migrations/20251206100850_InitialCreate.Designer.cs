@@ -11,7 +11,7 @@ using Server.Infrastructure.Data;
 namespace Server.WebAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251205155311_InitialCreate")]
+    [Migration("20251206100850_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -330,22 +330,15 @@ namespace Server.WebAPI.Migrations
                             b1.Property<int>("MoveId")
                                 .HasColumnType("int");
 
-                            b1.Property<int>("Id")
-                                .ValueGeneratedOnAdd()
-                                .HasColumnType("int");
-
-                            SqlServerPropertyBuilderExtensions.UseIdentityColumn(b1.Property<int>("Id"));
+                            b1.Property<string>("Stat")
+                                .HasColumnType("nvarchar(450)")
+                                .HasColumnName("stat");
 
                             b1.Property<int>("Change")
                                 .HasColumnType("int")
                                 .HasColumnName("change");
 
-                            b1.Property<string>("Stat")
-                                .IsRequired()
-                                .HasColumnType("nvarchar(max)")
-                                .HasColumnName("stat");
-
-                            b1.HasKey("MoveId", "Id");
+                            b1.HasKey("MoveId", "Stat");
 
                             b1.ToTable("MoveStatChange", (string)null);
 

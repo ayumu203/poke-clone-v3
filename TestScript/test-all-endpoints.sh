@@ -8,7 +8,7 @@ TOTAL_COUNT=0
 
 # テスト用のユニークなPlayerIdを生成
 TIMESTAMP=$(date +%s)
-PLAYER_ID="${TIMESTAMP}testplayer"
+PLAYER_ID="${TIMESTAMP}_testplayer"
 
 echo "=========================================="
 echo "  全エンドポイントテストスクリプト"
