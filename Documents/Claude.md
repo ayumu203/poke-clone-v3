@@ -10,27 +10,24 @@
 ## 内容
 
 - Client-PoCで以下のエラーが出ています.
-  - 原因の究明, 可能ならば修正をお願いします.
-- またClient-PoCで攻撃結果などがポケモンのHPに反映されていないです.
-  - まだ実装していない可能性があるので実装をお願いします.
+  - まだ治ってない.
+  - ただ, 状態異常以外は正常に動作してそう.
 
 ```bash
 バトルが開始されました！
-5ダメージ！
-6ダメージ！
-ひっかくを使用！
+バトルが開始されました！
 24ダメージ！ 効果は抜群だ！
-3ダメージ！
+6ダメージ！
 エラー: An error occurred while saving the entity changes. See the inner exception for details.
 ほのおのパンチを使用！
-0ダメージ！
-0ダメージ！
-エラー: An error occurred while saving the entity changes. See the inner exception for details.
-つるぎのまいを使用！
-5ダメージ！
+24ダメージ！ 効果は抜群だ！
 6ダメージ！
 エラー: An error occurred while saving the entity changes. See the inner exception for details.
-ひっかくを使用！
+ほのおのパンチを使用！
+24ダメージ！ 効果は抜群だ！
+13ダメージ！ 急所に当たった！
+バトル終了！ 勝者: [object Object]
+ほのおのパンチを使用！
 ```
 
 (1) フロントエンドディレクトリ構造
