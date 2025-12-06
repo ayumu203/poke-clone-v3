@@ -10,7 +10,6 @@ using Server.WebAPI.Hubs;
 using Server.WebAPI.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,26 +32,36 @@ builder.Services.AddCors(options =>
     });
 });
 
-// JWT Bearer Authentication
+// Firebase Authentication
+var firebaseProjectId = builder.Configuration["Firebase:ProjectId"] ?? "poke-clone-v3";
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
+        options.Authority = $"https://securetoken.google.com/{firebaseProjectId}";
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = true,
+            ValidIssuer = $"https://securetoken.google.com/{firebaseProjectId}",
             ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
-            ValidIssuer = builder.Configuration["Jwt:Issuer"],
-            ValidAudience = builder.Configuration["Jwt:Audience"],
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!))
+            ValidAudience = firebaseProjectId,
+            ValidateLifetime = true
         };
         
         options.Events = new JwtBearerEvents
         {
             OnMessageReceived = context =>
             {
+                // Cookie または Authorization ヘッダーからトークンを取得
                 var token = context.Request.Cookies["access_token"];
+                if (string.IsNullOrEmpty(token))
+                {
+                    var authHeader = context.Request.Headers["Authorization"].FirstOrDefault();
+                    if (authHeader?.StartsWith("Bearer ") == true)
+                    {
+                        token = authHeader.Substring("Bearer ".Length).Trim();
+                    }
+                }
+                
                 if (!string.IsNullOrEmpty(token))
                 {
                     context.Token = token;

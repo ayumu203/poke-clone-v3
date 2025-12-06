@@ -1,33 +1,120 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import {
+    createUserWithEmailAndPassword,
+    onAuthStateChanged,
+    signInAnonymously,
+    signInWithEmailAndPassword,
+    signInWithPopup,
+    signOut,
+    GoogleAuthProvider,
+    type User,
+} from 'firebase/auth';
 
-/**
- * モック認証フック
- * 本番環境ではAzure AD B2Cを使用しますが、開発環境ではモックトークンを返します
- */
+import { auth } from '@/lib/firebase/config';
+
 export function useAuth() {
-    const [token, setToken] = useState<string | null>('mock-jwt-token');
+    const [user, setUser] = useState<User | null>(null);
+    const [token, setToken] = useState<string | null>(null);
+    const [loading, setLoading] = useState(true);
 
-    const getAccessToken = useCallback(async (): Promise<string | null> => {
-        // モック実装: 実際のトークンを返す
-        return token;
-    }, [token]);
+    // 認証状態の監視
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+            setUser(currentUser);
 
-    const login = useCallback(async (_username: string, _password: string) => {
-        // モック実装: 常に成功するログイン処理
-        const mockToken = `mock-jwt-token-${Date.now()}`;
-        setToken(mockToken);
-        return mockToken;
+            if (currentUser) {
+                // IDトークンを取得
+                const idToken = await currentUser.getIdToken();
+                setToken(idToken);
+            } else {
+                setToken(null);
+            }
+
+            setLoading(false);
+        });
+
+        return () => unsubscribe();
     }, []);
 
-    const logout = useCallback(() => {
-        setToken(null);
+    // アクセストークン取得
+    const getAccessToken = useCallback(async (): Promise<string | null> => {
+        if (!user) return null;
+
+        try {
+            const idToken = await user.getIdToken(true);
+            return idToken;
+        } catch (error) {
+            console.error('Failed to get access token:', error);
+            return null;
+        }
+    }, [user]);
+
+
+    const loginWithEmail = useCallback(async (email: string, password: string) => {
+        try {
+            const userCredential = await signInWithEmailAndPassword(auth, email, password);
+            return userCredential.user;
+        } catch (error) {
+            console.error('Login failed:', error);
+            throw error;
+        }
+    }, []);
+
+    // メール
+    const signUpWithEmail = useCallback(async (email: string, password: string) => {
+        try {
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            return userCredential.user;
+        } catch (error) {
+            console.error('Sign up failed:', error);
+            throw error;
+        }
+    }, []);
+
+    // Google
+    const loginWithGoogle = useCallback(async () => {
+        try {
+            const provider = new GoogleAuthProvider();
+            const userCredential = await signInWithPopup(auth, provider);
+            return userCredential.user;
+        } catch (error) {
+            console.error('Google login failed:', error);
+            throw error;
+        }
+    }, []);
+
+    // 匿名
+    const loginAnonymously = useCallback(async () => {
+        try {
+            const userCredential = await signInAnonymously(auth);
+            return userCredential.user;
+        } catch (error) {
+            console.error('Anonymous login failed:', error);
+            throw error;
+        }
+    }, []);
+
+    // ログアウト
+    const logout = useCallback(async () => {
+        try {
+            await signOut(auth);
+            setToken(null);
+        } catch (error) {
+            console.error('Logout failed:', error);
+            throw error;
+        }
     }, []);
 
     return {
+        user,
         token,
+        loading,
+        isAuthenticated: !!user,
         getAccessToken,
-        login,
+        loginWithEmail,
+        signUpWithEmail,
+        loginWithGoogle,
+        loginAnonymously,
         logout,
-        isAuthenticated: token !== null,
     };
 }

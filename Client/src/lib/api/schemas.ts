@@ -1,9 +1,6 @@
 import { makeApi, Zodios, type ZodiosOptions } from "@zodios/core";
 import { z } from "zod";
 
-const MockLoginRequest = z
-  .object({ username: z.string().nullable(), password: z.string().nullable() })
-  .partial();
 const PokemonType = z.union([
   z.literal(0),
   z.literal(1),
@@ -115,7 +112,6 @@ const SelectStarterRequest = z
   .partial();
 
 export const schemas = {
-  MockLoginRequest,
   PokemonType,
   Category,
   DamageClass,
@@ -130,20 +126,6 @@ export const schemas = {
 };
 
 const endpoints = makeApi([
-  {
-    method: "post",
-    path: "/api/Auth/login/mock",
-    alias: "postApiAuthloginmock",
-    requestFormat: "json",
-    parameters: [
-      {
-        name: "body",
-        type: "Body",
-        schema: MockLoginRequest,
-      },
-    ],
-    response: z.void(),
-  },
   {
     method: "post",
     path: "/api/Auth/logout",
