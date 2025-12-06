@@ -9,12 +9,20 @@
 
 ## 内容
 
-- 実装予定.mdの以下に関して回答・修正をお願いします.
-  - `appsettings.json`, `appsettings.Development.json`に含まれている接続情報は実装予定.mdを実施することで隠匿できますか？
-  - フロントエンドの認証(Google, Microsoft, メール)のAzure External Entra IDに関する記述が見当たりません.
-  - フロントエンドのAPI取得方法をカスタムフックとして実装するための方針を記載してください.
-  - フロントエンドのレンダリング方法を検討したいです.
-    - フロントエンドのページ構成としては`/home/cs23017/poke-clone-v3/Design/ポケモン詳細画面.svg`のように, 上画面に`/home/cs23017/poke-clone-v3/Documents/Images`の画像, 下画面にボタンや情報を表示, 画面外のヘッダーに各リンク, BGMのON/OFFのトグルスイッチを配置.
+- Client-PoCで以下のエラーが出ています.
+  - 原因の究明, 可能ならば修正をお願いします.
+
+```bash
+バトルが開始されました！
+24ダメージ！ 効果は抜群だ！
+3ダメージ！
+エラー: The value of shadow key property 'StatChange.Id' is unknown when attempting to save changes. This is because shadow property values cannot be preserved when the entity is not being tracked. Consider adding the property to the entity's .NET type. See https://aka.ms/efcore-docs-owned-collections for more information.
+ほのおのパンチを使用！
+0ダメージ！
+9ダメージ！
+エラー: The value of shadow key property 'StatChange.Id' is unknown when attempting to save changes. This is because shadow property values cannot be preserved when the entity is not being tracked. Consider adding the property to the entity's .NET type. See https://aka.ms/efcore-docs-owned-collections for more information.
+つるぎのまいを使用！
+```
 
 (1) フロントエンドディレクトリ構造
 
