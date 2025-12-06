@@ -12,6 +12,7 @@
 - 実装予定.mdの以下に関して回答・修正をお願いします.
   - `appsettings.json`, `appsettings.Development.json`に含まれている接続情報は実装予定.mdを実施することで隠匿できますか？
   - フロントエンドの認証(Google, Microsoft, メール)のAzure External Entra IDに関する記述が見当たりません.
+  - フロントエンドのAPI取得方法をカスタムフックとして実装するための方針を記載してください.
   - フロントエンドのレンダリング方法を検討したいです.
     - フロントエンドのページ構成としては`/home/cs23017/poke-clone-v3/Design/ポケモン詳細画面.svg`のように, 上画面に`/home/cs23017/poke-clone-v3/Documents/Images`の画像, 下画面にボタンや情報を表示, 画面外のヘッダーに各リンク, BGMのON/OFFのトグルスイッチを配置.
 
