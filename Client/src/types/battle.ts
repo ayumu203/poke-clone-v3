@@ -1,4 +1,4 @@
-import { PlayerAction, ActionType } from './action';
+import { type ActionType,type PlayerAction } from './action';
 
 export interface BattleState {
     battleId: string;

@@ -8,7 +8,7 @@
 - ドキュメントをよく確認してください.
 
 ## 内容
-- `/home/cs23017/poke-clone-v3/Documents/実装予定.md`においてNext.js v16 を利用するように修正をお願いします.
+- `/home/cs23017/poke-clone-v3/Documents/実装予定.md`のフロントエンド実装手順のStep3~7を実施してください.
 
 ## ドキュメント
 
