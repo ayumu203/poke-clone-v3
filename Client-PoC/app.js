@@ -104,7 +104,7 @@ function onBattleStarted(state) {
     addLog('バトルが開始されました！', 'info');
 }
 
-function onReceiveTurnResult(result) {
+async function onReceiveTurnResult(result) {
     console.log("Turn result:", result);
 
     // アクション結果をログに追加
@@ -122,9 +122,6 @@ function onReceiveTurnResult(result) {
                 if (effectiveness < 1) message += ' 効果はいまひとつのようだ...';
 
                 addLog(message, 'damage');
-
-                // HP更新（仮）
-                updateHPBars();
             } else {
                 addLog(`攻撃は外れた！${moveResult.failureReason}`, 'info');
             }
@@ -146,6 +143,9 @@ function onReceiveTurnResult(result) {
             }
         }
     });
+
+    // 最新のBattleStateを取得してHPを更新
+    await updateBattleStateFromServer();
 
     // UI更新
     setTimeout(() => {
@@ -291,9 +291,27 @@ function updateHPBar(selector, current, max) {
     }
 }
 
-function updateHPBars() {
-    // 簡易実装: 実際のHPはサーバーから送られてくるBattleStateを再取得する必要がある
-    // ここでは表示のみ
+async function updateBattleStateFromServer() {
+    if (!connection) return;
+
+    try {
+        const battleId = $('#battle-id').val();
+        const apiUrl = $('#api-url').val();
+        const token = await getAuthToken();
+
+        const response = await fetch(`${apiUrl}/api/Battle/${battleId}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        if (response.ok) {
+            battleState = await response.json();
+            console.log('Updated battle state from server:', battleState);
+        }
+    } catch (error) {
+        console.error('Failed to update battle state:', error);
+    }
 }
 
 function updateMoveButtons(moves) {

@@ -99,6 +99,7 @@ public class AppDbContext : DbContext
             {
                 sc.ToTable("MoveStatChange");
                 sc.WithOwner().HasForeignKey("MoveId");
+                sc.HasKey("MoveId", "Stat"); // 複合キーを明示的に設定
                 sc.Property(s => s.Stat).HasColumnName("stat").HasConversion<string>();
                 sc.Property(s => s.Change).HasColumnName("change");
             });
