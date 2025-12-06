@@ -101,20 +101,15 @@ public class PokemonRepository : IPokemonRepository
 
     public async Task UpdateAsync(Pokemon pokemon)
     {
-        // Movesがロードされている場合、既存のMoveをアタッチ
-        if (pokemon.Moves != null && pokemon.Moves.Any())
-        {
-            foreach (var move in pokemon.Moves)
-            {
-                if (!_context.Entry(move).IsKeySet || _context.Entry(move).State == EntityState.Detached)
-                {
-                    _context.Attach(move);
-                }
-            }
-        }
+        // Movesを一時保存してクリア（PokemonMoveInstance重複挿入を防ぐ）
+        var moves = pokemon.Moves;
+        pokemon.Moves = null;
         
         _context.Pokemons.Update(pokemon);
         await _context.SaveChangesAsync();
+        
+        // Movesを復元（メモリ上のオブジェクト用）
+        pokemon.Moves = moves;
     }
 
     public async Task<bool> IsPartyFullAsync(string playerId)

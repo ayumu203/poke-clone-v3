@@ -11,13 +11,11 @@
 
 - Client-PoCで以下のエラーが出ています.
   - まだ治ってない.
-  - ただ, 状態異常以外は正常に動作してそう.
 
 ```bash
 バトルが開始されました！
-バトルが開始されました！
 24ダメージ！ 効果は抜群だ！
-6ダメージ！
+0ダメージ！
 エラー: An error occurred while saving the entity changes. See the inner exception for details.
 ほのおのパンチを使用！
 24ダメージ！ 効果は抜群だ！
@@ -25,48 +23,112 @@
 エラー: An error occurred while saving the entity changes. See the inner exception for details.
 ほのおのパンチを使用！
 24ダメージ！ 効果は抜群だ！
-13ダメージ！ 急所に当たった！
-バトル終了！ 勝者: [object Object]
+6ダメージ！
+エラー: An error occurred while saving the entity changes. See the inner exception for details.
 ほのおのパンチを使用！
 ```
 
-(1) フロントエンドディレクトリ構造
-
 ```bash
-/poke-clone-v3/Client$ tree -I "node_modules"
-.
-├── README.md
-├── debug-storybook.log
-├── eslint.config.mjs
-├── next-env.d.ts
-├── next.config.ts
-├── package.json
-├── pnpm-lock.yaml
-├── postcss.config.mjs
-├── prettier.config.mjs
-├── public
-├── src
-│   ├── app
-│   │   ├── favicon.ico
-│   │   ├── globals.css
-│   │   ├── layout.tsx
-│   │   └── page.tsx
-│   ├── components
-│   │   ├── atoms
-│   │   ├── molecules
-│   │   ├── organisms
-│   │   └── templates
-│   ├── hooks
-│   ├── lib
-│   │   └── api
-│   │       └── schemas.ts
-│   ├── stories
-│   │   └── assets
-│   ├── types
-│   └── utils
-├── tsconfig.json
-├── vitest.config.ts
-└── vitest.shims.d.ts
+ommandTimeout='30']
+pokeclone_app    |       SET NOCOUNT ON;
+pokeclone_app    |       UPDATE [Pokemon] SET [exp] = @p0, [level] = @p1, [pokemonSpeciesId] = @p2
+pokeclone_app    |       OUTPUT 1
+pokeclone_app    |       WHERE [pokemonId] = @p3;
+pokeclone_app    |       INSERT INTO [PokemonMoveInstance] ([moveId], [pokemonId])
+pokeclone_app    |       VALUES (@p4, @p5),
+pokeclone_app    |       (@p6, @p7),
+pokeclone_app    |       (@p8, @p9),
+pokeclone_app    |       (@p10, @p11);
+pokeclone_app    |       UPDATE [PokemonSpecies] SET [backImage] = @p12, [baseAttack] = @p13, [baseDefense] = @p14, [baseHp] = @p15, [baseSpecialAttack] = @p16, [baseSpecialDefense] = @p17, [baseSpeed] = @p18, [evolveLevel] = @p19, [frontImage] = @p20, [name] = @p21, [type1] = @p22, [type2] = @p23
+pokeclone_app    |       OUTPUT 1
+pokeclone_app    |       WHERE [pokemonSpeciesId] = @p24;
+pokeclone_app    | fail: Microsoft.EntityFrameworkCore.Update[10000]
+pokeclone_app    |       An exception occurred in the database while saving changes for context type 'Server.Infrastructure.Data.AppDbContext'.
+pokeclone_app    |       Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+pokeclone_app    |        ---> Microsoft.Data.SqlClient.SqlException (0x80131904): Violation of PRIMARY KEY constraint 'PK_PokemonMoveInstance'. Cannot insert duplicate key in object 'dbo.PokemonMoveInstance'. The duplicate key value is (adf32d49-ad23-4066-9a3e-8fac76f7edb8, 7).
+pokeclone_app    |          at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+pokeclone_app    |          at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+pokeclone_app    |          at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+pokeclone_app    |          at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+pokeclone_app    |          at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+pokeclone_app    |          at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreResults(Boolean& moreResults)
+pokeclone_app    |          at Microsoft.Data.SqlClient.SqlDataReader.TryNextResult(Boolean& more)
+pokeclone_app    |          at Microsoft.Data.SqlClient.SqlDataReader.NextResultAsyncExecute(Task task, Object state)
+pokeclone_app    |          at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+pokeclone_app    |       --- End of stack trace from previous location ---
+pokeclone_app    |          at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+pokeclone_app    |       ClientConnectionId:74b9351b-d2ba-4a12-a151-a9186750aaff
+pokeclone_app    |       Error Number:2627,State:1,Class:14
+pokeclone_app    |          --- End of inner exception stack trace ---
+pokeclone_app    |          at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+pokeclone_app    |          at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+pokeclone_app    |          at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+pokeclone_app    |          at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+pokeclone_app    |          at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+pokeclone_app    |          at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+pokeclone_app    |          at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+pokeclone_app    |          at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+pokeclone_app    |          at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+pokeclone_app    |          at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+pokeclone_app    |          at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+pokeclone_app    |       Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+pokeclone_app    |        ---> Microsoft.Data.SqlClient.SqlException (0x80131904): Violation of PRIMARY KEY constraint 'PK_PokemonMoveInstance'. Cannot insert duplicate key in object 'dbo.PokemonMoveInstance'. The duplicate key value is (adf32d49-ad23-4066-9a3e-8fac76f7edb8, 7).
+pokeclone_app    |          at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+pokeclone_app    |          at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+pokeclone_app    |          at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+pokeclone_app    |          at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+pokeclone_app    |          at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+pokeclone_app    |          at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreResults(Boolean& moreResults)
+pokeclone_app    |          at Microsoft.Data.SqlClient.SqlDataReader.TryNextResult(Boolean& more)
+pokeclone_app    |          at Microsoft.Data.SqlClient.SqlDataReader.NextResultAsyncExecute(Task task, Object state)
+pokeclone_app    |          at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+pokeclone_app    |       --- End of stack trace from previous location ---
+pokeclone_app    |          at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+pokeclone_app    |       ClientConnectionId:74b9351b-d2ba-4a12-a151-a9186750aaff
+pokeclone_app    |       Error Number:2627,State:1,Class:14
+pokeclone_app    |          --- End of inner exception stack trace ---
+pokeclone_app    |          at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+pokeclone_app    |          at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+pokeclone_app    |          at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+pokeclone_app    |          at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+pokeclone_app    |          at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+pokeclone_app    |          at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+pokeclone_app    |          at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+pokeclone_app    |          at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+pokeclone_app    |          at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+pokeclone_app    |          at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+pokeclone_app    |          at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+pokeclone_app    | Error in ProcessTurn: Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+pokeclone_app    |  ---> Microsoft.Data.SqlClient.SqlException (0x80131904): Violation of PRIMARY KEY constraint 'PK_PokemonMoveInstance'. Cannot insert duplicate key in object 'dbo.PokemonMoveInstance'. The duplicate key value is (adf32d49-ad23-4066-9a3e-8fac76f7edb8, 7).
+pokeclone_app    |    at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+pokeclone_app    |    at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+pokeclone_app    |    at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+pokeclone_app    |    at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+pokeclone_app    |    at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+pokeclone_app    |    at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreResults(Boolean& moreResults)
+pokeclone_app    |    at Microsoft.Data.SqlClient.SqlDataReader.TryNextResult(Boolean& more)
+pokeclone_app    |    at Microsoft.Data.SqlClient.SqlDataReader.NextResultAsyncExecute(Task task, Object state)
+pokeclone_app    |    at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+pokeclone_app    | --- End of stack trace from previous location ---
+pokeclone_app    |    at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+pokeclone_app    | ClientConnectionId:74b9351b-d2ba-4a12-a151-a9186750aaff
+pokeclone_app    | Error Number:2627,State:1,Class:14
+pokeclone_app    |    --- End of inner exception stack trace ---
+pokeclone_app    |    at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+pokeclone_app    |    at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+pokeclone_app    |    at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+pokeclone_app    |    at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+pokeclone_app    |    at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+pokeclone_app    |    at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+pokeclone_app    |    at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+pokeclone_app    |    at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+pokeclone_app    |    at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+pokeclone_app    |    at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+pokeclone_app    |    at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+pokeclone_app    |    at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+pokeclone_app    |    at Server.Infrastructure.Repositories.PokemonRepository.UpdateAsync(Pokemon pokemon) in /src/src/Server.Infrastructure/Repositories/PokemonRepository.cs:line 117
+pokeclone_app    |    at Server.Application.Services.BattleService.ProcessPostBattleAsync(String battleId, ProcessResult result) in /src/src/Server.Application/Services/BattleService.cs:line 427
+pokeclone_app    |    at Server.WebAPI.Hubs.BattleHub.SubmitAction(String battleId, PlayerAction action) in /src/src/Server.WebAPI/Hubs/BattleHub.cs:line 128
 ```
 
 ## ドキュメント
