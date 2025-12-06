@@ -27,7 +27,11 @@ export function useParty() {
     // パーティ一覧の取得
     const { data: party, isLoading, error } = useQuery({
         queryKey: ['party'],
-        queryFn: () => request('/api/Party'),
+        queryFn: async () => {
+            const result = await request('/api/Party');
+            if (!result) throw new Error('Failed to fetch party');
+            return result;
+        },
         staleTime: 1 * 60 * 1000, // 1分間キャッシュ
     });
 

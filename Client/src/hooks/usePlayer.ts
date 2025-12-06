@@ -15,7 +15,11 @@ export function usePlayer() {
     // プレイヤー情報の取得
     const { data: player, isLoading, error } = useQuery({
         queryKey: ['player', 'me'],
-        queryFn: () => request('/api/Player/me'),
+        queryFn: async () => {
+            const result = await request('/api/Player/me');
+            if (!result) throw new Error('Failed to fetch player');
+            return result;
+        },
         staleTime: 5 * 60 * 1000, // 5分間キャッシュ
     });
 

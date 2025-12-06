@@ -1,4 +1,4 @@
-import { useMutation,useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 
 import { useApi } from './useApi';
 
@@ -18,12 +18,16 @@ interface StarterOption {
 }
 
 export function useStarter() {
-    const { request } = useApi();
+    const { request } = useApi<StarterOption[]>();
 
     // スターター選択肢の取得
     const { data: options, isLoading } = useQuery<StarterOption[]>({
         queryKey: ['starter', 'options'],
-        queryFn: () => request('/api/Starter/options'),
+        queryFn: async () => {
+            const result = await request('/api/Starter/options');
+            if (!result) throw new Error('Failed to fetch starter options');
+            return result;
+        },
     });
 
     // スターターを選択

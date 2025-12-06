@@ -1,16 +1,20 @@
-import { useMutation,useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 
 import { type BattleState } from '@/types/battle';
 
 import { useApi } from './useApi';
 
 export function useBattle(battleId?: string) {
-    const { request } = useApi();
+    const { request } = useApi<BattleState>();
 
     // バトル状態の取得
     const { data: battleState, isLoading } = useQuery<BattleState>({
         queryKey: ['battle', battleId],
-        queryFn: () => request(`/api/Battle/${battleId}`),
+        queryFn: async () => {
+            const result = await request(`/api/Battle/${battleId}`);
+            if (!result) throw new Error('Battle not found');
+            return result;
+        },
         enabled: !!battleId, // battleIdが存在する場合のみクエリを実行
         refetchInterval: false, // SignalRで更新されるため自動リフレッシュ不要
     });
