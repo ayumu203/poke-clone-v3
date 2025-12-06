@@ -55,6 +55,20 @@ public class PokemonRepository : IPokemonRepository
                 throw new InvalidOperationException($"Player with ID '{playerId}' does not exist. Please create a player profile first.");
             }
 
+            // Movesがロードされている場合、Moveエンティティは既に存在するので再利用
+            // EF Coreのトラッキングに既存のMoveをアタッチ
+            if (pokemon.Moves != null && pokemon.Moves.Any())
+            {
+                foreach (var move in pokemon.Moves)
+                {
+                    // Moveがトラッキングされていない場合はAttach
+                    if (!_context.Entry(move).IsKeySet || _context.Entry(move).State == EntityState.Detached)
+                    {
+                        _context.Attach(move);
+                    }
+                }
+            }
+
             // PlayerPartyが存在しない場合は新規作成
             playerParty = new PlayerParty
             {
@@ -65,6 +79,19 @@ public class PokemonRepository : IPokemonRepository
         }
         else
         {
+            // Movesがロードされている場合の処理
+            if (pokemon.Moves != null && pokemon.Moves.Any())
+            {
+                foreach (var move in pokemon.Moves)
+                {
+                    // Moveがトラッキングされていない場合はAttach
+                    if (!_context.Entry(move).IsKeySet || _context.Entry(move).State == EntityState.Detached)
+                    {
+                        _context.Attach(move);
+                    }
+                }
+            }
+            
             // PartyリストにPokemonを追加すると、EFが自動的にPokemonを追跡する
             playerParty.Party.Add(pokemon);
         }
