@@ -4,7 +4,14 @@ import "./globals.css";
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import type { Metadata } from "next";
+import { DotGothic16 } from 'next/font/google';
 import { useState } from 'react';
+
+const dotGothic16 = DotGothic16({
+  weight: '400',
+  subsets: ['latin'],
+  display: 'swap',
+});
 
 const metadata: Metadata = {
   title: "Poke-Clone-V3",
@@ -31,7 +38,7 @@ export default function RootLayout({
         <title>{metadata.title as string}</title>
         <meta name="description" content={metadata.description as string} />
       </head>
-      <body>
+      <body className={dotGothic16.className}>
         <QueryClientProvider client={queryClient}>
           {children}
         </QueryClientProvider>
