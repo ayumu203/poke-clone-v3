@@ -7,7 +7,8 @@ interface TopScreenProps {
 
 /**
  * 上画面コンポーネント
- * - サイズ: 400 × 240px
+ * - アスペクト比: 5:3 (横:縦)
+ * - 最大幅: 400px、レスポンシブ対応
  * - 背景画像表示（デフォルト: art_003.png）
  * - object-fit: cover ではみ出た部分をクロップ
  */
@@ -16,7 +17,7 @@ export default function TopScreen({
     children,
 }: TopScreenProps) {
     return (
-        <div className="w-[400px] h-[240px] relative overflow-hidden">
+        <div className="w-full aspect-[5/3] relative overflow-hidden">
             <Image
                 src={backgroundImage}
                 alt="背景画像"

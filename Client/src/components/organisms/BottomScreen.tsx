@@ -4,13 +4,14 @@ interface BottomScreenProps {
 
 /**
  * 下画面コンポーネント
- * - サイズ: 400 × 240px
+ * - アスペクト比: 5:3 (横:縦)
+ * - 最大幅: 400px、レスポンシブ対応
  * - 背景色: 白
  * - メニューやバトルコマンド表示用
  */
 export default function BottomScreen({ children }: BottomScreenProps) {
     return (
-        <div className="w-[400px] h-[240px] bg-white">
+        <div className="w-full aspect-[5/3] bg-white">
             {children}
         </div>
     );
