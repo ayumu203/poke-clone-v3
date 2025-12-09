@@ -1,4 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+
 import LoginBottomScreen from '@/components/organisms/LoginBottomScreen';
 
 const meta = {
@@ -23,6 +24,10 @@ export const Default: Story = {
             console.log('Email login:', email, password);
             await new Promise(resolve => setTimeout(resolve, 1000));
         },
+        onEmailSignUp: async (email, password) => {
+            console.log('Email sign up:', email, password);
+            await new Promise(resolve => setTimeout(resolve, 1000));
+        },
     },
 };
 
@@ -34,6 +39,10 @@ export const WithError: Story = {
         },
         onEmailLogin: async (email, password) => {
             console.log('Email login:', email, password);
+            await new Promise(resolve => setTimeout(resolve, 1000));
+        },
+        onEmailSignUp: async (email, password) => {
+            console.log('Email sign up:', email, password);
             await new Promise(resolve => setTimeout(resolve, 1000));
         },
         error: 'Googleログインに失敗しました',

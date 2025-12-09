@@ -4,6 +4,7 @@ interface InputProps {
     value: string;
     onChange: (value: string) => void;
     required?: boolean;
+    minLength?: number;
 }
 
 /**
@@ -17,6 +18,7 @@ export default function Input({
     value,
     onChange,
     required = false,
+    minLength,
 }: InputProps) {
     return (
         <input
@@ -25,7 +27,8 @@ export default function Input({
             value={value}
             onChange={(e) => onChange(e.target.value)}
             required={required}
-            className="w-full px-3 py-2 border-2 border-gray-800 bg-white text-black focus:outline-none focus:border-blue-600"
+            minLength={minLength}
+            className="w-full px-3 py-2 border-2 border-gray-800 bg-white text-black focus:outline-none focus:border-blue-600 font-sans"
         />
     );
 }

@@ -1,8 +1,9 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import DSLayout from '@/components/templates/DSLayout';
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+
+import BottomScreen from '@/components/organisms/BottomScreen';
 import Header from '@/components/organisms/Header';
 import TopScreen from '@/components/organisms/TopScreen';
-import BottomScreen from '@/components/organisms/BottomScreen';
+import DSLayout from '@/components/templates/DSLayout';
 
 const meta = {
     title: 'Templates/DSLayout',

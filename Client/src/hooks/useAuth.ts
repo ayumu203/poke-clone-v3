@@ -14,7 +14,6 @@ import { auth } from '@/lib/firebase/config';
 
 export function useAuth() {
     const [user, setUser] = useState<User | null>(null);
-    const [token, setToken] = useState<string | null>(null);
     const [loading, setLoading] = useState(true);
 
     // 認証状態の監視
@@ -23,11 +22,16 @@ export function useAuth() {
             setUser(currentUser);
 
             if (currentUser) {
-                // IDトークンを取得
+                // IDトークンを取得してHTTPOnly Cookieに保存
                 const idToken = await currentUser.getIdToken();
-                setToken(idToken);
+                await fetch('/api/auth/session', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ token: idToken }),
+                });
             } else {
-                setToken(null);
+                // ユーザーがいない場合はセッションを削除
+                await fetch('/api/auth/logout', { method: 'POST' });
             }
 
             setLoading(false);
@@ -36,24 +40,19 @@ export function useAuth() {
         return () => unsubscribe();
     }, []);
 
-    // アクセストークン取得
-    const getAccessToken = useCallback(async (): Promise<string | null> => {
-        if (!user) return null;
-
-        try {
-            // 最新のトークンを取得（必要に応じて自動更新）
-            const idToken = await user.getIdToken(true);
-            return idToken;
-        } catch (error) {
-            console.error('Failed to get access token:', error);
-            return null;
-        }
-    }, [user]);
-
     // メール/パスワードでログイン
     const loginWithEmail = useCallback(async (email: string, password: string) => {
         try {
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
+            const idToken = await userCredential.user.getIdToken();
+
+            // セッションCookieに保存
+            await fetch('/api/auth/session', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ token: idToken }),
+            });
+
             return userCredential.user;
         } catch (error) {
             console.error('Login failed:', error);
@@ -65,6 +64,15 @@ export function useAuth() {
     const signUpWithEmail = useCallback(async (email: string, password: string) => {
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const idToken = await userCredential.user.getIdToken();
+
+            // セッションCookieに保存
+            await fetch('/api/auth/session', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ token: idToken }),
+            });
+
             return userCredential.user;
         } catch (error) {
             console.error('Sign up failed:', error);
@@ -77,6 +85,15 @@ export function useAuth() {
         try {
             const provider = new GoogleAuthProvider();
             const userCredential = await signInWithPopup(auth, provider);
+            const idToken = await userCredential.user.getIdToken();
+
+            // セッションCookieに保存
+            await fetch('/api/auth/session', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ token: idToken }),
+            });
+
             return userCredential.user;
         } catch (error) {
             console.error('Google login failed:', error);
@@ -88,6 +105,15 @@ export function useAuth() {
     const loginAnonymously = useCallback(async () => {
         try {
             const userCredential = await signInAnonymously(auth);
+            const idToken = await userCredential.user.getIdToken();
+
+            // セッションCookieに保存
+            await fetch('/api/auth/session', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ token: idToken }),
+            });
+
             return userCredential.user;
         } catch (error) {
             console.error('Anonymous login failed:', error);
@@ -99,7 +125,8 @@ export function useAuth() {
     const logout = useCallback(async () => {
         try {
             await signOut(auth);
-            setToken(null);
+            // セッションCookieを削除
+            await fetch('/api/auth/logout', { method: 'POST' });
         } catch (error) {
             console.error('Logout failed:', error);
             throw error;
@@ -108,10 +135,8 @@ export function useAuth() {
 
     return {
         user,
-        token,
         loading,
         isAuthenticated: !!user,
-        getAccessToken,
         loginWithEmail,
         signUpWithEmail,
         loginWithGoogle,

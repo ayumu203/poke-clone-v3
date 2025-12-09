@@ -1,4 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+
 import ExternalLink from '@/components/atoms/ExternalLink';
 
 const meta = {

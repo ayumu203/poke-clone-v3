@@ -2,13 +2,10 @@ import { useCallback, useState } from 'react';
 
 import type { UseApiOptions } from '@/types/api';
 
-import { useAuth } from './useAuth';
-
 export function useApi<T = unknown>() {
     const [data, setData] = useState<T | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
-    const { getAccessToken } = useAuth();
 
     const request = useCallback(async (
         url: string,
@@ -18,16 +15,15 @@ export function useApi<T = unknown>() {
         setError(null);
 
         try {
-            const token = await getAccessToken();
             const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
 
             const response = await fetch(`${apiUrl}${url}`, {
                 method: options.method || 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': token ? `Bearer ${token}` : '',
                     ...options.headers,
                 },
+                credentials: 'include', // Send cookies with request
                 body: options.body ? JSON.stringify(options.body) : undefined,
             });
 
@@ -46,7 +42,7 @@ export function useApi<T = unknown>() {
         } finally {
             setLoading(false);
         }
-    }, [getAccessToken]);
+    }, []);
 
     return { data, error, loading, request };
 }

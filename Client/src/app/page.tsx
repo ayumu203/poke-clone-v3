@@ -1,7 +1,7 @@
-import DSLayout from '@/components/templates/DSLayout';
+import BottomScreen from '@/components/organisms/BottomScreen';
 import Header from '@/components/organisms/Header';
 import TopScreen from '@/components/organisms/TopScreen';
-import BottomScreen from '@/components/organisms/BottomScreen';
+import DSLayout from '@/components/templates/DSLayout';
 
 export default function Home() {
   return (

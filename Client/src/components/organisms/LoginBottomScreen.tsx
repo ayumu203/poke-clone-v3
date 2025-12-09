@@ -1,12 +1,14 @@
 'use client';
 
 import { useState } from 'react';
+
 import Button from '@/components/atoms/Button';
 import EmailLoginForm from '@/components/molecules/EmailLoginForm';
 
 interface LoginBottomScreenProps {
     onGoogleLogin: () => Promise<void>;
     onEmailLogin: (email: string, password: string) => Promise<void>;
+    onEmailSignUp: (email: string, password: string) => Promise<void>;
     error?: string;
 }
 
@@ -18,6 +20,7 @@ interface LoginBottomScreenProps {
 export default function LoginBottomScreen({
     onGoogleLogin,
     onEmailLogin,
+    onEmailSignUp,
     error,
 }: LoginBottomScreenProps) {
     const [showEmailForm, setShowEmailForm] = useState(false);
@@ -35,7 +38,8 @@ export default function LoginBottomScreen({
     if (showEmailForm) {
         return (
             <EmailLoginForm
-                onSubmit={onEmailLogin}
+                onLogin={onEmailLogin}
+                onSignUp={onEmailSignUp}
                 onCancel={() => setShowEmailForm(false)}
                 error={error}
             />
