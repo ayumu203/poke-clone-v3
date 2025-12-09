@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { FaGoogle, FaEnvelope } from 'react-icons/fa';
 
 import Button from '@/components/atoms/Button';
 import EmailLoginForm from '@/components/molecules/EmailLoginForm';
@@ -61,6 +62,7 @@ export default function LoginBottomScreen({
                 variant="google"
                 fullWidth
                 disabled={isGoogleLoading}
+                icon={<FaGoogle />}
             >
                 {isGoogleLoading ? 'ログイン中...' : 'Googleでログイン'}
             </Button>
@@ -69,6 +71,7 @@ export default function LoginBottomScreen({
                 onClick={() => setShowEmailForm(true)}
                 variant="primary"
                 fullWidth
+                icon={<FaEnvelope />}
             >
                 メールでログイン
             </Button>

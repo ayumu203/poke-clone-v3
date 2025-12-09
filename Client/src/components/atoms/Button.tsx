@@ -5,6 +5,7 @@ interface ButtonProps {
     variant?: 'primary' | 'secondary' | 'google';
     fullWidth?: boolean;
     disabled?: boolean;
+    icon?: React.ReactNode;
 }
 
 /**
@@ -12,6 +13,7 @@ interface ButtonProps {
  * - ピクセル風のデザイン
  * - バリエーション: primary, secondary, google
  * - ホバーエフェクト
+ * - アイコンサポート
  */
 export default function Button({
     children,
@@ -20,6 +22,7 @@ export default function Button({
     variant = 'primary',
     fullWidth = false,
     disabled = false,
+    icon,
 }: ButtonProps) {
     const baseClasses = 'px-4 py-2 border-2 font-bold transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed';
 
@@ -36,8 +39,9 @@ export default function Button({
             type={type}
             onClick={onClick}
             disabled={disabled}
-            className={`${baseClasses} ${variantClasses[variant]} ${widthClass}`}
+            className={`${baseClasses} ${variantClasses[variant]} ${widthClass} flex items-center justify-center gap-2`}
         >
+            {icon && <span className="text-xl">{icon}</span>}
             {children}
         </button>
     );
