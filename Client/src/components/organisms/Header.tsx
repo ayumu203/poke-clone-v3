@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import ExternalLink from '@/components/atoms/ExternalLink';
+import ToggleSwitch from '@/components/atoms/ToggleSwitch';
 import headerData from '@/data/common/header.json';
 
 /**
@@ -23,20 +24,11 @@ export default function Header() {
                 ))}
             </nav>
 
-            <div className="flex items-center gap-2">
-                <span className="text-sm">BGM</span>
-                <button
-                    onClick={() => setIsBgmEnabled(!isBgmEnabled)}
-                    className={`w-10 h-6 rounded-full transition-colors ${isBgmEnabled ? 'bg-green-400' : 'bg-gray-400'
-                        } relative`}
-                    aria-label="BGMトグル"
-                >
-                    <span
-                        className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-transform ${isBgmEnabled ? 'right-1' : 'left-1'
-                            }`}
-                    />
-                </button>
-            </div>
+            <ToggleSwitch
+                enabled={isBgmEnabled}
+                onToggle={() => setIsBgmEnabled(!isBgmEnabled)}
+                label="BGM"
+            />
         </header>
     );
 }
