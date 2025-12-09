@@ -14,14 +14,17 @@ export default function Header() {
     return (
         <header className="w-full bg-blue-600 text-white px-4 py-2 flex items-center justify-between">
             <nav className="flex gap-4 text-sm">
-                <a href="#" className="hover:underline">
-                    ホーム
+                <a href="https://pokeapi.co/" target="_blank" rel="noopener noreferrer" className="hover:underline">
+                    PokeAPI
                 </a>
-                <a href="#" className="hover:underline">
-                    対戦
+                <a href="https://github.com/ayumu203/poke-clone-v3/" target="_blank" rel="noopener noreferrer" className="hover:underline">
+                    Github
                 </a>
-                <a href="#" className="hover:underline">
-                    パーティ
+                <a href="https://soundlibrary.pokemon.co.jp/" target="_blank" rel="noopener noreferrer" className="hover:underline">
+                    BGM
+                </a>
+                <a href="https://booth.pm/ja/items/5677827" target="_blank" rel="noopener noreferrer" className="hover:underline">
+                    背景画像
                 </a>
             </nav>
 
