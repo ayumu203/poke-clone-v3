@@ -26,16 +26,24 @@ const ToggleSwitchWithState = ({ enabled: initialEnabled, label }: { enabled: bo
 
 export const Default: Story = {
     render: () => <ToggleSwitchWithState enabled={false} />,
+    parameters: { docs: { source: { type: 'code' } } },
+    args: {} as any,
 };
 
 export const Enabled: Story = {
     render: () => <ToggleSwitchWithState enabled={true} />,
+    parameters: { docs: { source: { type: 'code' } } },
+    args: {} as any,
 };
 
 export const WithLabel: Story = {
     render: () => <ToggleSwitchWithState enabled={false} label="BGM" />,
+    parameters: { docs: { source: { type: 'code' } } },
+    args: {} as any,
 };
 
 export const EnabledWithLabel: Story = {
     render: () => <ToggleSwitchWithState enabled={true} label="サウンド" />,
+    parameters: { docs: { source: { type: 'code' } } },
+    args: {} as any,
 };
