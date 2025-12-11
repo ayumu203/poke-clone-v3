@@ -1,0 +1,48 @@
+{
+    "login": {
+        "image": "/Images/art_011.png",
+        "bgm": "/audio/01_opening.mp3"
+    },
+    "home": {
+        "image": "/Images/art_003.png",
+        "bgm": "/audio/02_masara_town.mp3",
+        "menuButtons": [
+            {
+                "text": "CPU対戦",
+                "icon": "/icon/robot-logo.png",
+                "href": "/cpu-battle"
+            },
+            {
+                "text": "オンライン",
+                "icon": "/icon/earth-logo.png",
+                "href": "/online-battle"
+            },
+            {
+                "text": "手持ち",
+                "icon": "/icon/pokeball-logo.png",
+                "href": "/party"
+            },
+            {
+                "text": "ガチャ",
+                "icon": "/icon/gachagacha-logo.png",
+                "href": "/gacha"
+            }
+        ]
+    },
+    "cpu-battle": {
+        "image": "/Images/art_003.png",
+        "bgm": "/audio/15_battle_trainer.mp3"
+    },
+    "online-battle": {
+        "image": "/Images/art_003.png",
+        "bgm": "/audio/15_battle_trainer.mp3"
+    },
+    "party": {
+        "image": "/Images/art_003.png",
+        "bgm": "/audio/02_masara_town.mp3"
+    },
+    "gacha": {
+        "image": "/Images/art_003.png",
+        "bgm": "/audio/02_masara_town.mp3"
+    }
+}

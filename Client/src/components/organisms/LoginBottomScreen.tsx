@@ -6,7 +6,6 @@ import { FaEnvelope } from 'react-icons/fa';
 import Button from '@/components/atoms/Button';
 import HomeButton from '@/components/atoms/HomeButton';
 import EmailLoginForm from '@/components/molecules/EmailLoginForm';
-import StatusBar from '@/components/molecules/StatusBar';
 
 interface LoginBottomScreenProps {
     onGoogleLogin: () => Promise<void>;
@@ -43,18 +42,7 @@ export default function LoginBottomScreen({
     if (showEmailForm) {
         return (
             <div className="w-full aspect-[5/3] flex flex-col">
-                <StatusBar />
-                <div
-                    className="flex-1 overflow-auto"
-                    style={{
-                        backgroundImage: `
-                            linear-gradient(to right, #e0e0e0 1px, transparent 1px),
-                            linear-gradient(to bottom, #e0e0e0 1px, transparent 1px)
-                        `,
-                        backgroundSize: '20px 20px',
-                        backgroundColor: '#fafafa'
-                    }}
-                >
+                <div className="flex-1 overflow-auto">
                     <EmailLoginForm
                         onLogin={onEmailLogin}
                         onSignUp={onEmailSignUp}
@@ -71,18 +59,7 @@ export default function LoginBottomScreen({
 
     return (
         <div className="w-full aspect-[5/3] flex flex-col">
-            <StatusBar />
-            <div
-                className="flex-1 p-6 space-y-4 flex flex-col items-center justify-center"
-                style={{
-                    backgroundImage: `
-                        linear-gradient(to right, #e0e0e0 1px, transparent 1px),
-                        linear-gradient(to bottom, #e0e0e0 1px, transparent 1px)
-                    `,
-                    backgroundSize: '20px 20px',
-                    backgroundColor: '#fafafa'
-                }}
-            >
+            <div className="h-full p-6 space-y-4 flex flex-col justify-center items-center">
                 {error && (
                     <div className="bg-red-600 border-2 border-red-800 text-white p-2 text-center w-full">
                         {error}

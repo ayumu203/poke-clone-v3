@@ -19,11 +19,11 @@ interface HeaderProps {
  * - BGMトグルスイッチ（BGM再生制御）
  */
 export default function Header({ bgmSrc = '/audio/01_opening.mp3' }: HeaderProps) {
-    const { isBgmEnabled, setIsBgmEnabled } = useBGM();
-    const { play, pause } = useAudio({
+    const { isBgmEnabled, setIsBgmEnabled, volume } = useBGM();
+    const { play, pause, setVolume } = useAudio({
         src: bgmSrc,
         loop: true,
-        volume: 0.1,
+        volume: volume / 100, // 0-100を0-1に変換
         autoPlay: false,
     });
 
@@ -38,6 +38,11 @@ export default function Header({ bgmSrc = '/audio/01_opening.mp3' }: HeaderProps
             pause();
         }
     }, [isBgmEnabled, play, pause, setIsBgmEnabled]);
+
+    // 音量の変更を監視
+    useEffect(() => {
+        setVolume(volume / 100);
+    }, [volume, setVolume]);
 
     return (
         <header className="w-full bg-blue-600 text-white px-4 py-2 flex items-center justify-between">
