@@ -1,5 +1,5 @@
 import type * as signalR from '@microsoft/signalr';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { signalRService } from '@/lib/signalr/connection';
 import type { PlayerAction } from '@/types/action';
@@ -16,36 +16,43 @@ export const useSignalR = (
     const [isConnected, setIsConnected] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
+    // コールバックをuseRefで管理して依存配列から除外
+    const onTurnResultRef = useRef(onTurnResult);
+    const onBattleStartedRef = useRef(onBattleStarted);
+    const onBattleEndedRef = useRef(onBattleEnded);
+
+    // コールバックのrefを最新の値に更新
+    useEffect(() => {
+        onTurnResultRef.current = onTurnResult;
+        onBattleStartedRef.current = onBattleStarted;
+        onBattleEndedRef.current = onBattleEnded;
+    }, [onTurnResult, onBattleStarted, onBattleEnded]);
+
     useEffect(() => {
         const setupConnection = async () => {
             try {
                 const connection = await signalRService.connect(token);
 
                 // ターン結果受信ハンドラ
-                // サーバーから各ターンの処理結果が送信されたときに呼び出される
                 connection.on('ReceiveTurnResult', (result: ProcessResult) => {
-                    onTurnResult(result);
+                    onTurnResultRef.current(result);
                 });
 
                 // バトル開始受信ハンドラ
-                // バトルルームに参加したときや、CPUバトルが作成されたときに呼び出される
-                // onBattleStartedがコンポーネントから渡されている場合のみコールバックを実行
                 connection.on('BattleStarted', (state: BattleState) => {
-                    if (onBattleStarted) {
-                        onBattleStarted(state);
+                    if (onBattleStartedRef.current) {
+                        onBattleStartedRef.current(state);
                     }
                 });
 
                 // バトル終了受信ハンドラ
-                // いずれかのプレイヤーの全ポケモンが倒れた、捕獲成功、逃走成功などでバトルが終了したときに呼び出される
                 connection.on('BattleEnded', (endResult: EndResult) => {
-                    if (onBattleEnded) {
-                        onBattleEnded(endResult);
+                    if (onBattleEndedRef.current) {
+                        onBattleEndedRef.current(endResult);
                     }
                 });
 
                 // エラー受信ハンドラ
-                // サーバー側でエラーが発生したときに呼び出される
                 connection.on('Error', (errorMessage: string) => {
                     console.error('SignalR Error:', errorMessage);
                     setError(errorMessage);
@@ -67,7 +74,7 @@ export const useSignalR = (
         return () => {
             signalRService.disconnect();
         };
-    }, [battleId, token, onTurnResult, onBattleStarted, onBattleEnded]);
+    }, [battleId, token]); // コールバックを依存配列から削除
 
     const submitAction = async (action: PlayerAction) => {
         if (!hubConnection) {

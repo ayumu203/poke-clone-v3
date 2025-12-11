@@ -1,6 +1,8 @@
 'use client';
 
-import { createContext, useContext, useState, ReactNode, useEffect } from 'react';
+import { createContext, useContext, ReactNode } from 'react';
+
+import { useLocalStorage } from '@/hooks/useLocalStorage';
 
 interface BGMContextType {
     isBgmEnabled: boolean;
@@ -12,30 +14,8 @@ interface BGMContextType {
 const BGMContext = createContext<BGMContextType | undefined>(undefined);
 
 export function BGMProvider({ children }: { children: ReactNode }) {
-    const [isBgmEnabled, setIsBgmEnabled] = useState(false);
-    const [volume, setVolumeState] = useState(50); // デフォルト50%
-
-    // localStorageから初期値を読み込む
-    useEffect(() => {
-        const saved = localStorage.getItem('bgm-enabled');
-        if (saved !== null) {
-            setIsBgmEnabled(saved === 'true');
-        }
-
-        const savedVolume = localStorage.getItem('bgm-volume');
-        if (savedVolume !== null) {
-            setVolumeState(parseInt(savedVolume, 10));
-        }
-    }, []);
-
-    // 状態が変更されたらlocalStorageに保存
-    useEffect(() => {
-        localStorage.setItem('bgm-enabled', String(isBgmEnabled));
-    }, [isBgmEnabled]);
-
-    useEffect(() => {
-        localStorage.setItem('bgm-volume', String(volume));
-    }, [volume]);
+    const [isBgmEnabled, setIsBgmEnabled] = useLocalStorage('bgm-enabled', false);
+    const [volume, setVolumeState] = useLocalStorage('bgm-volume', 50);
 
     const setVolume = (newVolume: number) => {
         setVolumeState(Math.max(0, Math.min(100, newVolume)));
