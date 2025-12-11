@@ -102,7 +102,7 @@ export function useAudio({
                 playPromiseRef.current = audioRef.current.play();
                 await playPromiseRef.current;
                 playPromiseRef.current = null;
-            } catch (error) {
+            } catch (_error) {
                 playPromiseRef.current = null;
                 throw error;
             }
@@ -118,8 +118,8 @@ export function useAudio({
                     await playPromiseRef.current;
                 }
                 audioRef.current.pause();
-            } catch (error) {
-                // エラーは無視（既にpauseされている可能性がある）
+            } catch (_error) {
+                // エラーは無視（既に停止している可能性がある）
             } finally {
                 playPromiseRef.current = null;
             }

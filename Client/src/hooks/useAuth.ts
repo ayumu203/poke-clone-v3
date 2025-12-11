@@ -2,9 +2,9 @@ import type { User } from 'firebase/auth';
 import { onAuthStateChanged } from 'firebase/auth';
 import { useCallback, useEffect, useState } from 'react';
 
-import { auth } from '@/lib/firebase/config';
 import { authService } from '@/lib/auth/authService';
 import { sessionService } from '@/lib/auth/sessionService';
+import { auth } from '@/lib/firebase/config';
 
 export function useAuth() {
     const [user, setUser] = useState<User | null>(null);

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useRef,useState } from 'react';
 import { FaVolumeUp, FaWifi } from 'react-icons/fa';
 
 import VolumeSlider from '@/components/atoms/VolumeSlider';

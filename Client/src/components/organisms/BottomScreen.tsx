@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactNode, useState } from 'react';
+import { type ReactNode, useState } from 'react';
 import { FaSignOutAlt } from 'react-icons/fa';
 
 import Button from '@/components/atoms/Button';
