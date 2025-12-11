@@ -7,6 +7,8 @@ import type { Metadata } from "next";
 import { DotGothic16 } from 'next/font/google';
 import { useState } from 'react';
 
+import { BGMProvider } from '@/contexts/BGMContext';
+
 const dotGothic16 = DotGothic16({
   weight: '400',
   subsets: ['latin'],
@@ -40,7 +42,9 @@ export default function RootLayout({
       </head>
       <body className={dotGothic16.className}>
         <QueryClientProvider client={queryClient}>
-          {children}
+          <BGMProvider>
+            {children}
+          </BGMProvider>
         </QueryClientProvider>
       </body>
     </html>

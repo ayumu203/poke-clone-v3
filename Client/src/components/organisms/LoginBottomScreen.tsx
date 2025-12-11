@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { FaEnvelope } from 'react-icons/fa';
 
 import Button from '@/components/atoms/Button';
+import HomeButton from '@/components/atoms/HomeButton';
 import EmailLoginForm from '@/components/molecules/EmailLoginForm';
 import StatusBar from '@/components/molecules/StatusBar';
 
@@ -61,6 +62,9 @@ export default function LoginBottomScreen({
                         error={error}
                     />
                 </div>
+                <div className="bg-gray-800 p-2 flex justify-center">
+                    <HomeButton />
+                </div>
             </div>
         );
     }
@@ -103,6 +107,9 @@ export default function LoginBottomScreen({
                 >
                     メールでログイン
                 </Button>
+            </div>
+            <div className="bg-gray-800 p-2 flex justify-center">
+                <HomeButton />
             </div>
         </div>
     );
