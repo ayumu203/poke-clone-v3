@@ -40,8 +40,6 @@ const eslintConfig = [
   ...fixupConfigRules(compat.extends("plugin:react/recommended")),
   ...fixupConfigRules(compat.extends("plugin:react-hooks/recommended")),
 
-  // Storybook
-  ...compat.extends("plugin:storybook/recommended"),
 
   // カスタム
   {
@@ -58,7 +56,7 @@ const eslintConfig = [
       ...nextPlugin.configs["core-web-vitals"].rules,
 
       "no-console": ["warn", { allow: ["warn", "error"] }],
-      
+
       "react/react-in-jsx-scope": "off",
 
       "@typescript-eslint/no-unused-vars": [
