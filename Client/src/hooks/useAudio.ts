@@ -104,7 +104,7 @@ export function useAudio({
                 playPromiseRef.current = null;
             } catch (_error) {
                 playPromiseRef.current = null;
-                throw error;
+                throw _error;
             }
         }
     }, []);
