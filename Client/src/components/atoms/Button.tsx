@@ -29,7 +29,7 @@ export default function Button({
     const variantClasses = {
         primary: 'bg-blue-600 border-blue-800 text-white hover:bg-blue-700',
         secondary: 'bg-gray-600 border-gray-800 text-white hover:bg-gray-700',
-        google: 'bg-red-600 border-red-800 text-white hover:bg-red-700',
+        google: 'bg-gray-100 border-gray-400 text-gray-800 hover:bg-gray-200',
     };
 
     const widthClass = fullWidth ? 'w-full' : '';
