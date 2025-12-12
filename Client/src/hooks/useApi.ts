@@ -1,5 +1,6 @@
 import { useCallback, useState } from 'react';
 
+import { auth } from '@/lib/firebase/config';
 import type { UseApiOptions } from '@/types/api';
 
 export function useApi<T = unknown>() {
@@ -17,13 +18,27 @@ export function useApi<T = unknown>() {
         try {
             const apiUrl = process.env.API_URL || 'http://localhost:5000';
 
+            // Get Firebase ID token
+            const user = auth.currentUser;
+            let token: string | undefined;
+
+            if (user) {
+                token = await user.getIdToken();
+            }
+
+            const headers: HeadersInit = {
+                'Content-Type': 'application/json',
+                ...options.headers,
+            };
+
+            // Add Authorization header if token exists
+            if (token) {
+                headers['Authorization'] = `Bearer ${token}`;
+            }
+
             const response = await fetch(`${apiUrl}${url}`, {
                 method: options.method || 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    ...options.headers,
-                },
-                credentials: 'include', // Send cookies with request
+                headers,
                 body: options.body ? JSON.stringify(options.body) : undefined,
             });
 
