@@ -37,12 +37,13 @@ export default function MenuButton({ icon: Icon, imageSrc, href, children }: Men
                 </div>
             )}
             {imageSrc && (
-                <div className="absolute left-[2px] sm:left-4 w-8 h-8 sm:w-12 sm:h-12">
+                <div className="absolute left-[2px] sm:left-4 w-8 h-8 sm:w-12 sm:h-12 bg-transparent">
                     <Image
                         src={imageSrc}
                         alt=""
                         fill
                         className="object-contain"
+                        style={{ backgroundColor: 'transparent' }}
                     />
                 </div>
             )}
