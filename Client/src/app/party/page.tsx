@@ -23,16 +23,6 @@ export default function PartyPage() {
         }
     }, [isAuthenticated, loading, router]);
 
-    // パーティデータのコンソール出力
-    useEffect(() => {
-        if (party) {
-            console.log('Party data:', party);
-        }
-        if (error) {
-            console.error('Party fetch error:', error);
-        }
-    }, [party, error]);
-
     if (loading || !isAuthenticated) {
         return null;
     }

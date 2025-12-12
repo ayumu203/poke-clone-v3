@@ -9,17 +9,17 @@
         "menuButtons": [
             {
                 "text": "CPU対戦",
-                "icon": "/icon/robot-logo.png",
+                "icon": "/icon/robot_logo.png",
                 "href": "/cpu-battle"
             },
             {
                 "text": "オンライン",
-                "icon": "/icon/earth-logo.png",
+                "icon": "/icon/earth_logo.png",
                 "href": "/online-battle"
             },
             {
                 "text": "手持ち",
-                "icon": "/icon/pokeball-logo.png",
+                "icon": "/icon/pokeball_logo.png",
                 "href": "/party"
             },
             {
@@ -42,6 +42,10 @@
         "bgm": "/audio/02_masara_town.mp3"
     },
     "gacha": {
+        "image": "/Images/art_003.png",
+        "bgm": "/audio/02_masara_town.mp3"
+    },
+    "first-pokemon": {
         "image": "/Images/art_003.png",
         "bgm": "/audio/02_masara_town.mp3"
     }

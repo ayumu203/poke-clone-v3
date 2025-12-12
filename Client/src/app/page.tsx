@@ -9,11 +9,13 @@ import TopScreen from '@/components/organisms/TopScreen';
 import DSLayout from '@/components/templates/DSLayout';
 import { useAuth } from '@/hooks/useAuth';
 import { usePageConfig } from '@/hooks/usePageConfig';
+import { useParty } from '@/hooks/useParty';
 
 export default function Home() {
   const { isAuthenticated, loading } = useAuth();
   const router = useRouter();
   const pageConfig = usePageConfig('home');
+  const { party, isLoading: isLoadingParty } = useParty();
 
   // 認証チェック: 未ログインユーザーを/loginにリダイレクト
   useEffect(() => {
@@ -22,8 +24,15 @@ export default function Home() {
     }
   }, [isAuthenticated, loading, router]);
 
+  // パーティチェック: ポケモンを持っていない場合は/first-pokemonにリダイレクト
+  useEffect(() => {
+    if (!loading && !isLoadingParty && isAuthenticated && party?.length === 0) {
+      router.push('/first-pokemon');
+    }
+  }, [loading, isLoadingParty, isAuthenticated, party, router]);
+
   // ローディング中は空の画面を表示
-  if (loading) {
+  if (loading || isLoadingParty) {
     return (
       <DSLayout bgmSrc={pageConfig.bgm}>
         <TopScreen backgroundImage={pageConfig.image} />

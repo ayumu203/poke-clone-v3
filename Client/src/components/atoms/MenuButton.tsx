@@ -28,8 +28,11 @@ export default function MenuButton({ icon: Icon, imageSrc, href, children }: Men
     return (
         <button
             onClick={handleClick}
-            className="relative w-full max-w-xs py-3 px-4 sm:py-4 sm:px-6 border-2 border-gray-600 text-white font-bold hover:bg-gray-700 transition-colors flex items-center justify-center"
-            style={{ backgroundColor: '#333333' }}
+            className="relative w-full max-w-xs py-3 px-4 sm:py-5 sm:px-6 border-2 border-gray-600 text-white font-bold hover:bg-gray-700 transition-colors flex items-center justify-center"
+            style={{
+                backgroundColor: '#333333',
+                boxShadow: 'inset 2px 2px 0 1px white, inset -2px -2px 0 1px white'
+            }}
         >
             {Icon && (
                 <div className="absolute left-[2px] sm:left-4 flex items-center">
@@ -43,7 +46,6 @@ export default function MenuButton({ icon: Icon, imageSrc, href, children }: Men
                         alt=""
                         fill
                         className="object-contain"
-                        style={{ backgroundColor: 'transparent' }}
                     />
                 </div>
             )}
