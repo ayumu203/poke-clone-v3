@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useState } from 'react';
 import { FaEnvelope } from 'react-icons/fa';
 
@@ -71,7 +72,14 @@ export default function LoginBottomScreen({
                     variant="google"
                     fullWidth
                     disabled={isGoogleLoading}
-                    icon={<img src="/icon/google-logo.png" alt="Google" className="w-5 h-5" />}
+                    icon={
+                        <Image
+                            src="/icon/google-logo.png"
+                            alt="Google"
+                            width={20}
+                            height={20}
+                        />
+                    }
                 >
                     {isGoogleLoading ? 'ログイン中...' : 'Googleでログイン'}
                 </Button>

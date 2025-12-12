@@ -12,7 +12,7 @@ interface HomeButtonProps {
  * - ドット調（ピクセル風）のデザイン
  * - ルートページへ遷移
  */
-export default function HomeButton({ variant = 'default' }: HomeButtonProps) {
+export default function HomeButton({ variant: _variant = 'default' }: HomeButtonProps) {
     const router = useRouter();
 
     const handleClick = () => {

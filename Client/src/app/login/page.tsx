@@ -12,7 +12,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { usePageConfig } from '@/hooks/usePageConfig';
 
 export default function LoginPage() {
-    const { loginWithEmail, signUpWithEmail, loginWithGoogle, logout, isAuthenticated, loading } = useAuth();
+    const { loginWithEmail, signUpWithEmail, loginWithGoogle, isAuthenticated, loading } = useAuth();
     const router = useRouter();
     const pageConfig = usePageConfig('login');
     const [error, setError] = useState('');
@@ -39,7 +39,6 @@ export default function LoginPage() {
         setError('');
         try {
             await loginWithGoogle();
-            console.log('Googleログイン成功！');
             router.push('/');
         } catch (err) {
             setError(getErrorMessage(err));
@@ -51,7 +50,6 @@ export default function LoginPage() {
         setError('');
         try {
             await loginWithEmail(email, password);
-            console.log('ログイン成功！');
             router.push('/');
         } catch (err) {
             setError(getErrorMessage(err));
@@ -63,7 +61,6 @@ export default function LoginPage() {
         setError('');
         try {
             await signUpWithEmail(email, password);
-            console.log('新規登録成功！');
             router.push('/');
         } catch (err) {
             setError(getErrorMessage(err));

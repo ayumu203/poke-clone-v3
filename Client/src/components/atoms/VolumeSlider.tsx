@@ -14,7 +14,7 @@ interface VolumeSliderProps {
  * - リアルタイムで音量を反映
  */
 export default function VolumeSlider({ volume, onVolumeChange, className = '' }: VolumeSliderProps) {
-    const [isDragging, setIsDragging] = useState(false);
+    const [_isDragging, setIsDragging] = useState(false);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newVolume = parseInt(e.target.value, 10);
@@ -39,7 +39,7 @@ export default function VolumeSlider({ volume, onVolumeChange, className = '' }:
                     background: `linear-gradient(to right, #4a9db8 0%, #4a9db8 ${volume}%, #374151 ${volume}%, #374151 100%)`,
                 }}
             />
-            <style jsx>{`
+            <style>{`
                 .slider::-webkit-slider-thumb {
                     appearance: none;
                     width: 16px;

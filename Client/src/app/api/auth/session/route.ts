@@ -1,12 +1,21 @@
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 
+import { verifyIdToken } from '@/lib/firebase/admin';
+
 export async function POST(request: Request) {
     try {
         const { token } = await request.json();
 
         if (!token) {
             return NextResponse.json({ error: 'Token is required' }, { status: 400 });
+        }
+
+        try {
+            await verifyIdToken(token);
+        } catch (error) {
+            console.error('Token verification failed:', error);
+            return NextResponse.json({ error: 'Invalid token' }, { status: 401 });
         }
 
         // Set HTTPOnly cookie with security attributes
