@@ -32,12 +32,12 @@ export default function MenuButton({ icon: Icon, imageSrc, href, children }: Men
             style={{ backgroundColor: '#333333' }}
         >
             {Icon && (
-                <div className="absolute left-[2px] flex items-center">
+                <div className="absolute left-4 sm:left-[2px] flex items-center">
                     <Icon className="text-2xl sm:text-4xl" />
                 </div>
             )}
             {imageSrc && (
-                <div className="absolute left-[2px] w-8 h-8 sm:w-12 sm:h-12">
+                <div className="absolute left-4 sm:left-[2px] w-8 h-8 sm:w-12 sm:h-12">
                     <Image
                         src={imageSrc}
                         alt=""

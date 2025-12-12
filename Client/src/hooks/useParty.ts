@@ -16,7 +16,7 @@ export function useParty() {
             if (!result) throw new Error('Failed to fetch party');
             return result;
         },
-        staleTime: 1 * 60 * 1000, // 1分間キャッシュ
+        staleTime: 30 * 1000, // 30秒間キャッシュ
     });
 
     // ポケモンを逃がす
