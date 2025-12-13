@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 
 import type { Pokemon } from '@/types/pokemon';
 import type { PokemonSpecies } from '@/types/pokemonSpecies';
@@ -57,15 +56,13 @@ export default function PartyPokemonCard({
         >
             {/* 左側: ポケモン画像 + レベル */}
             <div className="flex flex-col items-center justify-center">
-                <Image
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
                     src={species.frontImage}
                     alt={species.name}
-                    width={96}
-                    height={96}
                     className="object-contain"
-                    unoptimized
                 />
-                <p className="text-[10px] text-gray-300">
+                <p className="text-xl text-gray-300">
                     Lv.{pokemon.level}
                 </p>
             </div>
@@ -74,7 +71,7 @@ export default function PartyPokemonCard({
             <div className="flex-1 flex flex-col justify-center pl-1 gap-0.5">
                 {/* 名前 */}
                 <p
-                    className="text-xs font-bold leading-tight"
+                    className="text-xl mb-2 font-bold leading-tight"
                     style={{ color: typeColors.border }}
                 >
                     {species.name}
@@ -82,7 +79,7 @@ export default function PartyPokemonCard({
 
                 {/* HPバー */}
                 <div
-                    className="w-full h-1.5 rounded-full overflow-hidden"
+                    className="w-full mb-2 h-1.5 rounded-full overflow-hidden"
                     style={{ backgroundColor: '#444444' }}
                 >
                     <div
@@ -95,14 +92,14 @@ export default function PartyPokemonCard({
                 </div>
 
                 {/* HP実数値 */}
-                <p className="text-[10px] text-gray-300">
+                <p className="text-xl mb-2 text-gray-300">
                     HP: {currentHp}
                 </p>
 
                 {/* タイプ（横並び） */}
-                <div className="flex gap-0.5">
+                <div className="flex mb-2 gap-0.5">
                     <span
-                        className="text-[8px] px-1 py-0.5 rounded"
+                        className="text-xl px-1 py-0.5 rounded"
                         style={{
                             backgroundColor: typeColors.border,
                             color: '#ffffff',
@@ -112,7 +109,7 @@ export default function PartyPokemonCard({
                     </span>
                     {type2String && (
                         <span
-                            className="text-[8px] px-1 py-0.5 rounded"
+                            className="text-lg px-1 py-0.5 rounded"
                             style={{
                                 backgroundColor: getTypeColors(type2String).border,
                                 color: '#ffffff',
