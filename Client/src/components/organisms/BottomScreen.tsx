@@ -11,6 +11,7 @@ import { useAuth } from '@/hooks/useAuth';
 interface BottomScreenProps {
     children?: ReactNode;
     customFooter?: ReactNode;
+    backgroundImage?: string;
 }
 
 /**
@@ -20,7 +21,7 @@ interface BottomScreenProps {
  * - 格子模様の背景
  * - フッター: HOME + Logout（ログイン時）
  */
-export default function BottomScreen({ children, customFooter }: BottomScreenProps) {
+export default function BottomScreen({ children, customFooter, backgroundImage }: BottomScreenProps) {
     const { isAuthenticated, logout } = useAuth();
     const [isLoggingOut, setIsLoggingOut] = useState(false);
 
@@ -54,14 +55,23 @@ export default function BottomScreen({ children, customFooter }: BottomScreenPro
             <StatusBar />
             <div
                 className="flex-1 overflow-auto"
-                style={{
-                    backgroundImage: `
+                style={
+                    backgroundImage
+                        ? {
+                            backgroundImage: `url(${backgroundImage})`,
+                            backgroundSize: 'cover',
+                            backgroundPosition: 'center',
+                            backgroundRepeat: 'no-repeat',
+                        }
+                        : {
+                            backgroundImage: `
                         linear-gradient(to right, #e0e0e0 1px, transparent 1px),
                         linear-gradient(to bottom, #e0e0e0 1px, transparent 1px)
                     `,
-                    backgroundSize: '20px 20px',
-                    backgroundColor: '#fafafa'
-                }}
+                            backgroundSize: '20px 20px',
+                            backgroundColor: '#fafafa',
+                        }
+                }
             >
                 {children}
             </div>

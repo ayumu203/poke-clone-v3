@@ -11,6 +11,8 @@ import { useAuth } from '@/hooks/useAuth';
 import { usePageConfig } from '@/hooks/usePageConfig';
 import { useParty } from '@/hooks/useParty';
 import { useStarter } from '@/hooks/useStarter';
+import StarterPokemonCard from '@/components/molecules/StarterPokemonCard';
+import pokemonDescriptions from '@/data/pokemon/pokemonDescriptions.json';
 
 export default function StarterPokemonPage() {
     const { isAuthenticated, loading } = useAuth();
@@ -53,7 +55,7 @@ export default function StarterPokemonPage() {
         return (
             <DSLayout bgmSrc={pageConfig.bgm}>
                 <TopScreen backgroundImage={pageConfig.image} />
-                <BottomScreen>
+                <BottomScreen backgroundImage="/Images/gift_image.png">
                     <div className="flex items-center justify-center h-full">
                         <p className="text-xl font-bold">読み込み中...</p>
                     </div>
@@ -72,7 +74,7 @@ export default function StarterPokemonPage() {
         return (
             <DSLayout bgmSrc={pageConfig.bgm}>
                 <TopScreen backgroundImage={pageConfig.image} />
-                <BottomScreen>
+                <BottomScreen backgroundImage="/Images/gift_image.png">
                     <div className="flex items-center justify-center h-full">
                         <p className="text-2xl font-bold text-center px-8">
                             君にはもう仲間がいます
@@ -88,7 +90,7 @@ export default function StarterPokemonPage() {
         return (
             <DSLayout bgmSrc={pageConfig.bgm}>
                 <TopScreen backgroundImage={pageConfig.image} />
-                <BottomScreen>
+                <BottomScreen backgroundImage="/Images/gift_image.png">
                     <div className="flex items-center justify-center h-full">
                         <p className="text-2xl font-bold text-center px-8">
                             選択完了
@@ -102,33 +104,22 @@ export default function StarterPokemonPage() {
     return (
         <DSLayout bgmSrc={pageConfig.bgm}>
             <TopScreen backgroundImage={pageConfig.image} />
-            <BottomScreen>
-                <div className="h-full p-6 flex flex-col items-center justify-center">
-                    <h1 className="text-2xl font-bold mb-6 text-center">
+            <BottomScreen backgroundImage="/Images/gift_image.png">
+                <div className="h-full p-6 flex flex-col items-center justify-start overflow-y-auto">
+                    <h1 className="text-2xl font-bold mb-6 text-center text-gray-800">
                         スターターポケモンを選んでください
                     </h1>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full max-w-4xl">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full max-w-6xl">
                         {options?.map((pokemon) => (
-                            <button
+                            <StarterPokemonCard
                                 key={pokemon.pokemonSpeciesId}
+                                pokemon={pokemon}
+                                description={
+                                    pokemonDescriptions[pokemon.pokemonSpeciesId.toString() as keyof typeof pokemonDescriptions]
+                                }
                                 onClick={() => handleSelectStarter(pokemon.pokemonSpeciesId)}
                                 disabled={isSelecting}
-                                className="bg-white border-4 border-gray-800 rounded-lg p-4 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                            >
-                                <div className="flex flex-col items-center gap-2">
-                                    {pokemon.frontImage && (
-                                        <img
-                                            src={pokemon.frontImage}
-                                            alt={pokemon.name}
-                                            className="w-24 h-24 object-contain"
-                                        />
-                                    )}
-                                    <p className="text-lg font-bold">{pokemon.name}</p>
-                                    <div className="text-sm text-gray-600">
-                                        <p>タイプ: {pokemon.type1}{pokemon.type2 ? ` / ${pokemon.type2}` : ''}</p>
-                                    </div>
-                                </div>
-                            </button>
+                            />
                         ))}
                     </div>
                     {isSelecting && (

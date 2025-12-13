@@ -18,7 +18,6 @@ export function useApi<T = unknown>() {
         try {
             const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
 
-            // Get Firebase ID token
             const user = auth.currentUser;
             let token: string | undefined;
 
