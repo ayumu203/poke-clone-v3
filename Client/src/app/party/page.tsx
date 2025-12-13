@@ -113,7 +113,6 @@ export default function PartyPage() {
                 <BottomScreen darkGrid customFooter={<></>}>
                     <PokemonDetailBottom
                         pokemon={selectedPokemon}
-                        species={selectedSpecies}
                         texts={{
                             release: t?.release || '逃がす',
                             back: t?.back || '戻る',
