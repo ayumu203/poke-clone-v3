@@ -11,7 +11,7 @@ public class GachaService : IGachaService
     private readonly IPlayerRepository _playerRepository;
     private readonly IRandomProvider _randomProvider;
     
-    private const int GachaCost = 5000;
+    private const int GachaCost = 100;
     private const int MinGachaLevel = 1;
     private const int MaxGachaLevel = 11; // Next()は上限を含まないため11
 
