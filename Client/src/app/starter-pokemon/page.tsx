@@ -1,5 +1,6 @@
 'use client';
 
+import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
@@ -19,6 +20,7 @@ export default function StarterPokemonPage() {
     const { party, isLoading: isLoadingParty } = useParty();
     const [selectedPokemon, setSelectedPokemon] = useState<number | null>(null);
     const [isCompleted, setIsCompleted] = useState(false);
+    const queryClient = useQueryClient();
 
     // 認証チェック: 未ログインユーザーを/loginにリダイレクト
     useEffect(() => {
@@ -39,6 +41,8 @@ export default function StarterPokemonPage() {
         setSelectedPokemon(pokemonSpeciesId);
         selectStarter(pokemonSpeciesId, {
             onSuccess: () => {
+                // パーティキャッシュを無効化
+                queryClient.invalidateQueries({ queryKey: ['party'] });
                 setIsCompleted(true);
             },
         });
