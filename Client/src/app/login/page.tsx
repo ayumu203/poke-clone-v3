@@ -9,30 +9,33 @@ import LoginBottomScreen from '@/components/organisms/LoginBottomScreen';
 import TopScreen from '@/components/organisms/TopScreen';
 import DSLayout from '@/components/templates/DSLayout';
 import { useAuth } from '@/hooks/useAuth';
-import { usePageConfig } from '@/hooks/usePageConfig';
+import { usePageConfig, useCommonTexts } from '@/hooks/usePageConfig';
 
 export default function LoginPage() {
     const { loginWithEmail, signUpWithEmail, loginWithGoogle, isAuthenticated, loading } = useAuth();
     const router = useRouter();
     const pageConfig = usePageConfig('login');
+    const commonTexts = useCommonTexts();
     const [error, setError] = useState('');
+
+    const { texts } = pageConfig;
 
     const getErrorMessage = (error: unknown): string => {
         if (error instanceof FirebaseError) {
             switch (error.code) {
                 case 'auth/invalid-credential':
-                    return 'メールアドレスまたはパスワードが間違っています';
+                    return texts.errors.invalidCredential;
                 case 'auth/email-already-in-use':
-                    return 'このメールアドレスは既に登録されています';
+                    return texts.errors.emailInUse;
                 case 'auth/weak-password':
-                    return 'パスワードは6文字以上である必要があります';
+                    return texts.errors.weakPassword;
                 case 'auth/invalid-email':
-                    return '有効なメールアドレスを入力してください';
+                    return texts.errors.invalidEmail;
                 default:
                     return `エラーが発生しました: ${error.code}`;
             }
         }
-        return '予期しないエラーが発生しました';
+        return texts.errors.unexpected;
     };
 
     const handleGoogleLogin = async () => {
@@ -75,7 +78,7 @@ export default function LoginPage() {
                 <TopScreen backgroundImage={pageConfig.image} />
                 <BottomScreen>
                     <div className="flex items-center justify-center h-full bg-white">
-                        <p className="text-xl font-bold">読み込み中...</p>
+                        <p className="text-xl font-bold">{commonTexts.loading}</p>
                     </div>
                 </BottomScreen>
             </DSLayout>
@@ -88,7 +91,7 @@ export default function LoginPage() {
                 <TopScreen backgroundImage={pageConfig.image} />
                 <BottomScreen>
                     <div className="h-full flex items-center justify-center">
-                        <p className="text-xl font-bold text-gray-800">既にログインしています</p>
+                        <p className="text-xl font-bold text-gray-800">{texts.alreadyLoggedIn}</p>
                     </div>
                 </BottomScreen>
             </DSLayout>

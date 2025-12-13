@@ -7,6 +7,7 @@ import { FaEnvelope } from 'react-icons/fa';
 import Button from '@/components/atoms/Button';
 import BottomScreen from '@/components/organisms/BottomScreen';
 import EmailLoginForm from '@/components/molecules/EmailLoginForm';
+import { usePageConfig } from '@/hooks/usePageConfig';
 
 interface LoginBottomScreenProps {
     onGoogleLogin: () => Promise<void>;
@@ -29,6 +30,8 @@ export default function LoginBottomScreen({
 }: LoginBottomScreenProps) {
     const [showEmailForm, setShowEmailForm] = useState(false);
     const [isGoogleLoading, setIsGoogleLoading] = useState(false);
+    const pageConfig = usePageConfig('login');
+    const { texts } = pageConfig;
 
     const handleGoogleLogin = async () => {
         setIsGoogleLoading(true);
@@ -47,6 +50,7 @@ export default function LoginBottomScreen({
                     onSignUp={onEmailSignUp}
                     onCancel={() => setShowEmailForm(false)}
                     error={error}
+                    texts={texts}
                 />
             </BottomScreen>
         );
@@ -60,6 +64,10 @@ export default function LoginBottomScreen({
                         {error}
                     </div>
                 )}
+
+                <p className="text-gray-700 mb-10 font-bold text-center text-3xl">
+                    {texts.accountRequired}
+                </p>
 
                 <Button
                     onClick={handleGoogleLogin}
@@ -75,7 +83,7 @@ export default function LoginBottomScreen({
                         />
                     }
                 >
-                    {isGoogleLoading ? 'ログイン中...' : 'Googleでログイン'}
+                    {isGoogleLoading ? texts.googleLoading : texts.googleLogin}
                 </Button>
 
                 <Button
@@ -84,7 +92,7 @@ export default function LoginBottomScreen({
                     fullWidth
                     icon={<FaEnvelope />}
                 >
-                    メールでログイン
+                    {texts.emailLogin}
                 </Button>
             </div>
         </BottomScreen>

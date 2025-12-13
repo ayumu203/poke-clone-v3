@@ -24,7 +24,7 @@ export default function Button({
     disabled = false,
     icon,
 }: ButtonProps) {
-    const baseClasses = 'px-4 py-2 border-2 font-bold transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed';
+    const baseClasses = 'px-4 py-4 border-2 font-bold transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed';
 
     const variantClasses = {
         primary: 'bg-blue-600 border-blue-800 text-white hover:bg-blue-700',
@@ -40,6 +40,9 @@ export default function Button({
             onClick={onClick}
             disabled={disabled}
             className={`${baseClasses} ${variantClasses[variant]} ${widthClass} flex items-center justify-center gap-2`}
+            style={{
+                boxShadow: 'inset 2px 2px 0 1px white, inset -2px -2px 0 1px white'
+            }}
         >
             {icon && <span className="text-xl">{icon}</span>}
             {children}

@@ -10,7 +10,7 @@ import MessageScreen from '@/components/organisms/MessageScreen';
 import TopScreen from '@/components/organisms/TopScreen';
 import DSLayout from '@/components/templates/DSLayout';
 import { useAuth } from '@/hooks/useAuth';
-import { usePageConfig } from '@/hooks/usePageConfig';
+import { usePageConfig, useCommonTexts } from '@/hooks/usePageConfig';
 import { useParty } from '@/hooks/useParty';
 import { useStarter } from '@/hooks/useStarter';
 import StarterPokemonCard from '@/components/molecules/StarterPokemonCard';
@@ -26,11 +26,14 @@ export default function StarterPokemonPage() {
     const { isAuthenticated, loading } = useAuth();
     const router = useRouter();
     const pageConfig = usePageConfig('starter-pokemon');
+    const commonTexts = useCommonTexts();
     const { options, isLoading: isLoadingOptions, selectStarter, isSelecting } = useStarter();
     const { party, isLoading: isLoadingParty } = useParty();
     const [selectedPokemon, setSelectedPokemon] = useState<number | null>(null);
     const [isCompleted, setIsCompleted] = useState(false);
     const queryClient = useQueryClient();
+
+    const { texts } = pageConfig;
 
     // 認証チェック: 未ログインユーザーを/loginにリダイレクト
     useEffect(() => {
@@ -64,7 +67,7 @@ export default function StarterPokemonPage() {
             <DSLayout bgmSrc={pageConfig.bgm}>
                 <TopScreen backgroundImage={pageConfig.image} />
                 <BottomScreen backgroundImage="/Images/gift_image.png">
-                    <MessageScreen message="読み込み中..." messageClassName="text-xl font-bold" />
+                    <MessageScreen message={commonTexts.loading} messageClassName="text-xl font-bold" />
                 </BottomScreen>
             </DSLayout>
         );
@@ -82,7 +85,7 @@ export default function StarterPokemonPage() {
                 <TopScreen backgroundImage={pageConfig.image} />
                 <BottomScreen backgroundImage="/Images/gift_image.png">
                     <MessageScreen
-                        message="君にはもう仲間がいます..."
+                        message={texts.alreadyHasParty}
                         messageClassName="text-4xl mt-10 text-white font-bold text-center px-8"
                     />
                 </BottomScreen>
@@ -96,7 +99,7 @@ export default function StarterPokemonPage() {
             <DSLayout bgmSrc={pageConfig.bgm}>
                 <TopScreen backgroundImage={pageConfig.image} />
                 <BottomScreen backgroundImage="/Images/gift_image.png">
-                    <MessageScreen message="選択完了" />
+                    <MessageScreen message={texts.selectionComplete} />
                 </BottomScreen>
             </DSLayout>
         );
@@ -114,7 +117,7 @@ export default function StarterPokemonPage() {
                             WebkitTextStroke: '1.5px #E0BFB8'
                         }}
                     >
-                        初めてのポケモンを選ぼう!
+                        {texts.title}
                     </h1>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full max-w-6xl">
                         {options?.map((pokemon) => (
@@ -130,7 +133,7 @@ export default function StarterPokemonPage() {
                         ))}
                     </div>
                     {isSelecting && (
-                        <p className="mt-4 text-lg font-bold">選択中...</p>
+                        <p className="mt-4 text-lg font-bold">{texts.selecting}</p>
                     )}
                 </div>
             </BottomScreen>

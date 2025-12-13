@@ -7,6 +7,7 @@ import ToggleSwitch from '@/components/atoms/ToggleSwitch';
 import { useBGM } from '@/contexts/BGMContext';
 import headerData from '@/data/common/header.json';
 import { useAudio } from '@/hooks/useAudio';
+import { useCommonTexts } from '@/hooks/usePageConfig';
 
 interface HeaderProps {
     bgmSrc?: string;
@@ -20,10 +21,11 @@ interface HeaderProps {
  */
 export default function Header({ bgmSrc = '/audio/01_opening.mp3' }: HeaderProps) {
     const { isBgmEnabled, setIsBgmEnabled, volume } = useBGM();
+    const commonTexts = useCommonTexts();
     const { play, pause, setVolume } = useAudio({
         src: bgmSrc,
         loop: true,
-        volume: volume / 100, // 0-100を0-1に変換
+        volume: volume / 100,
         autoPlay: false,
     });
 
@@ -57,7 +59,7 @@ export default function Header({ bgmSrc = '/audio/01_opening.mp3' }: HeaderProps
             <ToggleSwitch
                 enabled={isBgmEnabled}
                 onToggle={() => setIsBgmEnabled(!isBgmEnabled)}
-                label="BGM"
+                label={commonTexts.bgm}
             />
         </header>
     );

@@ -41,7 +41,7 @@ export default function StarterPokemonCard({
                 borderWidth: '4px',
                 borderStyle: 'solid',
                 borderColor: typeColors.border,
-                backgroundColor: typeColors.background,
+                backgroundColor: `${typeColors.background}80`, // 50% opacity
             }}
         >
             <div className="flex flex-col items-center gap-3">

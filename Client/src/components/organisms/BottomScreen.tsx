@@ -7,6 +7,7 @@ import Button from '@/components/atoms/Button';
 import HomeButton from '@/components/atoms/HomeButton';
 import StatusBar from '@/components/molecules/StatusBar';
 import { useAuth } from '@/hooks/useAuth';
+import { useCommonTexts } from '@/hooks/usePageConfig';
 
 interface BottomScreenProps {
     children?: ReactNode;
@@ -24,6 +25,7 @@ interface BottomScreenProps {
 export default function BottomScreen({ children, customFooter, backgroundImage }: BottomScreenProps) {
     const { isAuthenticated, logout } = useAuth();
     const [isLoggingOut, setIsLoggingOut] = useState(false);
+    const commonTexts = useCommonTexts();
 
     const handleLogout = async () => {
         setIsLoggingOut(true);
@@ -44,7 +46,7 @@ export default function BottomScreen({ children, customFooter, backgroundImage }
                     disabled={isLoggingOut}
                     icon={<FaSignOutAlt />}
                 >
-                    {isLoggingOut ? 'ログアウト中' : 'ログアウト'}
+                    {isLoggingOut ? commonTexts.loggingOut : commonTexts.logout}
                 </Button>
             )}
         </>

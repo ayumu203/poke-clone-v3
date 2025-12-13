@@ -3,6 +3,8 @@
 import { useRouter } from 'next/navigation';
 import { FaHome } from 'react-icons/fa';
 
+import { useCommonTexts } from '@/hooks/usePageConfig';
+
 interface HomeButtonProps {
     variant?: 'default' | 'compact';
 }
@@ -14,6 +16,7 @@ interface HomeButtonProps {
  */
 export default function HomeButton({ variant: _variant = 'default' }: HomeButtonProps) {
     const router = useRouter();
+    const commonTexts = useCommonTexts();
 
     const handleClick = () => {
         router.push('/');
@@ -25,7 +28,7 @@ export default function HomeButton({ variant: _variant = 'default' }: HomeButton
             className="px-6 py-2 bg-gray-100 border-2 border-gray-400 text-gray-800 font-bold hover:bg-gray-200 transition-colors flex items-center justify-center gap-2"
         >
             <FaHome className="text-lg" />
-            <span>HOME</span>
+            <span>{commonTexts.home}</span>
         </button>
     );
 }
