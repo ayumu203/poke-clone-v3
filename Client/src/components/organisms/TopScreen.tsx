@@ -22,6 +22,7 @@ export default function TopScreen({
                 src={backgroundImage}
                 alt="背景画像"
                 fill
+                sizes="(max-width: 800px) 100vw, 800px"
                 className="object-cover"
                 priority
             />
