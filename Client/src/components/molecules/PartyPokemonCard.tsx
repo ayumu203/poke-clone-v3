@@ -60,8 +60,8 @@ export default function PartyPokemonCard({
                 <Image
                     src={species.frontImage}
                     alt={species.name}
-                    width={64}
-                    height={64}
+                    width={96}
+                    height={96}
                     className="object-contain"
                     unoptimized
                 />
