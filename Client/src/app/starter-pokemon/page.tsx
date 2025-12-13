@@ -3,8 +3,10 @@
 import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { M_PLUS_Rounded_1c } from 'next/font/google';
 
 import BottomScreen from '@/components/organisms/BottomScreen';
+import MessageScreen from '@/components/organisms/MessageScreen';
 import TopScreen from '@/components/organisms/TopScreen';
 import DSLayout from '@/components/templates/DSLayout';
 import { useAuth } from '@/hooks/useAuth';
@@ -14,10 +16,16 @@ import { useStarter } from '@/hooks/useStarter';
 import StarterPokemonCard from '@/components/molecules/StarterPokemonCard';
 import pokemonDescriptions from '@/data/pokemon/pokemonDescriptions.json';
 
+const mPlusRounded = M_PLUS_Rounded_1c({
+    weight: '800',
+    subsets: ['latin'],
+    display: 'swap',
+});
+
 export default function StarterPokemonPage() {
     const { isAuthenticated, loading } = useAuth();
     const router = useRouter();
-    const pageConfig = usePageConfig('home');
+    const pageConfig = usePageConfig('starter-pokemon');
     const { options, isLoading: isLoadingOptions, selectStarter, isSelecting } = useStarter();
     const { party, isLoading: isLoadingParty } = useParty();
     const [selectedPokemon, setSelectedPokemon] = useState<number | null>(null);
@@ -56,9 +64,7 @@ export default function StarterPokemonPage() {
             <DSLayout bgmSrc={pageConfig.bgm}>
                 <TopScreen backgroundImage={pageConfig.image} />
                 <BottomScreen backgroundImage="/Images/gift_image.png">
-                    <div className="flex items-center justify-center h-full">
-                        <p className="text-xl font-bold">読み込み中...</p>
-                    </div>
+                    <MessageScreen message="読み込み中..." messageClassName="text-xl font-bold" />
                 </BottomScreen>
             </DSLayout>
         );
@@ -75,11 +81,10 @@ export default function StarterPokemonPage() {
             <DSLayout bgmSrc={pageConfig.bgm}>
                 <TopScreen backgroundImage={pageConfig.image} />
                 <BottomScreen backgroundImage="/Images/gift_image.png">
-                    <div className="flex items-center justify-center h-full">
-                        <p className="text-2xl font-bold text-center px-8">
-                            君にはもう仲間がいます
-                        </p>
-                    </div>
+                    <MessageScreen
+                        message="君にはもう仲間がいます..."
+                        messageClassName="text-4xl mt-10 text-white font-bold text-center px-8"
+                    />
                 </BottomScreen>
             </DSLayout>
         );
@@ -91,11 +96,7 @@ export default function StarterPokemonPage() {
             <DSLayout bgmSrc={pageConfig.bgm}>
                 <TopScreen backgroundImage={pageConfig.image} />
                 <BottomScreen backgroundImage="/Images/gift_image.png">
-                    <div className="flex items-center justify-center h-full">
-                        <p className="text-2xl font-bold text-center px-8">
-                            選択完了
-                        </p>
-                    </div>
+                    <MessageScreen message="選択完了" />
                 </BottomScreen>
             </DSLayout>
         );
@@ -104,10 +105,16 @@ export default function StarterPokemonPage() {
     return (
         <DSLayout bgmSrc={pageConfig.bgm}>
             <TopScreen backgroundImage={pageConfig.image} />
-            <BottomScreen backgroundImage="/Images/gift_image.png">
+            <BottomScreen backgroundImage="/Images/gift_image1.png">
                 <div className="h-full p-6 flex flex-col items-center justify-start overflow-y-auto">
-                    <h1 className="text-2xl font-bold mb-6 text-center text-gray-800">
-                        スターターポケモンを選んでください
+                    <h1
+                        className={`text-3xl font-bold mb-10 text-center ${mPlusRounded.className}`}
+                        style={{
+                            color: 'white',
+                            WebkitTextStroke: '1.5px #E0BFB8'
+                        }}
+                    >
+                        初めてのポケモンを選ぼう!
                     </h1>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full max-w-6xl">
                         {options?.map((pokemon) => (

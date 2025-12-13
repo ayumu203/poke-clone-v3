@@ -12,7 +12,7 @@ interface PageConfig {
     menuButtons?: MenuButton[];
 }
 
-type PageName = 'login' | 'home' | 'cpu-battle' | 'online-battle' | 'party' | 'gacha' | 'first-pokemon';
+type PageName = 'login' | 'home' | 'cpu-battle' | 'online-battle' | 'party' | 'gacha' | 'starter-pokemon';
 
 /**
  * ページ設定を取得するフック
