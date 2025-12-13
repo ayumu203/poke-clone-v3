@@ -28,8 +28,7 @@ function getHpBarColor(percentage: number): string {
 
 /**
  * パーティ画面用ポケモンカードコンポーネント
- * - ポケモン画像、名前、レベル、タイプ、HP、HPバーを表示
- * - 参照画像のデザインを忠実に再現
+ * レイアウト: 画像 → HPバー → 名前・レベル・タイプ
  */
 export default function PartyPokemonCard({
     pokemon,
@@ -49,26 +48,47 @@ export default function PartyPokemonCard({
 
     return (
         <div
-            className="rounded-lg p-1 flex flex-col items-center gap-0.5"
+            className="rounded-lg p-1 flex flex-col items-center"
             style={{
                 backgroundColor: '#2a2a2a',
                 border: `2px solid ${typeColors.border}`,
             }}
         >
-            {/* ポケモン画像 */}
-            <div className="relative w-10 h-10 flex items-center justify-center">
+            {/* ポケモン画像（元のサイズ） */}
+            <div className="flex items-center justify-center">
                 <Image
                     src={species.frontImage}
                     alt={species.name}
-                    width={40}
-                    height={40}
+                    width={96}
+                    height={96}
                     className="object-contain"
                     unoptimized
                 />
             </div>
 
+            {/* HP表示 */}
+            <div className="w-full px-1">
+                <div className="flex justify-between text-[9px] text-gray-300">
+                    <span>HP</span>
+                    <span>{currentHp}/{maxHp}</span>
+                </div>
+                {/* HPバー */}
+                <div
+                    className="w-full h-1.5 rounded-full overflow-hidden"
+                    style={{ backgroundColor: '#444444' }}
+                >
+                    <div
+                        className="h-full rounded-full transition-all duration-300"
+                        style={{
+                            width: `${hpPercentage}%`,
+                            backgroundColor: hpBarColor,
+                        }}
+                    />
+                </div>
+            </div>
+
             {/* 名前とレベル */}
-            <div className="text-center">
+            <div className="text-center mt-0.5">
                 <p
                     className="text-xs font-bold leading-tight"
                     style={{ color: typeColors.border }}
@@ -81,7 +101,7 @@ export default function PartyPokemonCard({
             </div>
 
             {/* タイプ */}
-            <div className="flex gap-0.5">
+            <div className="flex gap-0.5 mt-0.5">
                 <span
                     className="text-[9px] px-1.5 py-0.5 rounded"
                     style={{
@@ -103,27 +123,7 @@ export default function PartyPokemonCard({
                     </span>
                 )}
             </div>
-
-            {/* HP表示 */}
-            <div className="w-full mt-0.5">
-                <div className="flex justify-between text-[9px] text-gray-300 mb-0.5">
-                    <span>HP</span>
-                    <span>{currentHp}/{maxHp}</span>
-                </div>
-                {/* HPバー */}
-                <div
-                    className="w-full h-1.5 rounded-full overflow-hidden"
-                    style={{ backgroundColor: '#444444' }}
-                >
-                    <div
-                        className="h-full rounded-full transition-all duration-300"
-                        style={{
-                            width: `${hpPercentage}%`,
-                            backgroundColor: hpBarColor,
-                        }}
-                    />
-                </div>
-            </div>
         </div>
     );
 }
+
