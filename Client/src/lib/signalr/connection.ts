@@ -8,7 +8,7 @@ class SignalRService {
             return this.hubConnection;
         }
 
-        const apiUrl = process.env._API_URL || 'http://localhost:5000';
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
 
         this.hubConnection = new signalR.HubConnectionBuilder()
             .withUrl(`${apiUrl}/hubs/battle`, {

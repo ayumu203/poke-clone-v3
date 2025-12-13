@@ -24,12 +24,12 @@ export default function Home() {
     }
   }, [isAuthenticated, loading, router]);
 
-  // パーティチェック: ポケモンを持っていない場合は/first-pokemonにリダイレクト
+  // パーティチェック: パーティが存在しない場合は/starter-pokemonにリダイレクト
   useEffect(() => {
-    if (!loading && !isLoadingParty && isAuthenticated && party?.length === 0) {
-      router.push('/first-pokemon');
+    if (!loading && !isLoadingParty && isAuthenticated && (!party || party.length === 0)) {
+      router.push('/starter-pokemon');
     }
-  }, [loading, isLoadingParty, isAuthenticated, party, router]);
+  }, [party, isLoadingParty, loading, isAuthenticated, router]);
 
   // ローディング中は空の画面を表示
   if (loading || isLoadingParty) {
@@ -47,6 +47,11 @@ export default function Home() {
 
   // 未認証の場合は何も表示しない（リダイレクト処理中）
   if (!isAuthenticated) {
+    return null;
+  }
+
+  // パーティ未所持の場合は何も表示しない（リダイレクト処理中）
+  if (!party || party.length === 0) {
     return null;
   }
 

@@ -18,7 +18,7 @@ export function useStarter() {
     });
 
     // スターターを選択
-    const selectStarter = useMutation({
+    const selectStarterMutation = useMutation({
         mutationFn: (pokemonSpeciesId: number) =>
             request('/api/Starter/select', {
                 method: 'POST',
@@ -29,7 +29,8 @@ export function useStarter() {
     return {
         options,
         isLoading,
-        selectStarter: selectStarter.mutate,
-        isSelecting: selectStarter.isPending,
+        selectStarter: selectStarterMutation.mutate,
+        selectStarterAsync: selectStarterMutation.mutateAsync,
+        isSelecting: selectStarterMutation.isPending,
     };
 }

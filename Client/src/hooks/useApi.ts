@@ -16,7 +16,7 @@ export function useApi<T = unknown>() {
         setError(null);
 
         try {
-            const apiUrl = process.env.API_URL || 'http://localhost:5000';
+            const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
 
             // Get Firebase ID token
             const user = auth.currentUser;

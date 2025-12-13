@@ -44,9 +44,5 @@
     "gacha": {
         "image": "/Images/art_003.png",
         "bgm": "/audio/02_masara_town.mp3"
-    },
-    "first-pokemon": {
-        "image": "/Images/art_003.png",
-        "bgm": "/audio/02_masara_town.mp3"
     }
 }
