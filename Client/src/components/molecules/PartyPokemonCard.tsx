@@ -28,7 +28,8 @@ function getHpBarColor(percentage: number): string {
 
 /**
  * パーティ画面用ポケモンカードコンポーネント
- * レイアウト: 画像 → HPバー → 名前・レベル・タイプ
+ * 左側: 画像 + レベル
+ * 右側: 名前・HPバー・HP実数値・タイプ
  */
 export default function PartyPokemonCard({
     pokemon,
@@ -48,30 +49,37 @@ export default function PartyPokemonCard({
 
     return (
         <div
-            className="rounded-lg p-1 flex flex-col items-center"
+            className="rounded-lg p-1 flex flex-row"
             style={{
                 backgroundColor: '#2a2a2a',
                 border: `2px solid ${typeColors.border}`,
             }}
         >
-            {/* ポケモン画像（元のサイズ） */}
-            <div className="flex items-center justify-center">
+            {/* 左側: ポケモン画像 + レベル */}
+            <div className="flex flex-col items-center justify-center">
                 <Image
                     src={species.frontImage}
                     alt={species.name}
-                    width={96}
-                    height={96}
+                    width={64}
+                    height={64}
                     className="object-contain"
                     unoptimized
                 />
+                <p className="text-[10px] text-gray-300">
+                    Lv.{pokemon.level}
+                </p>
             </div>
 
-            {/* HP表示 */}
-            <div className="w-full px-1">
-                <div className="flex justify-between text-[9px] text-gray-300">
-                    <span>HP</span>
-                    <span>{currentHp}/{maxHp}</span>
-                </div>
+            {/* 右側: 名前・HPバー・HP・タイプ */}
+            <div className="flex-1 flex flex-col justify-center pl-1 gap-0.5">
+                {/* 名前 */}
+                <p
+                    className="text-xs font-bold leading-tight"
+                    style={{ color: typeColors.border }}
+                >
+                    {species.name}
+                </p>
+
                 {/* HPバー */}
                 <div
                     className="w-full h-1.5 rounded-full overflow-hidden"
@@ -85,43 +93,35 @@ export default function PartyPokemonCard({
                         }}
                     />
                 </div>
-            </div>
 
-            {/* 名前とレベル */}
-            <div className="text-center mt-0.5">
-                <p
-                    className="text-xs font-bold leading-tight"
-                    style={{ color: typeColors.border }}
-                >
-                    {species.name}
+                {/* HP実数値 */}
+                <p className="text-[10px] text-gray-300">
+                    HP: {currentHp}
                 </p>
-                <p className="text-[10px] text-gray-300 leading-tight">
-                    Lv.{pokemon.level}
-                </p>
-            </div>
 
-            {/* タイプ */}
-            <div className="flex gap-0.5 mt-0.5">
-                <span
-                    className="text-[9px] px-1.5 py-0.5 rounded"
-                    style={{
-                        backgroundColor: typeColors.border,
-                        color: '#ffffff',
-                    }}
-                >
-                    {type1String}
-                </span>
-                {type2String && (
+                {/* タイプ（横並び） */}
+                <div className="flex gap-0.5">
                     <span
-                        className="text-[9px] px-1.5 py-0.5 rounded"
+                        className="text-[8px] px-1 py-0.5 rounded"
                         style={{
-                            backgroundColor: getTypeColors(type2String).border,
+                            backgroundColor: typeColors.border,
                             color: '#ffffff',
                         }}
                     >
-                        {type2String}
+                        {type1String}
                     </span>
-                )}
+                    {type2String && (
+                        <span
+                            className="text-[8px] px-1 py-0.5 rounded"
+                            style={{
+                                backgroundColor: getTypeColors(type2String).border,
+                                color: '#ffffff',
+                            }}
+                        >
+                            {type2String}
+                        </span>
+                    )}
+                </div>
             </div>
         </div>
     );
