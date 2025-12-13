@@ -4,6 +4,7 @@ import Image from 'next/image';
 
 import type { StarterOption } from '@/types/starter';
 import { getTypeColors } from '@/utils/typeColors';
+import { convertTypeEnumToString } from '@/utils/typeEnum';
 
 interface StarterPokemonCardProps {
     pokemon: StarterOption;
@@ -25,7 +26,11 @@ export default function StarterPokemonCard({
     onClick,
     disabled = false,
 }: StarterPokemonCardProps) {
-    const typeColors = getTypeColors(pokemon.type1);
+    // タイプのEnum値を文字列に変換
+    const type1String = convertTypeEnumToString(pokemon.type1);
+    const type2String = pokemon.type2 ? convertTypeEnumToString(pokemon.type2) : undefined;
+
+    const typeColors = getTypeColors(type1String);
 
     return (
         <button
@@ -73,17 +78,17 @@ export default function StarterPokemonCard({
                             color: 'white',
                         }}
                     >
-                        {pokemon.type1}
+                        {type1String}
                     </span>
-                    {pokemon.type2 && (
+                    {type2String && (
                         <span
                             className="px-3 py-1 rounded-full text-sm font-semibold"
                             style={{
-                                backgroundColor: getTypeColors(pokemon.type2).border,
+                                backgroundColor: getTypeColors(type2String).border,
                                 color: 'white',
                             }}
                         >
-                            {pokemon.type2}
+                            {type2String}
                         </span>
                     )}
                 </div>

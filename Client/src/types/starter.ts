@@ -3,8 +3,8 @@ export interface StarterOption {
     name: string;
     frontImage: string;
     backImage: string;
-    type1: string;
-    type2?: string;
+    type1: number | string;
+    type2?: number | string | null;
     baseHp: number;
     baseAttack: number;
     baseDefence: number;
