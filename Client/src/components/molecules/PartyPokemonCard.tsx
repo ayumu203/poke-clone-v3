@@ -48,14 +48,14 @@ export default function PartyPokemonCard({
 
     return (
         <div
-            className="rounded-lg p-1 flex flex-row"
+            className="rounded-lg p-1 flex flex-row items-end"
             style={{
                 backgroundColor: '#2a2a2a',
                 border: `2px solid ${typeColors.border}`,
             }}
         >
             {/* 左側: ポケモン画像 + レベル */}
-            <div className="flex flex-col items-center justify-center">
+            <div className="flex flex-col items-center">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                     src={species.frontImage}
@@ -68,7 +68,7 @@ export default function PartyPokemonCard({
             </div>
 
             {/* 右側: 名前・HPバー・HP・タイプ */}
-            <div className="flex-1 flex flex-col justify-center pl-1 gap-0.5">
+            <div className="flex-1 flex flex-col pl-1 gap-0.5">
                 {/* 名前 */}
                 <p
                     className="text-xl mb-2 font-bold leading-tight"
@@ -97,7 +97,7 @@ export default function PartyPokemonCard({
                 </p>
 
                 {/* タイプ（横並び） */}
-                <div className="flex mb-2 gap-0.5">
+                <div className="flex gap-0.5">
                     <span
                         className="text-xl px-1 py-0.5 rounded"
                         style={{
