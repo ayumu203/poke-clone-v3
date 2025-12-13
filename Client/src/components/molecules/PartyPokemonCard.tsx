@@ -49,19 +49,19 @@ export default function PartyPokemonCard({
 
     return (
         <div
-            className="rounded-lg p-2 flex flex-col items-center gap-1"
+            className="rounded-lg p-1 flex flex-col items-center gap-0.5"
             style={{
                 backgroundColor: '#2a2a2a',
                 border: `2px solid ${typeColors.border}`,
             }}
         >
             {/* ポケモン画像 */}
-            <div className="relative w-16 h-16 flex items-center justify-center">
+            <div className="relative w-10 h-10 flex items-center justify-center">
                 <Image
                     src={species.frontImage}
                     alt={species.name}
-                    width={64}
-                    height={64}
+                    width={40}
+                    height={40}
                     className="object-contain"
                     unoptimized
                 />
@@ -70,20 +70,20 @@ export default function PartyPokemonCard({
             {/* 名前とレベル */}
             <div className="text-center">
                 <p
-                    className="text-sm font-bold"
+                    className="text-xs font-bold leading-tight"
                     style={{ color: typeColors.border }}
                 >
                     {species.name}
                 </p>
-                <p className="text-xs text-gray-300">
+                <p className="text-[10px] text-gray-300 leading-tight">
                     Lv.{pokemon.level}
                 </p>
             </div>
 
             {/* タイプ */}
-            <div className="flex gap-1">
+            <div className="flex gap-0.5">
                 <span
-                    className="text-xs px-2 py-0.5 rounded"
+                    className="text-[9px] px-1.5 py-0.5 rounded"
                     style={{
                         backgroundColor: typeColors.border,
                         color: '#ffffff',
@@ -93,7 +93,7 @@ export default function PartyPokemonCard({
                 </span>
                 {type2String && (
                     <span
-                        className="text-xs px-2 py-0.5 rounded"
+                        className="text-[9px] px-1.5 py-0.5 rounded"
                         style={{
                             backgroundColor: getTypeColors(type2String).border,
                             color: '#ffffff',
@@ -105,14 +105,14 @@ export default function PartyPokemonCard({
             </div>
 
             {/* HP表示 */}
-            <div className="w-full mt-1">
-                <div className="flex justify-between text-xs text-gray-300 mb-0.5">
+            <div className="w-full mt-0.5">
+                <div className="flex justify-between text-[9px] text-gray-300 mb-0.5">
                     <span>HP</span>
                     <span>{currentHp}/{maxHp}</span>
                 </div>
                 {/* HPバー */}
                 <div
-                    className="w-full h-2 rounded-full overflow-hidden"
+                    className="w-full h-1.5 rounded-full overflow-hidden"
                     style={{ backgroundColor: '#444444' }}
                 >
                     <div

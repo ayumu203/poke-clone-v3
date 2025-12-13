@@ -61,7 +61,7 @@ export default function PartyPage() {
                             <p className="text-xl font-bold text-red-600">エラーが発生しました</p>
                         </div>
                     ) : (
-                        <div className="grid grid-cols-3 gap-2 h-full">
+                        <div className="grid grid-cols-3 grid-rows-2 gap-2 h-full">
                             {party?.slice(0, 6).map((pokemon, index) => {
                                 const species = speciesList[index];
                                 if (!species) return null;
