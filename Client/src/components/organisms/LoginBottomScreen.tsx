@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { FaEnvelope } from 'react-icons/fa';
 
 import Button from '@/components/atoms/Button';
-import HomeButton from '@/components/atoms/HomeButton';
+import BottomScreen from '@/components/organisms/BottomScreen';
 import EmailLoginForm from '@/components/molecules/EmailLoginForm';
 
 interface LoginBottomScreenProps {
@@ -17,8 +17,7 @@ interface LoginBottomScreenProps {
 
 /**
  * ログインページの下画面コンポーネント
- * - アスペクト比: 5:3 (横:縦)、レスポンシブ対応
- * - ステータスバー: 時刻、ネットワーク名、アイコン
+ * - BottomScreenでラップし、StatusBarと背景画像を表示
  * - 初期状態: Googleログインボタン、Emailログインボタン
  * - Emailログインボタンクリック後: EmailLoginFormを表示
  */
@@ -42,24 +41,19 @@ export default function LoginBottomScreen({
 
     if (showEmailForm) {
         return (
-            <div className="w-full aspect-[5/3] flex flex-col">
-                <div className="flex-1 overflow-auto">
-                    <EmailLoginForm
-                        onLogin={onEmailLogin}
-                        onSignUp={onEmailSignUp}
-                        onCancel={() => setShowEmailForm(false)}
-                        error={error}
-                    />
-                </div>
-                <div className="bg-gray-800 p-2 flex justify-center">
-                    <HomeButton />
-                </div>
-            </div>
+            <BottomScreen>
+                <EmailLoginForm
+                    onLogin={onEmailLogin}
+                    onSignUp={onEmailSignUp}
+                    onCancel={() => setShowEmailForm(false)}
+                    error={error}
+                />
+            </BottomScreen>
         );
     }
 
     return (
-        <div className="w-full aspect-[5/3] flex flex-col">
+        <BottomScreen>
             <div className="h-full p-6 space-y-4 flex flex-col justify-center items-center">
                 {error && (
                     <div className="bg-red-600 border-2 border-red-800 text-white p-2 text-center w-full">
@@ -93,9 +87,6 @@ export default function LoginBottomScreen({
                     メールでログイン
                 </Button>
             </div>
-            <div className="bg-gray-800 p-2 flex justify-center">
-                <HomeButton />
-            </div>
-        </div>
+        </BottomScreen>
     );
 }
