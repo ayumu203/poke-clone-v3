@@ -63,23 +63,38 @@
         ]
     },
     "cpu-battle": {
-        "image": "/Images/art_003.png",
+        "image": "/Images/art_008.png",
         "bgm": "/audio/15_battle_trainer.mp3"
     },
     "online-battle": {
-        "image": "/Images/art_003.png",
+        "image": "/Images/art_049.png",
         "bgm": "/audio/15_battle_trainer.mp3"
     },
     "party": {
-        "image": "/Images/art_003.png",
-        "bgm": "/audio/02_masara_town.mp3"
+        "image": "/Images/art_009.png",
+        "bgm": "/audio/02_masara_town.mp3",
+        "t": {
+            "loading": "読み込み中...",
+            "error": "エラーが発生しました",
+            "release": "逃がす",
+            "releaseConfirm": "本当にこのポケモンを逃がしますか？",
+            "releaseCancel": "キャンセル",
+            "back": "戻る",
+            "stats": {
+                "attack": "こうげき",
+                "defense": "ぼうぎょ",
+                "spAttack": "とくこう",
+                "spDefense": "とくぼう",
+                "speed": "すばやさ"
+            }
+        }
     },
     "gacha": {
-        "image": "/Images/art_003.png",
+        "image": "/Images/art_004.png",
         "bgm": "/audio/02_masara_town.mp3"
     },
     "starter-pokemon": {
-        "image": "/Images/art_003.png",
+        "image": "/Images/art_071.png",
         "bgm": "/audio/04_oak_laboratory.mp3",
         "t": {
             "title": "初めてのポケモンを選ぼう!",

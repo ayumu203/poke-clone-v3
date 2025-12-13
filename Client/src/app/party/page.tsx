@@ -1,12 +1,15 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import BottomScreen from '@/components/organisms/BottomScreen';
 import TopScreen from '@/components/organisms/TopScreen';
 import DSLayout from '@/components/templates/DSLayout';
 import PartyPokemonCard from '@/components/molecules/PartyPokemonCard';
+import PokemonDetailTop from '@/components/molecules/PokemonDetailTop';
+import PokemonDetailBottom from '@/components/molecules/PokemonDetailBottom';
+import ConfirmDialog from '@/components/molecules/ConfirmDialog';
 import { useAuth } from '@/hooks/useAuth';
 import { usePageConfig } from '@/hooks/usePageConfig';
 import { useParty } from '@/hooks/useParty';
@@ -16,13 +19,26 @@ export default function PartyPage() {
     const { isAuthenticated, loading } = useAuth();
     const router = useRouter();
     const pageConfig = usePageConfig('party');
-    const { party, isLoading: isLoadingParty, error } = useParty();
+    const { party, isLoading: isLoadingParty, error, releasePokemon, isReleasing } = useParty();
+
+    // ポケモン選択状態
+    const [selectedPokemonId, setSelectedPokemonId] = useState<string | null>(null);
+    // 確認ダイアログ表示状態
+    const [showReleaseConfirm, setShowReleaseConfirm] = useState(false);
 
     // パーティに含まれるポケモンの種族情報を取得
     const speciesIds = party?.map(p => p.pokemonSpeciesId) || [];
     const { species: speciesList, isLoading: isLoadingSpecies } = usePokemonSpeciesBatch(speciesIds);
 
     const isLoading = isLoadingParty || isLoadingSpecies;
+
+    // 選択中のポケモンを取得
+    const selectedPokemon = party?.find(p => p.pokemonId === selectedPokemonId);
+    const selectedIndex = party?.findIndex(p => p.pokemonId === selectedPokemonId) ?? -1;
+    const selectedSpecies = selectedIndex >= 0 ? speciesList[selectedIndex] : undefined;
+
+    // テキスト設定
+    const { t } = pageConfig;
 
     // 認証チェック
     useEffect(() => {
@@ -38,6 +54,36 @@ export default function PartyPage() {
         }
     }, [party, isLoadingParty, loading, isAuthenticated, router]);
 
+    // 選択中のポケモンが逃がされた後に選択解除
+    useEffect(() => {
+        if (selectedPokemonId && party && !party.find(p => p.pokemonId === selectedPokemonId)) {
+            setSelectedPokemonId(null);
+        }
+    }, [party, selectedPokemonId]);
+
+    const handlePokemonClick = (pokemonId: string) => {
+        setSelectedPokemonId(pokemonId);
+    };
+
+    const handleBack = () => {
+        setSelectedPokemonId(null);
+    };
+
+    const handleReleaseClick = () => {
+        setShowReleaseConfirm(true);
+    };
+
+    const handleReleaseConfirm = () => {
+        if (selectedPokemonId) {
+            releasePokemon(selectedPokemonId);
+            setShowReleaseConfirm(false);
+        }
+    };
+
+    const handleReleaseCancel = () => {
+        setShowReleaseConfirm(false);
+    };
+
     if (loading || !isAuthenticated) {
         return null;
     }
@@ -47,21 +93,68 @@ export default function PartyPage() {
         return null;
     }
 
+    // ポケモン詳細表示モード
+    if (selectedPokemon && selectedSpecies) {
+        return (
+            <DSLayout bgmSrc={pageConfig.bgm}>
+                <TopScreen backgroundImage={pageConfig.image}>
+                    <PokemonDetailTop
+                        pokemon={selectedPokemon}
+                        species={selectedSpecies}
+                        texts={t?.stats || {
+                            attack: 'こうげき',
+                            defense: 'ぼうぎょ',
+                            spAttack: 'とくこう',
+                            spDefense: 'とくぼう',
+                            speed: 'すばやさ',
+                        }}
+                    />
+                </TopScreen>
+                <BottomScreen darkGrid customFooter={<></>}>
+                    <PokemonDetailBottom
+                        pokemon={selectedPokemon}
+                        species={selectedSpecies}
+                        texts={{
+                            release: t?.release || '逃がす',
+                            back: t?.back || '戻る',
+                        }}
+                        onBack={handleBack}
+                        onRelease={handleReleaseClick}
+                        isReleasing={isReleasing}
+                    />
+                </BottomScreen>
+
+                {/* 確認ダイアログ */}
+                <ConfirmDialog
+                    isOpen={showReleaseConfirm}
+                    message={t?.releaseConfirm || '本当にこのポケモンを逃がしますか？'}
+                    confirmText={t?.release || '逃がす'}
+                    cancelText={t?.releaseCancel || 'キャンセル'}
+                    onConfirm={handleReleaseConfirm}
+                    onCancel={handleReleaseCancel}
+                    isLoading={isReleasing}
+                    variant="danger"
+                />
+            </DSLayout>
+        );
+    }
+
+    // パーティ一覧表示モード
     return (
         <DSLayout bgmSrc={pageConfig.bgm}>
             <TopScreen backgroundImage={pageConfig.image} />
-            <BottomScreen>
+            <BottomScreen darkGrid>
                 <div className="flex flex-col h-full p-2">
                     {isLoading ? (
                         <div className="flex items-center justify-center h-full">
-                            <p className="text-xl font-bold">読み込み中...</p>
+                            <p className="text-xl font-bold text-white">{t?.loading || '読み込み中...'}</p>
                         </div>
                     ) : error ? (
                         <div className="flex items-center justify-center h-full">
-                            <p className="text-xl font-bold text-red-600">エラーが発生しました</p>
+                            <p className="text-xl font-bold text-red-400">{t?.error || 'エラーが発生しました'}</p>
                         </div>
                     ) : (
-                        <div className="grid grid-cols-3 grid-rows-2 gap-2 h-full">
+                        <div className="grid grid-cols-2 grid-rows-3 md:grid-cols-3 md:grid-rows-2 gap-2 h-full overflow-y-auto">
                             {party?.slice(0, 6).map((pokemon, index) => {
                                 const species = speciesList[index];
                                 if (!species) return null;
@@ -71,6 +164,7 @@ export default function PartyPage() {
                                         key={pokemon.pokemonId}
                                         pokemon={pokemon}
                                         species={species}
+                                        onClick={() => handlePokemonClick(pokemon.pokemonId)}
                                     />
                                 );
                             })}

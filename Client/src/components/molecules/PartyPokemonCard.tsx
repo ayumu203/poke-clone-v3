@@ -10,6 +10,7 @@ import { calcHp } from '@/utils/statCalculator';
 interface PartyPokemonCardProps {
     pokemon: Pokemon;
     species: PokemonSpecies;
+    onClick?: () => void;
 }
 
 /**
@@ -33,6 +34,7 @@ function getHpBarColor(percentage: number): string {
 export default function PartyPokemonCard({
     pokemon,
     species,
+    onClick,
 }: PartyPokemonCardProps) {
     // タイプのEnum値を文字列に変換
     const type1String = convertTypeEnumToString(species.type1);
@@ -47,31 +49,32 @@ export default function PartyPokemonCard({
     const hpBarColor = getHpBarColor(hpPercentage);
 
     return (
-        <div
-            className="rounded-lg p-1 pb-6 flex flex-row items-end"
+        <button
+            onClick={onClick}
+            className="rounded-lg p-2 flex flex-col md:flex-row items-center md:items-end text-left transition-transform hover:scale-105 cursor-pointer"
             style={{
                 backgroundColor: '#2a2a2a',
                 border: `2px solid ${typeColors.border}`,
             }}
         >
-            {/* 左側: ポケモン画像 + レベル */}
+            {/* 上/左側: ポケモン画像 + レベル */}
             <div className="flex flex-col items-center">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                     src={species.frontImage}
                     alt={species.name}
-                    className="object-contain"
+                    className="object-contain w-16 h-16 md:w-auto md:h-auto"
                 />
                 <p className="text-xl text-gray-300">
                     Lv.{pokemon.level}
                 </p>
             </div>
 
-            {/* 右側: 名前・HPバー・HP・タイプ */}
-            <div className="flex-1 flex flex-col pl-1 gap-0.5">
+            {/* 下/右側: 名前・HPバー・HP・タイプ */}
+            <div className="flex-1 flex flex-col items-center md:items-start md:pl-1 gap-0.5 w-full">
                 {/* 名前 */}
                 <p
-                    className="text-xl mb-2 font-bold leading-tight"
+                    className="text-xl font-bold leading-tight"
                     style={{ color: typeColors.border }}
                 >
                     {species.name}
@@ -92,14 +95,14 @@ export default function PartyPokemonCard({
                 </div>
 
                 {/* HP実数値 */}
-                <p className="text-xl mb-2 text-gray-300">
+                <p className="text-lg text-gray-300">
                     HP: {currentHp}
                 </p>
 
                 {/* タイプ（横並び） */}
                 <div className="flex gap-0.5">
                     <span
-                        className="text-xl px-1 py-0.5 rounded"
+                        className="text-xs md:text-sm px-1 py-0.5 rounded"
                         style={{
                             backgroundColor: typeColors.border,
                             color: '#ffffff',
@@ -109,7 +112,7 @@ export default function PartyPokemonCard({
                     </span>
                     {type2String && (
                         <span
-                            className="text-lg px-1 py-0.5 rounded"
+                            className="text-xs md:text-sm px-1 py-0.5 rounded"
                             style={{
                                 backgroundColor: getTypeColors(type2String).border,
                                 color: '#ffffff',
@@ -120,7 +123,7 @@ export default function PartyPokemonCard({
                     )}
                 </div>
             </div>
-        </div>
+        </button>
     );
 }
 

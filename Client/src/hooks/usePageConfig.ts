@@ -40,6 +40,22 @@ interface StarterTexts {
     selecting: string;
 }
 
+interface PartyTexts {
+    loading: string;
+    error: string;
+    release: string;
+    releaseConfirm: string;
+    releaseCancel: string;
+    back: string;
+    stats: {
+        attack: string;
+        defense: string;
+        spAttack: string;
+        spDefense: string;
+        speed: string;
+    };
+}
+
 interface CommonTexts {
     loading: string;
     logout: string;
@@ -62,6 +78,10 @@ interface StarterPageConfig extends PageConfigBase {
     t: StarterTexts;
 }
 
+interface PartyPageConfig extends PageConfigBase {
+    t: PartyTexts;
+}
+
 type PageName = 'login' | 'home' | 'cpu-battle' | 'online-battle' | 'party' | 'gacha' | 'starter-pokemon';
 
 type ConfigData = {
@@ -70,7 +90,7 @@ type ConfigData = {
     home: PageConfigBase & { menuButtons: MenuButton[] };
     'cpu-battle': PageConfigBase;
     'online-battle': PageConfigBase;
-    party: PageConfigBase;
+    party: PartyPageConfig;
     gacha: PageConfigBase;
     'starter-pokemon': StarterPageConfig;
 };
