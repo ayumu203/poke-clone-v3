@@ -11,14 +11,9 @@
 
 ## 内容
 
-- / でユーザーusePartyを利用し, ユーザのパーティ情報を取得してください.
-- ユーザのパーティ情報が存在しない場合は/starter-pokemonにリダイレクトしてください.
-- ユーザのパーティ情報が存在する場合は通常のホーム画面を表示してください.
-- /starter-pokemonでは, 以下のように簡易体な実装をしてください.
-  - useStarterにてスターターポケモンの選択肢を取得.
-  - 下画面に各選択肢に対応するボタンを表示.
-  - ボタンを押すとuseStarterにて選択肢を送信し, 登録完了後に「選択完了と表示」.
-  - コンソールにusePartyにてパーティ情報を取得して表示してください.
+- useAuthにて認証後にusePlayerを利用して, ユーザーアカウントを作成する処理を追加してください.
+- なおiconUrlには`https://www.project-voltage.jp/assets/img/dl_contents/thumbnail/icon/high/icon_denki.jpg`を設定してください.
+- ユーザアカウント作成後に先程実装したスターターポケモンの選択フローが来ます.
 
 ## ドキュメント
 
@@ -29,3 +24,4 @@
   - `/home/cs23017/poke-clone-v3/Documents/UML/アーキテクチャ構成.drawio`
   - `/home/cs23017/poke-clone-v3/Documents/フロントエンド実装手順.md`
   - `/home/cs23017/poke-clone-v3/Documents/要件定義.md` 
+  - `/home/cs23017/poke-clone-v3/Documents/APIエンドポイント.json`

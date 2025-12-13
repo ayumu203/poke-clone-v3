@@ -6,6 +6,10 @@ import { authService } from '@/lib/auth/authService';
 import { sessionService } from '@/lib/auth/sessionService';
 import { auth } from '@/lib/firebase/config';
 
+const DEFAULT_PLAYER_NAME = 'プレイヤー';
+const DEFAULT_ICON_URL =
+    'https://www.project-voltage.jp/assets/img/dl_contents/thumbnail/icon/high/icon_denki.jpg';
+
 export function useAuth() {
     const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(true);
@@ -16,9 +20,45 @@ export function useAuth() {
             setUser(currentUser);
 
             if (currentUser) {
-                // IDトークンを取得してセッションCookieに保存
-                const idToken = await currentUser.getIdToken();
-                await sessionService.createSession(idToken);
+                try {
+                    // IDトークンを取得してセッションCookieに保存
+                    const idToken = await currentUser.getIdToken();
+                    await sessionService.createSession(idToken);
+
+                    // プレイヤー情報の存在確認
+                    const checkResponse = await fetch('/api/Player/me', {
+                        headers: {
+                            Authorization: `Bearer ${idToken}`,
+                        },
+                    });
+
+                    // プレイヤー情報が存在しない場合（404）、自動作成
+                    if (checkResponse.status === 404) {
+                        console.log('プレイヤーアカウントを作成します...');
+                        const createResponse = await fetch('/api/Player/me', {
+                            method: 'POST',
+                            headers: {
+                                Authorization: `Bearer ${idToken}`,
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                name: DEFAULT_PLAYER_NAME,
+                                iconUrl: DEFAULT_ICON_URL,
+                            }),
+                        });
+
+                        if (createResponse.ok) {
+                            console.log('プレイヤーアカウントを作成しました');
+                        } else {
+                            console.error(
+                                'プレイヤーアカウントの作成に失敗しました:',
+                                createResponse.status
+                            );
+                        }
+                    }
+                } catch (error) {
+                    console.error('プレイヤーアカウント処理でエラーが発生しました:', error);
+                }
             } else {
                 // ユーザーがいない場合はセッションを削除
                 await sessionService.destroySession();
