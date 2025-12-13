@@ -31,7 +31,7 @@ export default function LoginBottomScreen({
     const [showEmailForm, setShowEmailForm] = useState(false);
     const [isGoogleLoading, setIsGoogleLoading] = useState(false);
     const pageConfig = usePageConfig('login');
-    const { texts } = pageConfig;
+    const { t } = pageConfig;
 
     const handleGoogleLogin = async () => {
         setIsGoogleLoading(true);
@@ -50,7 +50,7 @@ export default function LoginBottomScreen({
                     onSignUp={onEmailSignUp}
                     onCancel={() => setShowEmailForm(false)}
                     error={error}
-                    texts={texts}
+                    t={t}
                 />
             </BottomScreen>
         );
@@ -66,7 +66,7 @@ export default function LoginBottomScreen({
                 )}
 
                 <p className="text-gray-700 mb-10 font-bold text-center text-3xl">
-                    {texts.accountRequired}
+                    {t.accountRequired}
                 </p>
 
                 <Button
@@ -83,7 +83,7 @@ export default function LoginBottomScreen({
                         />
                     }
                 >
-                    {isGoogleLoading ? texts.googleLoading : texts.googleLogin}
+                    {isGoogleLoading ? t.googleLoading : t.googleLogin}
                 </Button>
 
                 <Button
@@ -92,7 +92,7 @@ export default function LoginBottomScreen({
                     fullWidth
                     icon={<FaEnvelope />}
                 >
-                    {texts.emailLogin}
+                    {t.emailLogin}
                 </Button>
             </div>
         </BottomScreen>

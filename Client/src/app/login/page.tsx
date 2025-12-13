@@ -18,24 +18,24 @@ export default function LoginPage() {
     const commonTexts = useCommonTexts();
     const [error, setError] = useState('');
 
-    const { texts } = pageConfig;
+    const { t } = pageConfig;
 
     const getErrorMessage = (error: unknown): string => {
         if (error instanceof FirebaseError) {
             switch (error.code) {
                 case 'auth/invalid-credential':
-                    return texts.errors.invalidCredential;
+                    return t.errors.invalidCredential;
                 case 'auth/email-already-in-use':
-                    return texts.errors.emailInUse;
+                    return t.errors.emailInUse;
                 case 'auth/weak-password':
-                    return texts.errors.weakPassword;
+                    return t.errors.weakPassword;
                 case 'auth/invalid-email':
-                    return texts.errors.invalidEmail;
+                    return t.errors.invalidEmail;
                 default:
                     return `エラーが発生しました: ${error.code}`;
             }
         }
-        return texts.errors.unexpected;
+        return t.errors.unexpected;
     };
 
     const handleGoogleLogin = async () => {
@@ -91,7 +91,7 @@ export default function LoginPage() {
                 <TopScreen backgroundImage={pageConfig.image} />
                 <BottomScreen>
                     <div className="h-full flex items-center justify-center">
-                        <p className="text-xl font-bold text-gray-800">{texts.alreadyLoggedIn}</p>
+                        <p className="text-xl font-bold text-gray-800">{t.alreadyLoggedIn}</p>
                     </div>
                 </BottomScreen>
             </DSLayout>

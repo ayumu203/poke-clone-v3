@@ -27,7 +27,7 @@ interface EmailLoginFormProps {
     onSignUp: (email: string, password: string) => Promise<void>;
     onCancel: () => void;
     error?: string;
-    texts: EmailLoginFormTexts;
+    t: EmailLoginFormTexts;
 }
 
 /**
@@ -37,7 +37,7 @@ interface EmailLoginFormProps {
  * - バリデーション
  * - エラー表示
  */
-export default function EmailLoginForm({ onLogin, onSignUp, onCancel, error, texts }: EmailLoginFormProps) {
+export default function EmailLoginForm({ onLogin, onSignUp, onCancel, error, t }: EmailLoginFormProps) {
     const [mode, setMode] = useState<FormMode>('login');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -69,7 +69,7 @@ export default function EmailLoginForm({ onLogin, onSignUp, onCancel, error, tex
                         : 'bg-gray-300 border-gray-500 text-gray-700'
                         }`}
                 >
-                    {texts.loginTab}
+                    {t.loginTab}
                 </button>
                 <button
                     type="button"
@@ -79,12 +79,12 @@ export default function EmailLoginForm({ onLogin, onSignUp, onCancel, error, tex
                         : 'bg-gray-300 border-gray-500 text-gray-700'
                         }`}
                 >
-                    {texts.signupTab}
+                    {t.signupTab}
                 </button>
             </div>
 
             <h2 className="text-xl font-bold text-center mb-4">
-                {mode === 'login' ? texts.loginTitle : texts.signupTitle}
+                {mode === 'login' ? t.loginTitle : t.signupTitle}
             </h2>
 
             {error && (
@@ -96,7 +96,7 @@ export default function EmailLoginForm({ onLogin, onSignUp, onCancel, error, tex
             <div>
                 <Input
                     type="email"
-                    placeholder={texts.emailPlaceholder}
+                    placeholder={t.emailPlaceholder}
                     value={email}
                     onChange={setEmail}
                     required
@@ -106,7 +106,7 @@ export default function EmailLoginForm({ onLogin, onSignUp, onCancel, error, tex
             <div>
                 <Input
                     type="password"
-                    placeholder={texts.passwordPlaceholder}
+                    placeholder={t.passwordPlaceholder}
                     value={password}
                     onChange={setPassword}
                     required
@@ -114,7 +114,7 @@ export default function EmailLoginForm({ onLogin, onSignUp, onCancel, error, tex
                 />
                 {mode === 'signup' && (
                     <p className="text-sm text-gray-600 mt-1">
-                        {texts.passwordHint}
+                        {t.passwordHint}
                     </p>
                 )}
             </div>
@@ -123,14 +123,14 @@ export default function EmailLoginForm({ onLogin, onSignUp, onCancel, error, tex
                 <Button type="submit" variant="primary" fullWidth disabled={isSubmitting}>
                     {isSubmitting
                         ? mode === 'login'
-                            ? texts.loginLoading
-                            : texts.signupLoading
+                            ? t.loginLoading
+                            : t.signupLoading
                         : mode === 'login'
-                            ? texts.loginButton
-                            : texts.signupButton}
+                            ? t.loginButton
+                            : t.signupButton}
                 </Button>
                 <Button type="button" variant="secondary" fullWidth onClick={onCancel}>
-                    {texts.cancel}
+                    {t.cancel}
                 </Button>
             </div>
         </form>

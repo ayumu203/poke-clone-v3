@@ -55,11 +55,11 @@ interface PageConfigBase {
 }
 
 interface LoginPageConfig extends PageConfigBase {
-    texts: LoginTexts;
+    t: LoginTexts;
 }
 
 interface StarterPageConfig extends PageConfigBase {
-    texts: StarterTexts;
+    t: StarterTexts;
 }
 
 type PageName = 'login' | 'home' | 'cpu-battle' | 'online-battle' | 'party' | 'gacha' | 'starter-pokemon';

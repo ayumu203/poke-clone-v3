@@ -9,7 +9,7 @@
     "login": {
         "image": "/Images/art_011.png",
         "bgm": "/audio/01_opening.mp3",
-        "texts": {
+        "t": {
             "accountRequired": "ゲームの開始にはアカウントが必要です",
             "googleLogin": "Googleでログイン",
             "googleLoading": "ログイン中...",
@@ -81,7 +81,7 @@
     "starter-pokemon": {
         "image": "/Images/art_003.png",
         "bgm": "/audio/04_oak_laboratory.mp3",
-        "texts": {
+        "t": {
             "title": "初めてのポケモンを選ぼう!",
             "alreadyHasParty": "君にはもう仲間がいます...",
             "selectionComplete": "選択完了",

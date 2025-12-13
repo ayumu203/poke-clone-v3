@@ -33,7 +33,7 @@ export default function StarterPokemonPage() {
     const [isCompleted, setIsCompleted] = useState(false);
     const queryClient = useQueryClient();
 
-    const { texts } = pageConfig;
+    const { t } = pageConfig;
 
     // 認証チェック: 未ログインユーザーを/loginにリダイレクト
     useEffect(() => {
@@ -85,7 +85,7 @@ export default function StarterPokemonPage() {
                 <TopScreen backgroundImage={pageConfig.image} />
                 <BottomScreen backgroundImage="/Images/gift_image.png">
                     <MessageScreen
-                        message={texts.alreadyHasParty}
+                        message={t.alreadyHasParty}
                         messageClassName="text-4xl mt-10 text-white font-bold text-center px-8"
                     />
                 </BottomScreen>
@@ -99,7 +99,7 @@ export default function StarterPokemonPage() {
             <DSLayout bgmSrc={pageConfig.bgm}>
                 <TopScreen backgroundImage={pageConfig.image} />
                 <BottomScreen backgroundImage="/Images/gift_image.png">
-                    <MessageScreen message={texts.selectionComplete} />
+                    <MessageScreen message={t.selectionComplete} />
                 </BottomScreen>
             </DSLayout>
         );
@@ -117,7 +117,7 @@ export default function StarterPokemonPage() {
                             WebkitTextStroke: '1.5px #E0BFB8'
                         }}
                     >
-                        {texts.title}
+                        {t.title}
                     </h1>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full max-w-6xl">
                         {options?.map((pokemon) => (
@@ -133,7 +133,7 @@ export default function StarterPokemonPage() {
                         ))}
                     </div>
                     {isSelecting && (
-                        <p className="mt-4 text-lg font-bold">{texts.selecting}</p>
+                        <p className="mt-4 text-lg font-bold">{t.selecting}</p>
                     )}
                 </div>
             </BottomScreen>
