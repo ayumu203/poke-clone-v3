@@ -15,7 +15,6 @@ export default function Home() {
   const { isAuthenticated, loading } = useAuth();
   const router = useRouter();
   const pageConfig = usePageConfig('home');
-  const { party, isLoading: isLoadingParty } = useParty();
 
   // 認証チェック: 未ログインユーザーを/loginにリダイレクト
   useEffect(() => {
@@ -24,15 +23,8 @@ export default function Home() {
     }
   }, [isAuthenticated, loading, router]);
 
-  // パーティチェック: パーティが存在しない場合は/starter-pokemonにリダイレクト
-  useEffect(() => {
-    if (!loading && !isLoadingParty && isAuthenticated && (!party || party.length === 0)) {
-      router.push('/starter-pokemon');
-    }
-  }, [party, isLoadingParty, loading, isAuthenticated, router]);
-
   // ローディング中は空の画面を表示
-  if (loading || isLoadingParty) {
+  if (loading) {
     return (
       <DSLayout bgmSrc={pageConfig.bgm}>
         <TopScreen backgroundImage={pageConfig.image} />
@@ -47,11 +39,6 @@ export default function Home() {
 
   // 未認証の場合は何も表示しない（リダイレクト処理中）
   if (!isAuthenticated) {
-    return null;
-  }
-
-  // パーティ未所持の場合は何も表示しない（リダイレクト処理中）
-  if (!party || party.length === 0) {
     return null;
   }
 

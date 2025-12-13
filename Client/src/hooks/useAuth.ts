@@ -25,8 +25,11 @@ export function useAuth() {
                     const idToken = await currentUser.getIdToken();
                     await sessionService.createSession(idToken);
 
+                    // バックエンドAPI URLを取得
+                    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+
                     // プレイヤー情報の存在確認
-                    const checkResponse = await fetch('/api/Player/me', {
+                    const checkResponse = await fetch(`${apiUrl}/api/Player/me`, {
                         headers: {
                             Authorization: `Bearer ${idToken}`,
                         },
@@ -35,7 +38,7 @@ export function useAuth() {
                     // プレイヤー情報が存在しない場合（404）、自動作成
                     if (checkResponse.status === 404) {
                         console.log('プレイヤーアカウントを作成します...');
-                        const createResponse = await fetch('/api/Player/me', {
+                        const createResponse = await fetch(`${apiUrl}/api/Player/me`, {
                             method: 'POST',
                             headers: {
                                 Authorization: `Bearer ${idToken}`,
@@ -50,9 +53,11 @@ export function useAuth() {
                         if (createResponse.ok) {
                             console.log('プレイヤーアカウントを作成しました');
                         } else {
+                            const errorText = await createResponse.text();
                             console.error(
                                 'プレイヤーアカウントの作成に失敗しました:',
-                                createResponse.status
+                                createResponse.status,
+                                errorText
                             );
                         }
                     }

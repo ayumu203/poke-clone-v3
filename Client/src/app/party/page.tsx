@@ -23,7 +23,19 @@ export default function PartyPage() {
         }
     }, [isAuthenticated, loading, router]);
 
+    // パーティチェック: パーティが存在しない場合は/starter-pokemonにリダイレクト
+    useEffect(() => {
+        if (!loading && !isLoading && isAuthenticated && (!party || party.length === 0)) {
+            router.push('/starter-pokemon');
+        }
+    }, [party, isLoading, loading, isAuthenticated, router]);
+
     if (loading || !isAuthenticated) {
+        return null;
+    }
+
+    // パーティ未所持の場合は何も表示しない（リダイレクト処理中）
+    if (!isLoading && (!party || party.length === 0)) {
         return null;
     }
 
