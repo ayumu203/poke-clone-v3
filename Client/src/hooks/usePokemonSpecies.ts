@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueries } from '@tanstack/react-query';
 
 import type { PokemonSpecies } from '@/types/pokemonSpecies';
 
@@ -36,9 +36,8 @@ export function usePokemonSpecies(pokemonSpeciesId: number) {
 export function usePokemonSpeciesBatch(pokemonSpeciesIds: number[]) {
     const { request } = useApi<PokemonSpecies>();
 
-    const results = pokemonSpeciesIds.map(id => {
-        // eslint-disable-next-line react-hooks/rules-of-hooks
-        return useQuery({
+    const results = useQueries({
+        queries: pokemonSpeciesIds.map(id => ({
             queryKey: ['pokemonSpecies', id],
             queryFn: async () => {
                 const result = await request(`/api/Pokemon/${id}`);
@@ -47,7 +46,7 @@ export function usePokemonSpeciesBatch(pokemonSpeciesIds: number[]) {
             },
             staleTime: 5 * 60 * 1000,
             enabled: !!id,
-        });
+        })),
     });
 
     const isLoading = results.some(r => r.isLoading);
@@ -58,3 +57,4 @@ export function usePokemonSpeciesBatch(pokemonSpeciesIds: number[]) {
         isLoading,
     };
 }
+
