@@ -48,7 +48,7 @@ export default function PartyPokemonCard({
 
     return (
         <div
-            className="rounded-lg p-1 flex flex-row items-end"
+            className="rounded-lg p-1 pb-6 flex flex-row items-end"
             style={{
                 backgroundColor: '#2a2a2a',
                 border: `2px solid ${typeColors.border}`,
