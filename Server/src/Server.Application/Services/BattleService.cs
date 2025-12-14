@@ -89,24 +89,32 @@ public class BattleService : IBattleService
             IconUrl = string.Empty
         };
 
-        // Create random wild Pokemon for CPU (using first available species)
+        // Create random wild Pokemon party for CPU (3 Pokemon)
         var allSpecies = await _pokemonSpeciesRepository.GetAllAsync();
         if (allSpecies == null || !allSpecies.Any())
         {
             throw new InvalidOperationException("No Pokemon species data found. Please seed the database first.");
         }
 
-        var wildSpecies = allSpecies.First();
-        var wildPokemon = new Pokemon
-        {
-            PokemonId = Guid.NewGuid().ToString(),
-            Species = wildSpecies,
-            Level = 5,
-            Exp = 0,
-            Moves = wildSpecies.MoveList.Take(4).ToList()
-        };
+        var speciesList = allSpecies.ToList();
+        var random = new Random();
+        var cpuParty = new List<Pokemon>();
 
-        var cpuParty = new List<Pokemon> { wildPokemon };
+        // 3体のランダムなポケモンを生成（レベル5～8）
+        for (int i = 0; i < 3; i++)
+        {
+            var randomSpecies = speciesList[random.Next(speciesList.Count)];
+            var level = random.Next(5, 9); // 5～8レベル
+            var wildPokemon = new Pokemon
+            {
+                PokemonId = Guid.NewGuid().ToString(),
+                Species = randomSpecies,
+                Level = level,
+                Exp = 0,
+                Moves = randomSpecies.MoveList.Take(4).ToList()
+            };
+            cpuParty.Add(wildPokemon);
+        }
 
         var battleState = new BattleState
         {
@@ -205,6 +213,12 @@ public class BattleService : IBattleService
 
             // ダメージ・回復・状態異常をHPに反映
             ApplyTurnEffects(result, battleState);
+
+            // HP変化を記録
+            RecordHpChanges(result, battleState);
+
+            // 瀕死ポケモンの自動交代
+            ProcessFaintedSwitch(result, battleState);
 
             // バトル終了判定
             CheckBattleEnd(result, battleState);
@@ -401,26 +415,22 @@ public class BattleService : IBattleService
     private void ApplyAilmentDamageToOne(PokemonState pokemon, ProcessResult result)
     {
         int damage = 0;
-        string damageReason = string.Empty;
 
         switch (pokemon.Ailment)
         {
             case Domain.Enums.Ailment.Poison:
                 // 通常毒: 最大HPの1/8ダメージ
                 damage = Math.Max(1, pokemon.MaxHp / 8);
-                damageReason = "どく";
                 break;
 
             case Domain.Enums.Ailment.DeadlyPoisoned:
                 // もうどく: 最大HPの1/16 * ターン数（簡易実装: 1/8）
                 damage = Math.Max(1, pokemon.MaxHp / 8);
-                damageReason = "もうどく";
                 break;
 
             case Domain.Enums.Ailment.Burn:
                 // やけど: 最大HPの1/16ダメージ
                 damage = Math.Max(1, pokemon.MaxHp / 16);
-                damageReason = "やけど";
                 break;
 
             default:
@@ -430,12 +440,95 @@ public class BattleService : IBattleService
 
         if (damage > 0)
         {
+            var hpBefore = pokemon.CurrentHp;
             pokemon.CurrentHp = Math.Max(0, pokemon.CurrentHp - damage);
 
-            // 状態異常ダメージの結果をActionResultに追加（ログ出力用）
-            // 簡易実装: 既存のActionResultsに追記はせず、コメントで説明
-            // 将来的にはAilmentDamageResultを追加すべき
+            // 状態異常ダメージをProcessResultに記録
+            result.AilmentDamages.Add(new AilmentDamage
+            {
+                PokemonId = pokemon.PokemonId,
+                Ailment = pokemon.Ailment,
+                Damage = damage,
+                HpBefore = hpBefore,
+                HpAfter = pokemon.CurrentHp
+            });
         }
+    }
+
+    /// <summary>
+    /// 全ポケモンのHP変化をProcessResultに記録
+    /// </summary>
+    private void RecordHpChanges(ProcessResult result, BattleState battleState)
+    {
+        // Player1のアクティブポケモン
+        var p1Active = battleState.Player1.Party[battleState.Player1.ActivePokemonIndex];
+        result.HpChanges.Add(new HpChange
+        {
+            PokemonId = p1Active.PokemonId,
+            HpBefore = p1Active.CurrentHp, // 既に変化後の値だがログ用
+            HpAfter = p1Active.CurrentHp,
+            MaxHp = p1Active.MaxHp
+        });
+
+        // Player2のアクティブポケモン
+        var p2Active = battleState.Player2.Party[battleState.Player2.ActivePokemonIndex];
+        result.HpChanges.Add(new HpChange
+        {
+            PokemonId = p2Active.PokemonId,
+            HpBefore = p2Active.CurrentHp,
+            HpAfter = p2Active.CurrentHp,
+            MaxHp = p2Active.MaxHp
+        });
+    }
+
+    /// <summary>
+    /// 瀕死ポケモンがいる場合、次のポケモンに自動交代
+    /// </summary>
+    private void ProcessFaintedSwitch(ProcessResult result, BattleState battleState)
+    {
+        // Player1の瀕死チェック
+        ProcessFaintedSwitchForPlayer(battleState.Player1, result);
+
+        // Player2の瀕死チェック
+        ProcessFaintedSwitchForPlayer(battleState.Player2, result);
+    }
+
+    /// <summary>
+    /// 1プレイヤーの瀕死ポケモンを次のポケモンに交代
+    /// </summary>
+    private void ProcessFaintedSwitchForPlayer(PlayerState playerState, ProcessResult result)
+    {
+        var activePokemon = playerState.Party[playerState.ActivePokemonIndex];
+        
+        if (!activePokemon.IsFainted)
+        {
+            return; // 瀕死でなければ何もしない
+        }
+
+        // 次の生きているポケモンを探す
+        for (int i = 0; i < playerState.Party.Count; i++)
+        {
+            if (i != playerState.ActivePokemonIndex && !playerState.Party[i].IsFainted)
+            {
+                var faintedPokemonId = activePokemon.PokemonId;
+                var nextPokemon = playerState.Party[i];
+
+                // 交代実行
+                playerState.ActivePokemonIndex = i;
+
+                // 強制交代を記録
+                result.ForcedSwitches.Add(new ForcedSwitch
+                {
+                    PlayerId = playerState.PlayerId,
+                    FaintedPokemonId = faintedPokemonId,
+                    NextPokemonId = nextPokemon.PokemonId
+                });
+
+                return;
+            }
+        }
+
+        // 全滅している場合は何もしない（CheckBattleEndで処理）
     }
 
     /// <summary>

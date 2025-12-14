@@ -45,10 +45,58 @@ public class ActionResult
     public EscapeResult? EscapeResult { get; set; }
 }
 
+/// <summary>
+/// 状態異常によるダメージ情報
+/// </summary>
+public class AilmentDamage
+{
+    public string PokemonId { get; set; } = string.Empty;
+    public Ailment Ailment { get; set; }
+    public int Damage { get; set; }
+    public int HpBefore { get; set; }
+    public int HpAfter { get; set; }
+}
+
+/// <summary>
+/// HP変化情報（ターン結果としてクライアントに送信）
+/// </summary>
+public class HpChange
+{
+    public string PokemonId { get; set; } = string.Empty;
+    public int HpBefore { get; set; }
+    public int HpAfter { get; set; }
+    public int MaxHp { get; set; }
+}
+
+/// <summary>
+/// 強制交代情報（ポケモンが瀕死になった時）
+/// </summary>
+public class ForcedSwitch
+{
+    public string PlayerId { get; set; } = string.Empty;
+    public string FaintedPokemonId { get; set; } = string.Empty;
+    public string NextPokemonId { get; set; } = string.Empty;
+}
+
 public class ProcessResult
 {
     public List<ActionResult> ActionResults { get; set; } = new();
     public bool IsBattleEnd { get; set; }
     public string WinnerId { get; set; } = string.Empty;
     public EndResult? EndResult { get; set; }
+    
+    /// <summary>
+    /// 状態異常によるダメージ（毒・やけど等）
+    /// </summary>
+    public List<AilmentDamage> AilmentDamages { get; set; } = new();
+    
+    /// <summary>
+    /// ターン終了時のHP変化
+    /// </summary>
+    public List<HpChange> HpChanges { get; set; } = new();
+    
+    /// <summary>
+    /// 強制交代（瀕死による自動交代）
+    /// </summary>
+    public List<ForcedSwitch> ForcedSwitches { get; set; } = new();
 }

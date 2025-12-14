@@ -81,6 +81,30 @@ export interface ProcessResult {
   isBattleEnd: boolean;
   winnerId: string;
   endResult?: EndResult;
+  ailmentDamages?: AilmentDamage[];
+  hpChanges?: HpChange[];
+  forcedSwitches?: ForcedSwitch[];
+}
+
+export interface AilmentDamage {
+  pokemonId: string;
+  ailment: Ailment | number;
+  damage: number;
+  hpBefore: number;
+  hpAfter: number;
+}
+
+export interface HpChange {
+  pokemonId: string;
+  hpBefore: number;
+  hpAfter: number;
+  maxHp: number;
+}
+
+export interface ForcedSwitch {
+  playerId: string;
+  faintedPokemonId: string;
+  nextPokemonId: string;
 }
 
 export interface ActionResult {

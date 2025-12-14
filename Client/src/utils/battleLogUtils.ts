@@ -211,6 +211,34 @@ export function generateBattleLogs(
         }
     }
 
+    // 状態異常ダメージ
+    if (result.ailmentDamages && result.ailmentDamages.length > 0) {
+        for (const ad of result.ailmentDamages) {
+            const pokemonName = getPokemonName(ad.pokemonId, battleState, species);
+            const ailmentValue = typeof ad.ailment === "number" ? ad.ailment : 0;
+            const ailmentName = AILMENT_LABELS[ailmentValue] || "状態異常";
+            logs.push(`${pokemonName}は${ailmentName}で${ad.damage}ダメージ！ (HP: ${ad.hpBefore}→${ad.hpAfter})`);
+        }
+    }
+
+    // 強制交代（ポケモンが瀕死になった時）
+    if (result.forcedSwitches && result.forcedSwitches.length > 0) {
+        for (const fs of result.forcedSwitches) {
+            const faintedName = getPokemonName(fs.faintedPokemonId, battleState, species);
+            const nextName = getPokemonName(fs.nextPokemonId, battleState, species);
+            logs.push(`${faintedName}は倒れた！`);
+            logs.push(`${nextName}を繰り出した！`);
+        }
+    }
+
+    // HP変化の表示
+    if (result.hpChanges && result.hpChanges.length > 0) {
+        for (const hp of result.hpChanges) {
+            const pokemonName = getPokemonName(hp.pokemonId, battleState, species);
+            logs.push(`[HP] ${pokemonName}: ${hp.hpAfter}/${hp.maxHp}`);
+        }
+    }
+
     // バトル終了判定
     if (result.isBattleEnd && result.winnerId) {
         logs.push("バトル終了！");
