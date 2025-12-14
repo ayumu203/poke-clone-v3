@@ -105,11 +105,38 @@ public class PokemonRepository : IPokemonRepository
         var moves = pokemon.Moves;
         pokemon.Moves = null;
         
+        // Speciesを一時保存してクリア（PokemonSpecies重複トラッキングを防ぐ）
+        var species = pokemon.Species;
+        pokemon.Species = null!;
+        
+        // SpeciesIdが正しく設定されていることを確認
+        if (species != null)
+        {
+            pokemon.PokemonSpeciesId = species.PokemonSpeciesId;
+        }
+        
+        // トラッキングされている既存エンティティがあればデタッチ
+        var existingPokemon = await _context.Pokemons
+            .AsNoTracking()
+            .FirstOrDefaultAsync(p => p.PokemonId == pokemon.PokemonId);
+        
+        if (existingPokemon != null)
+        {
+            var trackedEntity = _context.ChangeTracker.Entries<Pokemon>()
+                .FirstOrDefault(e => e.Entity.PokemonId == pokemon.PokemonId);
+            
+            if (trackedEntity != null)
+            {
+                trackedEntity.State = EntityState.Detached;
+            }
+        }
+        
         _context.Pokemons.Update(pokemon);
         await _context.SaveChangesAsync();
         
-        // Movesを復元（メモリ上のオブジェクト用）
+        // Moves, Speciesを復元（メモリ上のオブジェクト用）
         pokemon.Moves = moves;
+        pokemon.Species = species!;
     }
 
     public async Task<bool> IsPartyFullAsync(string playerId)
