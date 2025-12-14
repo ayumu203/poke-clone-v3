@@ -129,6 +129,6 @@ app.UseCors("AllowAll");
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
-app.MapHub<BattleHub>("/battlehub");
+app.MapHub<BattleHub>("/hubs/battle");
 
 app.Run();

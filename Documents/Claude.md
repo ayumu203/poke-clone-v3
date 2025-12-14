@@ -17,15 +17,25 @@ pnpm run build
 ```
 
 ## 内容
-- /cpu-battleの実装をお願いします.
-- UIは簡単で大丈夫ですが, 以下の情報は表示してください.
-- 各種コマンド.
-- レベル, HP, わざとPP
-- 状態異常
-- 対戦ログ(コンソールへ表示)
+- 以下のようにエラーが出ています.
 
-![スマホUI](image.png)
-![デスクトップUI](image-1.png)
+```bash
+installHook.js:1 SignalR Disconnected
+9b882371305cfa62.js:1 バトル作成成功: 086ab0a8-49b5-4dc5-a148-4ef1be38ea95
+:5000/hubs/battle/ne…egotiateVersion=1:1 
+ Failed to load resource: the server responded with a status of 404 (Not Found)
+installHook.js:1 [2025-12-14T15:17:12.781Z] Error: Failed to complete negotiation with the server: Error: Not Found: Status code '404' Either this is not a SignalR endpoint or there is a proxy blocking the connection.
+installHook.js:1 [2025-12-14T15:17:12.782Z] Error: Failed to start the connection: Error: Failed to complete negotiation with the server: Error: Not Found: Status code '404' Either this is not a SignalR endpoint or there is a proxy blocking the connection.
+installHook.js:1 SignalR connection error: K: Failed to complete negotiation with the server: Error: Not Found: Status code '404' Either this is not a SignalR endpoint or there is a proxy blocking the connection.
+    at eu._getNegotiationResponse (9b882371305cfa62.js:1:29044)
+    at async eu._startInternal (9b882371305cfa62.js:1:26923)
+    at async eu.start (9b882371305cfa62.js:1:24818)
+    at async ew._startInternal (9b882371305cfa62.js:1:43009)
+    at async ew._startWithStateTransitions (9b882371305cfa62.js:1:42432)
+    at async Object.connect (9b882371305cfa62.js:1:60627)
+    at async 9b882371305cfa62.js:1:64633
+﻿
+```
 
 ## ドキュメント
 
