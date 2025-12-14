@@ -27,7 +27,7 @@ export default function CpuBattlePage() {
   const pageConfig = usePageConfig("cpu-battle");
   const { party, isLoading: isLoadingParty } = useParty();
   const { createCpuBattle, isCreating } = useBattle();
-  const { battleState, setBattleState, addLog, resetBattle, setWaitStatus, waitStatus } =
+  const { battleState, setBattleState, addLog, setWaitStatus, waitStatus } =
     useBattleStore();
 
   // バトルID管理
@@ -46,16 +46,15 @@ export default function CpuBattlePage() {
 
   // パーティのポケモン種族情報を取得
   const partySpeciesIds = party?.map((p) => p.pokemonSpeciesId) || [];
-  const { species: partySpecies, isLoading: isLoadingPartySpecies } =
-    usePokemonSpeciesBatch(partySpeciesIds);
+  // partySpeciesは技選択画面で将来使用予定
+  usePokemonSpeciesBatch(partySpeciesIds);
 
   // バトル状態のポケモン種族情報を取得
   const battleSpeciesIds =
     battleState?.player1.party.map((p) => p.pokemonSpeciesId).concat(
       battleState?.player2.party.map((p) => p.pokemonSpeciesId) || []
     ) || [];
-  const { species: battleSpecies, isLoading: isLoadingBattleSpecies } =
-    usePokemonSpeciesBatch(battleSpeciesIds);
+  const { species: battleSpecies } = usePokemonSpeciesBatch(battleSpeciesIds);
 
   // SignalRコールバック
   const handleTurnResult = useCallback(
@@ -163,12 +162,7 @@ export default function CpuBattlePage() {
     }
   }, [party, isLoadingParty, loading, isAuthenticated, router]);
 
-  // クリーンアップ
-  useEffect(() => {
-    return () => {
-      resetBattle();
-    };
-  }, [resetBattle]);
+  // クリーンアップはresultページで実行する（ログ保持のため）
 
   // バトル開始処理
   const handleStartBattle = async () => {

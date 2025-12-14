@@ -3,7 +3,7 @@
 import Image from "next/image";
 
 import HPBar from "@/components/atoms/HPBar";
-import type { Ailment, PokemonState } from "@/types/battle";
+import type { PokemonState } from "@/types/battle";
 import type { PokemonSpecies } from "@/types/pokemonSpecies";
 import { getAilmentColor, getAilmentLabel } from "@/utils/ailmentUtils";
 
