@@ -203,8 +203,8 @@ public class BattleService : IBattleService
 
             var result = battle.ProcessTurn(p1Action, p2Action);
 
-            // ダメージをHPに反映
-            ApplyDamage(result, battleState);
+            // ダメージ・回復・状態異常をHPに反映
+            ApplyTurnEffects(result, battleState);
 
             // バトル終了判定
             CheckBattleEnd(result, battleState);
@@ -270,32 +270,171 @@ public class BattleService : IBattleService
     }
 
     /// <summary>
-    /// ターン処理結果に基づいてダメージをHPに反映する
+    /// ターン処理結果に基づいてダメージ、回復、状態異常をHPに反映する
     /// </summary>
-    private void ApplyDamage(ProcessResult result, BattleState battleState)
+    private void ApplyTurnEffects(ProcessResult result, BattleState battleState)
     {
         foreach (var actionResult in result.ActionResults)
         {
-            if (actionResult.MoveResult != null && actionResult.MoveResult.Damage > 0)
-            {
-                // TargetIdを使って対象のポケモンを特定
-                var targetId = actionResult.MoveResult.TargetId;
-                
-                // Player1のポケモンか確認
-                var player1Pokemon = battleState.Player1.Party.FirstOrDefault(p => p.PokemonId == targetId);
-                if (player1Pokemon != null)
-                {
-                    player1Pokemon.CurrentHp = Math.Max(0, player1Pokemon.CurrentHp - actionResult.MoveResult.Damage);
-                    continue;
-                }
+            if (actionResult.MoveResult == null) continue;
 
-                // Player2のポケモンか確認
-                var player2Pokemon = battleState.Player2.Party.FirstOrDefault(p => p.PokemonId == targetId);
-                if (player2Pokemon != null)
-                {
-                    player2Pokemon.CurrentHp = Math.Max(0, player2Pokemon.CurrentHp - actionResult.MoveResult.Damage);
-                }
+            var mr = actionResult.MoveResult;
+            var targetId = mr.TargetId;
+            var attackerId = actionResult.ActionPokemonId;
+
+            // ダメージ適用
+            if (mr.Damage > 0)
+            {
+                ApplyDamageToTarget(targetId, mr.Damage, battleState);
             }
+
+            // ドレイン（攻撃者の回復）
+            if (mr.Drain > 0)
+            {
+                ApplyHealingToTarget(attackerId, mr.Drain, battleState);
+            }
+
+            // 回復
+            if (mr.Healing > 0)
+            {
+                ApplyHealingToTarget(attackerId, mr.Healing, battleState);
+            }
+
+            // 状態異常の適用
+            if (mr.Ailment != null && mr.Ailment != Domain.Enums.Ailment.None)
+            {
+                ApplyAilmentToTarget(targetId, mr.Ailment.Value, battleState);
+            }
+        }
+
+        // ターン末の状態異常ダメージ（毒・やけど）
+        ApplyAilmentDamage(result, battleState);
+    }
+
+    /// <summary>
+    /// ターゲットにダメージを与える
+    /// </summary>
+    private void ApplyDamageToTarget(string targetId, int damage, BattleState battleState)
+    {
+        var player1Pokemon = battleState.Player1.Party.FirstOrDefault(p => p.PokemonId == targetId);
+        if (player1Pokemon != null)
+        {
+            player1Pokemon.CurrentHp = Math.Max(0, player1Pokemon.CurrentHp - damage);
+            return;
+        }
+
+        var player2Pokemon = battleState.Player2.Party.FirstOrDefault(p => p.PokemonId == targetId);
+        if (player2Pokemon != null)
+        {
+            player2Pokemon.CurrentHp = Math.Max(0, player2Pokemon.CurrentHp - damage);
+        }
+    }
+
+    /// <summary>
+    /// ターゲットを回復する
+    /// </summary>
+    private void ApplyHealingToTarget(string targetId, int healing, BattleState battleState)
+    {
+        var player1Pokemon = battleState.Player1.Party.FirstOrDefault(p => p.PokemonId == targetId);
+        if (player1Pokemon != null)
+        {
+            player1Pokemon.CurrentHp = Math.Min(player1Pokemon.MaxHp, player1Pokemon.CurrentHp + healing);
+            return;
+        }
+
+        var player2Pokemon = battleState.Player2.Party.FirstOrDefault(p => p.PokemonId == targetId);
+        if (player2Pokemon != null)
+        {
+            player2Pokemon.CurrentHp = Math.Min(player2Pokemon.MaxHp, player2Pokemon.CurrentHp + healing);
+        }
+    }
+
+    /// <summary>
+    /// ターゲットに状態異常を適用する
+    /// </summary>
+    private void ApplyAilmentToTarget(string targetId, Domain.Enums.Ailment ailment, BattleState battleState)
+    {
+        var player1Pokemon = battleState.Player1.Party.FirstOrDefault(p => p.PokemonId == targetId);
+        if (player1Pokemon != null)
+        {
+            // 既に状態異常がない場合のみ適用
+            if (player1Pokemon.Ailment == Domain.Enums.Ailment.None)
+            {
+                player1Pokemon.Ailment = ailment;
+            }
+            return;
+        }
+
+        var player2Pokemon = battleState.Player2.Party.FirstOrDefault(p => p.PokemonId == targetId);
+        if (player2Pokemon != null)
+        {
+            if (player2Pokemon.Ailment == Domain.Enums.Ailment.None)
+            {
+                player2Pokemon.Ailment = ailment;
+            }
+        }
+    }
+
+    /// <summary>
+    /// ターン末の状態異常ダメージを適用する（毒・やけど）
+    /// </summary>
+    private void ApplyAilmentDamage(ProcessResult result, BattleState battleState)
+    {
+        // Player1のアクティブポケモン
+        var p1Active = battleState.Player1.Party[battleState.Player1.ActivePokemonIndex];
+        if (!p1Active.IsFainted)
+        {
+            ApplyAilmentDamageToOne(p1Active, result);
+        }
+
+        // Player2のアクティブポケモン
+        var p2Active = battleState.Player2.Party[battleState.Player2.ActivePokemonIndex];
+        if (!p2Active.IsFainted)
+        {
+            ApplyAilmentDamageToOne(p2Active, result);
+        }
+    }
+
+    /// <summary>
+    /// 1体のポケモンに状態異常ダメージを適用
+    /// </summary>
+    private void ApplyAilmentDamageToOne(PokemonState pokemon, ProcessResult result)
+    {
+        int damage = 0;
+        string damageReason = string.Empty;
+
+        switch (pokemon.Ailment)
+        {
+            case Domain.Enums.Ailment.Poison:
+                // 通常毒: 最大HPの1/8ダメージ
+                damage = Math.Max(1, pokemon.MaxHp / 8);
+                damageReason = "どく";
+                break;
+
+            case Domain.Enums.Ailment.DeadlyPoisoned:
+                // もうどく: 最大HPの1/16 * ターン数（簡易実装: 1/8）
+                damage = Math.Max(1, pokemon.MaxHp / 8);
+                damageReason = "もうどく";
+                break;
+
+            case Domain.Enums.Ailment.Burn:
+                // やけど: 最大HPの1/16ダメージ
+                damage = Math.Max(1, pokemon.MaxHp / 16);
+                damageReason = "やけど";
+                break;
+
+            default:
+                // 他の状態異常はダメージなし
+                return;
+        }
+
+        if (damage > 0)
+        {
+            pokemon.CurrentHp = Math.Max(0, pokemon.CurrentHp - damage);
+
+            // 状態異常ダメージの結果をActionResultに追加（ログ出力用）
+            // 簡易実装: 既存のActionResultsに追記はせず、コメントで説明
+            // 将来的にはAilmentDamageResultを追加すべき
         }
     }
 
