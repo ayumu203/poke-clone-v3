@@ -1,19 +1,19 @@
-'use client';
+"use client";
 
-import { FaArrowLeft } from 'react-icons/fa';
+import { FaArrowLeft } from "react-icons/fa";
 
-import type { Pokemon, Move } from '@/types/pokemon';
-import MoveSlot from '@/components/atoms/MoveSlot';
+import MoveSlot from "@/components/atoms/MoveSlot";
+import type { Move,Pokemon } from "@/types/pokemon";
 
 interface PokemonDetailBottomProps {
-    pokemon: Pokemon;
-    texts: {
-        release: string;
-        back: string;
-    };
-    onBack: () => void;
-    onRelease: () => void;
-    isReleasing?: boolean;
+  pokemon: Pokemon;
+  texts: {
+    release: string;
+    back: string;
+  };
+  onBack: () => void;
+  onRelease: () => void;
+  isReleasing?: boolean;
 }
 
 /**
@@ -23,46 +23,46 @@ interface PokemonDetailBottomProps {
  * - 格子模様背景
  */
 export default function PokemonDetailBottom({
-    pokemon,
-    texts,
-    onBack,
-    onRelease,
-    isReleasing = false,
+  pokemon,
+  texts,
+  onBack,
+  onRelease,
+  isReleasing = false,
 }: PokemonDetailBottomProps) {
-    // 技を4つのスロットにpadding
-    const moves = [...(pokemon.moves || [])];
-    while (moves.length < 4) {
-        moves.push(undefined as unknown as Move);
-    }
+  // 技を4つのスロットにpadding
+  const moves = [...(pokemon.moves || [])];
+  while (moves.length < 4) {
+    moves.push(undefined as unknown as Move);
+  }
 
-    return (
-        <div className="flex flex-col h-full">
-            {/* 技リスト */}
-            <div className="flex-1 p-3 flex flex-col gap-2 md:gap-3">
-                {moves.slice(0, 4).map((move, index) => (
-                    <MoveSlot key={move?.moveId || `empty-${index}`} move={move} />
-                ))}
-            </div>
+  return (
+    <div className="flex h-full flex-col">
+      {/* 技リスト */}
+      <div className="flex flex-1 flex-col gap-2 p-3 md:gap-3">
+        {moves.slice(0, 4).map((move, index) => (
+          <MoveSlot key={move?.moveId || `empty-${index}`} move={move} />
+        ))}
+      </div>
 
-            {/* フッター */}
-            <div className="bg-gray-800 p-2 flex justify-center gap-4 md:gap-6">
-                {/* 戻るボタン */}
-                <button
-                    onClick={onBack}
-                    className="flex items-center gap-2 px-4 py-2 md:py-4 bg-gray-600 hover:bg-gray-500 text-white rounded transition-colors"
-                >
-                    <FaArrowLeft />
-                    <span>{texts.back}</span>
-                </button>
-                {/* 逃がすボタン */}
-                <button
-                    onClick={onRelease}
-                    disabled={isReleasing}
-                    className="flex items-center gap-2 px-4 py-2 md:py-4 bg-red-600 hover:bg-red-500 disabled:bg-gray-500 text-white rounded transition-colors"
-                >
-                    {isReleasing ? '...' : texts.release}
-                </button>
-            </div>
-        </div>
-    );
+      {/* フッター */}
+      <div className="flex justify-center gap-4 bg-gray-800 p-2 md:gap-6">
+        {/* 戻るボタン */}
+        <button
+          onClick={onBack}
+          className="flex items-center gap-2 rounded bg-gray-600 px-4 py-2 text-white transition-colors hover:bg-gray-500 md:py-4"
+        >
+          <FaArrowLeft />
+          <span>{texts.back}</span>
+        </button>
+        {/* 逃がすボタン */}
+        <button
+          onClick={onRelease}
+          disabled={isReleasing}
+          className="flex items-center gap-2 rounded bg-red-600 px-4 py-2 text-white transition-colors hover:bg-red-500 disabled:bg-gray-500 md:py-4"
+        >
+          {isReleasing ? "..." : texts.release}
+        </button>
+      </div>
+    </div>
+  );
 }

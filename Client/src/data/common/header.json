@@ -1,20 +1,20 @@
 {
-    "externalLinks": [
-        {
-            "name": "PokeAPI",
-            "url": "https://pokeapi.co/"
-        },
-        {
-            "name": "Github",
-            "url": "https://github.com/ayumu203/poke-clone-v3/"
-        },
-        {
-            "name": "BGM",
-            "url": "https://soundlibrary.pokemon.co.jp/"
-        },
-        {
-            "name": "背景画像",
-            "url": "https://booth.pm/ja/items/5677827"
-        }
-    ]
+  "externalLinks": [
+    {
+      "name": "PokeAPI",
+      "url": "https://pokeapi.co/"
+    },
+    {
+      "name": "Github",
+      "url": "https://github.com/ayumu203/poke-clone-v3/"
+    },
+    {
+      "name": "BGM",
+      "url": "https://soundlibrary.pokemon.co.jp/"
+    },
+    {
+      "name": "背景画像",
+      "url": "https://booth.pm/ja/items/5677827"
+    }
+  ]
 }

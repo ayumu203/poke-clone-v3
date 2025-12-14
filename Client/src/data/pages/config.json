@@ -1,106 +1,106 @@
 {
-    "common": {
-        "loading": "読み込み中...",
-        "logout": "ログアウト",
-        "loggingOut": "ログアウト中",
-        "home": "HOME",
-        "bgm": "BGM"
-    },
-    "login": {
-        "image": "/Images/art_011.png",
-        "bgm": "/audio/01_opening.mp3",
-        "t": {
-            "accountRequired": "ゲームの開始にはアカウントが必要です",
-            "googleLogin": "Googleでログイン",
-            "googleLoading": "ログイン中...",
-            "emailLogin": "メールでログイン",
-            "alreadyLoggedIn": "既にログインしています",
-            "loginTab": "ログイン",
-            "signupTab": "新規登録",
-            "loginTitle": "メールでログイン",
-            "signupTitle": "新規アカウント作成",
-            "emailPlaceholder": "メールアドレス",
-            "passwordPlaceholder": "パスワード",
-            "passwordHint": "※ パスワードは6文字以上で入力してください",
-            "loginButton": "ログイン",
-            "signupButton": "新規登録",
-            "loginLoading": "ログイン中...",
-            "signupLoading": "登録中...",
-            "cancel": "キャンセル",
-            "errors": {
-                "invalidCredential": "メールアドレスまたはパスワードが間違っています",
-                "emailInUse": "このメールアドレスは既に登録されています",
-                "weakPassword": "パスワードは6文字以上である必要があります",
-                "invalidEmail": "有効なメールアドレスを入力してください",
-                "unexpected": "予期しないエラーが発生しました"
-            }
-        }
-    },
-    "home": {
-        "image": "/Images/art_003.png",
-        "bgm": "/audio/02_masara_town.mp3",
-        "menuButtons": [
-            {
-                "text": "CPU対戦",
-                "icon": "/icon/robot_logo.png",
-                "href": "/cpu-battle"
-            },
-            {
-                "text": "オンライン",
-                "icon": "/icon/earth_logo.png",
-                "href": "/online-battle"
-            },
-            {
-                "text": "手持ち",
-                "icon": "/icon/pokeball_logo.png",
-                "href": "/party"
-            },
-            {
-                "text": "ガチャ",
-                "icon": "/icon/gachagacha_logo.png",
-                "href": "/gacha"
-            }
-        ]
-    },
-    "cpu-battle": {
-        "image": "/Images/art_008.png",
-        "bgm": "/audio/15_battle_trainer.mp3"
-    },
-    "online-battle": {
-        "image": "/Images/art_049.png",
-        "bgm": "/audio/15_battle_trainer.mp3"
-    },
-    "party": {
-        "image": "/Images/art_009.png",
-        "bgm": "/audio/02_masara_town.mp3",
-        "t": {
-            "loading": "読み込み中...",
-            "error": "エラーが発生しました",
-            "release": "逃がす",
-            "releaseConfirm": "本当にこのポケモンを逃がしますか？",
-            "releaseCancel": "キャンセル",
-            "back": "戻る",
-            "stats": {
-                "attack": "こうげき",
-                "defense": "ぼうぎょ",
-                "spAttack": "とくこう",
-                "spDefense": "とくぼう",
-                "speed": "すばやさ"
-            }
-        }
-    },
-    "gacha": {
-        "image": "/Images/art_004.png",
-        "bgm": "/audio/02_masara_town.mp3"
-    },
-    "starter-pokemon": {
-        "image": "/Images/art_071.png",
-        "bgm": "/audio/04_oak_laboratory.mp3",
-        "t": {
-            "title": "初めてのポケモンを選ぼう!",
-            "alreadyHasParty": "君にはもう仲間がいます...",
-            "selectionComplete": "選択完了",
-            "selecting": "選択中..."
-        }
+  "common": {
+    "loading": "読み込み中...",
+    "logout": "ログアウト",
+    "loggingOut": "ログアウト中",
+    "home": "HOME",
+    "bgm": "BGM"
+  },
+  "login": {
+    "image": "/Images/art_011.png",
+    "bgm": "/audio/01_opening.mp3",
+    "t": {
+      "accountRequired": "ゲームの開始にはアカウントが必要です",
+      "googleLogin": "Googleでログイン",
+      "googleLoading": "ログイン中...",
+      "emailLogin": "メールでログイン",
+      "alreadyLoggedIn": "既にログインしています",
+      "loginTab": "ログイン",
+      "signupTab": "新規登録",
+      "loginTitle": "メールでログイン",
+      "signupTitle": "新規アカウント作成",
+      "emailPlaceholder": "メールアドレス",
+      "passwordPlaceholder": "パスワード",
+      "passwordHint": "※ パスワードは6文字以上で入力してください",
+      "loginButton": "ログイン",
+      "signupButton": "新規登録",
+      "loginLoading": "ログイン中...",
+      "signupLoading": "登録中...",
+      "cancel": "キャンセル",
+      "errors": {
+        "invalidCredential": "メールアドレスまたはパスワードが間違っています",
+        "emailInUse": "このメールアドレスは既に登録されています",
+        "weakPassword": "パスワードは6文字以上である必要があります",
+        "invalidEmail": "有効なメールアドレスを入力してください",
+        "unexpected": "予期しないエラーが発生しました"
+      }
     }
+  },
+  "home": {
+    "image": "/Images/art_003.png",
+    "bgm": "/audio/02_masara_town.mp3",
+    "menuButtons": [
+      {
+        "text": "CPU対戦",
+        "icon": "/icon/robot_logo.png",
+        "href": "/cpu-battle"
+      },
+      {
+        "text": "オンライン",
+        "icon": "/icon/earth_logo.png",
+        "href": "/online-battle"
+      },
+      {
+        "text": "手持ち",
+        "icon": "/icon/pokeball_logo.png",
+        "href": "/party"
+      },
+      {
+        "text": "ガチャ",
+        "icon": "/icon/gachagacha_logo.png",
+        "href": "/gacha"
+      }
+    ]
+  },
+  "cpu-battle": {
+    "image": "/Images/art_008.png",
+    "bgm": "/audio/15_battle_trainer.mp3"
+  },
+  "online-battle": {
+    "image": "/Images/art_049.png",
+    "bgm": "/audio/15_battle_trainer.mp3"
+  },
+  "party": {
+    "image": "/Images/art_009.png",
+    "bgm": "/audio/02_masara_town.mp3",
+    "t": {
+      "loading": "読み込み中...",
+      "error": "エラーが発生しました",
+      "release": "逃がす",
+      "releaseConfirm": "本当にこのポケモンを逃がしますか？",
+      "releaseCancel": "キャンセル",
+      "back": "戻る",
+      "stats": {
+        "attack": "こうげき",
+        "defense": "ぼうぎょ",
+        "spAttack": "とくこう",
+        "spDefense": "とくぼう",
+        "speed": "すばやさ"
+      }
+    }
+  },
+  "gacha": {
+    "image": "/Images/art_004.png",
+    "bgm": "/audio/02_masara_town.mp3"
+  },
+  "starter-pokemon": {
+    "image": "/Images/art_071.png",
+    "bgm": "/audio/04_oak_laboratory.mp3",
+    "t": {
+      "title": "初めてのポケモンを選ぼう!",
+      "alreadyHasParty": "君にはもう仲間がいます...",
+      "selectionComplete": "選択完了",
+      "selecting": "選択中..."
+    }
+  }
 }

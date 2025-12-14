@@ -1,8 +1,8 @@
-import Header from '@/components/organisms/Header';
+import Header from "@/components/organisms/Header";
 
 interface DSLayoutProps {
-    children?: React.ReactNode;
-    bgmSrc?: string;
+  children?: React.ReactNode;
+  bgmSrc?: string;
 }
 
 /**
@@ -13,12 +13,12 @@ interface DSLayoutProps {
  * - 各画面: 5:3のアスペクト比（横:縦）
  */
 export default function DSLayout({ children, bgmSrc }: DSLayoutProps) {
-    return (
-        <div className="min-h-screen bg-black flex items-center justify-center p-4">
-            <div className="w-full max-w-[800px] flex flex-col">
-                <Header bgmSrc={bgmSrc} />
-                {children}
-            </div>
-        </div>
-    );
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-black p-4">
+      <div className="flex w-full max-w-[800px] flex-col">
+        <Header bgmSrc={bgmSrc} />
+        {children}
+      </div>
+    </div>
+  );
 }

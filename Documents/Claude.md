@@ -13,6 +13,7 @@
 ## 内容
 
 - `/home/cs23017/poke-clone-v3/Documents/リファクタリング要項.md`をもとにリファクタリングをお願いします.
+- ESLintの警告を解消してください.
 
 ![スマホUI](image.png)
 ![デスクトップUI](image-1.png)

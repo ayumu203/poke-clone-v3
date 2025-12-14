@@ -40,7 +40,6 @@ const eslintConfig = [
   ...fixupConfigRules(compat.extends("plugin:react/recommended")),
   ...fixupConfigRules(compat.extends("plugin:react-hooks/recommended")),
 
-
   // カスタム
   {
     files: ["**/*.{js,jsx,ts,tsx}"],
@@ -49,8 +48,7 @@ const eslintConfig = [
       "unused-imports": unusedImports,
       "@next/next": nextPlugin,
     },
-    languageOptions: {
-    },
+    languageOptions: {},
     rules: {
       ...nextPlugin.configs.recommended.rules,
       ...nextPlugin.configs["core-web-vitals"].rules,

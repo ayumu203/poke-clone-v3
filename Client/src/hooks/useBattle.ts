@@ -1,33 +1,33 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from "@tanstack/react-query";
 
-import { type BattleState } from '@/types/battle';
+import { type BattleState } from "@/types/battle";
 
-import { useApi } from './useApi';
+import { useApi } from "./useApi";
 
 export function useBattle(battleId?: string) {
-    const { request } = useApi<BattleState>();
+  const { request } = useApi<BattleState>();
 
-    // バトル状態の取得
-    const { data: battleState, isLoading } = useQuery<BattleState>({
-        queryKey: ['battle', battleId],
-        queryFn: async () => {
-            const result = await request(`/api/Battle/${battleId}`);
-            if (!result) throw new Error('Battle not found');
-            return result;
-        },
-        enabled: !!battleId, // battleIdが存在する場合のみクエリを実行
-        refetchInterval: false, // SignalRで更新されるため自動リフレッシュ不要
-    });
+  // バトル状態の取得
+  const { data: battleState, isLoading } = useQuery<BattleState>({
+    queryKey: ["battle", battleId],
+    queryFn: async () => {
+      const result = await request(`/api/Battle/${battleId}`);
+      if (!result) throw new Error("Battle not found");
+      return result;
+    },
+    enabled: !!battleId, // battleIdが存在する場合のみクエリを実行
+    refetchInterval: false, // SignalRで更新されるため自動リフレッシュ不要
+  });
 
-    // CPUバトルの作成
-    const createCpuBattle = useMutation({
-        mutationFn: () => request('/api/Battle/cpu', { method: 'POST' }),
-    });
+  // CPUバトルの作成
+  const createCpuBattle = useMutation({
+    mutationFn: () => request("/api/Battle/cpu", { method: "POST" }),
+  });
 
-    return {
-        battleState,
-        isLoading,
-        createCpuBattle: createCpuBattle.mutate,
-        isCreating: createCpuBattle.isPending,
-    };
+  return {
+    battleState,
+    isLoading,
+    createCpuBattle: createCpuBattle.mutate,
+    isCreating: createCpuBattle.isPending,
+  };
 }

@@ -1,14 +1,14 @@
 import "./globals.css";
 
 import type { Metadata } from "next";
-import { DotGothic16 } from 'next/font/google';
+import { DotGothic16 } from "next/font/google";
 
-import { Providers } from '@/components/providers/Providers';
+import { Providers } from "@/components/providers/Providers";
 
 const dotGothic16 = DotGothic16({
-  weight: '400',
-  subsets: ['latin'],
-  display: 'swap',
+  weight: "400",
+  subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -24,9 +24,7 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body className={dotGothic16.className}>
-        <Providers>
-          {children}
-        </Providers>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

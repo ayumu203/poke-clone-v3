@@ -1,5 +1,5 @@
 export interface Player {
-    playerId: string;
-    name: string;
-    iconUrl?: string;
+  playerId: string;
+  name: string;
+  iconUrl?: string;
 }

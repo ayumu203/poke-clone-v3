@@ -1,6 +1,6 @@
 interface ExternalLinkProps {
-    href: string;
-    children: React.ReactNode;
+  href: string;
+  children: React.ReactNode;
 }
 
 /**
@@ -10,14 +10,9 @@ interface ExternalLinkProps {
  * - ホバー時にアンダーライン
  */
 export default function ExternalLink({ href, children }: ExternalLinkProps) {
-    return (
-        <a
-            href={href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:underline"
-        >
-            {children}
-        </a>
-    );
+  return (
+    <a href={href} target="_blank" rel="noopener noreferrer" className="hover:underline">
+      {children}
+    </a>
+  );
 }

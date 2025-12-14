@@ -1,39 +1,43 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
-import type { Player } from '@/types/player';
+import type { Player } from "@/types/player";
 
-import { useApi } from './useApi';
+import { useApi } from "./useApi";
 
 export function usePlayer() {
-    const { request } = useApi<Player>();
-    const queryClient = useQueryClient();
+  const { request } = useApi<Player>();
+  const queryClient = useQueryClient();
 
-    // プレイヤー情報の取得
-    const { data: player, isLoading, error } = useQuery({
-        queryKey: ['player', 'me'],
-        queryFn: async () => {
-            const result = await request('/api/Player/me');
-            if (!result) throw new Error('Failed to fetch player');
-            return result;
-        },
-        staleTime: 5 * 60 * 1000, // 5分間キャッシュ
-    });
+  // プレイヤー情報の取得
+  const {
+    data: player,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["player", "me"],
+    queryFn: async () => {
+      const result = await request("/api/Player/me");
+      if (!result) throw new Error("Failed to fetch player");
+      return result;
+    },
+    staleTime: 5 * 60 * 1000, // 5分間キャッシュ
+  });
 
-    // プレイヤー情報の更新
-    const updatePlayer = useMutation({
-        mutationFn: (data: { name: string; iconUrl?: string }) =>
-            request('/api/Player/me', { method: 'POST', body: data }),
-        onSuccess: () => {
-            // キャッシュを無効化して再取得
-            queryClient.invalidateQueries({ queryKey: ['player', 'me'] });
-        },
-    });
+  // プレイヤー情報の更新
+  const updatePlayer = useMutation({
+    mutationFn: (data: { name: string; iconUrl?: string }) =>
+      request("/api/Player/me", { method: "POST", body: data }),
+    onSuccess: () => {
+      // キャッシュを無効化して再取得
+      queryClient.invalidateQueries({ queryKey: ["player", "me"] });
+    },
+  });
 
-    return {
-        player,
-        isLoading,
-        error,
-        updatePlayer: updatePlayer.mutate,
-        isUpdating: updatePlayer.isPending,
-    };
+  return {
+    player,
+    isLoading,
+    error,
+    updatePlayer: updatePlayer.mutate,
+    isUpdating: updatePlayer.isPending,
+  };
 }
