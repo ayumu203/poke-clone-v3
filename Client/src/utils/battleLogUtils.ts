@@ -53,15 +53,48 @@ function getPokemonName(
 
 /**
  * moveIdから技名を取得
+ * partyに加え、battleState内の全ポケモンからも技を検索する
  */
-function getMoveName(moveId: number, party: Pokemon[]): string {
+function getMoveName(
+    moveId: number,
+    party: Pokemon[],
+    battleState: BattleState
+): string {
+    // まずプレイヤーのパーティから検索
     for (const pokemon of party) {
         const move = pokemon.moves?.find((m) => m.moveId === moveId);
         if (move) {
             return move.name;
         }
     }
+
+    // battleState内のPokemonEntityから技名を取得（moveListがある場合）
+    const allPokemonEntities = [
+        ...(battleState.player1 as unknown as PlayerStateWithEntities)
+            .pokemonEntities || [],
+        ...(battleState.player2 as unknown as PlayerStateWithEntities)
+            .pokemonEntities || [],
+    ];
+
+    for (const entity of allPokemonEntities) {
+        if (entity?.moves) {
+            const move = entity.moves.find(
+                (m: { moveId: number; name?: string }) => m.moveId === moveId
+            );
+            if (move?.name) {
+                return move.name;
+            }
+        }
+    }
+
     return `技${moveId}`;
+}
+
+// battleStateの拡張型（サーバーから返されるpokemonEntitiesを含む）
+interface PlayerStateWithEntities {
+    pokemonEntities?: Array<{
+        moves?: Array<{ moveId: number; name?: string }>;
+    }>;
 }
 
 /**
@@ -79,7 +112,7 @@ export function generateBattleLogs(
 
         if (actionResult.moveResult) {
             const mr = actionResult.moveResult;
-            const moveName = getMoveName(mr.moveId, party);
+            const moveName = getMoveName(mr.moveId, party, battleState);
             const targetName = getPokemonName(mr.targetId, battleState, species);
 
             if (!mr.isSuccess) {
@@ -126,12 +159,28 @@ export function generateBattleLogs(
                 }
             }
 
-            // 状態異常付与
-            if (mr.ailment && typeof mr.ailment === "number" && mr.ailment > 0) {
-                const ailmentName = AILMENT_LABELS[mr.ailment] || "状態異常";
-                logs.push(`${targetName}は${ailmentName}状態になった！`);
-            } else if (mr.ailment && typeof mr.ailment === "string" && mr.ailment !== "None") {
-                logs.push(`${targetName}は${mr.ailment}状態になった！`);
+            // 状態異常付与（numberまたはstringのどちらでも対応）
+            if (mr.ailment != null) {
+                const ailmentValue = typeof mr.ailment === "number"
+                    ? mr.ailment
+                    : parseInt(mr.ailment as string, 10);
+
+                if (!isNaN(ailmentValue) && ailmentValue > 0) {
+                    const ailmentName = AILMENT_LABELS[ailmentValue] || "状態異常";
+                    logs.push(`${targetName}は${ailmentName}状態になった！`);
+                } else if (typeof mr.ailment === "string" && mr.ailment !== "None" && mr.ailment !== "0") {
+                    // 文字列の場合（"Poison"など）
+                    const ailmentLabelsStr: Record<string, string> = {
+                        "Paralysis": "まひ",
+                        "Sleep": "ねむり",
+                        "Freeze": "こおり",
+                        "Burn": "やけど",
+                        "Poison": "どく",
+                        "DeadlyPoisoned": "もうどく",
+                    };
+                    const ailmentName = ailmentLabelsStr[mr.ailment] || mr.ailment;
+                    logs.push(`${targetName}は${ailmentName}状態になった！`);
+                }
             }
 
             // 回復
