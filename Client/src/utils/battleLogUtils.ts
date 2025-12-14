@@ -5,7 +5,7 @@ import type { Pokemon } from "@/types/pokemon";
 import type { PokemonSpecies } from "@/types/pokemonSpecies";
 
 // 状態異常のEnum値から日本語名へのマップ
-const AILMENT_LABELS: Record<number, string> = {
+const AILMENT_LABELS: Record<number | string, string> = {
     0: "",
     1: "まひ",
     2: "ねむり",
@@ -13,6 +13,14 @@ const AILMENT_LABELS: Record<number, string> = {
     4: "やけど",
     5: "どく",
     6: "もうどく",
+    // 文字列キー版
+    "None": "",
+    "Paralysis": "まひ",
+    "Sleep": "ねむり",
+    "Freeze": "こおり",
+    "Burn": "やけど",
+    "Poison": "どく",
+    "DeadlyPoisoned": "もうどく",
 };
 
 // ステータスのEnum値から日本語名へのマップ
@@ -111,28 +119,28 @@ export function generateBattleLogs(
         const attackerName = getPokemonName(actionResult.actionPokemonId, battleState, species);
 
         if (actionResult.moveResult) {
-            const mr = actionResult.moveResult;
-            const moveName = getMoveName(mr.moveId, party, battleState);
-            const targetName = getPokemonName(mr.targetId, battleState, species);
+            const moveResult = actionResult.moveResult;
+            const moveName = getMoveName(moveResult.moveId, party, battleState);
+            const targetName = getPokemonName(moveResult.targetId, battleState, species);
 
-            if (!mr.isSuccess) {
+            if (!moveResult.isSuccess) {
                 logs.push(`${attackerName}の${moveName}は失敗した！`);
                 continue;
             }
 
             // ダメージ技
-            if (mr.damage > 0) {
-                logs.push(`${attackerName}は${targetName}に${moveName}を使い、${mr.damage}ダメージを与えた！`);
+            if (moveResult.damage > 0) {
+                logs.push(`${attackerName}は${targetName}に${moveName}を使い、${moveResult.damage}ダメージを与えた！`);
 
-                if (mr.hitContext?.isCritical) {
+                if (moveResult.hitContext?.isCritical) {
                     logs.push("急所に当たった！");
                 }
 
-                if (mr.hitContext?.typeEffectiveness === 2) {
+                if (moveResult.hitContext?.typeEffectiveness === 2) {
                     logs.push("効果は抜群だ！");
-                } else if (mr.hitContext?.typeEffectiveness === 0.5) {
+                } else if (moveResult.hitContext?.typeEffectiveness === 0.5) {
                     logs.push("効果はいまひとつ...");
-                } else if (mr.hitContext?.typeEffectiveness === 0) {
+                } else if (moveResult.hitContext?.typeEffectiveness === 0) {
                     logs.push("効果がないようだ...");
                 }
             } else {
@@ -140,57 +148,44 @@ export function generateBattleLogs(
                 logs.push(`${attackerName}は${moveName}を使った！`);
             }
 
-            // ステータス変化
-            if (mr.sourceStatChanges && mr.sourceStatChanges.length > 0) {
-                for (const change of mr.sourceStatChanges) {
-                    const statName = STAT_LABELS[change.stat as unknown as number] || "ステータス";
-                    const direction = change.change > 0 ? "上がった" : "下がった";
-                    const amount = Math.abs(change.change) > 1 ? "ぐーんと" : "";
+            // ステータス変化（攻撃者側）
+            if (moveResult.sourceStatChanges && moveResult.sourceStatChanges.length > 0) {
+                for (const statChange of moveResult.sourceStatChanges) {
+                    const statName = STAT_LABELS[statChange.stat as unknown as number] || "ステータス";
+                    const direction = statChange.change > 0 ? "上がった" : "下がった";
+                    const amount = Math.abs(statChange.change) > 1 ? "ぐーんと" : "";
                     logs.push(`${attackerName}の${statName}が${amount}${direction}！`);
                 }
             }
 
-            if (mr.targetStatChanges && mr.targetStatChanges.length > 0) {
-                for (const change of mr.targetStatChanges) {
-                    const statName = STAT_LABELS[change.stat as unknown as number] || "ステータス";
-                    const direction = change.change > 0 ? "上がった" : "下がった";
-                    const amount = Math.abs(change.change) > 1 ? "ぐーんと" : "";
+            // ステータス変化（ターゲット側）
+            if (moveResult.targetStatChanges && moveResult.targetStatChanges.length > 0) {
+                for (const statChange of moveResult.targetStatChanges) {
+                    const statName = STAT_LABELS[statChange.stat as unknown as number] || "ステータス";
+                    const direction = statChange.change > 0 ? "上がった" : "下がった";
+                    const amount = Math.abs(statChange.change) > 1 ? "ぐーんと" : "";
                     logs.push(`${targetName}の${statName}が${amount}${direction}！`);
                 }
             }
 
-            // 状態異常付与（numberまたはstringのどちらでも対応）
-            if (mr.ailment != null) {
-                const ailmentValue = typeof mr.ailment === "number"
-                    ? mr.ailment
-                    : parseInt(mr.ailment as string, 10);
+            // 状態異常付与
+            if (moveResult.ailment != null) {
+                const ailmentKey = moveResult.ailment;
+                const ailmentName = AILMENT_LABELS[ailmentKey as keyof typeof AILMENT_LABELS];
 
-                if (!isNaN(ailmentValue) && ailmentValue > 0) {
-                    const ailmentName = AILMENT_LABELS[ailmentValue] || "状態異常";
-                    logs.push(`${targetName}は${ailmentName}状態になった！`);
-                } else if (typeof mr.ailment === "string" && mr.ailment !== "None" && mr.ailment !== "0") {
-                    // 文字列の場合（"Poison"など）
-                    const ailmentLabelsStr: Record<string, string> = {
-                        "Paralysis": "まひ",
-                        "Sleep": "ねむり",
-                        "Freeze": "こおり",
-                        "Burn": "やけど",
-                        "Poison": "どく",
-                        "DeadlyPoisoned": "もうどく",
-                    };
-                    const ailmentName = ailmentLabelsStr[mr.ailment] || mr.ailment;
+                if (ailmentName && ailmentName !== "") {
                     logs.push(`${targetName}は${ailmentName}状態になった！`);
                 }
             }
 
             // 回復
-            if (mr.healing && mr.healing > 0) {
-                logs.push(`${attackerName}は${mr.healing}回復した！`);
+            if (moveResult.healing && moveResult.healing > 0) {
+                logs.push(`${attackerName}は${moveResult.healing}回復した！`);
             }
 
             // 吸収
-            if (mr.drain && mr.drain > 0) {
-                logs.push(`${attackerName}は${mr.drain}吸い取った！`);
+            if (moveResult.drain && moveResult.drain > 0) {
+                logs.push(`${attackerName}は${moveResult.drain}吸い取った！`);
             }
         }
 
@@ -213,19 +208,18 @@ export function generateBattleLogs(
 
     // 状態異常ダメージ
     if (result.ailmentDamages && result.ailmentDamages.length > 0) {
-        for (const ad of result.ailmentDamages) {
-            const pokemonName = getPokemonName(ad.pokemonId, battleState, species);
-            const ailmentValue = typeof ad.ailment === "number" ? ad.ailment : 0;
-            const ailmentName = AILMENT_LABELS[ailmentValue] || "状態異常";
-            logs.push(`${pokemonName}は${ailmentName}で${ad.damage}ダメージ！ (HP: ${ad.hpBefore}→${ad.hpAfter})`);
+        for (const ailmentDmg of result.ailmentDamages) {
+            const pokemonName = getPokemonName(ailmentDmg.pokemonId, battleState, species);
+            const ailmentName = AILMENT_LABELS[ailmentDmg.ailment as keyof typeof AILMENT_LABELS] || "状態異常";
+            logs.push(`${pokemonName}は${ailmentName}で${ailmentDmg.damage}ダメージ！ (HP: ${ailmentDmg.hpBefore}→${ailmentDmg.hpAfter})`);
         }
     }
 
     // 強制交代（ポケモンが瀕死になった時）
     if (result.forcedSwitches && result.forcedSwitches.length > 0) {
-        for (const fs of result.forcedSwitches) {
-            const faintedName = getPokemonName(fs.faintedPokemonId, battleState, species);
-            const nextName = getPokemonName(fs.nextPokemonId, battleState, species);
+        for (const forcedSwitch of result.forcedSwitches) {
+            const faintedName = getPokemonName(forcedSwitch.faintedPokemonId, battleState, species);
+            const nextName = getPokemonName(forcedSwitch.nextPokemonId, battleState, species);
             logs.push(`${faintedName}は倒れた！`);
             logs.push(`${nextName}を繰り出した！`);
         }
@@ -233,9 +227,9 @@ export function generateBattleLogs(
 
     // HP変化の表示
     if (result.hpChanges && result.hpChanges.length > 0) {
-        for (const hp of result.hpChanges) {
-            const pokemonName = getPokemonName(hp.pokemonId, battleState, species);
-            logs.push(`[HP] ${pokemonName}: ${hp.hpAfter}/${hp.maxHp}`);
+        for (const hpInfo of result.hpChanges) {
+            const pokemonName = getPokemonName(hpInfo.pokemonId, battleState, species);
+            logs.push(`[HP] ${pokemonName}: ${hpInfo.hpAfter}/${hpInfo.maxHp}`);
         }
     }
 
@@ -245,16 +239,4 @@ export function generateBattleLogs(
     }
 
     return logs;
-}
-
-/**
- * 状態異常ダメージのログを生成（将来の拡張用）
- */
-export function generateAilmentDamageLog(
-    pokemonName: string,
-    ailment: number,
-    damage: number
-): string {
-    const ailmentName = AILMENT_LABELS[ailment] || "状態異常";
-    return `${pokemonName}は${ailmentName}で${damage}ダメージを受けた！`;
 }
