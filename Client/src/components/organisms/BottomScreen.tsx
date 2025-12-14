@@ -98,7 +98,7 @@ export default function BottomScreen({
   return (
     <div className="flex aspect-[5/3] w-full flex-col bg-white">
       <StatusBar />
-      <div className="flex-1 overflow-auto" style={backgroundStyle}>
+      <div className="flex-1 overflow-hidden" style={backgroundStyle}>
         {children}
       </div>
       {!hideFooter && (

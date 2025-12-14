@@ -56,6 +56,38 @@ interface PartyTexts {
   };
 }
 
+interface CpuBattleTexts {
+  startBattle: string;
+  connecting: string;
+  waitingOpponent: string;
+  commands: {
+    attack: string;
+    catch: string;
+    escape: string;
+    back: string;
+  };
+  messages: {
+    yourTurn: string;
+    selectMove: string;
+    escaped: string;
+    escapeFailed: string;
+    caught: string;
+    catchFailed: string;
+    win: string;
+    lose: string;
+    critical: string;
+    superEffective: string;
+    notVeryEffective: string;
+    noEffect: string;
+  };
+  ailments: Record<string, string>;
+}
+
+interface ResultTexts {
+  title: string;
+  backToHome: string;
+}
+
 interface CommonTexts {
   loading: string;
   logout: string;
@@ -82,6 +114,14 @@ interface PartyPageConfig extends PageConfigBase {
   t: PartyTexts;
 }
 
+interface CpuBattlePageConfig extends PageConfigBase {
+  t: CpuBattleTexts;
+}
+
+interface ResultPageConfig extends PageConfigBase {
+  t: ResultTexts;
+}
+
 type PageName =
   | "login"
   | "home"
@@ -89,17 +129,19 @@ type PageName =
   | "online-battle"
   | "party"
   | "gacha"
-  | "starter-pokemon";
+  | "starter-pokemon"
+  | "result";
 
 type ConfigData = {
   common: CommonTexts;
   login: LoginPageConfig;
   home: PageConfigBase & { menuButtons: MenuButton[] };
-  "cpu-battle": PageConfigBase;
+  "cpu-battle": CpuBattlePageConfig;
   "online-battle": PageConfigBase;
   party: PartyPageConfig;
   gacha: PageConfigBase;
   "starter-pokemon": StarterPageConfig;
+  result: ResultPageConfig;
 };
 
 const config = pageConfig as unknown as ConfigData;

@@ -64,7 +64,40 @@
   },
   "cpu-battle": {
     "image": "/Images/art_008.png",
-    "bgm": "/audio/15_battle_trainer.mp3"
+    "bgm": "/audio/15_battle_trainer.mp3",
+    "t": {
+      "startBattle": "バトル開始",
+      "connecting": "接続中...",
+      "waitingOpponent": "相手の行動を待っています...",
+      "commands": {
+        "attack": "たたかう",
+        "catch": "つかまえる",
+        "escape": "にげる",
+        "back": "もどる"
+      },
+      "messages": {
+        "yourTurn": "コマンドを選んでください",
+        "selectMove": "技を選んでください",
+        "escaped": "うまく逃げ切れた！",
+        "escapeFailed": "逃げられなかった！",
+        "caught": "やったー！捕まえた！",
+        "catchFailed": "あっ！捕まえられなかった！",
+        "win": "勝利！",
+        "lose": "敗北...",
+        "critical": "急所に当たった！",
+        "superEffective": "効果は抜群だ！",
+        "notVeryEffective": "効果はいまひとつのようだ...",
+        "noEffect": "効果がないようだ..."
+      },
+      "ailments": {
+        "Paralysis": "まひ",
+        "Sleep": "ねむり",
+        "Freeze": "こおり",
+        "Burn": "やけど",
+        "Poison": "どく",
+        "DeadlyPoisoned": "もうどく"
+      }
+    }
   },
   "online-battle": {
     "image": "/Images/art_049.png",
@@ -101,6 +134,14 @@
       "alreadyHasParty": "君にはもう仲間がいます...",
       "selectionComplete": "選択完了",
       "selecting": "選択中..."
+    }
+  },
+  "result": {
+    "image": "/Images/art_003.png",
+    "bgm": "/audio/02_masara_town.mp3",
+    "t": {
+      "title": "バトル結果",
+      "backToHome": "ホームに戻る"
     }
   }
 }
