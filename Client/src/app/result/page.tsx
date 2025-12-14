@@ -66,7 +66,7 @@ export default function ResultPage() {
                     </div>
 
                     {/* ホームに戻るボタン */}
-                    <Button onClick={handleBackToHome} variant="primary" className="w-full">
+                    <Button onClick={handleBackToHome} variant="primary" fullWidth>
                         {t?.backToHome || "ホームに戻る"}
                     </Button>
                 </div>
