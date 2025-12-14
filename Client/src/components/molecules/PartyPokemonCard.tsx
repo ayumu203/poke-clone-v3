@@ -100,9 +100,9 @@ export default function PartyPokemonCard({
                 </p>
 
                 {/* タイプ（横並び） */}
-                <div className="flex gap-0.5">
+                <div className="flex gap-0.5 md:gap-1">
                     <span
-                        className="text-xs md:text-sm px-1 py-0.5 rounded"
+                        className="text-xs md:text-sm px-1 py-0.5 rounded md:whitespace-nowrap"
                         style={{
                             backgroundColor: typeColors.border,
                             color: '#ffffff',
@@ -112,7 +112,7 @@ export default function PartyPokemonCard({
                     </span>
                     {type2String && (
                         <span
-                            className="text-xs md:text-sm px-1 py-0.5 rounded"
+                            className="text-xs md:text-sm px-1 py-0.5 rounded md:whitespace-nowrap"
                             style={{
                                 backgroundColor: getTypeColors(type2String).border,
                                 color: '#ffffff',

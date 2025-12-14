@@ -97,6 +97,7 @@ export default function PokemonDetailTop({
                             display: 'grid',
                             gridTemplateColumns: 'auto 1fr auto 1fr',
                             gap: '2px 8px',
+                            minWidth: '240px',
                         }}
                     >
                         <span className="text-gray-300">HP</span>
