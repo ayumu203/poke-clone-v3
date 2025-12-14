@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import BattleCommandPanel from "@/components/molecules/BattleCommandPanel";
 import BattlePokemonPanel from "@/components/molecules/BattlePokemonPanel";
@@ -18,6 +18,8 @@ import { useSignalR } from "@/hooks/useSignalR";
 import { useBattleStore } from "@/stores/battleStore";
 import { ActionType } from "@/types/action";
 import type { BattleState, EndResult, ProcessResult } from "@/types/battle";
+import type { PokemonSpecies } from "@/types/pokemonSpecies";
+import { generateBattleLogs } from "@/utils/battleLogUtils";
 
 type CommandMode = "main" | "attack";
 
@@ -56,38 +58,43 @@ export default function CpuBattlePage() {
     ) || [];
   const { species: battleSpecies } = usePokemonSpeciesBatch(battleSpeciesIds);
 
+  // refで最新の状態を保持（useCallback内で参照するため）
+  const battleStateRef = useRef<BattleState | null>(null);
+  const battleSpeciesRef = useRef<(PokemonSpecies | undefined)[]>([]);
+  const partyRef = useRef(party);
+
+  useEffect(() => {
+    battleStateRef.current = battleState;
+  }, [battleState]);
+
+  useEffect(() => {
+    battleSpeciesRef.current = battleSpecies;
+  }, [battleSpecies]);
+
+  useEffect(() => {
+    partyRef.current = party;
+  }, [party]);
+
   // SignalRコールバック
   const handleTurnResult = useCallback(
     (result: ProcessResult) => {
-      console.log("=== ターン結果 ===", result);
+      // わかりやすいログを生成
+      if (battleStateRef.current) {
+        const logs = generateBattleLogs(result, {
+          battleState: battleStateRef.current,
+          species: battleSpeciesRef.current,
+          party: partyRef.current || [],
+        });
 
-      // ログ出力
-      result.actionResults.forEach((actionResult) => {
-        const pokemonId = actionResult.actionPokemonId;
-        console.log(`[Action] Pokemon: ${pokemonId}, Type: ${actionResult.actionType}`);
-
-        if (actionResult.moveResult) {
-          const mr = actionResult.moveResult;
-          console.log(`  [Move] ID: ${mr.moveId}, Damage: ${mr.damage}, Success: ${mr.isSuccess}`);
-          if (mr.hitContext) {
-            console.log(`  [Hit] Critical: ${mr.hitContext.isCritical}, Effectiveness: ${mr.hitContext.typeEffectiveness}`);
-          }
-          if (mr.ailment) {
-            console.log(`  [Ailment] ${mr.ailment}`);
-          }
-          addLog(`技を使用: ダメージ ${mr.damage}`);
-        }
-
-        if (actionResult.catchResult) {
-          console.log(`  [Catch] Success: ${actionResult.catchResult.isSuccess}`);
-          addLog(actionResult.catchResult.isSuccess ? "捕獲成功!" : "捕獲失敗...");
-        }
-
-        if (actionResult.escapeResult) {
-          console.log(`  [Escape] Success: ${actionResult.escapeResult.isSuccess}`);
-          addLog(actionResult.escapeResult.isSuccess ? "逃走成功!" : "逃走失敗...");
-        }
-      });
+        // コンソールとストアに出力
+        logs.forEach((log) => {
+          console.warn(`[BATTLE] ${log}`);
+          addLog(log);
+        });
+      } else {
+        // フォールバック（battleStateがない場合）
+        console.warn("=== ターン結果 ===", result);
+      }
 
       // 待機状態を解除
       setWaitStatus("waiting-action");
