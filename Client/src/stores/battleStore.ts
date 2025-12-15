@@ -14,6 +14,7 @@ interface BattleStore {
   clearLog: () => void;
   updatePokemonHp: (pokemonId: string, damage: number) => void;
   updatePokemonState: (pokemonId: string, updates: Partial<PokemonState>) => void;
+  setActivePokemonIndex: (playerId: string, newIndex: number) => void;
   setWaitStatus: (status: BattleWaitStatus) => void;
   resetBattle: () => void;
 }
@@ -87,6 +88,29 @@ export const useBattleStore = create<BattleStore>((set) => ({
     }),
 
   setWaitStatus: (status) => set({ waitStatus: status }),
+
+  /**
+   * プレイヤーのアクティブポケモンインデックスを更新する（交代時に使用）
+   * @param playerId 対象のプレイヤーID
+   * @param newIndex 新しいアクティブポケモンのインデックス
+   */
+  setActivePokemonIndex: (playerId, newIndex) =>
+    set((state) => {
+      if (!state.battleState) return state;
+
+      const updatePlayer = (player: typeof state.battleState.player1) =>
+        player.playerId === playerId
+          ? { ...player, activePokemonIndex: newIndex }
+          : player;
+
+      return {
+        battleState: {
+          ...state.battleState,
+          player1: updatePlayer(state.battleState.player1),
+          player2: updatePlayer(state.battleState.player2),
+        },
+      };
+    }),
 
   resetBattle: () =>
     set({

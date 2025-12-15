@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import BattleCommandPanel from "@/components/molecules/BattleCommandPanel";
 import BattlePokemonPanel from "@/components/molecules/BattlePokemonPanel";
@@ -17,7 +17,7 @@ import { usePokemonSpeciesBatch } from "@/hooks/usePokemonSpecies";
 import { useSignalR } from "@/hooks/useSignalR";
 import { useBattleStore } from "@/stores/battleStore";
 import { ActionType } from "@/types/action";
-import type { BattleState, EndResult, ProcessResult } from "@/types/battle";
+import type { Ailment, BattleState, EndResult, ProcessResult } from "@/types/battle";
 import type { PokemonSpecies } from "@/types/pokemonSpecies";
 import { generateBattleLogs } from "@/utils/battleLogUtils";
 
@@ -29,8 +29,15 @@ export default function CpuBattlePage() {
   const pageConfig = usePageConfig("cpu-battle");
   const { party, isLoading: isLoadingParty } = useParty();
   const { createCpuBattle, isCreating } = useBattle();
-  const { battleState, setBattleState, addLog, setWaitStatus, waitStatus } =
-    useBattleStore();
+  const {
+    battleState,
+    setBattleState,
+    addLog,
+    setWaitStatus,
+    waitStatus,
+    updatePokemonState,
+    setActivePokemonIndex,
+  } = useBattleStore();
 
   // バトルID管理
   const [battleId, setBattleId] = useState<string | null>(null);
@@ -46,16 +53,14 @@ export default function CpuBattlePage() {
   // テキスト設定
   const t = pageConfig.t;
 
-  // パーティのポケモン種族情報を取得
-  const partySpeciesIds = party?.map((p) => p.pokemonSpeciesId) || [];
-  // partySpeciesは技選択画面で将来使用予定
-  usePokemonSpeciesBatch(partySpeciesIds);
-
   // バトル状態のポケモン種族情報を取得
-  const battleSpeciesIds =
-    battleState?.player1.party.map((p) => p.pokemonSpeciesId).concat(
-      battleState?.player2.party.map((p) => p.pokemonSpeciesId) || []
-    ) || [];
+  const battleSpeciesIds = useMemo(() => {
+    if (!battleState) return [];
+    return [
+      ...battleState.player1.party.map((p) => p.pokemonSpeciesId),
+      ...battleState.player2.party.map((p) => p.pokemonSpeciesId),
+    ];
+  }, [battleState]);
   const { species: battleSpecies } = usePokemonSpeciesBatch(battleSpeciesIds);
 
   // refで最新の状態を保持（useCallback内で参照するため）
@@ -78,6 +83,42 @@ export default function CpuBattlePage() {
   // SignalRコールバック
   const handleTurnResult = useCallback(
     (result: ProcessResult) => {
+      // HP変更をUIに反映（hpChangesに最終値が含まれるのでこれのみでOK）
+      if (result.hpChanges) {
+        for (const hpChange of result.hpChanges) {
+          updatePokemonState(hpChange.pokemonId, {
+            currentHp: hpChange.hpAfter,
+          });
+        }
+      }
+
+      // 技による状態異常の適用
+      for (const actionResult of result.actionResults) {
+        if (actionResult.moveResult?.ailment) {
+          updatePokemonState(actionResult.moveResult.targetId, {
+            ailment: actionResult.moveResult.ailment as Ailment,
+          });
+        }
+      }
+
+      // 強制交代をUIに反映
+      if (result.forcedSwitches && battleStateRef.current) {
+        for (const fs of result.forcedSwitches) {
+          // nextPokemonIdからインデックスを取得
+          const currentState = battleStateRef.current;
+          const isPlayer1 = currentState.player1.playerId === fs.playerId;
+          const targetParty = isPlayer1
+            ? currentState.player1.party
+            : currentState.player2.party;
+          const newIndex = targetParty.findIndex(
+            (p) => p.pokemonId === fs.nextPokemonId
+          );
+          if (newIndex >= 0) {
+            setActivePokemonIndex(fs.playerId, newIndex);
+          }
+        }
+      }
+
       // わかりやすいログを生成
       if (battleStateRef.current) {
         const logs = generateBattleLogs(result, {
@@ -100,7 +141,7 @@ export default function CpuBattlePage() {
       setWaitStatus("waiting-action");
       setCommandMode("main");
     },
-    [addLog, setWaitStatus]
+    [addLog, setWaitStatus, updatePokemonState, setActivePokemonIndex]
   );
 
   const handleBattleStarted = useCallback(
@@ -249,8 +290,14 @@ export default function CpuBattlePage() {
     return null;
   }
 
-  // 自分のアクティブポケモンの技を取得
-  const playerMoves = party?.[0]?.moves || [];
+  // プレイヤーと相手を特定（事前計算して再利用）
+  const isPlayer1 = battleState?.player1.playerId === user?.uid;
+  const playerActivePokemonIndex = battleState
+    ? (isPlayer1
+      ? battleState.player1.activePokemonIndex
+      : battleState.player2.activePokemonIndex)
+    : 0;
+  const playerMoves = party?.[playerActivePokemonIndex]?.moves || [];
 
   // バトル開始前の画面
   if (!battleId) {
@@ -302,25 +349,25 @@ export default function CpuBattlePage() {
     );
   }
 
-  // プレイヤーと相手を特定
-  const isPlayer1 = battleState.player1.playerId === user?.uid;
+  // アクティブポケモン（isPlayer1は上で計算済み）
   const playerState = isPlayer1 ? battleState.player1 : battleState.player2;
   const opponentState = isPlayer1 ? battleState.player2 : battleState.player1;
-
-  // アクティブポケモン
   const playerActivePokemon = playerState.party[playerState.activePokemonIndex];
   const opponentActivePokemon = opponentState.party[opponentState.activePokemonIndex];
 
-  // 種族情報（バトル中の情報から取得）
-  const playerSpeciesIndex = battleState.player1.party
-    .concat(battleState.player2.party)
-    .findIndex((p) => p.pokemonId === playerActivePokemon?.pokemonId);
-  const opponentSpeciesIndex = battleState.player1.party
-    .concat(battleState.player2.party)
-    .findIndex((p) => p.pokemonId === opponentActivePokemon?.pokemonId);
-
-  const playerPokemonSpecies = battleSpecies[playerSpeciesIndex];
-  const opponentPokemonSpecies = battleSpecies[opponentSpeciesIndex];
+  // 種族情報（バトル中の情報から取得） - useMemoでメモ化
+  const { playerPokemonSpecies, opponentPokemonSpecies } = useMemo(() => {
+    if (!battleState || !playerActivePokemon || !opponentActivePokemon) {
+      return { playerPokemonSpecies: undefined, opponentPokemonSpecies: undefined };
+    }
+    const allParty = [...battleState.player1.party, ...battleState.player2.party];
+    const playerIdx = allParty.findIndex((p) => p.pokemonId === playerActivePokemon.pokemonId);
+    const opponentIdx = allParty.findIndex((p) => p.pokemonId === opponentActivePokemon.pokemonId);
+    return {
+      playerPokemonSpecies: battleSpecies[playerIdx],
+      opponentPokemonSpecies: battleSpecies[opponentIdx],
+    };
+  }, [battleState, playerActivePokemon, opponentActivePokemon, battleSpecies]);
 
   const isWaiting = waitStatus === "waiting-opponent" || waitStatus === "processing";
 
